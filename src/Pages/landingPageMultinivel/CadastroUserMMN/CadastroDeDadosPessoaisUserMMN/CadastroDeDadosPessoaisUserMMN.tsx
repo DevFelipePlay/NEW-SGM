@@ -73,7 +73,7 @@ export function CadastroDeDadosPessoaisUserMMN() {
     id_patrocinador: '',
     name: '',
     nascimento: '',
-    nivel: '',
+    nivel: 3,
     number: '',
     parceiro: '',
     phone: '',
@@ -86,11 +86,10 @@ export function CadastroDeDadosPessoaisUserMMN() {
     confirmPassword: '',
   });
 
-  const formatCpf = (value: string) => mask(value, ['999.999.999-99', '99.999.999/9999-99']);
-
   const formDataPlusToken = {
     ...formData,
-    token: 'eb6237632e72042f7ca7e2cdb25860025b1e670293bfae3e63',
+    id_patrocinador: 'AKNF4R40EG',
+    nivel: 3,
   };
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -100,13 +99,18 @@ export function CadastroDeDadosPessoaisUserMMN() {
       await postPlayCadastroUserMMN(formDataPlusToken);
       clearForm();
       toast.success('Cadastro Realizado!');
+      setLoading(false);
     } catch (error) {
-      toast.error('Erro ao ');
+      toast.error('Erro ao Cadastrar');
+      setLoading(false);
     }
   }
 
   const theme = useTheme();
   const smDown = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const ufUpperCase = formData.uf.toUpperCase();
+  const maskedUf = mask(ufUpperCase, ['AA']);
 
   return (
     <StepsCadastroUserMMN step={0}>
@@ -127,29 +131,33 @@ export function CadastroDeDadosPessoaisUserMMN() {
           />
           <CustomTextField
             label='CPF/CNPJ'
-            value={formatCpf(formData.cpf)}
-            onChange={(e) => changeForm('cpf', e.target.value)}
+            value={mask(formData.cpf, ['999.999.999-99', '99.999.999/9999-99'])}
+            onChange={(e) => changeForm('cpf', e.target.value.replace(/\D/g, ''))}
             required
           />
           <CustomTextField
             label='Data de Nascimento'
             value={mask(formData.nascimento, ['99/99/9999'])}
-            onChange={(e) => changeForm('nascimento', e.target.value)}
+            onChange={(e) => changeForm('nascimento', e.target.value.replace(/\D/g, ''))}
             required
           />
           <CustomTextField
             label='Telefone'
             value={mask(formData.phone, ['(99) 9 9999-9999'])}
-            onChange={(e) => changeForm('phone', e.target.value)}
             required
           />
           <CustomTextField
             label='CEP'
             value={mask(formData.cep, ['99999-999'])}
-            onChange={(e) => changeForm('cep', e.target.value)}
+            onChange={(e) => changeForm('cep', e.target.value.replace(/\D/g, ''))}
             required
           />
-          <CustomTextField label='UF' required />
+          <CustomTextField
+            value={maskedUf}
+            onChange={(e) => changeForm('uf', e.target.value)}
+            label='UF'
+            required
+          />
           <CustomTextField label='Cidade' required />
           <CustomTextField label='Bairro' required />
           <CustomTextField label='Logradouro' required />
@@ -185,7 +193,9 @@ export function CadastroDeDadosPessoaisUserMMN() {
             <FormControlLabel required control={<Checkbox />} label='Aceitar termos de uso.' />
           </FormGroup>
           <Box>
-            <LoadingButton type='submit'>Enviar</LoadingButton>
+            <LoadingButton variant='contained' type='submit' loading={loading}>
+              Enviar
+            </LoadingButton>
           </Box>
         </Cards>
       </Box>

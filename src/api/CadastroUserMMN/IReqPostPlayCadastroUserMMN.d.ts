@@ -8,7 +8,7 @@ export interface IReqPostPlayCadastroUserMMN {
   phone: string;
   cep: string;
   uf: string;
-  nivel: string;
+  nivel: number;
   nascimento: string;
   parceiro: string;
   cidade: string;
