@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   Stack,
   Step,
   StepConnector,
@@ -19,20 +18,19 @@ import 'swiper/css';
 
 import { useTheme } from '@mui/material/styles';
 
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { ReactElement, useEffect, useState } from 'react';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 import { BiBox } from 'react-icons/bi';
 import { GiCash } from 'react-icons/gi';
-import Step1 from './Stepper/Step1';
-import Step2 from './Stepper/Step2';
-import Step3 from './Stepper/Step3';
-import Step4 from './Stepper/Step4';
-import Step5 from './Stepper/Step5';
 
-export default function Cadastro() {
+interface IStepsCadastro {
+  step?: number;
+  children?: ReactElement;
+}
+
+export function StepsCadastroUserMMN({ step, children }: IStepsCadastro) {
   const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
     [`&.${stepConnectorClasses.alternativeLabel}`]: {
       top: 22,
@@ -40,13 +38,13 @@ export default function Cadastro() {
     [`&.${stepConnectorClasses.active}`]: {
       [`& .${stepConnectorClasses.line}`]: {
         backgroundImage:
-          'linear-gradient( 95deg,rgb(242,113,33) 0%,rgb(233,64,87) 50%,rgb(138,35,135) 100%)',
+          'linear-gradient( 95deg,rgb(242,113,33) 0%,#0FFF0750 50%,rgb(138,35,135) 100%)',
       },
     },
     [`&.${stepConnectorClasses.completed}`]: {
       [`& .${stepConnectorClasses.line}`]: {
         backgroundImage:
-          'linear-gradient( 95deg,rgb(242,113,33) 0%,rgb(233,64,87) 50%,rgb(138,35,135) 100%)',
+          'linear-gradient( 95deg,rgb(242,113,33) 0%,#0FFF0750 50%,rgb(138,35,135) 100%)',
       },
     },
     [`& .${stepConnectorClasses.line}`]: {
@@ -71,12 +69,12 @@ export default function Cadastro() {
     alignItems: 'center',
     ...(ownerState.active && {
       backgroundImage:
-        'linear-gradient( 136deg, rgb(242,113,33) 0%, rgb(233,64,87) 50%, rgb(138,35,135) 100%)',
+        'linear-gradient( 136deg, rgb(242,113,33) 0%, #0FFF0750 50%, rgb(138,35,135) 100%)',
       boxShadow: '0 4px 10px 0 rgba(0,0,0,.25)',
     }),
     ...(ownerState.completed && {
       backgroundImage:
-        'linear-gradient( 136deg, rgb(242,113,33) 0%, rgb(233,64,87) 50%, rgb(138,35,135) 100%)',
+        'linear-gradient( 136deg, rgb(242,113,33) 0%, #0FFF0750 50%, rgb(138,35,135) 100%)',
     }),
   }));
 
@@ -119,30 +117,14 @@ export default function Cadastro() {
     'Cadastre seus dados',
     'Valide seu ICCID',
     'Escolha seu Plano',
-    'Compra dos Pack',
+    'Compre um pacote de licença',
     'Dados financeiros',
   ];
 
   /////// function step /////
 
-  const [activeStep, setActiveStep] = useState(0);
-  const [skipped, setSkipped] = useState(new Set<number>());
-
-  const handleNext = () => {
-    let newSkipped = skipped;
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setSkipped(newSkipped);
-  };
-
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
-
-  const navigate = useNavigate();
-
   const theme = useTheme();
   const smDown = useMediaQuery(theme.breakpoints.down('sm'));
-  const mdDown = useMediaQuery(theme.breakpoints.down('md'));
 
   return (
     <Box>
@@ -174,51 +156,30 @@ export default function Cadastro() {
           cadastre aqui seu modulo multinivel
         </Typography>
       </Box>
-      <Stack
-        spacing={smDown ? 1 : 2}
+      <Box
         sx={{
+          width: '100%',
+          mb: 10,
           display: 'flex',
-          flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          width: '100%',
-          padding: smDown ? '20px' : '40px',
         }}
       >
-        {activeStep === 0 && <Step1 />}
-        {activeStep === 1 && <Step2 />}
-        {activeStep === 2 && <Step3 />}
-        {activeStep === 3 && <Step4 />}
-        {activeStep === 4 && <Step5 />}
-        <Box
-          sx={{
-            width: smDown ? '100%' : mdDown ? '100%' : '50%',
-            display: 'flex',
-            alignItems: 'center',
-            flexDirection: smDown ? 'column' : 'row',
-            justifyContent: activeStep !== 0 ? 'space-between' : 'center',
-            gap: 2,
-            p: 2,
-          }}
-        >
-          {activeStep !== 0 && (
-            <Button size='medium' onClick={() => handleBack()}>
-              Voltar
-            </Button>
-          )}
-          {activeStep === 4 ? (
-            <Button onClick={() => navigate('/home-admin-mmn')}>Finalizar Cadastro</Button>
-          ) : (
-            <Button size='medium' onClick={() => handleNext()}>
-              Proximo
-            </Button>
-          )}
-        </Box>
-      </Stack>
+        {children}
+      </Box>
       <div>
         {isStackVisible && (
-          <Stack sx={{ width: '100%', mb: 10 }} spacing={4}>
-            <Stepper alternativeLabel activeStep={activeStep} connector={<ColorlibConnector />}>
+          <Stack
+            sx={{
+              width: '100%',
+              mb: 10,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+            spacing={4}
+          >
+            <Stepper alternativeLabel activeStep={step} connector={<ColorlibConnector />}>
               {steps.map((label) => (
                 <Step key={label}>
                   <StepLabel StepIconComponent={ColorlibStepIcon}>{label}</StepLabel>

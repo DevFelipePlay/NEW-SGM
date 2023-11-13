@@ -13,7 +13,7 @@ function App() {
     <ThemeProvider theme={customTheme}>
       <HashRouter>
         <AuthProvider>
-          <ToastContainer position='bottom-center' autoClose={500} draggable theme='dark' />
+          <ToastContainer position='bottom-center' autoClose={3000} draggable theme='dark' />
           <AllRoutes />
         </AuthProvider>
       </HashRouter>

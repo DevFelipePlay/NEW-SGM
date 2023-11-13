@@ -1,14 +1,14 @@
 import { Box, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import Icon1 from '../../../assets/LadingPageIcons/iconTutorial1.svg';
-import Icon2 from '../../../assets/LadingPageIcons/iconTutorial2.svg';
-import Icon3 from '../../../assets/LadingPageIcons/iconTutorial3.svg';
-import Icon4 from '../../../assets/LadingPageIcons/iconTutorial4.svg';
-import Icon5 from '../../../assets/LadingPageIcons/iconTutorial5.svg';
-import styles from '../style.module.css';
+import Icon1 from '../../../../assets/LadingPageIcons/iconTutorial1.svg';
+import Icon2 from '../../../../assets/LadingPageIcons/iconTutorial2.svg';
+import Icon3 from '../../../../assets/LadingPageIcons/iconTutorial3.svg';
+import Icon4 from '../../../../assets/LadingPageIcons/iconTutorial4.svg';
+import Icon5 from '../../../../assets/LadingPageIcons/iconTutorial5.svg';
+import styles from '../../style.module.css';
 
 import { Navigation, Pagination } from 'swiper/modules';
-import { SwiperNavButtons } from '../../../components';
+import { SwiperNavButtons } from '../../../../components';
 
 export default function Banner2() {
   const theme = useTheme();

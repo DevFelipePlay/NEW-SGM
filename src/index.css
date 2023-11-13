@@ -5,7 +5,7 @@
 }
 
 :root {
-    --primary-color: #fe306a;
+    --primary-color: #0FFF07;
     --secondary-color: #444;
     --backGround-button-hover-color:#141414;
     --backGround-sideBar-color:#141414;
@@ -16,7 +16,7 @@
     --sub-text-color: gray;
     --disabled-color: gray;
 
-    --color-svg: #fe306a;
+    --color-svg: #0FFF07;
 
     --shadow: 5px 5px 10px #2424242f;
     --shadow2: 0px 15px 20px -15px #24242459;

@@ -5,14 +5,15 @@ import { useNavigate } from 'react-router-dom';
 
 import { BsArrowRight } from 'react-icons/bs';
 import { toast } from 'react-toastify';
+
 import {
   IReqPostPlayValidaCpfLadingpage,
   postPlayValidaCpfLandingPage,
-} from '../../../api/PlayLadingPage';
-import { AboutImg } from '../../../assets/svg/HomeLandingPage';
-import { useForm } from '../../../hooks';
-import { errorToast, maskCpfCnpj } from '../../../utils';
-import styles from '../style.module.css';
+} from '../../../../api/PlayLadingPage';
+import { AboutImg } from '../../../../assets/svg';
+import { useForm } from '../../../../hooks';
+import { maskCpfCnpj } from '../../../../utils';
+import styles from '../../style.module.css';
 
 export default function Banner1() {
   const theme = useTheme();
@@ -37,7 +38,8 @@ export default function Banner1() {
       toast.success('Sucesso');
       navigate('/Cadastro');
     } catch (error: any) {
-      errorToast(error);
+      toast.success('Inicie seu cadastro!');
+      navigate('/cadastro-user-mmn/cadastro-de-dados-pessoais-user-mmn');
     } finally {
       setLoading(false);
     }
@@ -141,11 +143,11 @@ export default function Banner1() {
             }}
             type='submit'
             disabled={
-              formData.cpf.length !== 11 && formData.cpf.length !== 14 && formData.cpf !== ''
+              formData.cpf.length !== 11 && formData.cpf.length !== 14 && formData.cpf !== ' '
             }
           >
             {loading ? (
-              <CircularProgress color='primary' />
+              <CircularProgress color='secondary' />
             ) : (
               <BsArrowRight style={{ fontSize: '1.5rem' }} />
             )}

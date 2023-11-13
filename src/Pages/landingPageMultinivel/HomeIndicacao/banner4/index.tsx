@@ -1,7 +1,6 @@
 import { Box, Paper, Stack, Typography, styled } from '@mui/material';
 import { FaFacebook, FaInstagram, FaLinkedin, FaWhatsapp } from 'react-icons/fa';
-import Logo from '../../../assets/MMNImg/logo.png';
-
+import Logo from '../../../../assets/MMNImg/logo.png';
 // @ts-ignore
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: 'transparent',
@@ -32,7 +31,7 @@ export default function Banner4() {
     >
       <img
         style={{
-          maxWidth: '100%',
+          width: '30%',
           display: 'block',
           margin: '0 auto',
         }}

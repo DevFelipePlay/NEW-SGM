@@ -10,15 +10,19 @@ import InfoUserMMN from '../../../Pages/MMN/InfoUserMMN';
 import PrimeiroAcesso from '../../../Pages/MMN/InfoUserMMN/PrimeiroAcesso';
 import DashBoardInfoUserMMN from '../../../Pages/MMN/InfoUserMMN/Tab0';
 import LandingPageMultinivel from '../../../Pages/landingPageMultinivel';
-import Cadastro from '../../../Pages/landingPageMultinivel/Cadastro';
+import { CadastroDeDadosPessoaisUserMMN } from '../../../Pages/landingPageMultinivel/CadastroUserMMN/CadastroDeDadosPessoaisUserMMN/CadastroDeDadosPessoaisUserMMN';
 
 export function AllRoutes() {
   return (
     <RouterRoutes>
       <Route index element={<Navigate to='primeiro-acesso-multinivel' replace />} />
-      <Route path='/cadastro' element={<Cadastro />} />
       <Route path='/landingpage-indicacao' element={<LandingPageMultinivel />} />
-      <Route path='/cadastro-user-mmn' element={<Cadastro />} />
+      <Route path='/cadastro-user-mmn'>
+        <Route
+          path='cadastro-de-dados-pessoais-user-mmn'
+          element={<CadastroDeDadosPessoaisUserMMN />}
+        ></Route>
+      </Route>
       <Route path='/login' element={<Login />} />
 
       {/* Rotas Protegidas */}

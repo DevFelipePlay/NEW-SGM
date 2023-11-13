@@ -1,8 +1,9 @@
 import { Divider } from '@mui/material';
-import Banner1 from './banner1';
-import Banner2 from './banner2';
-import Banner3 from './banner3';
-import Banner4 from './banner4';
+
+import Banner1 from './HomeIndicacao/banner1';
+import Banner2 from './HomeIndicacao/banner2';
+import Banner3 from './HomeIndicacao/banner3';
+import Banner4 from './HomeIndicacao/banner4';
 
 export default function LandingPageMultinivel() {
   return (
