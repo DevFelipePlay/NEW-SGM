@@ -1,0 +1,36 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #fe306a;
+    --secondary-color: #444;
+    --backGround-button-hover-color:#141414;
+    --backGround-sideBar-color:#141414;
+    --backGround-header-color:#202020;
+    --backGround-default:#141414;
+    --text-header-color: #c0c0c0;
+    --text-color: white;
+    --sub-text-color: gray;
+    --disabled-color: gray;
+
+    --color-svg: #fe306a;
+
+    --shadow: 5px 5px 10px #2424242f;
+    --shadow2: 0px 15px 20px -15px #24242459;
+    --shadow3: 5px 5px 10px #2424240e;
+}
+
+ul {
+    list-style: none;
+}
+
+.swiper-pagination .swiper-pagination-bullet-active {
+    background-color: var(--primary-color);
+}
+
+.swiper-pagination {
+    z-index: -1;
+}

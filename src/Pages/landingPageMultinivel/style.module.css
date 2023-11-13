@@ -1,0 +1,33 @@
+.button {
+  background-color: var(--backGround-default);
+}
+
+.button > svg {
+  fill: var(--primary-color);
+}
+
+.button:disabled {
+  background-color: #c6c6c6;
+}
+
+.button:disabled svg {
+  fill: rgb(126, 126, 126);
+}
+
+
+.button:not(:disabled):hover {
+  background-color: var(--primary-color);
+}
+
+.button:not(:disabled):hover svg {
+  fill: var(--backGround-default);
+}
+
+.wrapper input {
+  border: 1px solid var(--primary-color);
+}
+
+.wrapper input:focus {
+  outline: none;
+  border-color: #141414;
+}
