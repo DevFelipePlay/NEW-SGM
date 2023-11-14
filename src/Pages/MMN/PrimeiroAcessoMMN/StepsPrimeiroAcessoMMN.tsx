@@ -31,7 +31,7 @@ interface IStepsCadastro {
   children?: ReactElement;
 }
 
-export function StepsCadastroUserMMN({ step, children }: IStepsCadastro) {
+export function StepsPrimeiroAcessoMMN({ step, children }: IStepsCadastro) {
   const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
     [`&.${stepConnectorClasses.alternativeLabel}`]: {
       top: 22,
@@ -115,7 +115,7 @@ export function StepsCadastroUserMMN({ step, children }: IStepsCadastro) {
   }, []);
 
   const steps = [
-    'Cadastre seus dados',
+    'Cadastre os pacotes de licenciamento e venda de chips',
     'Escolha a melhor forma para seu modulo',
     'Escolha seu Plano',
     'Compre um pacote de licença',

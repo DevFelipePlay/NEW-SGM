@@ -4,7 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { ToastContainer } from 'react-toastify';
 import { AllRoutes } from './Routes';
-import AuthProvider from './auth/auth';
+import AuthProvider from './components/Auth/auth';
 import './index.css';
 import { customTheme } from './themes';
 

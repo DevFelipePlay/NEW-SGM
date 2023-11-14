@@ -2,12 +2,12 @@ import { ReactNode, createContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 //
-import useStorage from '../hooks/useStorage';
+import useStorage from '../../hooks/useStorage';
 //
 
 import moment from 'moment';
-import { IUser } from '../@types/IUser';
-import apiPlay from '../services/apiPlay';
+import { IUser } from '../../@types/IUser';
+import apiPlay from '../../services/apiPlay';
 
 type AuthContextTypes = {
   user: IUser | null;

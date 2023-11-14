@@ -5,7 +5,7 @@ import Banner2 from './HomeIndicacao/banner2';
 import Banner3 from './HomeIndicacao/banner3';
 import Banner4 from './HomeIndicacao/banner4';
 
-export default function LandingPageMultinivel() {
+export function LandingPageMultinivel() {
   return (
     <>
       <Banner1 />

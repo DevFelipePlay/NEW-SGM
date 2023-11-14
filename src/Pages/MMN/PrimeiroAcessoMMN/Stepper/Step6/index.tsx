@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import { useState } from 'react';
 
-import { Cards, Dropzone } from '../../../../../../components';
+import { Cards, Dropzone } from '../../../../../components';
 
 export default function Step6() {
   const [selectedValue, setSelectedValue] = useState('0');

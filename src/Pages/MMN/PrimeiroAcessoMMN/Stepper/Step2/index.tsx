@@ -1,5 +1,5 @@
 import { Button, TextField, Typography } from '@mui/material';
-import { Cards } from '../../../../../../components';
+import { Cards } from '../../../../../components';
 
 export default function Step2() {
   return (

@@ -1,7 +1,7 @@
 import { Box, Button, IconButton, TextField } from '@mui/material';
 import { useState } from 'react';
 import { TbTrashX } from 'react-icons/tb';
-import { Cards } from '../../../../../../components';
+import { Cards } from '../../../../../components';
 
 interface ICard {
   nome: string;

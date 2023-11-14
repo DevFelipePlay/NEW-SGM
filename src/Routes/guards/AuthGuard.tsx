@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { EnumProfileId } from '../../@types/IUser';
-import { AuthContext } from '../../auth/auth';
+import { AuthContext } from '../../components/Auth/auth';
 
 interface AuthGuardProps {
   allowedRoles: EnumProfileId[];

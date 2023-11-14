@@ -16,7 +16,7 @@ import { MdFavorite, MdFavoriteBorder } from 'react-icons/md';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-import { Cards, SwiperNavButtons } from '../../../../../../components';
+import { Cards, SwiperNavButtons } from '../../../../../components';
 
 export default function Step1() {
   const [checkboxChecked, setCheckboxChecked] = useState(false);

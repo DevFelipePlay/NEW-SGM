@@ -1,7 +1,7 @@
 import { Box, Stack, Typography } from '@mui/material';
 import { useContext, useState } from 'react';
 import { mask } from 'remask';
-import { AuthContext } from '../../auth/auth';
+import { AuthContext } from '../../components/Auth/auth';
 
 import LoadingButton from '@mui/lab/LoadingButton';
 

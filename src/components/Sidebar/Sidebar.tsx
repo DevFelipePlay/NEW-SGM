@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import backgroundTab from '../../assets/MMNImg/TabBarBackground.jpg';
 import icone from '../../assets/MMNImg/icon.png';
 
-import { AuthContext } from '../../auth/auth';
+import { AuthContext } from '../Auth/auth';
 import { IListItemsTabBar, RowsSideBar } from './RowsSideBar';
 
 export function Sidebar(): JSX.Element {
