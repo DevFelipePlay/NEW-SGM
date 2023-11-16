@@ -1,7 +1,8 @@
+export * from './Auth';
 export * from './BackgroundLogin';
 export * from './BotaoAcoes';
-export * from './Cards';
 export * from './Cards copy';
+export * from './Cards';
 export * from './CustomTextField';
 export * from './CustomizedTabs';
 export * from './DefaultContainer';

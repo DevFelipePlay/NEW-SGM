@@ -12,7 +12,6 @@ import {
   useMediaQuery,
 } from '@mui/material';
 import { FaUser } from 'react-icons/fa';
-import { PiHandCoins } from 'react-icons/pi';
 
 import 'swiper/css';
 
@@ -22,8 +21,6 @@ import { ReactElement, useEffect, useState } from 'react';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-import { BiBox } from 'react-icons/bi';
-import { GiCash } from 'react-icons/gi';
 import { MdOutlineMultipleStop } from 'react-icons/md';
 
 interface IStepsCadastro {
@@ -85,9 +82,6 @@ export function StepsPrimeiroAcessoMMN({ step, children }: IStepsCadastro) {
     const icons: { [index: string]: React.ReactElement } = {
       1: <FaUser />,
       2: <MdOutlineMultipleStop />,
-      3: <PiHandCoins />,
-      4: <BiBox />,
-      5: <GiCash />,
     };
 
     return (
@@ -114,13 +108,7 @@ export function StepsPrimeiroAcessoMMN({ step, children }: IStepsCadastro) {
     };
   }, []);
 
-  const steps = [
-    'Cadastre os pacotes de licenciamento e venda de chips',
-    'Escolha a melhor forma para seu modulo',
-    'Escolha seu Plano',
-    'Compre um pacote de licença',
-    'Dados financeiros',
-  ];
+  const steps = ['Cadastre os pacotes de licenciamento e venda de chips', 'teste'];
 
   /////// function step /////
 

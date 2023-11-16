@@ -1,3 +1,4 @@
+export * from './InputForMoney';
 export * from './SearchInput';
 export * from './TextInput';
 export * from './TextInputDefault';
