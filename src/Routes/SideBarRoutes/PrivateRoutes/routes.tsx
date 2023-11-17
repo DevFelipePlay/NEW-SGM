@@ -11,7 +11,8 @@ import DashBoardInfoUserMMN from '../../../Pages/MMN/InfoUserMMN/Tab0';
 
 import { EscolhaDeCompras, LandingPageMultinivel } from '../../../Pages/landingPageMultinivel';
 import { CadastroDeDadosPessoaisUserMMN } from '../../../Pages/landingPageMultinivel/CadastroUserMMN/CadastroDeDadosPessoaisUserMMN/CadastroDeDadosPessoaisUserMMN';
-import { CadastroDePacotesMMN } from '../../../Pages/MMN/PrimeiroAcessoMMN';
+import { CadastroDePacotesMMN, CadastroDosPlanosMMN } from '../../../Pages/MMN/PrimeiroAcessoMMN';
+import { CadastroNiveisDeUsuario } from '../../../Pages/MMN/PrimeiroAcessoMMN/CadastroNiveisDeUsuario';
 
 export function AllRoutes() {
   return (
@@ -39,6 +40,8 @@ export function AllRoutes() {
           </Route>
           <Route path='/primeiro-acesso-multinivel'>
             <Route path='cadastro-de-pacotes-mmn' element={<CadastroDePacotesMMN />} />
+            <Route path='cadastro-dos-planos-mmn' element={<CadastroDosPlanosMMN />} />
+            <Route path='cadastro-niveis-de-usuario' element={<CadastroNiveisDeUsuario />} />
           </Route>
           <Route path='/crm/parceiros' element={<ListPartner />} />
         </Route>

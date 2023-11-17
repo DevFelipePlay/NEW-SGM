@@ -2,6 +2,7 @@ import LoadingButton from '@mui/lab/LoadingButton/LoadingButton';
 import { Box, Button, IconButton, TextField } from '@mui/material';
 import { useState } from 'react';
 import { TbTrashX } from 'react-icons/tb';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { mask } from 'remask';
 import {
@@ -13,6 +14,7 @@ import { errorToast } from '../../../../utils';
 import { StepsPrimeiroAcessoMMN } from '../StepsPrimeiroAcessoMMN';
 
 export function CadastroDePacotesMMN() {
+  const navigate = useNavigate();
   const [cardData, setcardData] = useState<IReqPostPlayPctLicenciamento[]>([
     { nome: '', chips: '', pontos: '', valor_venda: '' },
   ]);
@@ -52,6 +54,7 @@ export function CadastroDePacotesMMN() {
       };
       await postPlayPctLicenciamento(postDataToken);
       toast.success('Pacotes cadastrados com sucesso');
+      navigate('/primeiro-acesso-multinivel/cadastro-dos-planos-mmn');
     } catch (error: any) {
       errorToast(error);
     } finally {
@@ -85,6 +88,7 @@ export function CadastroDePacotesMMN() {
               onChange={(e: any) => handleInputChanges(index, 'nome', e.target.value.trim())}
               helperText={'Escolha um nome para o pacote, este nome será mostrado para os usuárips'}
               sx={{ mb: 2 }}
+              required
             />
             <TextField
               variant='standard'
@@ -94,6 +98,7 @@ export function CadastroDePacotesMMN() {
               onChange={(e: any) => handleInputChanges(index, 'chips', e.target.value)}
               helperText={'Escolha a quantidade de chips que será oferecido pra este pacote'}
               sx={{ mb: 2 }}
+              required
             />
             <TextField
               variant='standard'
@@ -105,8 +110,10 @@ export function CadastroDePacotesMMN() {
                 'Defina a quantidade de pontos que cada venda deste modulo irá gerar para os usuários'
               }
               sx={{ mb: 2 }}
+              required
             />
             <InputForMoney
+              label='Valor de Venda'
               value={card.valor_venda}
               onChange={(value) =>
                 handleInputChanges(index, 'valor_venda', value.replace(/[^0-9]/g, ''))

@@ -5,13 +5,15 @@ import { AuthContext } from '../../components/Auth/auth';
 
 import LoadingButton from '@mui/lab/LoadingButton';
 
-import { Link as RouterLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { AnimatedBackground } from '../../components';
 import { TextInput, TextInputPassword } from '../../components/Inputs';
 
 export default function Login() {
   const [cpf, setCpf] = useState('');
   const [senha, setSenha] = useState('');
+
+  const navigate = useNavigate();
 
   // login
   const { signIn, loadingAuth } = useContext(AuthContext);
@@ -36,7 +38,11 @@ export default function Login() {
       }}
     >
       <AnimatedBackground />
-      <Box sx={{ width: '100vw', height: '100vh', display: 'flex', flexDirection: 'row' }}>
+      <Box
+        sx={{ width: '100vw', height: '100vh', display: 'flex', flexDirection: 'row' }}
+        component={'form'}
+        onSubmit={() => navigate('/')}
+      >
         <Box
           sx={{
             width: '40%',
@@ -84,8 +90,7 @@ export default function Login() {
               size='small'
               loading={loadingAuth}
               variant='contained'
-              component={RouterLink}
-              to={'/'}
+              type='submit'
             >
               Entrar
             </LoadingButton>

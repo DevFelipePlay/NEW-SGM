@@ -6,22 +6,19 @@ import {
   StepIconProps,
   StepLabel,
   Stepper,
-  Typography,
   stepConnectorClasses,
   styled,
-  useMediaQuery,
 } from '@mui/material';
 import { FaUser } from 'react-icons/fa';
 
 import 'swiper/css';
-
-import { useTheme } from '@mui/material/styles';
 
 import { ReactElement, useEffect, useState } from 'react';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 import { MdOutlineMultipleStop } from 'react-icons/md';
+import { DefaultContainer } from '../../../components';
 
 interface IStepsCadastro {
   step?: number;
@@ -108,43 +105,18 @@ export function StepsPrimeiroAcessoMMN({ step, children }: IStepsCadastro) {
     };
   }, []);
 
-  const steps = ['Cadastre os pacotes de licenciamento e venda de chips', 'teste'];
+  const steps = ['Cadastre os pacotes de licenciamento e venda de chips', 'Cadastro dos planos'];
 
   /////// function step /////
 
-  const theme = useTheme();
-  const smDown = useMediaQuery(theme.breakpoints.down('sm'));
-
   return (
-    <Box>
-      <Box
-        sx={{
-          backgroundColor: '#141414',
-          p: {
-            md: 10,
-            sm: 5,
-            xs: 2,
-          },
-          py: {
-            xs: 5,
-          },
-          flexDirection: 'column',
-          display: 'flex',
-        }}
-      >
-        <Typography variant={`${smDown ? 'h4' : 'h2'}`} color='var(--primary-color)'>
-          Cadastre-se
-        </Typography>
-        <Typography
-          variant={`${smDown ? 'subtitle2' : 'subtitle1'}`}
-          color='#ffffff'
-          sx={{
-            maxWidth: '400px',
-          }}
-        >
-          cadastre aqui seu modulo multinivel
-        </Typography>
-      </Box>
+    <DefaultContainer
+      page={'Cadastro Primeiro Acesso MMN'}
+      title={'Cadastro'}
+      subTitle={'Primeiras configurações do seu modulo'}
+      showSearch={true}
+      showAvatar={true}
+    >
       <Box
         sx={{
           width: '100%',
@@ -152,6 +124,7 @@ export function StepsPrimeiroAcessoMMN({ step, children }: IStepsCadastro) {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
+          flexDirection: 'column',
         }}
       >
         {children}
@@ -178,6 +151,6 @@ export function StepsPrimeiroAcessoMMN({ step, children }: IStepsCadastro) {
           </Stack>
         )}
       </div>
-    </Box>
+    </DefaultContainer>
   );
 }
