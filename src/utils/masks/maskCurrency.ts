@@ -21,6 +21,17 @@ export function currencyMask(value: string) {
 }
 
 export function currencyUnMask(maskedValue: string) {
-  let UnMaskedValue = parseFloat(maskedValue.replace(/\./, '').replace(/,/, '.'));
-  return UnMaskedValue;
+  // let UnMaskedValue = parseFloat(maskedValue.replace(/\./, '').replace(/,/, '.'));
+  // return UnMaskedValue;
+  // Remover pontos de milhar
+  let unMaskedValue = maskedValue.replace(/\./g, '');
+  // Substituir vírgulas por pontos
+  unMaskedValue = unMaskedValue.replace(/,/, '.');
+
+  // Se o valor tiver mais de três caracteres, posicionar o ponto antes das duas últimas casas decimais
+  if (unMaskedValue.length > 3) {
+    const decimalIndex = unMaskedValue.length - 2;
+    unMaskedValue = unMaskedValue.slice(0, decimalIndex) + '.' + unMaskedValue.slice(decimalIndex);
+  }
+  return parseFloat(unMaskedValue);
 }

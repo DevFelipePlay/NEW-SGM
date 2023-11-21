@@ -9,10 +9,17 @@ import Login from '../../../Pages/Login';
 import InfoUserMMN from '../../../Pages/MMN/InfoUserMMN';
 import DashBoardInfoUserMMN from '../../../Pages/MMN/InfoUserMMN/Tab0';
 
+import {
+  CadastroDePacotesMMN,
+  CadastroDosPlanosMMN,
+  CadastroGraduacoesMMN,
+  CadastroPontosModalidadeMMN,
+  CadastroPremiacoesMMN,
+  CadastroValoresETaxasMMN,
+} from '../../../Pages/MMN/PrimeiroAcessoMMN';
+import { CadastroNiveisDeUsuario } from '../../../Pages/MMN/PrimeiroAcessoMMN/CadastroNiveisDeUsuario';
 import { EscolhaDeCompras, LandingPageMultinivel } from '../../../Pages/landingPageMultinivel';
 import { CadastroDeDadosPessoaisUserMMN } from '../../../Pages/landingPageMultinivel/CadastroUserMMN/CadastroDeDadosPessoaisUserMMN/CadastroDeDadosPessoaisUserMMN';
-import { CadastroDePacotesMMN, CadastroDosPlanosMMN } from '../../../Pages/MMN/PrimeiroAcessoMMN';
-import { CadastroNiveisDeUsuario } from '../../../Pages/MMN/PrimeiroAcessoMMN/CadastroNiveisDeUsuario';
 
 export function AllRoutes() {
   return (
@@ -38,11 +45,22 @@ export function AllRoutes() {
           <Route path='/info-user-mmn' element={<InfoUserMMN />}>
             <Route path='dashboard-info-user-mmn' element={<DashBoardInfoUserMMN />} />
           </Route>
+
+          {/* Primeiro acesso */}
           <Route path='/primeiro-acesso-multinivel'>
             <Route path='cadastro-de-pacotes-mmn' element={<CadastroDePacotesMMN />} />
             <Route path='cadastro-dos-planos-mmn' element={<CadastroDosPlanosMMN />} />
             <Route path='cadastro-niveis-de-usuario' element={<CadastroNiveisDeUsuario />} />
+            <Route path='cadastro-graduacoes' element={<CadastroGraduacoesMMN />} />
+            <Route
+              path='cadastro-pontos-por-modalidade'
+              element={<CadastroPontosModalidadeMMN />}
+            />
+            <Route path='cadastro-valores-e-taxas' element={<CadastroValoresETaxasMMN />} />
+            <Route path='cadastro-premiacoes' element={<CadastroPremiacoesMMN />} />
           </Route>
+          {/* //////// */}
+
           <Route path='/crm/parceiros' element={<ListPartner />} />
         </Route>
       </Route>

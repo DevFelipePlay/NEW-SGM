@@ -1,6 +1,7 @@
 import LoadingButton from '@mui/lab/LoadingButton/LoadingButton';
 import { Box, InputAdornment, Slider, TextField, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { StepsPrimeiroAcessoMMN } from '..';
 import { postPlayCadastroNiveisMMN } from '../../../../api';
@@ -14,6 +15,8 @@ export const CadastroNiveisDeUsuario = () => {
   const [selectedValues, setSelectedValues] = useState<number[]>(new Array(10).fill(0));
   const [total, setTotal] = useState<number>(0);
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   const { user } = useUser();
 
@@ -48,6 +51,7 @@ export const CadastroNiveisDeUsuario = () => {
 
       await postPlayCadastroNiveisMMN(payload);
       toast.success('Niveis Cadastrados com sucesso!');
+      navigate('/primeiro-acesso-multinivel/cadastro-graduacoes');
     } catch (error) {
       errorToast;
     }
@@ -66,7 +70,7 @@ export const CadastroNiveisDeUsuario = () => {
         subTitle={'Cadastro do sistema de níveis de rede'}
         size={'50%'}
       >
-        <Box component={'form'} onSubmit={handleSubmit}>
+        <Box component={'form'} onSubmit={handleSubmit} sx={{ width: '100%' }}>
           <Typography>Valor base a ser distribuido</Typography>
 
           <TextField
@@ -104,7 +108,12 @@ export const CadastroNiveisDeUsuario = () => {
             ) : (
               ''
             )}
-            <LoadingButton variant='contained' type={'submit'} disabled={total > 100}>
+            <LoadingButton
+              variant='contained'
+              type={'submit'}
+              disabled={total > 100 || formData.valor_referencia === ''}
+              loading={loading}
+            >
               Enviar
             </LoadingButton>
           </div>

@@ -79,6 +79,10 @@ export function StepsPrimeiroAcessoMMN({ step, children }: IStepsCadastro) {
     const icons: { [index: string]: React.ReactElement } = {
       1: <FaUser />,
       2: <MdOutlineMultipleStop />,
+      3: <MdOutlineMultipleStop />,
+      4: <MdOutlineMultipleStop />,
+      5: <MdOutlineMultipleStop />,
+      6: <MdOutlineMultipleStop />,
     };
 
     return (
@@ -105,7 +109,14 @@ export function StepsPrimeiroAcessoMMN({ step, children }: IStepsCadastro) {
     };
   }, []);
 
-  const steps = ['Cadastre os pacotes de licenciamento e venda de chips', 'Cadastro dos planos'];
+  const steps = [
+    'Cadastre os pacotes de licenciamento e venda de chips',
+    'Cadastro dos planos',
+    'Cadastro das Graduações',
+    'Cadastro dos pontos por modalidade',
+    'Cadastro de taxas de saque e valores',
+    'Cadastro de premios',
+  ];
 
   /////// function step /////
 

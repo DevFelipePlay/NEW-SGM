@@ -1,5 +1,5 @@
 import LoadingButton from '@mui/lab/LoadingButton/LoadingButton';
-import { Box, Button, IconButton, TextField } from '@mui/material';
+import { Box, Button, IconButton, InputAdornment, TextField } from '@mui/material';
 import { useState } from 'react';
 import { TbTrashX } from 'react-icons/tb';
 import { useNavigate } from 'react-router-dom';
@@ -9,11 +9,14 @@ import {
   IReqPostPlayPctLicenciamento,
   postPlayPctLicenciamento,
 } from '../../../../api/PctLicenciamento';
-import { Cards, InputForMoney } from '../../../../components';
+import { Cards } from '../../../../components';
+import useUser from '../../../../hooks/useUser';
 import { errorToast } from '../../../../utils';
+import { currencyMask, currencyUnMask } from '../../../../utils/masks/maskCurrency';
 import { StepsPrimeiroAcessoMMN } from '../StepsPrimeiroAcessoMMN';
 
 export function CadastroDePacotesMMN() {
+  const { user } = useUser();
   const navigate = useNavigate();
   const [cardData, setcardData] = useState<IReqPostPlayPctLicenciamento[]>([
     { nome: '', chips: '', pontos: '', valor_venda: '' },
@@ -46,11 +49,12 @@ export function CadastroDePacotesMMN() {
         nome: card.nome,
         chips: card.chips,
         pontos: card.pontos,
-        valor_venda: card.valor_venda,
+        valor_venda: currencyUnMask(card.valor_venda).toString(),
       }));
+
       const postDataToken = {
         ...postData,
-        token: 'eb6237632e72042f7ca7e2cdb25860025b1e670293bfae3e63',
+        token: user ? user.token : null,
       };
       await postPlayPctLicenciamento(postDataToken);
       toast.success('Pacotes cadastrados com sucesso');
@@ -112,12 +116,22 @@ export function CadastroDePacotesMMN() {
               sx={{ mb: 2 }}
               required
             />
-            <InputForMoney
-              label='Valor de Venda'
+            <TextField
+              type='tel'
+              id='id_valor_plano'
+              label='Valor de venda'
+              placeholder='0,00'
               value={card.valor_venda}
-              onChange={(value) =>
-                handleInputChanges(index, 'valor_venda', value.replace(/[^0-9]/g, ''))
+              onChange={(e: any) =>
+                handleInputChanges(index, 'valor_venda', currencyMask(e.target.value))
               }
+              variant='standard'
+              fullWidth
+              required
+              sx={{ mb: 2 }}
+              InputProps={{
+                startAdornment: <InputAdornment position='start'>R$</InputAdornment>,
+              }}
             />
             {index !== 0 && (
               <IconButton color='error' onClick={() => handleDeleteCard(index)}>

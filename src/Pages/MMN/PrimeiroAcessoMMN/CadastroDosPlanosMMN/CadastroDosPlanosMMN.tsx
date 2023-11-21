@@ -1,4 +1,4 @@
-import { Box, Button, Checkbox, TextField, Typography } from '@mui/material';
+import { Box, Button, Checkbox, MenuItem, Select, Typography } from '@mui/material';
 import { PiHandCoins } from 'react-icons/pi';
 import { Navigation, Pagination } from 'swiper/modules';
 
@@ -11,13 +11,19 @@ import 'swiper/css/pagination';
 
 import 'swiper/css';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { MdFavorite, MdFavoriteBorder } from 'react-icons/md';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 import { StepsPrimeiroAcessoMMN } from '..';
+import {
+  IReqPostPlayRecuperaPlanosPrimeiroAcesso,
+  postPlayRecuperaPlanosPrimeiroAcesso,
+} from '../../../../api';
 import { Cards, SwiperNavButtons } from '../../../../components';
+import useUser from '../../../../hooks/useUser';
+import { errorToast } from '../../../../utils';
 
 interface IPlano {
   id: string;
@@ -27,7 +33,13 @@ interface IPlano {
 
 export function CadastroDosPlanosMMN() {
   const [checkboxChecked, setCheckboxChecked] = useState(false);
+  const [responseData, setResponseData] = useState([]);
   const [planosSelecionados, setPlanosSelecionados] = useState<IPlano[]>([]);
+  const { user } = useUser();
+
+  //
+
+  const [loading, setLoading] = useState(false);
 
   const handleCheckboxChange = (event: any, dadosPlanos: any) => {
     if (event.target.cheked) {
@@ -43,52 +55,24 @@ export function CadastroDosPlanosMMN() {
     setCheckboxChecked(event.target.checked);
   };
 
-  const currencies = [
-    {
-      value: '0',
-      label: 'Nenhum Nível',
-    },
-    {
-      value: '1',
-      label: '1 - Nível',
-    },
-    {
-      value: '2',
-      label: '2 - Níveis',
-    },
-    {
-      value: '3',
-      label: '3 - Níveis',
-    },
-    {
-      value: '4',
-      label: '4 - Níveis',
-    },
-    {
-      value: '5',
-      label: '5 - Níveis',
-    },
-    {
-      value: '6',
-      label: '6 - Níveis',
-    },
-    {
-      value: '7',
-      label: '7 - Níveis',
-    },
-    {
-      value: '8',
-      label: '8 - Níveis',
-    },
-    {
-      value: '9',
-      label: '9 - Níveis',
-    },
-    {
-      value: '10',
-      label: '10 - Níveis',
-    },
-  ];
+  async function handleViewer() {
+    let payload: IReqPostPlayRecuperaPlanosPrimeiroAcesso = {
+      token: user?.token ? user.token : '',
+    };
+
+    setLoading(true);
+
+    try {
+      const response = await postPlayRecuperaPlanosPrimeiroAcesso(payload);
+      setResponseData(response);
+    } catch (error) {
+      errorToast;
+    }
+  }
+
+  useEffect(() => {
+    handleViewer();
+  }, []);
 
   return (
     <StepsPrimeiroAcessoMMN step={1}>
@@ -103,7 +87,7 @@ export function CadastroDosPlanosMMN() {
             pagination={{ clickable: true }}
             modules={[Navigation, Pagination]}
           >
-            {mapeamentoDosPlanosEndpoint.map((plano: any) => (
+            {responseData.map((plano: any, index) => (
               <SwiperSlide>
                 <Cards
                   title={'Planos'}
@@ -112,6 +96,7 @@ export function CadastroDosPlanosMMN() {
                   showIcon
                   bgColorIcon='var(--primary-color)'
                   icon={<PiHandCoins />}
+                  key={index}
                 >
                   <Typography>Neste plano voce terá</Typography>
                   <Typography>6 GB</Typography>
@@ -128,29 +113,17 @@ export function CadastroDosPlanosMMN() {
                     checkedIcon={<MdFavorite style={{ fontSize: '2rem' }} />}
                   />
                   {!!checkboxChecked && (
-                    <TextField
-                      id='outlined-select-currency-native'
-                      select
-                      variant='standard'
-                      label='Nivel'
-                      defaultValue='EUR'
-                      sx={{ width: '80%' }}
-                      SelectProps={{
-                        native: true,
-                      }}
-                      helperText='Defina a quantidade de niveis que este plano poderá acessar'
-                    >
-                      {currencies.map((option) => (
-                        <option key={option.value} value={option.value}>
-                          {option.label}
-                        </option>
+                    <Select labelId='nivel-label' id='nivel' label='Nível'>
+                      {[...Array(11).keys()].map((value) => (
+                        <MenuItem key={value} value={value}>
+                          {value}
+                        </MenuItem>
                       ))}
-                    </TextField>
+                    </Select>
                   )}
                 </Cards>
               </SwiperSlide>
             ))}
-
             <SwiperNavButtons />
           </Swiper>
           <Box
