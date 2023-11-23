@@ -25,7 +25,12 @@ import { CadastroDeDadosPessoaisUserMMN } from '../../../Pages/landingPageMultin
 export function AllRoutes() {
   return (
     <RouterRoutes>
-      <Route index element={<Navigate to='primeiro-acesso-multinivel' replace />} />
+      <Route
+        index
+        element={
+          <Navigate to='primeiro-acesso-multinivel-parceiro/cadastro-de-pacotes-mmn' replace />
+        }
+      />
       <Route path='/landingpage-indicacao' element={<LandingPageMultinivel />} />
       <Route path='/cadastro-user-mmn' element={<CadastroDeDadosPessoaisUserMMN />} />
       <Route path='/login' element={<Login />} />

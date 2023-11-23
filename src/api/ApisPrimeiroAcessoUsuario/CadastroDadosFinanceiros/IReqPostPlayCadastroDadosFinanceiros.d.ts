@@ -1,7 +1,7 @@
 export interface IReqPostPlayCadastroDadosFinanceiros {
-  cpf: '';
-  type_pix: '';
-  chave_pix: '';
-  titular_pix: '';
-  cpf_titular: '';
+  cpf: string;
+  type_pix: string;
+  chave_pix: string;
+  titular_pix: string;
+  cpf_titular_pix: string;
 }

@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   FormControlLabel,
   Radio,
   RadioGroup,
@@ -8,75 +7,74 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { StepsCadastroUserMMN } from '..';
 
+import LoadingButton from '@mui/lab/LoadingButton/LoadingButton';
+import { toast } from 'react-toastify';
 import { mask } from 'remask';
+import {
+  IReqPostPlayCadastroDadosFinanceiros,
+  postPlayCadastroDadosFinanceiros,
+} from '../../../../api';
 import { Cards, CustomTextField } from '../../../../components';
+import { useForm } from '../../../../hooks';
+import useUser from '../../../../hooks/useUser';
+import { errorToast } from '../../../../utils';
 
 export function CadastroDadosFinanceiros() {
   const theme = useTheme();
   const smDown = useMediaQuery(theme.breakpoints.down('sm'));
   const [loading, setLoading] = useState(false);
-  const [formData, setFormData] = useState({
-    telefone: '',
-    cpf: '',
-    email: '',
+  const { user } = useUser();
+
+  const { formData, changeForm } = useForm<IReqPostPlayCadastroDadosFinanceiros>({
+    chave_pix: '',
+    cpf_titular_pix: '',
+    titular_pix: '',
+    type_pix: '',
+    cpf: user?.cpf ? user?.cpf : '',
   });
 
-  const [errors, setErrors] = useState({
-    telefone: '',
-    cpf: '',
-    email: '',
+  const [validations, setValidation] = useState({
+    chave_pix: false,
+    cpf_titular_pix: false,
+    cpf: false,
   });
 
-  const formatCpf = (value: string) => mask(value, ['999.999.999-99']);
-
-  const handleFieldChange = (fieldName: string, newValue: string) => {
-    setFormData({ ...formData, [fieldName]: newValue });
-  };
-
-  const handleBlur = (fieldName: string) => {
-    if (fieldName === 'cpf') {
-      const formattedCpf = formatCpf(formData.cpf);
-      setFormData({ ...formData, cpf: formattedCpf });
-    }
-    // Resto da lógica de validação...
-    else if (fieldName === 'email') {
-      const emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
-      if (!emailPattern.test(formData.email)) {
-        setErrors({ ...errors, email: 'E-mail inválido' });
-      } else {
-        setErrors({ ...errors, email: '' });
-      }
-    }
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault;
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
     setLoading(true);
-
     try {
-    } catch (error) {}
-
-    if (errors.telefone === '' && errors.cpf === '' && errors.email === '') {
-      // Envie os dados
-      console.log('Dados enviados com sucesso:', formData);
-    } else {
-      // Exiba uma mensagem de erro ou realize alguma ação apropriada
-      console.log('Por favor, corrija os erros no formulário');
+      await postPlayCadastroDadosFinanceiros(formData);
+      toast.success('Dados Financeiros cadastrados!');
+    } catch (error) {
+      errorToast;
     }
-  };
+  }
 
-  const [selectedOption, setSelectedOption] = useState('');
+  useEffect(() => {
+    const isEmailValid =
+      /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.chave_pix) || formData.chave_pix === '';
+    const isCpfValid = /^\d{11}$|^\d{14}$/.test(formData.cpf) || formData.cpf === '';
+    const isCpfTitularValid =
+      /^\d{11}$|^\d{14}$/.test(formData.cpf_titular_pix) || formData.cpf_titular_pix === '';
+    setValidation({
+      cpf: isCpfValid,
+      chave_pix: isEmailValid,
+      cpf_titular_pix: isCpfTitularValid,
+    });
 
-  const handleOptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedOption(event.target.value);
-  };
+    console.log(formData);
+  }, [formData]);
 
   return (
     <StepsCadastroUserMMN step={3}>
-      <>
+      <Box
+        component={'form'}
+        onSubmit={handleSubmit}
+        sx={{ display: 'flex', width: '100%', alignItems: 'center', justifyContent: 'center' }}
+      >
         <Cards
           title={'Dados Financeiros'}
           subTitle={'Cadastre sua conta para recebimento'}
@@ -86,8 +84,8 @@ export function CadastroDadosFinanceiros() {
           <RadioGroup
             aria-label='options'
             name='options'
-            value={selectedOption}
-            onChange={handleOptionChange}
+            value={formData.type_pix}
+            onChange={(e) => changeForm('type_pix', e.target.value)}
             sx={{ flexDirection: 'row' }}
           >
             <FormControlLabel value='telefone' control={<Radio />} label='Telefone' />
@@ -96,53 +94,65 @@ export function CadastroDadosFinanceiros() {
             <FormControlLabel value='chaveAleatoria' control={<Radio />} label='Chave Aleatória' />
           </RadioGroup>
 
-          {selectedOption === 'telefone' && (
+          {formData.type_pix === 'telefone' && (
             <CustomTextField
+              value={mask(formData.chave_pix, ['(99) 9 9999-9999'])}
+              onChange={(e) => changeForm('chave_pix', e.target.value)}
               label='Telefone'
-              value={mask(formData.telefone, ['(99) 9 9999-9999'])}
-              onChange={(e) => handleFieldChange('telefone', e.target.value)}
               required
             />
           )}
 
-          {selectedOption === 'email' && (
+          {formData.type_pix === 'email' && (
             <CustomTextField
+              value={formData.chave_pix}
               label='E-mail'
-              value={formData.email}
-              onChange={(e) => handleFieldChange('email', e.target.value)}
-              onBlur={() => handleBlur('email')}
+              onChange={(e) => changeForm('chave_pix', e.target.value)}
+              helperText={!validations.chave_pix ? 'O email deve ser valido' : ''}
+              error={!validations.chave_pix}
               required
-              error={errors.email !== ''}
-              helperText={errors.email}
             />
           )}
 
-          {selectedOption === 'cpf' && (
+          {formData.type_pix === 'cpf' && (
             <CustomTextField
-              label='CPF'
-              value={formatCpf(formData.cpf)}
-              onChange={(e) => handleFieldChange('cpf', e.target.value)}
-              onBlur={() => handleBlur('cpf')}
-              helperText={errors.cpf}
+              label='Chave: CPF/CNPJ'
+              value={mask(formData.chave_pix || '', ['999.999.999-99'])}
+              onChange={(e) => changeForm('chave_pix', e.target.value.replace(/\D/g, ''))}
               required
             />
           )}
 
-          {selectedOption === 'chaveAleatoria' && <CustomTextField label='Chave Aleatória' />}
+          {formData.type_pix === 'chaveAleatoria' && (
+            <CustomTextField
+              value={formData.chave_pix}
+              onChange={(e) => changeForm('chave_pix', e.target.value)}
+              label='Chave Aleatória'
+              required
+            />
+          )}
 
-          <CustomTextField label='Nome do titular da conta' />
           <CustomTextField
-            label='CPF/CNPJ'
-            value={mask(formData.cpf || '', ['999.999.999-99', '99.999.999/9999-99'])}
-            onChange={(e) => handleFieldChange('cpf', e.target.value.replace(/\D/g, ''))}
+            label='Nome do titular da conta'
+            value={formData.titular_pix}
+            onChange={(e) => changeForm('titular_pix', e.target.value)}
+          />
+          <CustomTextField
+            label='CPF/CNPJ do Titular'
+            value={mask(formData.cpf_titular_pix || '', ['999.999.999-99', '99.999.999/9999-99'])}
+            onChange={(e) => changeForm('cpf_titular_pix', e.target.value.replace(/\D/g, ''))}
             required
+            helperText={!validations.cpf_titular_pix ? 'CPF INVALIDO' : ''}
+            error={!validations.cpf_titular_pix}
           />
 
           <Box mt={2}>
-            <Button>Enviar</Button>
+            <LoadingButton type='submit' variant='contained'>
+              Enviar
+            </LoadingButton>
           </Box>
         </Cards>
-      </>
+      </Box>
     </StepsCadastroUserMMN>
   );
 }

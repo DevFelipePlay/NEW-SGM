@@ -52,7 +52,11 @@ export const TextInputPassword: React.FC<ITextInputProps> = ({
 
   return (
     <Box style={inputStyle}>
-      {icon && <Typography style={iconStyle}>{icon}</Typography>}
+      {icon && typeof icon === 'string' ? (
+        <Typography style={iconStyle}>{icon}</Typography>
+      ) : (
+        <>{icon}</>
+      )}
       <Input
         type={showPassword ? 'text' : 'password'}
         style={fieldStyle}
@@ -62,7 +66,6 @@ export const TextInputPassword: React.FC<ITextInputProps> = ({
         endAdornment={
           icon && (
             <InputAdornment position='end'>
-              {icon}
               <IconButton onClick={handleClickShowPassword} edge='end' style={iconStyle}>
                 {showPassword ? <VisibilityOff /> : <Visibility />}
               </IconButton>

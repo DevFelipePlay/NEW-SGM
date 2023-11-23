@@ -51,7 +51,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
         setItem('usr_c', JSON.stringify({ cpf: cpf, senha: senha }));
         setLoadingAuth(false);
 
-        !isOnBg && navigate('/primeiro-acesso-multinivel-parceiro');
+        !isOnBg && navigate('/primeiro-acesso-multinivel-parceiro/cadastro-de-pacotes-mmn');
       })
       .catch((error) => {
         console.log(error);
