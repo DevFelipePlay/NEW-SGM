@@ -6,9 +6,11 @@ import {
   FormGroup,
   Stack,
   TextField,
+  Typography,
   useMediaQuery,
   useTheme,
 } from '@mui/material';
+import { debounce } from 'lodash';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -16,11 +18,10 @@ import { mask } from 'remask';
 import {
   IReqPostPlayCadastroUserMMN,
   postPlayCadastroUserMMN,
-} from '../../../../api/CadastroUserMMN';
+} from '../../../../api/ApisPrimeiroAcessoParceiro/CadastroUserMMN';
 import { Cards } from '../../../../components';
 import { useForm } from '../../../../hooks';
 import apiCep from '../../../../services/apiCep';
-import { StepsCadastroUserMMN } from '../StepsCadastroUserMMN';
 
 export default function CadastroDeDadosPessoaisUserMmn() {
   return <div>CadastroDeDadosPessoaisUserMmn</div>;
@@ -66,7 +67,7 @@ function CustomTextField({
 
 export function CadastroDeDadosPessoaisUserMMN() {
   const [loading, setLoading] = useState(false);
-  const [loadingCep, setLoadingCep] = useState(false);
+
   const navigate = useNavigate();
 
   const { formData, changeForm, clearForm } = useForm<IReqPostPlayCadastroUserMMN>({
@@ -91,6 +92,8 @@ export function CadastroDeDadosPessoaisUserMMN() {
     confirmEmail: '',
     confirmPassword: '',
   });
+
+  // tratamento de erro
 
   const [validations, setValidations] = useState({
     cep: false,
@@ -117,6 +120,8 @@ export function CadastroDeDadosPessoaisUserMMN() {
     nivel: 3,
   };
 
+  const debouncedGetCepInfo = debounce(getCepInfo, 500);
+
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setLoading(true);
@@ -126,7 +131,7 @@ export function CadastroDeDadosPessoaisUserMMN() {
       clearForm();
       toast.success('Cadastro Realizado!');
       setLoading(false);
-      navigate('/cadastro-user-mmn/escolha-de-compras');
+      navigate('/login');
     } catch (error) {
       toast.error('Erro ao Cadastrar');
       setLoading(false);
@@ -136,45 +141,42 @@ export function CadastroDeDadosPessoaisUserMMN() {
   const theme = useTheme();
   const smDown = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const ufUpperCase = formData.uf.toUpperCase();
+  const ufUpperCase = formData.uf ? formData.uf.toUpperCase() : '';
   const maskedUf = mask(ufUpperCase, ['AA']);
 
   async function getCepInfo() {
-    setLoadingCep(true);
-
     try {
       const data = (await apiCep.get('/' + formData.cep + '/json')).data;
       changeForm('uf', data.uf);
       changeForm('cidade', data.localidade);
       changeForm('district', data.bairro);
       changeForm('street', data.logradouro);
-      setLoadingCep(false);
     } catch (error) {
       console.log(error);
-      setLoadingCep(false);
     }
   }
 
   useEffect(() => {
     const isCepValid = /^\d{5}-?\d{3}$/.test(formData.cep);
-    const isCidadeValid = formData.cidade.trim() !== '';
-    const isComplementValid = formData.complement.trim() !== '';
-    const isCpfValid = /^\d{11}$|^\d{14}$/.test(formData.cpf) || formData.cpf === '';
-    const isDistrictValid = formData.district.trim() !== '';
+    const isCidadeValid = formData?.cidade && formData.cidade.trim() !== '';
+    const isComplementValid = formData?.complement && formData.complement.trim() !== '';
+    const isDistrictValid = formData?.district && formData.district.trim() !== '';
     const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email) || formData.email === '';
-    const isNameValid = formData.name.trim() !== '';
+    const isNameValid = formData?.name.trim() !== '';
     const isNascimentoValid = true; // Adicione sua lógica de validação para nascimento
     const isNumberValid = /^\d+$/.test(formData.number);
     const isPhoneValid = true;
-    const isStreetValid = formData.street.trim() !== '';
+    const isStreetValid = formData?.street && formData.street.trim() !== '';
     const isUfValid = /^[A-Za-z]{2}$/.test(formData.uf);
     const isWhatsValid = /^\(\d{2}\)\s\d{5}-\d{4}$/.test(formData.whats);
     const isPasswordValid = formData.password.length >= 5 || formData.password === '';
     const isConfirmEmailValid = formData.confirmEmail === formData.email;
     const isConfirmPasswordValid = formData.confirmPassword === formData.password;
+    const isCpfValid = /^\d{11}$|^\d{14}$/.test(formData.cpf) || formData.cpf === '';
 
     // Atualizar estados de validação
-    setValidations({
+    setValidations((prevValidations: any) => ({
+      ...prevValidations,
       cep: isCepValid,
       cidade: isCidadeValid,
       complement: isComplementValid,
@@ -191,17 +193,70 @@ export function CadastroDeDadosPessoaisUserMMN() {
       password: isPasswordValid,
       confirmEmail: isConfirmEmailValid,
       confirmPassword: isConfirmPasswordValid,
-    });
-    if (formData.cep.length < 8) return;
-    getCepInfo();
-  }, [validations, formData.cep]);
+    }));
+  }, [formData]);
+
+  useEffect(() => {
+    if (formData.cep.length === 8) {
+      debouncedGetCepInfo();
+    }
+  }, [formData.cep]);
+
+  useEffect(() => {
+    if (formData.cep.length === 8) {
+      getCepInfo().finally(() => {});
+    }
+  }, [formData.cep]);
 
   return (
-    <StepsCadastroUserMMN step={0}>
+    <Box
+      component={'form'}
+      onSubmit={handleSubmit}
+      sx={{
+        width: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'column',
+      }}
+    >
       <Box
-        component={'form'}
-        onSubmit={handleSubmit}
-        sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+        sx={{
+          backgroundColor: '#141414',
+          p: {
+            md: 10,
+            sm: 5,
+            xs: 2,
+          },
+          py: {
+            xs: 5,
+          },
+          flexDirection: 'column',
+          display: 'flex',
+          width: '100%',
+        }}
+      >
+        <Typography variant={`${smDown ? 'h4' : 'h2'}`} color='var(--primary-color)'>
+          Cadastre-se
+        </Typography>
+        <Typography
+          variant={`${smDown ? 'subtitle2' : 'subtitle1'}`}
+          color='#ffffff'
+          sx={{
+            maxWidth: '400px',
+          }}
+        >
+          cadastre aqui seu modulo multinivel
+        </Typography>
+      </Box>
+      <Box
+        sx={{
+          width: '100%',
+          mb: 10,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
       >
         <Cards
           title='Cadastre-se'
@@ -216,7 +271,7 @@ export function CadastroDeDadosPessoaisUserMMN() {
 
           <CustomTextField
             label='CPF/CNPJ'
-            value={mask(formData.cpf, ['999.999.999-99', '99.999.999/9999-99'])}
+            value={mask(formData.cpf || '', ['999.999.999-99', '99.999.999/9999-99'])}
             onChange={(e) => changeForm('cpf', e.target.value.replace(/\D/g, ''))}
             required
             helperText={!validations.cpf ? 'CPF INVALIDO' : ''}
@@ -225,61 +280,61 @@ export function CadastroDeDadosPessoaisUserMMN() {
 
           <CustomTextField
             label='Data de Nascimento'
-            value={mask(formData.nascimento, ['99/99/9999'])}
+            value={mask(formData.nascimento || '', ['99/99/9999'])}
             onChange={(e) => changeForm('nascimento', e.target.value)}
             required
           />
           <CustomTextField
             label='Telefone'
-            value={mask(formData.phone, ['(99) 9 9999-9999'])}
+            value={mask(formData.phone || '', ['(99) 9 9999-9999'])}
             onChange={(e) => changeForm('phone', e.target.value.replace(/\D/g, ''))}
             required
           />
           <CustomTextField
             label='CEP'
-            value={mask(formData.cep, ['99999-999'])}
+            value={mask(formData.cep || '', ['99999-999'])}
             onChange={(e) => changeForm('cep', e.target.value.replace(/\D/g, ''))}
             required
           />
 
           <Stack sx={{ width: '100%', color: 'grey.500' }} spacing={2}></Stack>
           <CustomTextField
-            value={maskedUf}
+            value={maskedUf || ''}
             onChange={(e) => changeForm('uf', e.target.value)}
             label='UF'
             required
           />
           <CustomTextField
-            value={formData.cidade}
+            value={formData.cidade || ''}
             onChange={(e) => changeForm('cidade', e.target.value.trim())}
             label='Cidade'
             required
           />
           <CustomTextField
-            value={formData.district}
+            value={formData.district || ''}
             onChange={(e) => changeForm('district', e.target.value.trim())}
             label='Bairro'
             required
           />
           <CustomTextField
-            value={formData.street}
+            value={formData.street || ''}
             onChange={(e) => changeForm('street', e.target.value.trim())}
             label='Logradouro'
             required
           />
           <CustomTextField
-            value={formData.number}
+            value={formData.number || ''}
             onChange={(e) => changeForm('number', e.target.value.trim())}
             label='Número'
           />
           <CustomTextField
-            value={formData.complement}
+            value={formData.complement || ''}
             onChange={(e) => changeForm('complement', e.target.value.trim())}
             label='Complemento'
           />
           <CustomTextField
             label='E-Mail'
-            value={formData.email}
+            value={formData.email || ''}
             onChange={(e) => changeForm('email', e.target.value)}
             helperText={!validations.email ? 'O email deve ser valido' : ''}
             error={!validations.email}
@@ -287,7 +342,7 @@ export function CadastroDeDadosPessoaisUserMMN() {
           />
           <CustomTextField
             label='Confirme seu E-Mail'
-            value={formData.confirmEmail}
+            value={formData.confirmEmail || ''}
             onChange={(e) => changeForm('confirmEmail', e.target.value)}
             helperText={!validations.confirmEmail ? 'Os campos de e-mail não coícidem' : ''}
             error={!validations.confirmEmail}
@@ -296,7 +351,7 @@ export function CadastroDeDadosPessoaisUserMMN() {
           <CustomTextField
             label='Senha'
             type='password'
-            value={formData.password}
+            value={formData.password || ''}
             onChange={(e) => changeForm('password', e.target.value)}
             helperText={
               !validations.password ? 'A senha deve conter no mínimo cinco caracteres' : ''
@@ -307,7 +362,7 @@ export function CadastroDeDadosPessoaisUserMMN() {
           <CustomTextField
             label='Confirme sua senha'
             type='password'
-            value={formData.confirmPassword}
+            value={formData.confirmPassword || ''}
             onChange={(e) => changeForm('confirmPassword', e.target.value)}
             helperText={!validations.confirmPassword ? 'A senhas não coicídem' : ''}
             error={!validations.confirmPassword}
@@ -323,6 +378,6 @@ export function CadastroDeDadosPessoaisUserMMN() {
           </Box>
         </Cards>
       </Box>
-    </StepsCadastroUserMMN>
+    </Box>
   );
 }

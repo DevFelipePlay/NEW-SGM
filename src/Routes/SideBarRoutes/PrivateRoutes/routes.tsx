@@ -9,6 +9,7 @@ import Login from '../../../Pages/Login';
 import InfoUserMMN from '../../../Pages/MMN/InfoUserMMN';
 import DashBoardInfoUserMMN from '../../../Pages/MMN/InfoUserMMN/Tab0';
 
+import { CadastroDadosFinanceiros } from '../../../Pages/MMN';
 import {
   CadastroDePacotesMMN,
   CadastroDosPlanosMMN,
@@ -16,9 +17,9 @@ import {
   CadastroPontosModalidadeMMN,
   CadastroPremiacoesMMN,
   CadastroValoresETaxasMMN,
-} from '../../../Pages/MMN/PrimeiroAcessoMMN';
-import { CadastroNiveisDeUsuario } from '../../../Pages/MMN/PrimeiroAcessoMMN/CadastroNiveisDeUsuario';
-import { EscolhaDeCompras, LandingPageMultinivel } from '../../../Pages/landingPageMultinivel';
+} from '../../../Pages/MMN/PrimeiroAcessoParceiroMMN';
+import { CadastroNiveisDeUsuario } from '../../../Pages/MMN/PrimeiroAcessoParceiroMMN/CadastroNiveisDeUsuario';
+import { CompraDePacotes, LandingPageMultinivel } from '../../../Pages/landingPageMultinivel';
 import { CadastroDeDadosPessoaisUserMMN } from '../../../Pages/landingPageMultinivel/CadastroUserMMN/CadastroDeDadosPessoaisUserMMN/CadastroDeDadosPessoaisUserMMN';
 
 export function AllRoutes() {
@@ -26,17 +27,10 @@ export function AllRoutes() {
     <RouterRoutes>
       <Route index element={<Navigate to='primeiro-acesso-multinivel' replace />} />
       <Route path='/landingpage-indicacao' element={<LandingPageMultinivel />} />
-      <Route path='/cadastro-user-mmn'>
-        <Route
-          path='cadastro-de-dados-pessoais-user-mmn'
-          element={<CadastroDeDadosPessoaisUserMMN />}
-        />
-        <Route path='escolha-de-compras' element={<EscolhaDeCompras />} />
-      </Route>
+      <Route path='/cadastro-user-mmn' element={<CadastroDeDadosPessoaisUserMMN />} />
       <Route path='/login' element={<Login />} />
 
       {/* Rotas Protegidas */}
-
       <Route element={<AuthGuard allowedRoles={[-1, 0, 2, 4, 5, 6]} />}>
         <Route element={<SideBarRoutes />}>
           <Route path='/home-admin-mmn' element={<HomeAdminMMN />} />
@@ -46,8 +40,8 @@ export function AllRoutes() {
             <Route path='dashboard-info-user-mmn' element={<DashBoardInfoUserMMN />} />
           </Route>
 
-          {/* Primeiro acesso */}
-          <Route path='/primeiro-acesso-multinivel'>
+          {/* Primeiro acesso Parceiro*/}
+          <Route path='/primeiro-acesso-multinivel-parceiro'>
             <Route path='cadastro-de-pacotes-mmn' element={<CadastroDePacotesMMN />} />
             <Route path='cadastro-dos-planos-mmn' element={<CadastroDosPlanosMMN />} />
             <Route path='cadastro-niveis-de-usuario' element={<CadastroNiveisDeUsuario />} />
@@ -60,10 +54,16 @@ export function AllRoutes() {
             <Route path='cadastro-premiacoes' element={<CadastroPremiacoesMMN />} />
           </Route>
           {/* //////// */}
+          <Route path='/primeiro-acesso-multinivel-usuario'>
+            <Route path='compra-de-pacotes' element={<CompraDePacotes />} />
+            <Route path='cadastro-dados-financeiros' element={<CadastroDadosFinanceiros />} />
+          </Route>
+          {/* Primeiro acesso usuãrio */}
 
           <Route path='/crm/parceiros' element={<ListPartner />} />
         </Route>
       </Route>
+      {/* ///////////////////// */}
     </RouterRoutes>
   );
 }

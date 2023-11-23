@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 import {
   IReqPostPlayValidaCpfLadingpage,
   postPlayValidaCpfLandingPage,
-} from '../../../../api/PlayLadingPage';
+} from '../../../../api/ApisPrimeiroAcessoParceiro/PlayLadingPage';
 import { AboutImg } from '../../../../assets/svg';
 import { useForm } from '../../../../hooks';
 import { maskCpfCnpj } from '../../../../utils';
@@ -39,7 +39,7 @@ export default function Banner1() {
       navigate('/Cadastro');
     } catch (error: any) {
       toast.success('Inicie seu cadastro!');
-      navigate('/cadastro-user-mmn/cadastro-de-dados-pessoais-user-mmn');
+      navigate('/cadastro-user-mmn');
     } finally {
       setLoading(false);
     }
