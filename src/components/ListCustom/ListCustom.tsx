@@ -18,12 +18,19 @@ import {
   Zoom,
   styled,
 } from '@mui/material';
-import { useState } from 'react';
+import { MouseEventHandler, useState } from 'react';
 import { MdModeEditOutline } from 'react-icons/md';
-import { useNavigate } from 'react-router-dom';
-import teste from '../../assets/MMNImg/moto.jpg';
 
-export function ListCustom() {
+interface IlistCustom {
+  avatar: string;
+  nome: string;
+  cpf: string;
+  editar: MouseEventHandler<HTMLButtonElement>;
+  excluir: MouseEventHandler<HTMLButtonElement>;
+  pressItemList: MouseEventHandler<HTMLDivElement>;
+}
+
+export function ListCustom({ avatar, nome, cpf, editar, excluir, pressItemList }: IlistCustom) {
   const Demo = styled('div')(() => ({
     backgroundColor: 'color.background.default',
   }));
@@ -49,8 +56,6 @@ export function ListCustom() {
     borderRadius: '30px',
   };
 
-  const navigate = useNavigate();
-
   return (
     <Box sx={{ flexGrow: 1, width: '100%' }}>
       <Grid item xs={12} md={6}>
@@ -69,6 +74,7 @@ export function ListCustom() {
                       sx={{ color: 'primary.light', bgcolor: 'white' }}
                       edge='end'
                       aria-label=''
+                      onClick={editar}
                     >
                       <MdModeEditOutline />
                     </IconButton>
@@ -108,19 +114,18 @@ export function ListCustom() {
                   arrow
                   TransitionComponent={Zoom}
                   TransitionProps={{ timeout: 600 }}
-                  onClick={() => navigate(`/crm/parceiros/parceiro`)}
+                  onClick={pressItemList}
                 >
                   <Avatar>
-                    {/* <FolderIcon /> */}
-                    <img src={teste} width={'100%'} />
+                    <img src={avatar} width={'100%'} />
                   </Avatar>
                 </Tooltip>
               </ListItemAvatar>
-              <ListItemText
-                sx={{ userSelect: 'none' }}
-                onClick={() => navigate(`/crm/parceiros/parceiro`)}
-              >
-                Nome do Vendedor da silva costa
+              <ListItemText sx={{ userSelect: 'none' }} onClick={pressItemList}>
+                {nome}
+              </ListItemText>
+              <ListItemText sx={{ userSelect: 'none' }} onClick={pressItemList}>
+                {cpf}
               </ListItemText>
             </ListItem>
             <Modal
@@ -142,8 +147,12 @@ export function ListCustom() {
                   backup dos dados antes de prosseguir com essa ação, a fim de garantir a
                   preservação e disponibilidade dos dados para referências futuras, se necessário.
                 </Alert>
-                <Button>Excluir</Button>
-                <Button onClick={() => handleClose()}>Cancelar</Button>
+                <Button color='error' variant='contained' onClick={excluir}>
+                  Excluir
+                </Button>
+                <Button onClick={() => handleClose()} variant='contained'>
+                  Cancelar
+                </Button>
               </Stack>
             </Modal>
           </List>

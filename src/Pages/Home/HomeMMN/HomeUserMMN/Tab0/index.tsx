@@ -1,13 +1,57 @@
-import { Avatar, Box, Grid, Typography } from '@mui/material';
+import { Avatar, Box, Grid, Tooltip, Typography } from '@mui/material';
+import { useState } from 'react';
+import { MdOutlineContentCopy } from 'react-icons/md';
+import { toast } from 'react-toastify';
+import { postPlayRecuperaIdIndicacao } from '../../../../../api/ApisUtils/RecuperaIdIndicacao/postPlayRecuperaIdIndicacao';
 import perfil from '../../../../../assets/MMNImg/perfil.jpeg';
 import { Cards } from '../../../../../components';
+import { useCopyToClipboard } from '../../../../../hooks/useCopyToClipboard';
+
+import useUser from '../../../../../hooks/useUser';
 
 export default function Tab0() {
+  const [responseIdIndicacao, setresponseIdIndicacao] = useState([]);
+
+  const [value, copy] = useCopyToClipboard();
+  const { user } = useUser();
+
+  async function handleIdIndicacao() {
+    let payload = {
+      cpf: user?.cpf ? user?.cpf : '',
+    };
+    try {
+      const data = await postPlayRecuperaIdIndicacao(payload);
+      setresponseIdIndicacao(data);
+    } catch (error) {}
+  }
+
+  function copyToText() {
+    copy('https://linkparaindicação/usertestenildo.com.br');
+    toast.success('Copiado para area de transferencia');
+  }
+
   return (
     <Grid container spacing={2} width={'100%'}>
       <Grid item xs={15}>
-        <Cards title={'Link para indicação'} subTitle={''} size={'100%'}>
-          <a href=''>https://linkparaindicação/usertestenildo.com.br</a>
+        <Cards title={'Seu Link para indicação'} subTitle={''} size={'100%'}>
+          <Tooltip title={'Copiar'}>
+            <Box
+              onClick={() => copyToText()}
+              sx={{
+                cursor: 'pointer',
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: '100%',
+              }}
+            >
+              <Typography sx={{ marginRight: '2rem' }}>
+                https://linkparaindicação/usertestenildo.com.br
+              </Typography>
+              <MdOutlineContentCopy />
+            </Box>
+          </Tooltip>
         </Cards>
       </Grid>
       <Grid item xs={3}>

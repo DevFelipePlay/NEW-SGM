@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import { debounce } from 'lodash';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { mask } from 'remask';
 import {
@@ -114,9 +114,11 @@ export function CadastroDeDadosPessoaisUserMMN() {
     confirmPassword: false,
   });
 
+  const { idIndicacao } = useParams();
+
   const formDataPlusToken = {
     ...formData,
-    id_patrocinador: 'AKNF4R40EG',
+    id_patrocinador: idIndicacao ? idIndicacao?.toString() : '',
     nivel: 3,
   };
 

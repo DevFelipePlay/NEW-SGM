@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { CustomizedTabs, DefaultContainer } from '../../../../components';
-import Tab0 from './Tab0';
-import Tab1 from './tab1';
+import Tab0 from './Inicio';
+import RedeDeUsuariosParceiroMMN from './Rede/RedeDeUsuariosParceiroMMN';
 
 export default function HomeAdminMMN() {
   const [tabValue, setTabValue] = useState(0);
@@ -27,7 +27,7 @@ export default function HomeAdminMMN() {
       />
 
       {tabValue === 0 && <Tab0 />}
-      {tabValue === 1 && <Tab1 />}
+      {tabValue === 1 && <RedeDeUsuariosParceiroMMN />}
     </DefaultContainer>
   );
 }

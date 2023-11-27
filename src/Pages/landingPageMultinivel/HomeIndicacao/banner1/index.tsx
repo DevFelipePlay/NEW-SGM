@@ -1,7 +1,7 @@
 import { Box, CircularProgress, Stack, Typography, useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { BsArrowRight } from 'react-icons/bs';
 import { toast } from 'react-toastify';
@@ -19,6 +19,7 @@ export default function Banner1() {
   const theme = useTheme();
   const mdDown = useMediaQuery(theme.breakpoints.down('md'));
   const smDown = useMediaQuery(theme.breakpoints.down('sm'));
+  const { idIndicacao } = useParams();
 
   //Endpoint para validar CPF
   const navigate = useNavigate();
@@ -36,10 +37,10 @@ export default function Banner1() {
       await postPlayValidaCpfLandingPage(formData);
       changeForm('cpf', formData.cpf);
       toast.success('Sucesso');
-      navigate('/Cadastro');
+      navigate(`/cadastro-usuario-mmn/${idIndicacao}`);
     } catch (error: any) {
       toast.success('Inicie seu cadastro!');
-      navigate('/cadastro-user-mmn');
+      navigate(`/cadastro-usuario-mmn/${idIndicacao}`);
     } finally {
       setLoading(false);
     }

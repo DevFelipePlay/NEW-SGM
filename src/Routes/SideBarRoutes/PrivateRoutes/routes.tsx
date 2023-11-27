@@ -32,8 +32,11 @@ export function AllRoutes() {
           <Navigate to='primeiro-acesso-multinivel-parceiro/cadastro-de-pacotes-mmn' replace />
         }
       />
-      <Route path='/landingpage-indicacao' element={<LandingPageMultinivel />} />
-      <Route path='/cadastro-user-mmn' element={<CadastroDeDadosPessoaisUserMMN />} />
+      <Route path='/landingpage-indicacao/:idIndicacao' element={<LandingPageMultinivel />} />
+      <Route
+        path='/cadastro-usuario-mmn/:idIndicacao'
+        element={<CadastroDeDadosPessoaisUserMMN />}
+      />
       <Route path='/login' element={<Login />} />
 
       {/* Rotas Protegidas */}
