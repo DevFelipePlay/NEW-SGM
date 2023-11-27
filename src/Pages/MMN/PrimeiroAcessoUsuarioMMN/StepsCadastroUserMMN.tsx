@@ -110,20 +110,14 @@ export function StepsCadastroUserMMN({ step, children }: IStepsCadastro) {
 
   const steps = [
     'Escolha a melhor forma para seu modulo',
-    'Escolha seu Plano',
-    'Compre um pacote de licença',
-    'Dados financeiros',
+    'Ative sua linha e escolha um plano',
+    'Cadastre seus dados financeiros',
   ];
-
-  /////// function step /////
-
-  // const theme = useTheme();
-  // const smDown = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
     <DefaultContainer
       page={'Primeiro Acesso do usuário'}
-      title={'Bem vindo ao sistema multinivel!'}
+      title={'Bem vindo ao Sistema Multinivel!'}
       subTitle={'É um prazer te-lo conosco'}
       showSearch={false}
       showAvatar={true}

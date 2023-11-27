@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react';
 import { StepsCadastroUserMMN } from '..';
 
 import LoadingButton from '@mui/lab/LoadingButton/LoadingButton';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { mask } from 'remask';
 import {
@@ -27,6 +28,7 @@ export function CadastroDadosFinanceiros() {
   const smDown = useMediaQuery(theme.breakpoints.down('sm'));
   const [loading, setLoading] = useState(false);
   const { user } = useUser();
+  const navigate = useNavigate();
 
   const { formData, changeForm } = useForm<IReqPostPlayCadastroDadosFinanceiros>({
     chave_pix: '',
@@ -48,6 +50,7 @@ export function CadastroDadosFinanceiros() {
     try {
       await postPlayCadastroDadosFinanceiros(formData);
       toast.success('Dados Financeiros cadastrados!');
+      navigate('/home-usuario-mmn');
     } catch (error) {
       errorToast;
     }
@@ -147,7 +150,7 @@ export function CadastroDadosFinanceiros() {
           />
 
           <Box mt={2}>
-            <LoadingButton type='submit' variant='contained'>
+            <LoadingButton type='submit' variant='contained' loading={loading}>
               Enviar
             </LoadingButton>
           </Box>

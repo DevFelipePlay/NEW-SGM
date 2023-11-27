@@ -39,7 +39,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     };
 
     apiPlay
-      .post('/api/login', dados)
+      .post('login', dados)
       .then((response) => {
         if (response.data.profileid === 5) return toast.error('CPF não encontrado'); // Perfil está Excluído
         if (response.data.profileid === 3 && response.data.cpf.length === 11)
