@@ -9,6 +9,7 @@ export * from './DefaultContainer';
 export * from './Dropzone';
 export * from './Inputs';
 export * from './ListCustom';
+export * from './Loading';
 export * from './Progressbar';
 export * from './Sidebar';
 export * from './SwiperNavButtons';

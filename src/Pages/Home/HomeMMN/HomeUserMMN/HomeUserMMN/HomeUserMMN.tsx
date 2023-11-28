@@ -11,7 +11,7 @@ export function HomeUserMMN() {
       page={'Multinivel'}
       title={'Bem-vindo'}
       subTitle={'Ficamos felizes em te-lo de volta'}
-      showSearch={true}
+      showSearch={false}
       showAvatar={true}
     >
       <CustomizedTabs

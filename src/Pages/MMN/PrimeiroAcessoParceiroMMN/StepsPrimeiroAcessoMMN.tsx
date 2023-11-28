@@ -125,7 +125,7 @@ export function StepsPrimeiroAcessoMMN({ step, children }: IStepsCadastro) {
       page={'Cadastro Primeiro Acesso MMN'}
       title={'Cadastro'}
       subTitle={'Primeiras configurações do seu modulo'}
-      showSearch={true}
+      showSearch={false}
       showAvatar={true}
     >
       <Box

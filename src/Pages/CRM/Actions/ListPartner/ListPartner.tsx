@@ -10,7 +10,7 @@ export default function ListPartner() {
       page={'CRM'}
       title={'Parceiros'}
       subTitle={'Visualize e gerencie todos os parceiros cadastrados no sistema'}
-      showSearch={true}
+      showSearch={false}
       showAvatar={true}
     >
       <Box

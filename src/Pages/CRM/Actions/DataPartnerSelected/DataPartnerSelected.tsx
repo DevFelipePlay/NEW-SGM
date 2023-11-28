@@ -20,7 +20,7 @@ export default function DataPartnerSelected() {
         page={'CRM'}
         title={title}
         subTitle={subtitle}
-        showSearch={true}
+        showSearch={false}
         showAvatar={true}
       >
         <CustomizedTabs

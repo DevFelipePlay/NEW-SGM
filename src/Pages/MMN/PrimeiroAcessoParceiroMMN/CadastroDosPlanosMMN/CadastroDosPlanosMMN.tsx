@@ -1,4 +1,4 @@
-import { Box, Checkbox, Grid, MenuItem, Select, Skeleton, Typography } from '@mui/material';
+import { Box, Checkbox, Grid, MenuItem, Select, Typography } from '@mui/material';
 import { PiHandCoins } from 'react-icons/pi';
 
 import 'swiper/css';
@@ -23,7 +23,7 @@ import {
   postPlayRecuperaPlanosPrimeiroAcesso,
 } from '../../../../api/ApisPrimeiroAcessoParceiro';
 import { IResPostPlayRecuperaPlanosPrimeiroAcesso } from '../../../../api/ApisPrimeiroAcessoParceiro/RecuperaPlanosPrimeiroAcessoMMN/IResPostPlayRecuperaPlanosPrimeiroAcessoMMN';
-import { Cards } from '../../../../components';
+import { Cards, Loading } from '../../../../components';
 import useUser from '../../../../hooks/useUser';
 import { errorToast } from '../../../../utils';
 
@@ -125,27 +125,17 @@ export function CadastroDosPlanosMMN() {
         onSubmit={handleSubmit}
       >
         {loading ? (
-          <Grid
-            container
-            spacing={1}
+          <Box
             sx={{
               width: '100%',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              flexDirection: 'row',
+              height: '50vh',
             }}
           >
-            <Grid item>
-              <Skeleton width={300} height={600} />
-            </Grid>
-            <Grid item>
-              <Skeleton width={300} height={600} />
-            </Grid>
-            <Grid item>
-              <Skeleton width={300} height={600} />
-            </Grid>
-          </Grid>
+            <Loading />
+          </Box>
         ) : (
           <>
             <Typography variant='h6'>Selecione os planos que deseja ter no seu modulo</Typography>

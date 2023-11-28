@@ -1,11 +1,11 @@
-import { Box, Button, CircularProgress, Grid, Typography } from '@mui/material';
+import { Box, Button, Grid, Typography } from '@mui/material';
 
 import { upperCase } from 'lodash';
 import { useEffect, useState } from 'react';
 import { mask } from 'remask';
 import { postPlaySaqueUsuario } from '../../../../../api/ApisUtils/SaqueUsuario';
 import { IResPostPlaySaqueUsuario } from '../../../../../api/ApisUtils/SaqueUsuario/IResPostPlaySaqueUsuario';
-import { Cards } from '../../../../../components';
+import { Cards, Loading } from '../../../../../components';
 import useUser from '../../../../../hooks/useUser';
 
 export function Saque() {
@@ -36,11 +36,15 @@ export function Saque() {
     <>
       {loading ? (
         <Box
-          width={'100%'}
-          height={'50vh'}
-          sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+          sx={{
+            width: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: '50vh',
+          }}
         >
-          <CircularProgress />
+          <Loading />
         </Box>
       ) : (
         <Grid container spacing={2}>

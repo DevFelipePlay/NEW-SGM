@@ -3,6 +3,7 @@ import { CSSProperties, ReactNode } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { RiNotificationLine } from 'react-icons/ri';
 import { SearchInput } from '..';
+import useUser from '../../hooks/useUser';
 
 interface IDefaultCOntainer {
   page: string;
@@ -41,6 +42,8 @@ export function DefaultContainer({
     padding: '0px 40px 0px 100px',
   };
 
+  const { user } = useUser();
+
   return (
     <Grid>
       <Box
@@ -72,14 +75,25 @@ export function DefaultContainer({
               <Badge badgeContent={4} color='error' sx={{ marginRight: '1.5rem' }}>
                 <RiNotificationLine style={{ color: 'var(--text-color)', fontSize: '1.3rem' }} />
               </Badge>
-              <Avatar sx={{ mr: 2 }}>TA</Avatar>
+              <Avatar sx={{ mr: 2 }} />
               <Box>
-                <Typography sx={{ color: 'var(--text-color)' }}>Testenildo Alves</Typography>
+                <Typography sx={{ color: 'var(--text-color)' }}>
+                  {user ? user.name : 'Bem Vindo'}
+                </Typography>
                 <Typography
                   sx={{ color: 'var(--sub-text-color)', fontSize: '12px' }}
                   variant='subtitle2'
                 >
-                  Mega Ultra blaster user
+                  Nivel de usuário:{' '}
+                  {(user?.profileid === -1 && 'Ultra') ||
+                    (user?.profileid === 0 && 'Super') ||
+                    (user?.profileid === 1 && 'Admin') ||
+                    (user?.profileid === 2 && 'Atendente') ||
+                    (user?.profileid === 3 && 'Cliente') ||
+                    (user?.profileid === 4 && 'Vendedor') ||
+                    (user?.profileid === 5 && 'Desativado') ||
+                    (user?.profileid === 6 && 'Franquia') ||
+                    (user?.profileid === 7 && 'Multinivel')}
                 </Typography>
               </Box>
             </Box>

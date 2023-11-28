@@ -12,7 +12,7 @@ export default function HomeAdminMMN() {
       page={'Multinivel'}
       title={'Bem-vindo'}
       subTitle={'Ficamos felizes tem te-lo de volta'}
-      showSearch={true}
+      showSearch={false}
       showAvatar={true}
     >
       <CustomizedTabs

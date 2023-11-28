@@ -5,8 +5,9 @@ import { useEffect, useState } from 'react';
 import { mask } from 'remask';
 import { postPlayRecuperaNiveisParceiro } from '../../../../../api';
 import { IResPostPlayRecuperaNiveisParceiro } from '../../../../../api/ApisUtils/RecuperaNiveisParceiro/IResPostPlayRecuperaNiveisParceiro';
-import { ListCustom } from '../../../../../components';
+import { ListCustom, Loading } from '../../../../../components';
 import useUser from '../../../../../hooks/useUser';
+import { errorToast } from '../../../../../utils';
 
 export default function RedeDeUsuariosParceiroMMN() {
   const [loading, setLoading] = useState(false);
@@ -24,7 +25,11 @@ export default function RedeDeUsuariosParceiroMMN() {
     try {
       const data = await postPlayRecuperaNiveisParceiro(payload);
       setResponseList(data);
-    } catch (error) {}
+    } catch (error: any) {
+      errorToast(error);
+    } finally {
+      setLoading(false);
+    }
   }
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
@@ -56,46 +61,65 @@ export default function RedeDeUsuariosParceiroMMN() {
   }, []);
 
   return (
-    <Box
-      sx={{
-        mb: 2,
-        width: '100%',
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        flexDirection: 'column',
-      }}
-    >
-      <Box
-        sx={{
-          width: '100%',
-          m: 1,
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        }}
-      >
-        <Typography variant='h4'>Lista de usuários</Typography>
-        <Button
-          onClick={function (): void {
-            throw new Error('Function not implemented.');
+    <>
+      {loading ? (
+        <Box
+          sx={{
+            width: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: '50vh',
           }}
         >
-          Cadastrar
-        </Button>
-      </Box>
-      {renderPaginatedList()}
+          <Loading />
+        </Box>
+      ) : (
+        <Box
+          sx={{
+            mb: 2,
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexDirection: 'column',
+          }}
+        >
+          <Box
+            sx={{
+              width: '100%',
+              m: 1,
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
+            <Typography variant='h4'>Lista de usuários</Typography>
+            <Button
+              onClick={function (): void {
+                throw new Error('Function not implemented.');
+              }}
+            >
+              Cadastrar
+            </Button>
+          </Box>
+          {renderPaginatedList()}
 
-      <Stack spacing={2}>
-        <Pagination
-          count={Math.ceil(responseList.length / itemsPerPage)}
-          page={currentPage}
-          onChange={handlePageChange}
-          renderItem={(item) => (
-            <PaginationItem slots={{ previous: ArrowBackIcon, next: ArrowForwardIcon }} {...item} />
-          )}
-        />
-      </Stack>
-    </Box>
+          <Stack spacing={2}>
+            <Pagination
+              count={Math.ceil(responseList.length / itemsPerPage)}
+              page={currentPage}
+              onChange={handlePageChange}
+              renderItem={(item) => (
+                <PaginationItem
+                  slots={{ previous: ArrowBackIcon, next: ArrowForwardIcon }}
+                  {...item}
+                />
+              )}
+            />
+          </Stack>
+        </Box>
+      )}
+    </>
   );
 }
