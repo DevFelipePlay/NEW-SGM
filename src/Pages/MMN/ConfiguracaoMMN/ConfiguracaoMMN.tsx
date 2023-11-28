@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { EditarPacotes } from '.';
 import { CustomizedTabs, DefaultContainer } from '../../../components';
 
 export function ConfiguracaoMMN() {
@@ -25,7 +26,7 @@ export function ConfiguracaoMMN() {
         mostrarBotaoVoltar={false}
         mostrarNavbar={true}
       />
-      {tabValue === 0 && 'teste3'}
+      {tabValue === 0 && <EditarPacotes />}
       {tabValue === 1 && 'teste1'}
       {tabValue === 2 && 'teste1'}
       {tabValue === 3 && 'teste1'}

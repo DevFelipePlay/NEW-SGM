@@ -17,8 +17,7 @@ export function CadastroPontosModalidadeMMN() {
   const { formData, changeForm } = useForm({
     ativacao: '',
     recarga: '',
-    vendachip: '',
-    licenca: '',
+
     token: user?.token,
   });
 
@@ -71,36 +70,12 @@ export function CadastroPontosModalidadeMMN() {
             onChange={(e) => changeForm('recarga', e.target.value)}
             required
           />
-          <TextField
-            type='tel'
-            label='Venda de chip'
-            variant='standard'
-            fullWidth
-            sx={{ mb: 2 }}
-            value={mask(formData.vendachip, ['9999'])}
-            onChange={(e) => changeForm('vendachip', e.target.value)}
-            required
-          />
-          <TextField
-            type='tel'
-            label='Licença'
-            variant='standard'
-            fullWidth
-            sx={{ mb: 2 }}
-            value={mask(formData.licenca, ['9999'])}
-            onChange={(e) => changeForm('licenca', e.target.value)}
-            required
-          />
+
           <Box>
             <LoadingButton
               type='submit'
               variant='contained'
-              disabled={
-                formData.ativacao === '' ||
-                formData.licenca === '' ||
-                formData.recarga === '' ||
-                formData.vendachip === ''
-              }
+              disabled={formData.ativacao === '' || formData.recarga === ''}
               loading={loading}
             >
               Enviar
