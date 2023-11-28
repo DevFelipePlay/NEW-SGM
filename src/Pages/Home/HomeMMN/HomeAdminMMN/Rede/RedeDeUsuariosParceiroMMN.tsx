@@ -2,6 +2,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { Box, Button, Pagination, PaginationItem, Stack, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { mask } from 'remask';
 import { postPlayRecuperaNiveisParceiro } from '../../../../../api';
 import { IResPostPlayRecuperaNiveisParceiro } from '../../../../../api/ApisUtils/RecuperaNiveisParceiro/IResPostPlayRecuperaNiveisParceiro';
@@ -15,6 +16,8 @@ export default function RedeDeUsuariosParceiroMMN() {
   const { user } = useUser();
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
+
+  const navigate = useNavigate();
 
   async function handleListRedeDeUsuarioMMN() {
     setLoading(true);
@@ -49,7 +52,7 @@ export default function RedeDeUsuariosParceiroMMN() {
           cpf={mask(item.cpf, ['999.999.999-99', '99.999.999/9999-99'])}
           editar={() => ''}
           excluir={() => ''}
-          pressItemList={() => ''}
+          pressItemList={() => navigate(`/daashboard-relatorio-usuario-mmn/${item.cpf}`)}
         />
       </Box>
     ));
@@ -99,6 +102,7 @@ export default function RedeDeUsuariosParceiroMMN() {
               onClick={function (): void {
                 throw new Error('Function not implemented.');
               }}
+              variant='contained'
             >
               Cadastrar
             </Button>

@@ -19,6 +19,7 @@ import {
   CadastroPremiacoesMMN,
   CadastroValoresETaxasMMN,
   CompraDePacotes,
+  DashboardRelatorioUsuario,
 } from '../../../Pages/MMN';
 import { ConfiguracaoMMN } from '../../../Pages/MMN/ConfiguracaoMMN';
 import InfoUserMMN from '../../../Pages/MMN/InfoUserMMN';
@@ -52,6 +53,10 @@ export function AllRoutes() {
           <Route path='/info-user-mmn' element={<InfoUserMMN />}>
             <Route path='dashboard-info-user-mmn' element={<DashBoardInfoUserMMN />} />
           </Route>
+          <Route
+            path='/daashboard-relatorio-usuario-mmn/:cpf'
+            element={<DashboardRelatorioUsuario />}
+          />
 
           {/* Primeiro acesso Parceiro*/}
 
