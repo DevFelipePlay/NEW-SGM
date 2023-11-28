@@ -1,10 +1,8 @@
 import { useState } from 'react';
-import { CustomizedTabs, DefaultContainer } from '../../../../components';
-import Tab0 from './Tab0';
-import Tab1 from './Tab1';
-import Tab2 from './Tab2';
+import { Inicio, Progresso, Saque } from '..';
+import { CustomizedTabs, DefaultContainer } from '../../../../../components';
 
-export default function HomeUserMMN() {
+export function HomeUserMMN() {
   const [tabValue, setTabValue] = useState(0);
   console.log(tabValue);
 
@@ -23,14 +21,13 @@ export default function HomeUserMMN() {
           { label: 'Inicio', value: 0 },
           { label: 'Progresso', value: 1 },
           { label: 'Saque', value: 2 },
-          { label: 'Relatório', value: 3 },
         ]}
         mostrarBotaoVoltar={false}
         mostrarNavbar={true}
       />
-      {tabValue === 0 && <Tab0 />}
-      {tabValue === 1 && <Tab1 />}
-      {tabValue === 2 && <Tab2 />}
+      {tabValue === 0 && <Inicio />}
+      {tabValue === 1 && <Progresso />}
+      {tabValue === 2 && <Saque />}
     </DefaultContainer>
   );
 }

@@ -112,7 +112,7 @@ export function LandingPageMultinivel() {
               401
             </Typography>
             <Typography variant='h6' fontWeight='700'>
-              ID de identificação inválido!
+              ID de indicação inválido!
             </Typography>
             <Typography variant='subtitle1'>Entre em contato com o administrador.</Typography>
             <Button sx={{ color: 'var(--white)', fontWeight: '700', p: 1.25 }} variant='contained'>

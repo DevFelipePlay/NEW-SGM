@@ -9,7 +9,7 @@ import { useCopyToClipboard } from '../../../../../hooks/useCopyToClipboard';
 
 import useUser from '../../../../../hooks/useUser';
 
-export default function Tab0() {
+export function Inicio() {
   const [responseIdIndicacao, setresponseIdIndicacao] = useState([]);
 
   const [value, copy] = useCopyToClipboard();

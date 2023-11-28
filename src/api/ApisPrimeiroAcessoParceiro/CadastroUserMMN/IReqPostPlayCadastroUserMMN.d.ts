@@ -16,7 +16,7 @@ export interface IReqPostPlayCadastroUserMMN {
   street: string;
   number: string;
   complement: string;
-  id_patrocinador: string;
+  id_indicacao: string;
   password: string;
   confirmPassword: string;
 }

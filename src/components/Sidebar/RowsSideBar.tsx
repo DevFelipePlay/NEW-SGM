@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
+import { BiHomeSmile } from 'react-icons/bi';
 import { GiHumanPyramid } from 'react-icons/gi';
-import { MdDvr } from 'react-icons/md';
-import iconPlay from '../../assets/MMNImg/iconeDrawer.png';
+import { IoSettingsOutline } from 'react-icons/io5';
 
 export interface IListItemsTabBar {
   render: boolean;
@@ -22,44 +22,22 @@ export const RowsSideBar: IRowsSideBar[] = [
   {
     switches: '',
     render: true,
-    label: 'Play Admin',
-    icon: <img src={iconPlay} style={{ width: '22px' }} />,
-    to: '/home-play',
-    listItemsTabBar: [
-      {
-        to: '',
-        render: true,
-        label: 'CRM',
-        icon: <MdDvr />,
-      },
-    ],
-  },
-
-  {
-    switches: '',
-    render: true,
     label: 'Modulo Multinivel',
     icon: <GiHumanPyramid />,
     to: '/home-admin-mmn',
     listItemsTabBar: [
-      // {
-      //   render: true,
-      //   label: 'Teste Home',
-      //   icon: <BiHomeSmile />,
-      //   to: '',
-      // },
-      // {
-      //   render: true,
-      //   label: 'Teste Home',
-      //   icon: <BiHomeSmile />,
-      //   to: '',
-      // },
-      // {
-      //   render: true,
-      //   label: 'Teste Home',
-      //   icon: <BiHomeSmile />,
-      //   to: '',
-      // },
+      {
+        render: true,
+        label: 'Dashboard',
+        icon: <BiHomeSmile />,
+        to: '/home-admin-mmn',
+      },
+      {
+        render: true,
+        label: 'Configurações Gerais',
+        icon: <IoSettingsOutline />,
+        to: 'configuracao-mmn',
+      },
     ],
   },
 ];

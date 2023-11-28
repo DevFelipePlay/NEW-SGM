@@ -90,8 +90,9 @@ export function ListCustom({ avatar, nome, cpf, editar, excluir, pressItemList }
                       aria-label='delete'
                       sx={{ bgcolor: 'white' }}
                       onClick={() => handleOpen('')}
+                      disabled
                     >
-                      <DeleteIcon style={{ color: 'red' }} />
+                      <DeleteIcon style={{ color: 'grey' }} />
                     </IconButton>
                   </Tooltip>
                 </Stack>
@@ -116,17 +117,17 @@ export function ListCustom({ avatar, nome, cpf, editar, excluir, pressItemList }
                   TransitionProps={{ timeout: 600 }}
                   onClick={pressItemList}
                 >
-                  <Avatar>
-                    <img src={avatar} width={'100%'} />
-                  </Avatar>
+                  <Avatar />
                 </Tooltip>
               </ListItemAvatar>
-              <ListItemText sx={{ userSelect: 'none' }} onClick={pressItemList}>
-                {nome}
-              </ListItemText>
-              <ListItemText sx={{ userSelect: 'none' }} onClick={pressItemList}>
-                {cpf}
-              </ListItemText>
+              <Box>
+                <ListItemText sx={{ userSelect: 'none' }} onClick={pressItemList}>
+                  Nome: {nome}
+                </ListItemText>
+                <ListItemText sx={{ userSelect: 'none' }} onClick={pressItemList}>
+                  CPF: {cpf}
+                </ListItemText>
+              </Box>
             </ListItem>
             <Modal
               open={open}

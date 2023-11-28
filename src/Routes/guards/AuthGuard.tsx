@@ -13,7 +13,7 @@ export function AuthGuard({ allowedRoles }: AuthGuardProps) {
   const location = useLocation();
 
   const currentUrl = location.pathname + location.search;
-
+  console.log(user);
   // Verifica se tem usuário logado
   if (!user) return <Navigate to={'/login'} state={{ from: currentUrl }} replace />;
 

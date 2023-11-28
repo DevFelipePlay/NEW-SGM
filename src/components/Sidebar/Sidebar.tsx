@@ -210,7 +210,7 @@ export function Sidebar(): JSX.Element {
       case 'Play Admin':
       case 'Home':
       case 'Minha operadora':
-      case 'Multi Nivel':
+      case 'Modulo Multinivel':
         return renderTabItems(activeItem?.listItemsTabBar || []);
       default:
         return null;
@@ -355,7 +355,7 @@ export function Sidebar(): JSX.Element {
               alignItems: 'center',
               justifyContent: 'initial',
             }}
-            onClick={() => handleIconClick('configurações', 'teste')}
+            onClick={() => handleIconClick('configurações', '')}
           >
             <IoSettingsOutline />
             {isDrawerOpen && <Typography sx={sidebarIconTextStyles}> Configurações</Typography>}

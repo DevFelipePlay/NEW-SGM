@@ -18,6 +18,8 @@ export interface IUser {
   pages: any;
   parceirorevendedor: boolean;
   primeiroAcesso: boolean;
+  super: boolean;
+  primeiroacessoconcluidoparceirommn: boolean;
 }
 
 /**
@@ -29,8 +31,9 @@ export interface IUser {
  * `4 - Vendedor`
  * `5 - Desativado`
  * `6 - Franquia`
+ * `7 - multinivel`
  */
-export type EnumProfileId = -1 | 0 | 1 | 2 | 3 | 4 | 5 | 6;
+export type EnumProfileId = -1 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
 
 /**`-1 - Ultra` */
 const Ultra: EnumProfileId = -1;

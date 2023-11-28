@@ -2,6 +2,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { Box, Button, Pagination, PaginationItem, Stack, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
+import { mask } from 'remask';
 import { postPlayRecuperaNiveisParceiro } from '../../../../../api';
 import { IResPostPlayRecuperaNiveisParceiro } from '../../../../../api/ApisUtils/RecuperaNiveisParceiro/IResPostPlayRecuperaNiveisParceiro';
 import { ListCustom } from '../../../../../components';
@@ -11,6 +12,8 @@ export default function RedeDeUsuariosParceiroMMN() {
   const [loading, setLoading] = useState(false);
   const [responseList, setResponseList] = useState<IResPostPlayRecuperaNiveisParceiro[]>([]);
   const { user } = useUser();
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
 
   async function handleListRedeDeUsuarioMMN() {
     setLoading(true);
@@ -24,8 +27,32 @@ export default function RedeDeUsuariosParceiroMMN() {
     } catch (error) {}
   }
 
+  const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
+    setCurrentPage(page);
+  };
+
+  const renderPaginatedList = () => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const paginatedItems = responseList.slice(startIndex, endIndex);
+
+    return paginatedItems.map((item, index) => (
+      <Box sx={{ width: '100%' }} key={index}>
+        <ListCustom
+          avatar={''}
+          nome={item.nome}
+          cpf={mask(item.cpf, ['999.999.999-99', '99.999.999/9999-99'])}
+          editar={() => ''}
+          excluir={() => ''}
+          pressItemList={() => ''}
+        />
+      </Box>
+    ));
+  };
+
   useEffect(() => {
     handleListRedeDeUsuarioMMN();
+    console.log(responseList);
   }, []);
 
   return (
@@ -57,22 +84,13 @@ export default function RedeDeUsuariosParceiroMMN() {
           Cadastrar
         </Button>
       </Box>
-      {responseList.map((item, index) => (
-        <Box sx={{ width: '100%' }} key={index}>
-          <ListCustom
-            avatar={''}
-            nome={item.usuarios.nome_titular_pix}
-            cpf={'123123132'}
-            editar={() => ''}
-            excluir={() => ''}
-            pressItemList={() => ''}
-          />
-        </Box>
-      ))}
+      {renderPaginatedList()}
 
       <Stack spacing={2}>
         <Pagination
-          count={10}
+          count={Math.ceil(responseList.length / itemsPerPage)}
+          page={currentPage}
+          onChange={handlePageChange}
           renderItem={(item) => (
             <PaginationItem slots={{ previous: ArrowBackIcon, next: ArrowForwardIcon }} {...item} />
           )}

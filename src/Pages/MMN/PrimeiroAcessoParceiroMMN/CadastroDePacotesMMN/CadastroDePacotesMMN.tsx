@@ -101,6 +101,7 @@ export function CadastroDePacotesMMN() {
               type='tel'
               onChange={(e: any) => handleInputChanges(index, 'chips', e.target.value)}
               helperText={'Escolha a quantidade de chips que será oferecido pra este pacote'}
+              fullWidth
               sx={{ mb: 2 }}
               required
             />

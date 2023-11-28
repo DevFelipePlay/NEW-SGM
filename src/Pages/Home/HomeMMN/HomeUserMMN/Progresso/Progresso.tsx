@@ -11,7 +11,7 @@ import mansao from '../../../../../assets/MMNImg/mansao.webp';
 import moto from '../../../../../assets/MMNImg/moto.jpg';
 import { Cards, ProgressBar } from '../../../../../components';
 
-export default function Tab1() {
+export function Progresso() {
   return (
     <Grid container spacing={2}>
       <Grid item xs={7}>

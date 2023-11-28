@@ -7,7 +7,7 @@ import useStorage from '../../hooks/useStorage';
 
 import moment from 'moment';
 import { IUser } from '../../@types/IUser';
-import apiPlay from '../../services/apiPlay';
+import { apiPlayMMN } from '../../services/apiPlayMMN';
 
 type AuthContextTypes = {
   user: IUser | null;
@@ -38,7 +38,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
       password: senha,
     };
 
-    apiPlay
+    apiPlayMMN
       .post('login', dados)
       .then((response) => {
         if (response.data.profileid === 5) return toast.error('CPF não encontrado'); // Perfil está Excluído
@@ -51,7 +51,11 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
         setItem('usr_c', JSON.stringify({ cpf: cpf, senha: senha }));
         setLoadingAuth(false);
 
-        !isOnBg && navigate('/primeiro-acesso-multinivel-parceiro/cadastro-de-pacotes-mmn');
+        if (response.data.primeiroacessoconcluidoparceirommn) {
+          !isOnBg && navigate('/home-admin-mmn');
+        } else {
+          !isOnBg && navigate('/primeiro-acesso-multinivel-parceiro/cadastro-de-pacotes-mmn');
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -119,6 +123,8 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
       }
     }
   }, []);
+
+  if (loadingSystem) return <div></div>;
 
   return (
     <AuthContext.Provider

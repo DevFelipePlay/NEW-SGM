@@ -2,25 +2,28 @@ import { Navigate, Route, Routes as RouterRoutes } from 'react-router-dom';
 
 import { AuthGuard, SideBarRoutes } from '../..';
 import ListPartner from '../../../Pages/CRM/Actions/ListPartner/ListPartner';
-import { HomePlay } from '../../../Pages/Home';
-import HomeAdminMMN from '../../../Pages/Home/HomeMMN/HomeAdminMMN';
-import HomeUserMMN from '../../../Pages/Home/HomeMMN/HomeUserMMN';
+import { HomePlay, HomeUserMMN } from '../../../Pages/Home';
 import Login from '../../../Pages/Login';
-import InfoUserMMN from '../../../Pages/MMN/InfoUserMMN';
-import DashBoardInfoUserMMN from '../../../Pages/MMN/InfoUserMMN/Tab0';
 
-import { CadastroDadosFinanceiros } from '../../../Pages/MMN';
+import HomeAdminMMN from '../../../Pages/Home/HomeMMN/HomeAdminMMN';
+
+import Forbidden from '../../../Pages/Forbidden/Forbidden';
 import {
+  AtivacaoLinha,
+  CadastroDadosFinanceiros,
   CadastroDePacotesMMN,
   CadastroDosPlanosMMN,
   CadastroGraduacoesMMN,
+  CadastroNiveisDeUsuario,
   CadastroPontosModalidadeMMN,
   CadastroPremiacoesMMN,
   CadastroValoresETaxasMMN,
-} from '../../../Pages/MMN/PrimeiroAcessoParceiroMMN';
-import { CadastroNiveisDeUsuario } from '../../../Pages/MMN/PrimeiroAcessoParceiroMMN/CadastroNiveisDeUsuario';
-import { AtivacaoLinha } from '../../../Pages/MMN/PrimeiroAcessoUsuarioMMN/AtivacaoLinha/AtivacaoLinha';
-import { CompraDePacotes, LandingPageMultinivel } from '../../../Pages/landingPageMultinivel';
+  CompraDePacotes,
+} from '../../../Pages/MMN';
+import { ConfiguracaoMMN } from '../../../Pages/MMN/ConfiguracaoMMN';
+import InfoUserMMN from '../../../Pages/MMN/InfoUserMMN';
+import DashBoardInfoUserMMN from '../../../Pages/MMN/InfoUserMMN/Tab0';
+import { LandingPageMultinivel } from '../../../Pages/landingPageMultinivel';
 import { CadastroDeDadosPessoaisUserMMN } from '../../../Pages/landingPageMultinivel/CadastroUserMMN/CadastroDeDadosPessoaisUserMMN/CadastroDeDadosPessoaisUserMMN';
 
 export function AllRoutes() {
@@ -38,9 +41,10 @@ export function AllRoutes() {
         element={<CadastroDeDadosPessoaisUserMMN />}
       />
       <Route path='/login' element={<Login />} />
+      <Route path={'/forbidden'} element={<Forbidden />} />
 
       {/* Rotas Protegidas */}
-      <Route element={<AuthGuard allowedRoles={[-1, 0, 2, 4, 5, 6]} />}>
+      <Route element={<AuthGuard allowedRoles={[-1, 0, 1, 2, 4, 5, 6]} />}>
         <Route element={<SideBarRoutes />}>
           <Route path='/home-admin-mmn' element={<HomeAdminMMN />} />
           <Route path='/home-usuario-mmn' element={<HomeUserMMN />} />
@@ -50,6 +54,7 @@ export function AllRoutes() {
           </Route>
 
           {/* Primeiro acesso Parceiro*/}
+
           <Route path='/primeiro-acesso-multinivel-parceiro'>
             <Route path='cadastro-de-pacotes-mmn' element={<CadastroDePacotesMMN />} />
             <Route path='cadastro-dos-planos-mmn' element={<CadastroDosPlanosMMN />} />
@@ -62,16 +67,20 @@ export function AllRoutes() {
             <Route path='cadastro-valores-e-taxas' element={<CadastroValoresETaxasMMN />} />
             <Route path='cadastro-premiacoes' element={<CadastroPremiacoesMMN />} />
           </Route>
+
           {/* //////// */}
 
           {/* Primeiro acesso usuãrio */}
           <Route path='/primeiro-acesso-multinivel-usuario'>
             <Route path='compra-de-pacotes' element={<CompraDePacotes />} />
-            <Route path='cadastro-dados-financeiros' element={<CadastroDadosFinanceiros />} />
+            <Route
+              path='cadastro-dados-financeiros-usuario'
+              element={<CadastroDadosFinanceiros />}
+            />
             <Route path='ativacao-linha' element={<AtivacaoLinha />} />
           </Route>
           {/* //////// */}
-
+          <Route path='/configuracao-mmn' element={<ConfiguracaoMMN />} />
           <Route path='/crm/parceiros' element={<ListPartner />} />
         </Route>
       </Route>

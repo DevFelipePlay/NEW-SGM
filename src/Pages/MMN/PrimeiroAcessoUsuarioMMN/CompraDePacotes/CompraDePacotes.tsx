@@ -6,6 +6,7 @@ import 'swiper/css/pagination';
 
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { StepsCadastroUserMMN } from '..';
 import {
   IResPostPlayRecuperaPacotesLicenciamento,
   postPlayRecuperaPacotesLicenciamento,
@@ -13,7 +14,6 @@ import {
 import { Cards } from '../../../../components';
 import useUser from '../../../../hooks/useUser';
 import { errorToast } from '../../../../utils';
-import { StepsCadastroUserMMN } from '../../../landingPageMultinivel/CadastroUserMMN';
 
 export function CompraDePacotes() {
   const theme = useTheme();
@@ -48,6 +48,8 @@ export function CompraDePacotes() {
     }
   }
 
+  async function handleBuyPacks(e: React.ReactElement<HTMLFormElement>) {}
+
   useEffect(() => {
     handleSubmit();
   }, []);
@@ -64,7 +66,7 @@ export function CompraDePacotes() {
         }}
       >
         <Typography variant='h4'>Pacotes</Typography>
-        <Typography>Selecione o melhor pack para você</Typography>
+        <Typography>Escolha o melhor pacote para você</Typography>
         {loading ? (
           <Grid
             container
@@ -96,16 +98,22 @@ export function CompraDePacotes() {
                   <Grid item xs={4} key={index}>
                     <Cards
                       title={i.nome}
-                      subTitle={'Escolha o seu Pack'}
+                      subTitle={'Escolha o seu pacote'}
                       size={smDown ? '100vm' : mdDown ? '200px' : lgDown ? '200px' : '350px'}
                       showIcon
                       bgColorIcon='var(--primary-color)'
                       icon={<PiHandCoins />}
                     >
                       <Typography> Acesso ao multinivel +</Typography>
-                      <Typography variant='h5'>{i.chips} Chips </Typography>
+                      <Typography>{i.chips} Chips </Typography>
 
-                      <Typography>Por apenas</Typography>
+                      <Typography
+                        variant='subtitle2'
+                        color={'var(--sub-text-color)'}
+                        sx={{ mt: 2 }}
+                      >
+                        Por apenas:
+                      </Typography>
                       <Typography variant='h5'>R$ {i.valor_venda}</Typography>
                       <Button
                         onClick={() => handleButtonClick()}

@@ -77,7 +77,7 @@ export function CadastroDeDadosPessoaisUserMMN() {
     cpf: '',
     district: '',
     email: '',
-    id_patrocinador: '',
+    id_indicacao: '',
     name: '',
     nascimento: '',
     nivel: 3,
@@ -118,7 +118,7 @@ export function CadastroDeDadosPessoaisUserMMN() {
 
   const formDataPlusToken = {
     ...formData,
-    id_patrocinador: idIndicacao ? idIndicacao?.toString() : '',
+    id_indicacao: idIndicacao ? idIndicacao?.toString() : '',
     nivel: 3,
   };
 
