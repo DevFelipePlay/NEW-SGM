@@ -55,7 +55,6 @@ interface ITabs {
 }
 
 export function CustomizedTabs({
-  mostrarBotaoVoltar = true,
   mostrarNavbar = true,
   tabsData,
   value = 0,

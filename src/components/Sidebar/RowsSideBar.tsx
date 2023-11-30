@@ -24,7 +24,7 @@ export const RowsSideBar: IRowsSideBar[] = [
     render: true,
     label: 'Modulo Multinivel',
     icon: <GiHumanPyramid />,
-    to: '/home-admin-mmn',
+    to: '',
     listItemsTabBar: [
       {
         render: true,

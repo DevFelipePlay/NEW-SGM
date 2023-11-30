@@ -35,6 +35,7 @@ export default function RedeDeUsuariosParceiroMMN() {
     }
   }
 
+  //@ts-ignore
   const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
     setCurrentPage(page);
   };

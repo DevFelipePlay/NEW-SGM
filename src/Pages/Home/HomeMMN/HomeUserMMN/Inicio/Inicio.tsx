@@ -12,7 +12,7 @@ import { dadosFormatter, dateFormatter, errorToast } from '../../../../../utils'
 export function Inicio() {
   const [responseIdIndicacao, setresponseIdIndicacao] = useState<IResPostPlayDashboardUsuario>();
   const [loading, setLoading] = useState(false);
-
+  // @ts-ignore
   const [value, copy] = useCopyToClipboard();
   const { user } = useUser();
 

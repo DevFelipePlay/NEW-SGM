@@ -135,8 +135,11 @@ export default function Tab0() {
               fill='#8884d8'
               dataKey='value'
             >
-              {data2.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+              {data2.map((item, index) => (
+                <>
+                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                  <Typography>{item.name}</Typography>
+                </>
               ))}
             </Pie>
             <Legend />

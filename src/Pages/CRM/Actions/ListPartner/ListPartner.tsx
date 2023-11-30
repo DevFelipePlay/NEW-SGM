@@ -2,7 +2,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { Box, Pagination, PaginationItem, Stack } from '@mui/material';
 
-import { BotaoAcoes, DefaultContainer, ListCustom } from '../../../../components';
+import { BotaoAcoes, DefaultContainer } from '../../../../components';
 
 export default function ListPartner() {
   return (
@@ -37,12 +37,7 @@ export default function ListPartner() {
             alignItems: 'center',
           }}
         ></Box>
-        <ListCustom />
-        <ListCustom />
-        <ListCustom />
-        <ListCustom />
-        <ListCustom />
-        <ListCustom />
+
         <Stack spacing={2}>
           <Pagination
             count={10}

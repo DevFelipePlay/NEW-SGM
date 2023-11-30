@@ -45,7 +45,7 @@ export function AllRoutes() {
       <Route path={'/forbidden'} element={<Forbidden />} />
 
       {/* Rotas Protegidas */}
-      <Route element={<AuthGuard allowedRoles={[-1, 0, 1, 2, 4, 5, 6]} />}>
+      <Route element={<AuthGuard allowedRoles={[-1, 0, 1, 2, 4, 5, 6, 7]} />}>
         <Route element={<SideBarRoutes />}>
           <Route path='/home-admin-mmn' element={<HomeAdminMMN />} />
           <Route path='/home-usuario-mmn' element={<HomeUserMMN />} />

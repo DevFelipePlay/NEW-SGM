@@ -14,7 +14,7 @@ export function DashboardRelatorioUsuario() {
   const [responseIdIndicacao, setresponseIdIndicacao] = useState<IResPostPlayDashboardUsuario>();
   const [loading, setLoading] = useState(false);
   const { cpf } = useParams();
-
+  //@ts-ignore
   const [value, copy] = useCopyToClipboard();
   const { user } = useUser();
 

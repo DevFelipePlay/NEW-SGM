@@ -195,7 +195,9 @@ export function Sidebar(): JSX.Element {
             <Typography id='modal-modal-title' variant='h6' component='h2' sx={{ mb: 3 }}>
               Realmente deseja sair?
             </Typography>
-            <Button onClick={() => signOut()}>Sair</Button>
+            <Button onClick={() => signOut()} variant='contained' color='error'>
+              Sair
+            </Button>
           </Box>
         </Modal>
       </>

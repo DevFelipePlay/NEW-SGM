@@ -1,128 +1,97 @@
-import { Box, Checkbox, Grid, MenuItem, Select, Typography } from '@mui/material';
-import { PiHandCoins } from 'react-icons/pi';
-
-import 'swiper/css';
-
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-
-import 'swiper/css';
-
-import { useEffect, useState } from 'react';
-import { MdFavorite, MdFavoriteBorder } from 'react-icons/md';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-
 import LoadingButton from '@mui/lab/LoadingButton/LoadingButton';
-import { useNavigate } from 'react-router-dom';
+import { Box, MenuItem, Select, Switch, Tooltip, Typography } from '@mui/material';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import {
-  IReqPostPlayRecuperaPlanosPrimeiroAcesso,
-  postPlayCadastraNivelPlanosMMN,
+  IResPostPlayRecuperaPlanosPrimeiroAcesso,
+  postPlayEditarPlano,
   postPlayRecuperaPlanosPrimeiroAcesso,
-} from '../../../../api/ApisPrimeiroAcessoParceiro';
-import { IResPostPlayRecuperaPlanosPrimeiroAcesso } from '../../../../api/ApisPrimeiroAcessoParceiro/RecuperaPlanosPrimeiroAcessoMMN/IResPostPlayRecuperaPlanosPrimeiroAcessoMMN';
-import { Cards, Loading } from '../../../../components';
+} from '../../../../api';
+import { Loading } from '../../../../components';
 import useUser from '../../../../hooks/useUser';
 import { errorToast } from '../../../../utils';
 
 export function EditarPlanos() {
-  const [checkboxStates, setCheckboxStates] = useState<{ [key: string]: boolean }>({});
+  const [loadingView, setLoadingView] = useState(false);
+  const [loadingEdit, setLoadingEdit] = useState(false);
 
-  const navigate = useNavigate();
-
-  const [responseData, setResponseData] = useState([]);
-  const [planosSelecionados, setPlanosSelecionados] = useState<
-    IResPostPlayRecuperaPlanosPrimeiroAcesso[]
-  >([]);
-  const [nivel, setNivel] = useState<{ [key: string]: number }>({});
+  const [responseView, setResponseView] = useState<IResPostPlayRecuperaPlanosPrimeiroAcesso[]>([]);
+  const [editedValues, setEditedValues] = useState<{
+    [key: number]: Partial<IResPostPlayRecuperaPlanosPrimeiroAcesso>;
+  }>({});
   const { user } = useUser();
+  const label = { inputProps: { 'aria-label': 'Plano MMN' } };
 
-  //
+  async function handleView() {
+    setLoadingView(true);
 
-  const [loading, setLoading] = useState(false);
-  const [loadingSend, setLoadingSend] = useState(false);
+    let payload = {
+      token: user?.token ? user?.token : '',
+    };
+    try {
+      const data = await postPlayRecuperaPlanosPrimeiroAcesso(payload);
+      setResponseView(data);
+    } catch (error: any) {
+      errorToast(error);
+    } finally {
+      setLoadingView(false);
+    }
+  }
+  async function handleEdit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setLoadingEdit(true);
 
-  const handleCheckboxChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    dadosPlanos: IResPostPlayRecuperaPlanosPrimeiroAcesso
-  ) => {
-    const isChecked = event.target.checked;
+    try {
+      const editedData = responseView.map((item, index) => {
+        const editedItem = editedValues[index];
 
-    setCheckboxStates((prevStates) => {
-      const newStates = { ...prevStates, [dadosPlanos.id]: isChecked };
+        return {
+          plan_id: editedItem?.id || item.id || '',
+          acao: editedItem?.preferido !== undefined ? editedItem.preferido : item.preferido,
 
-      setPlanosSelecionados((prevSelected) => {
-        if (isChecked) {
-          return [...prevSelected, { ...dadosPlanos, value: nivel.toString() }];
-        } else {
-          return prevSelected.filter((card) => card.id !== dadosPlanos.id);
-        }
+          nivel: editedItem?.nivel || item.nivel || '',
+        };
       });
-
-      return newStates;
-    });
+      const postData = {
+        cpf: user?.cpf || '',
+        token: user?.token || '',
+        ...editedData,
+      };
+      //@ts-ignore
+      await postPlayEditarPlano(postData);
+      toast.success('Graduações Editados!');
+    } catch (error: any) {
+      errorToast(error);
+    } finally {
+      setLoadingEdit(false);
+    }
+  }
+  const handleEditChange = (id: any, field: string, value: any) => {
+    setEditedValues((prevValues) => ({
+      ...prevValues,
+      [id]: {
+        ...prevValues[id],
+        [field]: value,
+      },
+    }));
   };
 
-  async function handleViewer() {
-    let payload: IReqPostPlayRecuperaPlanosPrimeiroAcesso = {
-      token: user?.token ? user.token : '',
-    };
-
-    setLoading(true);
-
-    try {
-      const response = await postPlayRecuperaPlanosPrimeiroAcesso(payload);
-      setResponseData(response);
-    } catch (error) {
-      errorToast;
-    } finally {
-      setLoading(false);
-    }
-  }
-  async function handleSubmit() {
-    const dados = planosSelecionados.map((plano) => ({
-      id_plano: plano.id,
-      nivel: nivel[plano.id],
-    }));
-
-    const postData = {
-      token: user?.token,
-      ...dados,
-    };
-
-    setLoadingSend(true);
-
-    try {
-      //@ts-ignore
-      const response = await postPlayCadastraNivelPlanosMMN(postData);
-      setResponseData(response.data);
-      navigate('/primeiro-acesso-multinivel-parceiro/cadastro-graduacoes');
-      toast.success('Escolha dos planos realizada');
-    } catch (error) {
-      errorToast;
-    } finally {
-      setLoadingSend(false);
-    }
-  }
-
   useEffect(() => {
-    handleViewer();
+    handleView();
   }, []);
 
   return (
     <Box
       sx={{
+        width: '100%',
+        p: 2,
         display: 'flex',
+        flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        flexDirection: 'column',
-        width: '100%',
       }}
-      component={'form'}
-      onSubmit={handleSubmit}
     >
-      {loading ? (
+      {loadingView ? (
         <Box
           sx={{
             width: '100%',
@@ -136,62 +105,71 @@ export function EditarPlanos() {
         </Box>
       ) : (
         <>
-          <Typography variant='h6'>Selecione os planos que deseja ter no seu modulo</Typography>
-          <Grid container width={'100%'}>
-            {responseData.map((plano: IResPostPlayRecuperaPlanosPrimeiroAcesso, index) => (
-              <Grid item xs={4} key={index}>
-                <Cards
-                  title={plano.nomeplano}
-                  subTitle={'Escolha os planos que serão usados no multinível'}
-                  size={'350px'}
-                  showIcon
-                  bgColorIcon='var(--primary-color)'
-                  icon={<PiHandCoins />}
+          {responseView.map((item, index) => (
+            <Box
+              key={index}
+              sx={{
+                width: '100%',
+                boxShadow: ' rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px',
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+                p: 1,
+                mb: 2,
+                borderRadius: '10px',
+                justifyContent: 'space-between',
+              }}
+            >
+              <Box sx={{ width: '30%' }}>
+                <Typography variant='h6'>{item.nomeplano}</Typography>
+              </Box>
+              <Box
+                sx={{
+                  width: '50%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexDirection: 'column',
+                }}
+              >
+                <Typography variant='subtitle2' color='var(--sub-text-color)'>
+                  Niveis que este plano acessa
+                </Typography>
+                <Select
+                  labelId='nivel-label'
+                  id='nivel'
+                  label='Nível'
+                  value={editedValues[index]?.nivel || item.nivel || '0'}
+                  variant='standard'
+                  onChange={(e) => handleEditChange(index, 'nivel', e.target.value)}
+                  sx={{ width: '50%' }}
                 >
-                  <Typography>Neste plano voce terá</Typography>
-                  <Typography>{plano.gigas !== '0' ? plano.gigas + ' ' + 'GB' : ''}</Typography>
-                  <Typography>
-                    {plano.minutos !== '999'
-                      ? plano.minutos + ' ' + 'Minutos'
-                      : 'Ligações Ilimitadas'}
-                  </Typography>
-                  <Typography>{plano.sms + ' ' + 'SMS'}</Typography>
-
-                  <Checkbox
-                    checked={checkboxStates[plano.id] || false}
-                    onChange={(event) => handleCheckboxChange(event, plano)}
-                    icon={<MdFavoriteBorder style={{ fontSize: '2rem' }} />}
-                    checkedIcon={<MdFavorite style={{ fontSize: '2rem' }} />}
-                  />
-                  {checkboxStates[plano.id] && (
-                    <Select
-                      labelId='nivel-label'
-                      id='nivel'
-                      label='Nível'
-                      disabled={!checkboxStates[plano.id]}
-                      value={nivel[plano.id]?.toString() || '0'}
-                      variant='standard'
-                      fullWidth
-                      onChange={(e) =>
-                        setNivel((prevNivel) => ({
-                          ...prevNivel,
-                          [plano.id]: parseInt(e.target.value, 10),
-                        }))
-                      }
-                    >
-                      {[...Array(11).keys()].map((value) => (
-                        <MenuItem key={value} value={value}>
-                          {value} {value > 1 ? 'Níveis' : 'Nível'}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  )}
-                </Cards>
-              </Grid>
-            ))}
-          </Grid>
-          <LoadingButton type='submit' variant='contained' loading={loadingSend} sx={{ my: 2 }}>
-            Enviar
+                  {[...Array(11).keys()].map((value) => (
+                    <MenuItem key={value} value={value}>
+                      {value} {value > 1 ? 'Níveis' : 'Nível'}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </Box>
+              <Tooltip title={'Plano MMN'}>
+                <Switch
+                  {...label}
+                  checked={
+                    editedValues[index]?.preferido !== undefined
+                      ? editedValues[index]?.preferido
+                      : item.preferido
+                  }
+                  onChange={(e) => handleEditChange(index, 'preferido', e.target.checked)}
+                />
+              </Tooltip>
+            </Box>
+          ))}
+          <LoadingButton
+            loading={loadingEdit}
+            variant='contained'
+            onClick={(e: any) => handleEdit(e)}
+          >
+            Confirmar Edição
           </LoadingButton>
         </>
       )}

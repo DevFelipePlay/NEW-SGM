@@ -32,7 +32,10 @@ export const InputForMoney: React.FC<IInputForMoneyProps> = ({
   const rawValue = unMask(value);
 
   // Lógica para remover o "R$" antes de enviar para o endpoint
+  //@ts-ignore
   const valueToSend = moneyRegex.test(rawValue) ? rawValue : '';
+
+ 
 
   return (
     <TextField

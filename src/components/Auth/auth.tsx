@@ -51,10 +51,17 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
         setItem('usr_c', JSON.stringify({ cpf: cpf, senha: senha }));
         setLoadingAuth(false);
 
-        if (response.data.primeiroacessoconcluidoparceirommn) {
+        if (response.data.primeiroacessoconcluidoparceirommn && user?.super) {
           !isOnBg && navigate('/home-admin-mmn');
-        } else {
+        }
+        if (!response.data.primeiroacessoconcluidoparceirommn && user?.super) {
           !isOnBg && navigate('/primeiro-acesso-multinivel-parceiro/cadastro-de-pacotes-mmn');
+        }
+        if (response.data.primeiroacessoconcluidoparceirommn && user?.profileid === 7) {
+          !isOnBg && navigate('/home-usuario-mmn');
+        }
+        if (!response.data.primeiroacessoconcluidoparceirommn && user?.profileid === 7) {
+          !isOnBg && navigate('/primeiro-acesso-multinivel-usuario/compra-de-pacotes');
         }
       })
       .catch((error) => {

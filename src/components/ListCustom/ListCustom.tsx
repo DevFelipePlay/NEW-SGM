@@ -30,7 +30,7 @@ interface IlistCustom {
   pressItemList: MouseEventHandler<HTMLDivElement>;
 }
 
-export function ListCustom({ avatar, nome, cpf, editar, excluir, pressItemList }: IlistCustom) {
+export function ListCustom({ nome, cpf, editar, excluir, pressItemList }: IlistCustom) {
   const Demo = styled('div')(() => ({
     backgroundColor: 'color.background.default',
   }));
