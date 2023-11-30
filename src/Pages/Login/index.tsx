@@ -41,7 +41,10 @@ export default function Login() {
       <Box
         sx={{ width: '100vw', height: '100vh', display: 'flex', flexDirection: 'row' }}
         component={'form'}
-        onSubmit={() => navigate('/')}
+        onSubmit={(e) => {
+          e.preventDefault();
+          navigate('/');
+        }}
       >
         <Box
           sx={{

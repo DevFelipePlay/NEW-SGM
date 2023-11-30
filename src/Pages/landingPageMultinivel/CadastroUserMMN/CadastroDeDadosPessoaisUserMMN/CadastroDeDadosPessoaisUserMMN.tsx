@@ -119,7 +119,7 @@ export function CadastroDeDadosPessoaisUserMMN() {
   const formDataPlusToken = {
     ...formData,
     id_indicacao: idIndicacao ? idIndicacao?.toString() : '',
-    nivel: 3,
+    nivel: 7,
   };
 
   const debouncedGetCepInfo = debounce(getCepInfo, 500);

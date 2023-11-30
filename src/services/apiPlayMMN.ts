@@ -1,3 +1,3 @@
 import axios from 'axios';
 
-export const apiPlayMMN = axios.create({ baseURL: 'http://15.235.33.235/api/' });
+export const apiPlayMMN = axios.create({ baseURL: 'http://191.7.26.70/api/' });
