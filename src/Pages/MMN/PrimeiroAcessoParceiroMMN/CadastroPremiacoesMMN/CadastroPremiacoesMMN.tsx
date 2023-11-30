@@ -25,7 +25,6 @@ import { currencyMask } from '../../../../utils/masks/maskCurrency';
 export function CadastroPremiacoesMMN() {
   const [selectedValue, setSelectedValue] = useState('0');
   const [loading, setLoading] = useState(false);
-  const [files, setFiles] = useState<Blob[]>([]);
   const { user } = useUser();
   const [premiosImg, setPremiosImg] = useState<{ blob: Blob | null; url: string }>({
     blob: null,

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { EditarPacotes } from '.';
+import { EditarGraduações, EditarPacotes, EditarPlanos, EditarPremios, EditarTaxasESaque } from '.';
 import { CustomizedTabs, DefaultContainer } from '../../../components';
 
 export function ConfiguracaoMMN() {
@@ -27,11 +27,11 @@ export function ConfiguracaoMMN() {
         mostrarNavbar={true}
       />
       {tabValue === 0 && <EditarPacotes />}
-      {tabValue === 1 && 'teste1'}
-      {tabValue === 2 && 'teste1'}
+      {tabValue === 1 && <EditarPlanos />}
+      {tabValue === 2 && <EditarGraduações />}
       {tabValue === 3 && 'teste1'}
-      {tabValue === 4 && 'teste1'}
-      {tabValue === 5 && 'teste1'}
+      {tabValue === 4 && <EditarTaxasESaque />}
+      {tabValue === 5 && <EditarPremios />}
     </DefaultContainer>
   );
 }

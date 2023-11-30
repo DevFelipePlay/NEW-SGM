@@ -8,4 +8,5 @@ export interface IResPostPlayRecuperaPlanosPrimeiroAcesso {
   minutos: string;
   sms: string;
   nivel: null;
+  preferido: boolean;
 }
