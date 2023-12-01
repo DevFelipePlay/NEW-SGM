@@ -2,7 +2,9 @@ import LoadingButton from '@mui/lab/LoadingButton/LoadingButton';
 import { Box, InputAdornment, Slider, TextField, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { StepsPrimeiroAcessoMMN } from '..';
+import { postPlayCadastroNiveisVendasChipsMMN } from '../../../../api';
 import { Cards } from '../../../../components';
 import { useForm } from '../../../../hooks';
 import useUser from '../../../../hooks/useUser';
@@ -41,7 +43,8 @@ export function CadastroDeDistribuicaoDeValoresPorPacotesDeChips() {
         nivel4: String(selectedValues[3]),
         nivel5: String(selectedValues[4]),
       };
-
+      await postPlayCadastroNiveisVendasChipsMMN(payload);
+      toast.success('Cadastro dos niveis realizado!');
       navigate('/primeiro-acesso-multinivel-parceiro/cadastro-valores-e-taxas');
     } catch (error) {
       errorToast;

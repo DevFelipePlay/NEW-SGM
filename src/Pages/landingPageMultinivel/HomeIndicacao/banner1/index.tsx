@@ -13,6 +13,7 @@ import {
 import { AboutImg } from '../../../../assets/svg';
 import { useForm } from '../../../../hooks';
 import useUser from '../../../../hooks/useUser';
+import useWindowSize from '../../../../hooks/useWindowSize';
 import { maskCpfCnpj } from '../../../../utils';
 import styles from '../../style.module.css';
 
@@ -21,6 +22,7 @@ export default function Banner1() {
   const mdDown = useMediaQuery(theme.breakpoints.down('md'));
   const smDown = useMediaQuery(theme.breakpoints.down('sm'));
   const { idIndicacao } = useParams();
+  const { isMobile } = useWindowSize();
 
   //Endpoint para validar CPF
   const navigate = useNavigate();
@@ -41,6 +43,8 @@ export default function Banner1() {
       toast.success('Sucesso');
       if (user?.primeiroAcesso) {
         navigate(`/cadastro-usuario-mmn/${idIndicacao}`);
+      } else if (isMobile) {
+        navigate('/login');
       } else {
         navigate('/login');
       }

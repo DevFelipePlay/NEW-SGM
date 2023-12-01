@@ -1,4 +1,4 @@
-export interface IReqPostPlayCadastroNiveisMMN {
+export interface IReqPostPlayCadastroNiveisAtivacaoMMN {
   token: string | Blob;
   valor_referencia: number;
   nivel1: string;

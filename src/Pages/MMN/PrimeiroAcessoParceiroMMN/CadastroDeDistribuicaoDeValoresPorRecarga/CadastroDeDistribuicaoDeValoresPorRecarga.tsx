@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { StepsPrimeiroAcessoMMN } from '..';
-import { postPlayCadastroNiveisMMN } from '../../../../api/ApisPrimeiroAcessoParceiro';
+import { postPlayCadastroNiveisRecargaMMN } from '../../../../api/ApisPrimeiroAcessoParceiro';
 import { Cards } from '../../../../components';
 import { useForm } from '../../../../hooks';
 import useUser from '../../../../hooks/useUser';
@@ -49,7 +49,7 @@ export const CadastroDeDistribuicaoDeValoresPorRecarga = () => {
         nivel10: String(selectedValues[9]),
       };
 
-      await postPlayCadastroNiveisMMN(payload);
+      await postPlayCadastroNiveisRecargaMMN(payload);
       toast.success('Niveis Cadastrados com sucesso!');
       navigate(
         '/primeiro-acesso-multinivel-parceiro/cadastro-de-distribuicao-de-valores-por-ativacao'

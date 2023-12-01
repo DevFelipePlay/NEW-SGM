@@ -144,7 +144,11 @@ export function Saque() {
                   ? `R$ ${responseSaque?.saldo_disponivel}`
                   : `Sem Saldo`}
               </Typography>
-              <Button size='small' onClick={() => ''} variant='contained'>
+              <Button
+                size='small'
+                onClick={() => alert('Função temporariamente indisponivel')}
+                variant='contained'
+              >
                 Solicitar saque
               </Button>
             </Cards>

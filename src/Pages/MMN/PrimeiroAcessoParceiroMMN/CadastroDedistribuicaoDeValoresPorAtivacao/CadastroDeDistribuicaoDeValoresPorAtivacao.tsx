@@ -2,7 +2,9 @@ import LoadingButton from '@mui/lab/LoadingButton/LoadingButton';
 import { Box, InputAdornment, Slider, TextField, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { StepsPrimeiroAcessoMMN } from '..';
+import { postPlayCadastroNiveisAtivacaoMMN } from '../../../../api';
 import { Cards } from '../../../../components';
 import { useForm } from '../../../../hooks';
 import useUser from '../../../../hooks/useUser';
@@ -46,7 +48,8 @@ export function CadastroDeDistribuicaoDeValoresPorAtivacao() {
         nivel9: String(selectedValues[8]),
         nivel10: String(selectedValues[9]),
       };
-
+      await postPlayCadastroNiveisAtivacaoMMN(payload);
+      toast.success('Niveis Cadastrados com sucesso!');
       navigate(
         '/primeiro-acesso-multinivel-parceiro/cadastro-de-distribuicao-de-valores-por-licenciamento'
       );
@@ -64,7 +67,7 @@ export function CadastroDeDistribuicaoDeValoresPorAtivacao() {
   return (
     <StepsPrimeiroAcessoMMN step={6}>
       <Cards
-        title={'Cadastro de distribuição de valores por Ativacao'}
+        title={'Cadastro de distribuição de valores por Ativação'}
         subTitle={'Cadastro do sistema de distribuição de valores por níveil da rede'}
         size={'50%'}
       >
