@@ -140,7 +140,9 @@ export function Saque() {
           <Grid item xs={4}>
             <Cards title={'Saldo'} subTitle={'Total disponivel para saque'} size={'100%'}>
               <Typography variant='h5' sx={{ mb: 2 }}>
-                R$ {responseSaque?.saldo_disponivel}
+                {responseSaque?.saldo_disponivel
+                  ? `R$ ${responseSaque?.saldo_disponivel}`
+                  : `Sem Saldo`}
               </Typography>
               <Button size='small' onClick={() => ''} variant='contained'>
                 Solicitar saque
@@ -152,129 +154,147 @@ export function Saque() {
               size={'100%'}
             >
               <Typography variant='h5' sx={{ mb: 2 }}>
-                R$ {responseSaque?.valor_total_sacado}
+                {responseSaque?.valor_total_sacado
+                  ? `R$ ${responseSaque?.valor_total_sacado}`
+                  : `Sem Saldo`}
               </Typography>
             </Cards>
           </Grid>
           <Grid item xs={8}>
-            <Cards
-              title={'Seu QR Code'}
-              subTitle={'Este é o pix que voce usa para receber o seu bonus'}
-              size={'100%'}
-              showIcon
-            >
-              <Box>
-                <Typography>
-                  Chave PIX:{' '}
-                  {responseSaque?.chave_pix !== 'cpf' ? (
-                    responseSaque?.chave_pix
-                  ) : (
-                    <>
-                      {mask(
-                        responseSaque?.tipo_pix === 'cpf' && responseSaque?.chave_pix
-                          ? responseSaque?.chave_pix
-                          : '',
-                        ['999.999.999-99']
-                      )}
-                    </>
-                  )}
-                </Typography>
-                <Typography>Tipo: {upperCase(responseSaque?.tipo_pix)}</Typography>
-                <Typography>Titular: {responseSaque?.nome_titular_pix}</Typography>
-              </Box>
-              <Button size='small' onClick={() => handleOpen()} variant='contained' sx={{ mt: 2 }}>
-                Editar dados
-              </Button>
-              <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby='modal-modal-title'
-                aria-describedby='modal-modal-description'
+            {responseSaque ? (
+              <Cards
+                title={'Seu QR Code'}
+                subTitle={'Este é o pix que voce usa para receber o seu bonus'}
+                size={'100%'}
+                showIcon
               >
-                <Box sx={style} component={'form'} onSubmit={handleSubmit}>
-                  <Typography variant='h6'>Edite Seus Dados Financeiros</Typography>
-                  <Typography variant='h6'>Selecione o tipo de pix</Typography>
-                  <RadioGroup
-                    aria-label='options'
-                    name='options'
-                    value={formData.type_pix}
-                    onChange={(e) => changeForm('type_pix', e.target.value)}
-                    sx={{ flexDirection: 'row' }}
-                  >
-                    <FormControlLabel value='telefone' control={<Radio />} label='Telefone' />
-                    <FormControlLabel value='email' control={<Radio />} label='E-mail' />
-                    <FormControlLabel value='cpf' control={<Radio />} label='CPF' />
-                    <FormControlLabel
-                      value='chaveAleatoria'
-                      control={<Radio />}
-                      label='Chave Aleatória'
-                    />
-                  </RadioGroup>
-
-                  {formData.type_pix === 'telefone' && (
-                    <CustomTextField
-                      value={mask(formData.chave_pix, ['(99) 9 9999-9999'])}
-                      onChange={(e) => changeForm('chave_pix', e.target.value)}
-                      label='Telefone'
-                      required
-                    />
-                  )}
-
-                  {formData.type_pix === 'email' && (
-                    <CustomTextField
-                      value={formData.chave_pix}
-                      label='E-mail'
-                      onChange={(e) => changeForm('chave_pix', e.target.value)}
-                      helperText={!validations.chave_pix ? 'O email deve ser valido' : ''}
-                      error={!validations.chave_pix}
-                      required
-                    />
-                  )}
-
-                  {formData.type_pix === 'cpf' && (
-                    <CustomTextField
-                      label='Chave: CPF/CNPJ'
-                      value={mask(formData.chave_pix || '', ['999.999.999-99'])}
-                      onChange={(e) => changeForm('chave_pix', e.target.value.replace(/\D/g, ''))}
-                      required
-                    />
-                  )}
-
-                  {formData.type_pix === 'chaveAleatoria' && (
-                    <CustomTextField
-                      value={formData.chave_pix}
-                      onChange={(e) => changeForm('chave_pix', e.target.value)}
-                      label='Chave Aleatória'
-                      required
-                    />
-                  )}
-
-                  <CustomTextField
-                    label='Nome do titular da conta'
-                    value={formData.titular_pix}
-                    onChange={(e) => changeForm('titular_pix', e.target.value)}
-                  />
-                  <CustomTextField
-                    label='CPF/CNPJ do Titular'
-                    value={mask(formData.cpf_titular_pix || '', [
-                      '999.999.999-99',
-                      '99.999.999/9999-99',
-                    ])}
-                    onChange={(e) =>
-                      changeForm('cpf_titular_pix', e.target.value.replace(/\D/g, ''))
-                    }
-                    required
-                    helperText={!validations.cpf_titular_pix ? 'CPF INVALIDO' : ''}
-                    error={!validations.cpf_titular_pix}
-                  />
-                  <Box mt={2}>
-                    <LoadingButton type='submit' variant='contained' loading={loadingSubmit}>
-                      Editar
-                    </LoadingButton>
-                  </Box>
+                <Box>
+                  <Typography>
+                    Chave PIX:{' '}
+                    {responseSaque?.chave_pix !== 'cpf' ? (
+                      responseSaque?.chave_pix
+                    ) : (
+                      <>
+                        {mask(
+                          responseSaque?.tipo_pix === 'cpf' && responseSaque?.chave_pix
+                            ? responseSaque?.chave_pix
+                            : '',
+                          ['999.999.999-99']
+                        )}
+                      </>
+                    )}
+                  </Typography>
+                  <Typography>Tipo: {upperCase(responseSaque?.tipo_pix)}</Typography>
+                  <Typography>Titular: {responseSaque?.nome_titular_pix}</Typography>
                 </Box>
-              </Modal>
-            </Cards>
+                <Button
+                  size='small'
+                  onClick={() => handleOpen()}
+                  variant='contained'
+                  sx={{ mt: 2 }}
+                >
+                  Editar dados
+                </Button>
+                <Modal
+                  open={open}
+                  onClose={handleClose}
+                  aria-labelledby='modal-modal-title'
+                  aria-describedby='modal-modal-description'
+                >
+                  <Box sx={style} component={'form'} onSubmit={handleSubmit}>
+                    <Typography variant='h6'>Edite Seus Dados Financeiros</Typography>
+                    <Typography variant='h6'>Selecione o tipo de pix</Typography>
+                    <RadioGroup
+                      aria-label='options'
+                      name='options'
+                      value={formData.type_pix}
+                      onChange={(e) => changeForm('type_pix', e.target.value)}
+                      sx={{ flexDirection: 'row' }}
+                    >
+                      <FormControlLabel value='telefone' control={<Radio />} label='Telefone' />
+                      <FormControlLabel value='email' control={<Radio />} label='E-mail' />
+                      <FormControlLabel value='cpf' control={<Radio />} label='CPF' />
+                      <FormControlLabel
+                        value='chaveAleatoria'
+                        control={<Radio />}
+                        label='Chave Aleatória'
+                      />
+                    </RadioGroup>
+
+                    {formData.type_pix === 'telefone' && (
+                      <CustomTextField
+                        value={mask(formData.chave_pix, ['(99) 9 9999-9999'])}
+                        onChange={(e) => changeForm('chave_pix', e.target.value)}
+                        label='Telefone'
+                        required
+                      />
+                    )}
+
+                    {formData.type_pix === 'email' && (
+                      <CustomTextField
+                        value={formData.chave_pix}
+                        label='E-mail'
+                        onChange={(e) => changeForm('chave_pix', e.target.value)}
+                        helperText={!validations.chave_pix ? 'O email deve ser valido' : ''}
+                        error={!validations.chave_pix}
+                        required
+                      />
+                    )}
+
+                    {formData.type_pix === 'cpf' && (
+                      <CustomTextField
+                        label='Chave: CPF/CNPJ'
+                        value={mask(formData.chave_pix || '', ['999.999.999-99'])}
+                        onChange={(e) => changeForm('chave_pix', e.target.value.replace(/\D/g, ''))}
+                        required
+                      />
+                    )}
+
+                    {formData.type_pix === 'chaveAleatoria' && (
+                      <CustomTextField
+                        value={formData.chave_pix}
+                        onChange={(e) => changeForm('chave_pix', e.target.value)}
+                        label='Chave Aleatória'
+                        required
+                      />
+                    )}
+
+                    <CustomTextField
+                      label='Nome do titular da conta'
+                      value={formData.titular_pix}
+                      onChange={(e) => changeForm('titular_pix', e.target.value)}
+                    />
+                    <CustomTextField
+                      label='CPF/CNPJ do Titular'
+                      value={mask(formData.cpf_titular_pix || '', [
+                        '999.999.999-99',
+                        '99.999.999/9999-99',
+                      ])}
+                      onChange={(e) =>
+                        changeForm('cpf_titular_pix', e.target.value.replace(/\D/g, ''))
+                      }
+                      required
+                      helperText={!validations.cpf_titular_pix ? 'CPF INVALIDO' : ''}
+                      error={!validations.cpf_titular_pix}
+                    />
+                    <Box mt={2}>
+                      <LoadingButton type='submit' variant='contained' loading={loadingSubmit}>
+                        Editar
+                      </LoadingButton>
+                    </Box>
+                  </Box>
+                </Modal>
+              </Cards>
+            ) : (
+              <Cards
+                title={'Seu QR Code'}
+                subTitle={'Este é o pix que voce usa para receber o seu bonus'}
+                size={'100%'}
+                showIcon
+              >
+                Sem dados Financeiros
+              </Cards>
+            )}
           </Grid>
         </Grid>
       )}

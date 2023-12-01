@@ -15,13 +15,16 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { mask } from 'remask';
+import { postPlayCompletaPrimeiroAcesso } from '../../../../api';
 import {
   IReqPostPlayCadastroUserMMN,
   postPlayCadastroUserMMN,
 } from '../../../../api/ApisPrimeiroAcessoParceiro/CadastroUserMMN';
 import { Cards } from '../../../../components';
 import { useForm } from '../../../../hooks';
+import useUser from '../../../../hooks/useUser';
 import apiCep from '../../../../services/apiCep';
+import { errorToast } from '../../../../utils';
 
 export default function CadastroDeDadosPessoaisUserMmn() {
   return <div>CadastroDeDadosPessoaisUserMmn</div>;
@@ -124,6 +127,20 @@ export function CadastroDeDadosPessoaisUserMMN() {
 
   const debouncedGetCepInfo = debounce(getCepInfo, 500);
 
+  const { user } = useUser();
+
+  async function handleCompletaPrimeiroAcesso() {
+    let payload = {
+      cpf: user?.cpf || '',
+      alteracompletaprimeiroacesso: true,
+    };
+    try {
+      await postPlayCompletaPrimeiroAcesso(payload);
+    } catch (error: any) {
+      console.log(error);
+    }
+  }
+
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setLoading(true);
@@ -133,9 +150,10 @@ export function CadastroDeDadosPessoaisUserMMN() {
       clearForm();
       toast.success('Cadastro Realizado!');
       setLoading(false);
+      handleCompletaPrimeiroAcesso();
       navigate('/login');
-    } catch (error) {
-      toast.error('Erro ao Cadastrar');
+    } catch (error: any) {
+      toast.error(error);
       setLoading(false);
     }
   }
@@ -153,8 +171,8 @@ export function CadastroDeDadosPessoaisUserMMN() {
       changeForm('cidade', data.localidade);
       changeForm('district', data.bairro);
       changeForm('street', data.logradouro);
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      errorToast(error);
     }
   }
 

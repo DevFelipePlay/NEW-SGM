@@ -28,9 +28,15 @@ export const RowsSideBar: IRowsSideBar[] = [
     listItemsTabBar: [
       {
         render: true,
-        label: 'Dashboard',
+        label: 'Home Admin',
         icon: <BiHomeSmile />,
         to: '/home-admin-mmn',
+      },
+      {
+        render: true,
+        label: 'Home',
+        icon: <BiHomeSmile />,
+        to: '/home-usuario-mmn',
       },
       {
         render: true,

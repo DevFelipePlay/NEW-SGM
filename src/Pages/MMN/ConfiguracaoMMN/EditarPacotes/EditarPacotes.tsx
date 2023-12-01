@@ -270,7 +270,7 @@ export function EditarPacotes() {
                 <Grid item xs={8} key={index}>
                   <Cards
                     title={item.nome}
-                    subTitle={'Edite os dados dos seus pacotes  costumizaveis'}
+                    subTitle={'Edite os dados dos seus pacotes de licenciamento'}
                     size={'100%'}
                   >
                     <>

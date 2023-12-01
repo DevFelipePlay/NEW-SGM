@@ -66,29 +66,8 @@ export default function RedeDeUsuariosParceiroMMN() {
 
   return (
     <>
-      {loading ? (
-        <Box
-          sx={{
-            width: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: '50vh',
-          }}
-        >
-          <Loading />
-        </Box>
-      ) : (
-        <Box
-          sx={{
-            mb: 2,
-            width: '100%',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            flexDirection: 'column',
-          }}
-        >
+      {responseList.length === 0 ? (
+        <>
           <Box
             sx={{
               width: '100%',
@@ -98,7 +77,7 @@ export default function RedeDeUsuariosParceiroMMN() {
               alignItems: 'center',
             }}
           >
-            <Typography variant='h4'>Lista de usuários</Typography>
+            <Typography variant='h4'>Rede de usuários</Typography>
             <Button
               onClick={function (): void {
                 throw new Error('Function not implemented.');
@@ -108,22 +87,72 @@ export default function RedeDeUsuariosParceiroMMN() {
               Cadastrar
             </Button>
           </Box>
-          {renderPaginatedList()}
+          <Typography variant='h4' sx={{ mt: 10 }}>
+            Sem usuários cadastrados
+          </Typography>
+        </>
+      ) : (
+        <>
+          {loading ? (
+            <Box
+              sx={{
+                width: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: '50vh',
+              }}
+            >
+              <Loading />
+            </Box>
+          ) : (
+            <Box
+              sx={{
+                mb: 2,
+                width: '100%',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                flexDirection: 'column',
+              }}
+            >
+              <Box
+                sx={{
+                  width: '100%',
+                  m: 1,
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                }}
+              >
+                <Typography variant='h4'>Rede de usuários</Typography>
+                <Button
+                  onClick={function (): void {
+                    throw new Error('Function not implemented.');
+                  }}
+                  variant='contained'
+                >
+                  Cadastrar
+                </Button>
+              </Box>
+              {renderPaginatedList()}
 
-          <Stack spacing={2}>
-            <Pagination
-              count={Math.ceil(responseList.length / itemsPerPage)}
-              page={currentPage}
-              onChange={handlePageChange}
-              renderItem={(item) => (
-                <PaginationItem
-                  slots={{ previous: ArrowBackIcon, next: ArrowForwardIcon }}
-                  {...item}
+              <Stack spacing={2}>
+                <Pagination
+                  count={Math.ceil(responseList.length / itemsPerPage)}
+                  page={currentPage}
+                  onChange={handlePageChange}
+                  renderItem={(item) => (
+                    <PaginationItem
+                      slots={{ previous: ArrowBackIcon, next: ArrowForwardIcon }}
+                      {...item}
+                    />
+                  )}
                 />
-              )}
-            />
-          </Stack>
-        </Box>
+              </Stack>
+            </Box>
+          )}
+        </>
       )}
     </>
   );

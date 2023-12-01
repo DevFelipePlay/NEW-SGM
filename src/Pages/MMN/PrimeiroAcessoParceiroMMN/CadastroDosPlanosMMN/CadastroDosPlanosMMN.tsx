@@ -112,7 +112,7 @@ export function CadastroDosPlanosMMN() {
   }, []);
 
   return (
-    <StepsPrimeiroAcessoMMN step={1}>
+    <StepsPrimeiroAcessoMMN step={2}>
       <Box
         sx={{
           display: 'flex',

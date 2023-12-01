@@ -12,6 +12,7 @@ import {
 } from '../../../../api/ApisPrimeiroAcessoParceiro/PlayLadingPage';
 import { AboutImg } from '../../../../assets/svg';
 import { useForm } from '../../../../hooks';
+import useUser from '../../../../hooks/useUser';
 import { maskCpfCnpj } from '../../../../utils';
 import styles from '../../style.module.css';
 
@@ -29,6 +30,7 @@ export default function Banner1() {
   });
 
   const [loading, setLoading] = useState(false);
+  const { user } = useUser();
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -37,7 +39,11 @@ export default function Banner1() {
       await postPlayValidaCpfLandingPage(formData);
       changeForm('cpf', formData.cpf);
       toast.success('Sucesso');
-      navigate(`/cadastro-usuario-mmn/${idIndicacao}`);
+      if (user?.primeiroAcesso) {
+        navigate(`/cadastro-usuario-mmn/${idIndicacao}`);
+      } else {
+        navigate('/login');
+      }
     } catch (error: any) {
       toast.success('Inicie seu cadastro!');
       navigate(`/cadastro-usuario-mmn/${idIndicacao}`);

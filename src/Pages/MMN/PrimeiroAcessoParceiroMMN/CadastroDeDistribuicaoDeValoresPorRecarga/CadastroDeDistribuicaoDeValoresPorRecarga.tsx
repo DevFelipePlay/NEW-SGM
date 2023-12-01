@@ -11,7 +11,7 @@ import useUser from '../../../../hooks/useUser';
 import { errorToast } from '../../../../utils';
 import { currencyMask } from '../../../../utils/masks/maskCurrency';
 
-export const CadastroNiveisDeUsuario = () => {
+export const CadastroDeDistribuicaoDeValoresPorRecarga = () => {
   const [selectedValues, setSelectedValues] = useState<number[]>(new Array(10).fill(0));
   const [total, setTotal] = useState<number>(0);
   const [loading, setLoading] = useState(false);
@@ -51,7 +51,9 @@ export const CadastroNiveisDeUsuario = () => {
 
       await postPlayCadastroNiveisMMN(payload);
       toast.success('Niveis Cadastrados com sucesso!');
-      navigate('/primeiro-acesso-multinivel-parceiro/cadastro-graduacoes');
+      navigate(
+        '/primeiro-acesso-multinivel-parceiro/cadastro-de-distribuicao-de-valores-por-ativacao'
+      );
     } catch (error) {
       errorToast;
     }
@@ -64,10 +66,10 @@ export const CadastroNiveisDeUsuario = () => {
   }, [selectedValues]);
 
   return (
-    <StepsPrimeiroAcessoMMN step={1}>
+    <StepsPrimeiroAcessoMMN step={5}>
       <Cards
-        title={'Cadastro dos Niveis'}
-        subTitle={'Cadastro do sistema de níveis de rede'}
+        title={'Cadastro de distribuição de valores por recarga'}
+        subTitle={'Cadastro do sistema de distribuição de valores por níveil da rede'}
         size={'50%'}
       >
         <Box component={'form'} onSubmit={handleSubmit} sx={{ width: '100%' }}>

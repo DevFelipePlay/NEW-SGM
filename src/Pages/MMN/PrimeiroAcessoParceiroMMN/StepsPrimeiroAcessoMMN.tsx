@@ -83,6 +83,11 @@ export function StepsPrimeiroAcessoMMN({ step, children }: IStepsCadastro) {
       4: <MdOutlineMultipleStop />,
       5: <MdOutlineMultipleStop />,
       6: <MdOutlineMultipleStop />,
+      7: <MdOutlineMultipleStop />,
+      8: <MdOutlineMultipleStop />,
+      9: <MdOutlineMultipleStop />,
+      10: <MdOutlineMultipleStop />,
+      11: <MdOutlineMultipleStop />,
     };
 
     return (
@@ -111,9 +116,14 @@ export function StepsPrimeiroAcessoMMN({ step, children }: IStepsCadastro) {
 
   const steps = [
     'Cadastre os pacotes de licenciamento e venda de chips',
+    'Cadastro de pacotes de Chips',
     'Cadastro dos planos',
     'Cadastro das Graduações',
     'Cadastro dos pontos por modalidade',
+    'Cadastro de destribuição de valores por recarga ',
+    'Cadastro de destribuição de valores por Ativação ',
+    'Cadastro de destribuição de valores por Licenciamento ',
+    'Cadastro de destribuição de valores por Pacote de Chips ',
     'Cadastro de taxas de saque e valores',
     'Cadastro de premios',
   ];

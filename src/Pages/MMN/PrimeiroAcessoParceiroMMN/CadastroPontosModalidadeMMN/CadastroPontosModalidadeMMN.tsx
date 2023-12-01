@@ -30,7 +30,9 @@ export function CadastroPontosModalidadeMMN() {
     try {
       await postPlayCadastroPontosPorModalidade(formData);
       toast.success('Cadastro dos pontos realizado com sucesso!');
-      navigate('/primeiro-acesso-multinivel-parceiro/cadastro-valores-e-taxas');
+      navigate(
+        '/primeiro-acesso-multinivel-parceiro/cadastro-de-distribuicao-de-valores-por-recarga'
+      );
     } catch (error) {
       errorToast;
     } finally {
@@ -39,7 +41,7 @@ export function CadastroPontosModalidadeMMN() {
   }
 
   return (
-    <StepsPrimeiroAcessoMMN step={3}>
+    <StepsPrimeiroAcessoMMN step={4}>
       <Box
         sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
         component={'form'}

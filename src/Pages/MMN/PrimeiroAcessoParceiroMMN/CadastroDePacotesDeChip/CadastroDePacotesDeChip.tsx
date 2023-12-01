@@ -4,19 +4,15 @@ import { useState } from 'react';
 import { HiOutlinePlusSmall } from 'react-icons/hi2';
 import { TbTrashX } from 'react-icons/tb';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import { mask } from 'remask';
-import {
-  IReqPostPlayPctLicenciamento,
-  postPlayPctLicenciamento,
-} from '../../../../api/ApisPrimeiroAcessoParceiro/PctLicenciamento';
+import { StepsPrimeiroAcessoMMN } from '..';
+import { IReqPostPlayPctLicenciamento } from '../../../../api/ApisPrimeiroAcessoParceiro/PctLicenciamento';
 import { Cards } from '../../../../components';
 import useUser from '../../../../hooks/useUser';
 import { errorToast } from '../../../../utils';
 import { currencyMask, currencyUnMask } from '../../../../utils/masks/maskCurrency';
-import { StepsPrimeiroAcessoMMN } from '../StepsPrimeiroAcessoMMN';
 
-export function CadastroDePacotesMMN() {
+export function CadastroDePacotesDeChip() {
   const { user } = useUser();
   const navigate = useNavigate();
   const [cardData, setcardData] = useState<IReqPostPlayPctLicenciamento[]>([
@@ -57,9 +53,7 @@ export function CadastroDePacotesMMN() {
         ...postData,
         token: user ? user.token : null,
       };
-      await postPlayPctLicenciamento(postDataToken);
-      toast.success('Pacotes cadastrados com sucesso');
-      navigate('/primeiro-acesso-multinivel-parceiro/cadastro-de-pacotes-de-chips-mmn');
+      navigate('/primeiro-acesso-multinivel-parceiro/cadastro-dos-planos-mmn');
     } catch (error: any) {
       errorToast(error);
     } finally {
@@ -67,7 +61,7 @@ export function CadastroDePacotesMMN() {
     }
   }
   return (
-    <StepsPrimeiroAcessoMMN step={0}>
+    <StepsPrimeiroAcessoMMN step={1}>
       <Box
         sx={{
           width: '100%',
@@ -82,8 +76,8 @@ export function CadastroDePacotesMMN() {
         {cardData.map((card, index) => (
           <Cards
             key={index}
-            title={'Pacote de licenciamento'}
-            subTitle={'Cadastre os dados dos seus pacotes de licenciamento'}
+            title={'Pacote de Chips'}
+            subTitle={'Cadastre os dados dos seus pacotes de chips'}
             size={'50%'}
           >
             <TextField

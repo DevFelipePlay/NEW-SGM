@@ -42,14 +42,14 @@ export function CadastroValoresETaxasMMN() {
       await postPlayCadastroValoresETaxasMMN(postData);
       toast.success('Cadastro Realizado!');
       navigate('/primeiro-acesso-multinivel-parceiro/cadastro-premiacoes');
-    } catch (error) {
-      errorToast;
+    } catch (error: any) {
+      errorToast(error);
     } finally {
       setLoading(false);
     }
   }
   return (
-    <StepsPrimeiroAcessoMMN step={4}>
+    <StepsPrimeiroAcessoMMN step={9}>
       <Box
         sx={{ width: '100%', alignItems: 'center', justifyContent: 'center', display: 'flex' }}
         component={'form'}

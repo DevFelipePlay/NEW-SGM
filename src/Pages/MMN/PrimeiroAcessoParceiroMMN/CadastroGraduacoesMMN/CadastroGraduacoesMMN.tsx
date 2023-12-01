@@ -76,7 +76,7 @@ export function CadastroGraduacoesMMN() {
     }
   }
   return (
-    <StepsPrimeiroAcessoMMN step={2}>
+    <StepsPrimeiroAcessoMMN step={3}>
       <Cards title={'Graduações'} subTitle={'Cadastre as graduações para os usuários'} size={'80%'}>
         <Box component={'form'} onSubmit={handleSubmit} sx={{ width: `100%` }}>
           {graduations.map((graduation, index) => (
@@ -127,7 +127,7 @@ export function CadastroGraduacoesMMN() {
               </Grid>
               <Grid item xs={3} sx={{ mb: 4 }}>
                 <TextField
-                  label='Meta para a próxima graduação'
+                  label='Pontos para atingir esta graduação'
                   variant='standard'
                   fullWidth
                   type='tel'

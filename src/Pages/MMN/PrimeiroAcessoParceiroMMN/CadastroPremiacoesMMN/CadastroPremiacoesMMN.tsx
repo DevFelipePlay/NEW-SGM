@@ -12,9 +12,11 @@ import {
   Typography,
 } from '@mui/material';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { mask } from 'remask';
 import { StepsPrimeiroAcessoMMN } from '..';
+import { postPlayCompletaPrimeiroAcesso } from '../../../../api';
 import { postPlayCadastroPremiacaoMMN } from '../../../../api/ApisPrimeiroAcessoParceiro/CadastrarPremiacaoMMN';
 import { Cards, Dropzone } from '../../../../components';
 import { useForm } from '../../../../hooks';
@@ -35,6 +37,7 @@ export function CadastroPremiacoesMMN() {
     setSelectedValue(e.target.value);
   };
 
+  const navigate = useNavigate();
   const { formData, changeForm, clearForm } = useForm<{ [key: string]: any }>({
     nome_premio: '',
     descricao: '',
@@ -49,6 +52,18 @@ export function CadastroPremiacoesMMN() {
   const handleDeletePhoto = () => {
     setPremiosImg({ blob: null, url: '' });
   };
+
+  async function handleCompletaPrimeiroAcesso() {
+    let payload = {
+      cpf: user?.cpf || '',
+      alteracompletaprimeiroacesso: true,
+    };
+    try {
+      await postPlayCompletaPrimeiroAcesso(payload);
+    } catch (error: any) {
+      console.log(error);
+    }
+  }
 
   async function handeSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -72,7 +87,7 @@ export function CadastroPremiacoesMMN() {
   }
 
   return (
-    <StepsPrimeiroAcessoMMN step={5}>
+    <StepsPrimeiroAcessoMMN step={10}>
       <Box
         sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}
         component={'form'}
@@ -392,7 +407,15 @@ export function CadastroPremiacoesMMN() {
               <LoadingButton variant='contained' type='submit' sx={{ m: 2 }} loading={loading}>
                 Cadastrar
               </LoadingButton>
-              <LoadingButton onClick={() => ''} variant='outlined' color='warning'>
+              <LoadingButton
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleCompletaPrimeiroAcesso();
+                  navigate('/home-admin-mmn');
+                }}
+                variant='outlined'
+                color='warning'
+              >
                 Finalizar cadastro
               </LoadingButton>
             </Box>

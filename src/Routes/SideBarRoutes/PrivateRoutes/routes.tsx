@@ -2,7 +2,7 @@ import { Navigate, Route, Routes as RouterRoutes } from 'react-router-dom';
 
 import { AuthGuard, SideBarRoutes } from '../..';
 import ListPartner from '../../../Pages/CRM/Actions/ListPartner/ListPartner';
-import { HomePlay, HomeUserMMN } from '../../../Pages/Home';
+import { CadastrarUsuarioHomeParceiro, HomePlay, HomeUserMMN } from '../../../Pages/Home';
 import Login from '../../../Pages/Login';
 
 import HomeAdminMMN from '../../../Pages/Home/HomeMMN/HomeAdminMMN';
@@ -11,10 +11,14 @@ import Forbidden from '../../../Pages/Forbidden/Forbidden';
 import {
   AtivacaoLinha,
   CadastroDadosFinanceiros,
+  CadastroDeDistribuicaoDeValoresPorAtivacao,
+  CadastroDeDistribuicaoDeValoresPorLicenciamento,
+  CadastroDeDistribuicaoDeValoresPorPacotesDeChips,
+  CadastroDeDistribuicaoDeValoresPorRecarga,
+  CadastroDePacotesDeChip,
   CadastroDePacotesMMN,
   CadastroDosPlanosMMN,
   CadastroGraduacoesMMN,
-  CadastroNiveisDeUsuario,
   CadastroPontosModalidadeMMN,
   CadastroPremiacoesMMN,
   CadastroValoresETaxasMMN,
@@ -45,9 +49,11 @@ export function AllRoutes() {
       <Route path={'/forbidden'} element={<Forbidden />} />
 
       {/* Rotas Protegidas */}
-      <Route element={<AuthGuard allowedRoles={[-1, 0, 1, 2, 4, 5, 6, 7]} />}>
-        <Route element={<SideBarRoutes />}>
-          <Route path='/home-admin-mmn' element={<HomeAdminMMN />} />
+      <Route element={<SideBarRoutes />}>
+        <Route element={<AuthGuard allowedRoles={[-1, 0, 1]} />}>
+          <Route path='/home-admin-mmn' element={<HomeAdminMMN />}>
+            <Route path='cadastro-usuario' element={<CadastrarUsuarioHomeParceiro />} />
+          </Route>
           <Route path='/home-usuario-mmn' element={<HomeUserMMN />} />
           <Route path='home-play' element={<HomePlay />} />
           <Route path='/info-user-mmn' element={<InfoUserMMN />}>
@@ -62,8 +68,24 @@ export function AllRoutes() {
 
           <Route path='/primeiro-acesso-multinivel-parceiro'>
             <Route path='cadastro-de-pacotes-mmn' element={<CadastroDePacotesMMN />} />
+            <Route path='cadastro-de-pacotes-de-chips-mmn' element={<CadastroDePacotesDeChip />} />
             <Route path='cadastro-dos-planos-mmn' element={<CadastroDosPlanosMMN />} />
-            <Route path='cadastro-niveis-de-usuario' element={<CadastroNiveisDeUsuario />} />
+            <Route
+              path='cadastro-de-distribuicao-de-valores-por-recarga'
+              element={<CadastroDeDistribuicaoDeValoresPorRecarga />}
+            />
+            <Route
+              path='cadastro-de-distribuicao-de-valores-por-ativacao'
+              element={<CadastroDeDistribuicaoDeValoresPorAtivacao />}
+            />
+            <Route
+              path='cadastro-de-distribuicao-de-valores-por-licenciamento'
+              element={<CadastroDeDistribuicaoDeValoresPorLicenciamento />}
+            />
+            <Route
+              path='cadastro-de-distribuicao-de-valores-por-pacote-de-chips'
+              element={<CadastroDeDistribuicaoDeValoresPorPacotesDeChips />}
+            />
             <Route path='cadastro-graduacoes' element={<CadastroGraduacoesMMN />} />
             <Route
               path='cadastro-pontos-por-modalidade'
@@ -72,10 +94,12 @@ export function AllRoutes() {
             <Route path='cadastro-valores-e-taxas' element={<CadastroValoresETaxasMMN />} />
             <Route path='cadastro-premiacoes' element={<CadastroPremiacoesMMN />} />
           </Route>
+        </Route>
 
-          {/* //////// */}
+        {/* //////// */}
 
-          {/* Primeiro acesso usuãrio */}
+        {/* Primeiro acesso usuãrio */}
+        <Route element={<AuthGuard allowedRoles={[-1, 0, 1, 7]} />}>
           <Route path='/primeiro-acesso-multinivel-usuario'>
             <Route path='compra-de-pacotes' element={<CompraDePacotes />} />
             <Route
@@ -84,12 +108,14 @@ export function AllRoutes() {
             />
             <Route path='ativacao-linha' element={<AtivacaoLinha />} />
           </Route>
-          {/* //////// */}
-          <Route path='/configuracao-mmn' element={<ConfiguracaoMMN />} />
-          <Route path='/crm/parceiros' element={<ListPartner />} />
         </Route>
+        {/* //////// */}
+        <Route element={<AuthGuard allowedRoles={[-1, 0, 1]} />}>
+          <Route path='/configuracao-mmn' element={<ConfiguracaoMMN />} />
+        </Route>
+        <Route path='/crm/parceiros' element={<ListPartner />} />
+        {/* ///////////////////// */}
       </Route>
-      {/* ///////////////////// */}
     </RouterRoutes>
   );
 }
