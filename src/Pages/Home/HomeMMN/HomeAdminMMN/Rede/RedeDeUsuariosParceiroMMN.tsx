@@ -78,12 +78,7 @@ export default function RedeDeUsuariosParceiroMMN() {
             }}
           >
             <Typography variant='h4'>Rede de usuários</Typography>
-            <Button
-              onClick={function (): void {
-                throw new Error('Function not implemented.');
-              }}
-              variant='contained'
-            >
+            <Button onClick={() => navigate('/cadastro-usuario')} variant='contained'>
               Cadastrar
             </Button>
           </Box>
@@ -126,12 +121,7 @@ export default function RedeDeUsuariosParceiroMMN() {
                 }}
               >
                 <Typography variant='h4'>Rede de usuários</Typography>
-                <Button
-                  onClick={function (): void {
-                    throw new Error('Function not implemented.');
-                  }}
-                  variant='contained'
-                >
+                <Button onClick={() => navigate('/cadastro-usuario')} variant='contained'>
                   Cadastrar
                 </Button>
               </Box>

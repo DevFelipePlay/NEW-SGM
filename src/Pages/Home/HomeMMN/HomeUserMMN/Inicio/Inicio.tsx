@@ -33,7 +33,9 @@ export function Inicio() {
   }
 
   function copyToText() {
-    copy(`localhost:5173/#/landingpage-indicacao/${responseIdIndicacao?.id_indicacao}`);
+    copy(
+      `https://multinivel.operadora.app.br/#/landingpage-indicacao/${responseIdIndicacao?.id_indicacao}`
+    );
     toast.success('Copiado para area de transferencia');
   }
 
@@ -72,7 +74,7 @@ export function Inicio() {
                   }}
                 >
                   <Typography sx={{ marginRight: '2rem' }}>
-                    {`localhost:5173/#/landingpage-indicacao/${responseIdIndicacao?.id_indicacao}`}
+                    {`https://multinivel.operadora.app.br/#/landingpage-indicacao/${responseIdIndicacao?.id_indicacao}`}
                   </Typography>
                   <MdOutlineContentCopy />
                 </Box>

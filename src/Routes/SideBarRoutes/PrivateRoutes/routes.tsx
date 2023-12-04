@@ -28,7 +28,9 @@ import {
 import { ConfiguracaoMMN } from '../../../Pages/MMN/ConfiguracaoMMN';
 import InfoUserMMN from '../../../Pages/MMN/InfoUserMMN';
 import DashBoardInfoUserMMN from '../../../Pages/MMN/InfoUserMMN/Tab0';
+import NotFound from '../../../Pages/Notfound/NotFound';
 import { LandingPageMultinivel } from '../../../Pages/landingPageMultinivel';
+import AppScreen from '../../../Pages/landingPageMultinivel/AppOuSite/AppOuSute';
 import { CadastroDeDadosPessoaisUserMMN } from '../../../Pages/landingPageMultinivel/CadastroUserMMN/CadastroDeDadosPessoaisUserMMN/CadastroDeDadosPessoaisUserMMN';
 
 export function AllRoutes() {
@@ -41,6 +43,8 @@ export function AllRoutes() {
         }
       />
       <Route path='/landingpage-indicacao/:idIndicacao' element={<LandingPageMultinivel />} />
+      <Route path='/landingpage-indicacao/appousistem' element={<AppScreen />} />
+      <Route path='*' element={<NotFound />} />
       <Route
         path='/cadastro-usuario-mmn/:idIndicacao'
         element={<CadastroDeDadosPessoaisUserMMN />}
@@ -51,9 +55,8 @@ export function AllRoutes() {
       {/* Rotas Protegidas */}
       <Route element={<SideBarRoutes />}>
         <Route element={<AuthGuard allowedRoles={[-1, 0, 1]} />}>
-          <Route path='/home-admin-mmn' element={<HomeAdminMMN />}>
-            <Route path='cadastro-usuario' element={<CadastrarUsuarioHomeParceiro />} />
-          </Route>
+          <Route path='/home-admin-mmn' element={<HomeAdminMMN />} />
+          <Route path='/cadastro-usuario' element={<CadastrarUsuarioHomeParceiro />} />
           <Route path='/home-usuario-mmn' element={<HomeUserMMN />} />
           <Route path='home-play' element={<HomePlay />} />
           <Route path='/info-user-mmn' element={<InfoUserMMN />}>

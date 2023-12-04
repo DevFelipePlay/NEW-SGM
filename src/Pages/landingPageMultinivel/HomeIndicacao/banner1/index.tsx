@@ -44,7 +44,7 @@ export default function Banner1() {
       if (user?.primeiroAcesso) {
         navigate(`/cadastro-usuario-mmn/${idIndicacao}`);
       } else if (isMobile) {
-        navigate('/login');
+        navigate('/landingpage-indicacao/appousistem');
       } else {
         navigate('/login');
       }

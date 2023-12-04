@@ -201,7 +201,7 @@ export function AtivacaoLinha() {
             variant='contained'
             type='submit'
             sx={{ mt: 2 }}
-            disabled={isIccidNotValid}
+            disabled={isIccidNotValid || formData.iccid.length < 19}
           >
             Escolher plano
           </LoadingButton>

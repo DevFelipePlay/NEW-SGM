@@ -6,21 +6,29 @@ import { TbTrashX } from 'react-icons/tb';
 import { useNavigate } from 'react-router-dom';
 import { mask } from 'remask';
 import { StepsPrimeiroAcessoMMN } from '..';
-import { IReqPostPlayPctLicenciamento } from '../../../../api/ApisPrimeiroAcessoParceiro/PctLicenciamento';
+import {} from '../../../../api/ApisPrimeiroAcessoParceiro/PctLicenciamento';
 import { Cards } from '../../../../components';
-import useUser from '../../../../hooks/useUser';
+//@ts-ignore
 import { errorToast } from '../../../../utils';
+//@ts-ignore
+import { toast } from 'react-toastify';
+import {
+  IReqPostPlayCadastroPacotesVenda,
+  postPlayCadastroPacotesVendaChip,
+} from '../../../../api/ApisPrimeiroAcessoParceiro/CadastroPacotesVendaChip';
+import useUser from '../../../../hooks/useUser';
 import { currencyMask, currencyUnMask } from '../../../../utils/masks/maskCurrency';
 
 export function CadastroDePacotesDeChip() {
-  const { user } = useUser();
+  // const { user } = useUser();
   const navigate = useNavigate();
-  const [cardData, setcardData] = useState<IReqPostPlayPctLicenciamento[]>([
+  const [cardData, setcardData] = useState<IReqPostPlayCadastroPacotesVenda[]>([
     { nome: '', chips: '', pontos: '', valor_venda: '' },
   ]);
   const handleAddCard = () => {
     setcardData([...cardData, { nome: '', chips: '', pontos: '', valor_venda: '' }]);
   };
+  const { user } = useUser();
 
   const handleInputChanges = (index: any, key: any, value: any) => {
     const newCardData = [...cardData];
@@ -53,7 +61,9 @@ export function CadastroDePacotesDeChip() {
         ...postData,
         token: user ? user.token : null,
       };
+      await postPlayCadastroPacotesVendaChip(postDataToken);
       navigate('/primeiro-acesso-multinivel-parceiro/cadastro-dos-planos-mmn');
+      toast.success('Cadastro de pacotes realizado');
     } catch (error: any) {
       errorToast(error);
     } finally {

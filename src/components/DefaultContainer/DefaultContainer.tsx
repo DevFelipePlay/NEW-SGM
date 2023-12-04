@@ -1,4 +1,4 @@
-import { Avatar, Badge, Box, Grid, Typography } from '@mui/material';
+import { Avatar, Badge, Box, Grid, Tooltip, Typography } from '@mui/material';
 import { CSSProperties, ReactNode } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { RiNotificationLine } from 'react-icons/ri';
@@ -72,9 +72,11 @@ export function DefaultContainer({
           )}
           {showAvatar && (
             <Box sx={{ ...displayFlexComponent }}>
-              <Badge badgeContent={4} color='error' sx={{ marginRight: '1.5rem' }}>
-                <RiNotificationLine style={{ color: 'var(--text-color)', fontSize: '1.3rem' }} />
-              </Badge>
+              <Tooltip title='Notificações'>
+                <Badge badgeContent={0} color='error' sx={{ marginRight: '1.5rem' }}>
+                  <RiNotificationLine style={{ color: 'var(--text-color)', fontSize: '1.3rem' }} />
+                </Badge>
+              </Tooltip>
               <Avatar sx={{ mr: 2 }} />
               <Box>
                 <Typography sx={{ color: 'var(--text-color)' }}>

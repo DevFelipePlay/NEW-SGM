@@ -3,4 +3,4 @@ import { apiPlayMMN } from '../../../services/apiPlayMMN';
 
 export const postPlayRecuperaPacotesLicenciamento = async (
   req: IReqPostPlayRecuperaPacotesLicenciamento
-) => (await apiPlayMMN.post('/recuperaPacotesLicenciamento', req)).data;
+) => (await apiPlayMMN.post('/VisualizarPacotesLicenciamento', req)).data;

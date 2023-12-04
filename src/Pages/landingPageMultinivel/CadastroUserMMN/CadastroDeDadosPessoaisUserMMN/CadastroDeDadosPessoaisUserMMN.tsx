@@ -23,6 +23,7 @@ import {
 import { Cards } from '../../../../components';
 import { useForm } from '../../../../hooks';
 import useUser from '../../../../hooks/useUser';
+import useWindowSize from '../../../../hooks/useWindowSize';
 import apiCep from '../../../../services/apiCep';
 import { errorToast } from '../../../../utils';
 
@@ -72,6 +73,7 @@ export function CadastroDeDadosPessoaisUserMMN() {
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
+  const { isMobile } = useWindowSize();
 
   const { formData, changeForm, clearForm } = useForm<IReqPostPlayCadastroUserMMN>({
     cep: '',
@@ -151,7 +153,11 @@ export function CadastroDeDadosPessoaisUserMMN() {
       toast.success('Cadastro Realizado!');
       setLoading(false);
       handleCompletaPrimeiroAcesso();
-      navigate('/login');
+      if (isMobile) {
+        navigate('/landingpage-indicacao/appousistem');
+      } else {
+        navigate('/login');
+      }
     } catch (error: any) {
       toast.error(error);
       setLoading(false);
@@ -285,6 +291,7 @@ export function CadastroDeDadosPessoaisUserMMN() {
         >
           <CustomTextField
             label='Nome Completo'
+            value={formData.name || ''}
             onChange={(e) => changeForm('name', e.target.value.trim())}
             required
           />

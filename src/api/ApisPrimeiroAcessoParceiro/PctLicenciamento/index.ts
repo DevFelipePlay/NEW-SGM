@@ -1,2 +1,2 @@
-export * from './IReqPostPlayPctLicenciamento.d';
+export * from './IReqPostPlayPctLicenciamento';
 export * from './postPlayPctLicenciamento';

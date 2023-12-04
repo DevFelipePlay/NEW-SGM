@@ -5,6 +5,7 @@ export * from './CadastroNiveisAtivacaoMMN';
 export * from './CadastroNiveisLicenciamentoMMN';
 export * from './CadastroNiveisRecargaMMN';
 export * from './CadastroNiveisVendasChipsMMN';
+export * from './CadastroPacotesVendaChip';
 export * from './CadastroPontosPorModalidade';
 export * from './CadastroUserMMN';
 export * from './CadastroValoresETaxasMMN';
