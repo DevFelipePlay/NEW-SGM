@@ -54,12 +54,7 @@ interface ITabs {
   onChange: (newValue: number) => void;
 }
 
-export function CustomizedTabs({
-  mostrarNavbar = true,
-  tabsData,
-  value = 0,
-  onChange,
-}: ITabs) {
+export function CustomizedTabs({ mostrarNavbar = true, tabsData, value = 0, onChange }: ITabs) {
   return (
     <Box
       sx={{

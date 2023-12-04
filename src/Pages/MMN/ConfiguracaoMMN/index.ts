@@ -5,3 +5,4 @@ export * from './EditarPlanos';
 export * from './EditarPontos';
 export * from './EditarPremios';
 export * from './EditarTaxasESaque';
+export * from './NiveisDeDistribuicao';

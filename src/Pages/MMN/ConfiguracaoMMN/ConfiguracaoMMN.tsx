@@ -6,6 +6,7 @@ import {
   EditarPontos,
   EditarPremios,
   EditarTaxasESaque,
+  NiveisDeDistribuicao,
 } from '.';
 import { CustomizedTabs, DefaultContainer } from '../../../components';
 
@@ -23,22 +24,26 @@ export function ConfiguracaoMMN() {
         value={tabValue}
         onChange={(newValue) => setTabValue(newValue)}
         tabsData={[
-          { label: 'Pacotes', value: 0 },
-          { label: 'Planos', value: 1 },
-          { label: 'Graduações', value: 2 },
-          { label: 'Pontos', value: 3 },
-          { label: 'Taxas e saque', value: 4 },
-          { label: 'Premios', value: 5 },
+          { label: 'Licenciamento', value: 0 },
+          { label: 'Pacotes', value: 1 },
+          { label: 'Planos', value: 2 },
+          { label: 'Graduações', value: 3 },
+          { label: 'Pontos', value: 4 },
+          { label: 'Taxas e saque', value: 5 },
+          { label: 'Premios', value: 6 },
+          { label: 'Niveis de distribuição', value: 7 },
         ]}
         mostrarBotaoVoltar={false}
         mostrarNavbar={true}
       />
       {tabValue === 0 && <EditarPacotes />}
-      {tabValue === 1 && <EditarPlanos />}
-      {tabValue === 2 && <EditarGraduações />}
-      {tabValue === 3 && <EditarPontos />}
-      {tabValue === 4 && <EditarTaxasESaque />}
-      {tabValue === 5 && <EditarPremios />}
+      {tabValue === 1 && <>teste</>}
+      {tabValue === 2 && <EditarPlanos />}
+      {tabValue === 3 && <EditarGraduações />}
+      {tabValue === 4 && <EditarPontos />}
+      {tabValue === 5 && <EditarTaxasESaque />}
+      {tabValue === 6 && <EditarPremios />}
+      {tabValue === 7 && <NiveisDeDistribuicao />}
     </DefaultContainer>
   );
 }

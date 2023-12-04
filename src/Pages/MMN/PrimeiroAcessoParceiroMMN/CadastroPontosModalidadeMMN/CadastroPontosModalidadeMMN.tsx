@@ -17,7 +17,7 @@ export function CadastroPontosModalidadeMMN() {
   const { formData, changeForm } = useForm({
     ativacao: '',
     recarga: '',
-
+    chips: '',
     token: user?.token,
   });
 
@@ -70,6 +70,16 @@ export function CadastroPontosModalidadeMMN() {
             sx={{ mb: 2 }}
             value={mask(formData.recarga, ['9999'])}
             onChange={(e) => changeForm('recarga', e.target.value)}
+            required
+          />
+          <TextField
+            type='tel'
+            label='Chips'
+            variant='standard'
+            fullWidth
+            sx={{ mb: 2 }}
+            value={mask(formData.chips, ['9999'])}
+            onChange={(e) => changeForm('chips', e.target.value)}
             required
           />
 

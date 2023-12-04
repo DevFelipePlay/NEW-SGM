@@ -127,7 +127,7 @@ export default function Login() {
               ao
             </Typography>
             <Typography variant='h2' color={'var(--primary-color)'} fontWeight={'900'}>
-              SGM
+              Multinível Opuscell
             </Typography>
           </Stack>
         </Box>

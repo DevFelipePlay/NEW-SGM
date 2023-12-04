@@ -82,7 +82,7 @@ export function CadastroDePacotesMMN() {
         {cardData.map((card, index) => (
           <Cards
             key={index}
-            title={'Pacote de licenciamento'}
+            title={'Licenciamento'}
             subTitle={'Cadastre os dados dos seus pacotes de licenciamento'}
             size={'50%'}
           >
