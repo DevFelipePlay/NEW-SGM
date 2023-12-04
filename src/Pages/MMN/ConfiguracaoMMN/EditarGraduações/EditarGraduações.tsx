@@ -228,14 +228,10 @@ export function EditarGraduações() {
         flexDirection: 'column',
       }}
     >
-      <Cards
-        title={'Configure suas graduações'}
-        subTitle={'Qual opção seria ideal para o seu objetivo ?'}
-        size={'100%'}
-      >
+      <Cards title={'Configure suas graduações'} subTitle={''} size={'100%'}>
         <FormControl>
           <FormLabel id='demo-radio-buttons-group-label'>
-            Marque uma opção para o seu objetivo
+            Marque a ideal opção para o seu objetivo
           </FormLabel>
           <RadioGroup
             aria-labelledby='demo-radio-buttons-group-label'

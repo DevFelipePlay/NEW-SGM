@@ -9,9 +9,15 @@ import {
   NiveisDeDistribuicao,
 } from '.';
 import { CustomizedTabs, DefaultContainer } from '../../../components';
+import { EditarPacotesChips } from './EditarPacotesChips';
 
 export function ConfiguracaoMMN() {
   const [tabValue, setTabValue] = useState(0);
+
+  // Menu
+
+  ///
+
   return (
     <DefaultContainer
       page={'Configarações Gerais'}
@@ -36,8 +42,9 @@ export function ConfiguracaoMMN() {
         mostrarBotaoVoltar={false}
         mostrarNavbar={true}
       />
+
       {tabValue === 0 && <EditarPacotes />}
-      {tabValue === 1 && <>teste</>}
+      {tabValue === 1 && <EditarPacotesChips />}
       {tabValue === 2 && <EditarPlanos />}
       {tabValue === 3 && <EditarGraduações />}
       {tabValue === 4 && <EditarPontos />}

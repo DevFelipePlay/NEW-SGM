@@ -21,18 +21,20 @@ import { TbTrashX } from 'react-icons/tb';
 import { toast } from 'react-toastify';
 import { mask } from 'remask';
 import {
-  IReqPostPlayPctLicenciamento,
   IResPostPlayRecuperaPacotesLicenciamento,
-  postPlayDeletarPacotesLicenciamento,
-  postPlayEditarPacotesLicenciamento,
-  postPlayPctLicenciamento,
-  postPlayRecuperaPacotesLicenciamento,
+  postPlayCadastroPacotesVendaChip,
+  postPlayDeletarPacotesChips,
+  postPlayVisualizaPacotesVendaChip,
 } from '../../../../api';
+import {
+  IReqPostPlayEditarPacotesChips,
+  postPlayEditarPacotesChips,
+} from '../../../../api/ApisEditarModulo/EditarPacotesChips';
 import { Cards, Loading } from '../../../../components';
 import useUser from '../../../../hooks/useUser';
 import { currencyMask, currencyUnMask, errorToast } from '../../../../utils';
 
-export function EditarPacotes() {
+export function EditarPacotesChips() {
   const [loading, setloading] = useState(false);
   const [loadingSubmit, setloadingSubmit] = useState(false);
   const [loadingEdit, setLoadingEdit] = useState(false);
@@ -83,7 +85,7 @@ export function EditarPacotes() {
     };
 
     try {
-      const data = await postPlayRecuperaPacotesLicenciamento(payload);
+      const data = await postPlayVisualizaPacotesVendaChip(payload);
       setResponsePacotes(data);
     } catch (error: any) {
       errorToast(error);
@@ -108,7 +110,7 @@ export function EditarPacotes() {
 
   // Acrescentar
 
-  const [cardData, setcardData] = useState<IReqPostPlayPctLicenciamento[]>([
+  const [cardData, setcardData] = useState<IReqPostPlayEditarPacotesChips[]>([
     { nome: '', chips: '', pontos: '', valor_venda: '' },
   ]);
   const handleAddCard = () => {
@@ -144,8 +146,9 @@ export function EditarPacotes() {
         ...postData,
         token: user ? user.token : null,
       };
-      await postPlayPctLicenciamento(postDataToken);
-      toast.success('Pacotes cadastrados com sucesso');
+      //@ts-ignore
+      await postPlayCadastroPacotesVendaChip(postDataToken);
+      toast.success('Pacotes de chips cadastrados com sucesso');
     } catch (error: any) {
       errorToast(error);
     } finally {
@@ -174,8 +177,8 @@ export function EditarPacotes() {
         cpf: user?.cpf || '',
       };
       //@ts-ignore
-      await postPlayEditarPacotesLicenciamento(postData);
-      toast.success('Pacotes Editados!');
+      await postPlayEditarPacotesChips(postData);
+      toast.success('Pacotes de chips Editados!');
     } catch (error: any) {
       errorToast(error);
     } finally {
@@ -196,8 +199,8 @@ export function EditarPacotes() {
         },
       };
       //@ts-ignore
-      await postPlayDeletarPacotesLicenciamento(postData);
-      toast.success('Pacote excluído com sucesso!');
+      await postPlayDeletarPacotesChips(postData);
+      toast.success('Pacote de chips excluído com sucesso!');
       handleClose();
       handleRecuperaPacotes();
     } catch (error: any) {
@@ -217,7 +220,7 @@ export function EditarPacotes() {
         flexDirection: 'column',
       }}
     >
-      <Cards title={'Configure seus pacotes de licenciamento.'} subTitle={''} size={'100%'}>
+      <Cards title={'Configure seus pacotes de Chips.'} subTitle={''} size={'100%'}>
         <FormControl>
           <FormLabel id='demo-radio-buttons-group-label'>
             Marque a ideal opção para o seu objetivo
@@ -229,9 +232,17 @@ export function EditarPacotes() {
             name='radio-buttons-group'
             onChange={(e: any) => setSelectedValue(e.target.value)}
           >
-            <FormControlLabel value='0' control={<Radio />} label='Editar pacotes já existentes' />
-            <FormControlLabel value='1' control={<Radio />} label='Excluir pacotes' />
-            <FormControlLabel value='2' control={<Radio />} label='Acrescentar um novo pacote' />
+            <FormControlLabel
+              value='0'
+              control={<Radio />}
+              label='Editar pacotes de chips já existentes'
+            />
+            <FormControlLabel value='1' control={<Radio />} label='Excluir pacotes de chips' />
+            <FormControlLabel
+              value='2'
+              control={<Radio />}
+              label='Acrescentar um novo pacote de chips'
+            />
           </RadioGroup>
         </FormControl>
       </Cards>
@@ -266,7 +277,7 @@ export function EditarPacotes() {
                 <Grid item xs={8} key={index}>
                   <Cards
                     title={item.nome}
-                    subTitle={'Edite os dados dos seus pacotes de licenciamento'}
+                    subTitle={'Edite os dados dos seus pacotes de Chips'}
                     size={'100%'}
                   >
                     <>
@@ -362,7 +373,7 @@ export function EditarPacotes() {
       )}
       {selectedValue === '1' && (
         <>
-          <Cards title={'Excluir Pacotes'} subTitle={''} size={'100%'}>
+          <Cards title={'Excluir Pacotes de Chips'} subTitle={''} size={'100%'}>
             {loading ? (
               <Box
                 sx={{
@@ -401,7 +412,6 @@ export function EditarPacotes() {
                           <Typography>
                             Oferece: {item.pontos} pontos para a rede do usuário
                           </Typography>
-                          <Typography>Oferedece acesso ao multinivel</Typography>
                           <Typography> Valor de venda: R$ {item.valor_venda}</Typography>
                         </Box>
 
@@ -447,7 +457,7 @@ export function EditarPacotes() {
       )}
       {selectedValue === '2' && (
         <Cards
-          title={'Acrescentar Pacotes'}
+          title={'Acrescentar Pacotes de chips'}
           subTitle={'Acrescente pacotes na sua lista de vendas'}
           size={'100%'}
         >
@@ -465,7 +475,7 @@ export function EditarPacotes() {
             {cardData.map((card, index) => (
               <Cards
                 key={index}
-                title={'Pacote de licenciamento'}
+                title={'Pacote de Chips'}
                 subTitle={'Cadastre os dados dos seus pacotes de costumizaveis'}
                 size={'50%'}
               >
@@ -529,7 +539,7 @@ export function EditarPacotes() {
             ))}
             <Box sx={{ width: '100%', display: 'flex', justifyContent: 'space-evenly' }}>
               <Box mt={2}>
-                <Tooltip title='Adicionar um novo pacote'>
+                <Tooltip title='Adicionar um novo pacote de chips'>
                   <IconButton
                     onClick={() => handleAddCard()}
                     sx={{ backgroundColor: 'var(--primary-color)' }}
