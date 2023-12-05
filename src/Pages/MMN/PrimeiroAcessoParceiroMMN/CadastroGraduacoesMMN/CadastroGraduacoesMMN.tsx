@@ -69,8 +69,8 @@ export function CadastroGraduacoesMMN() {
       await postPlayCadastroGraduacoesMMN(postDataToken);
       toast.success('Graduações cadastradas');
       navigate('/primeiro-acesso-multinivel-parceiro/cadastro-pontos-por-modalidade');
-    } catch (error) {
-      errorToast;
+    } catch (error: any) {
+      errorToast(error);
     } finally {
       setLoading(false);
     }

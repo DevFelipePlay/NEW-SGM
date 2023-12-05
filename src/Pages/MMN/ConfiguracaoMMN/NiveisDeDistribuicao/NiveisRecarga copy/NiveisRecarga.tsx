@@ -1,6 +1,6 @@
 import LoadingButton from '@mui/lab/LoadingButton/LoadingButton';
 import { Box, InputAdornment, Slider, TextField, Typography } from '@mui/material';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import {
   IResPostPlayVisualizaNiveisAtivacao,
@@ -133,9 +133,10 @@ export function NiveisDeDistribuicaoRecarga() {
                 id='id_valor_plano'
                 label='Valor de referencia'
                 placeholder='0,00'
-                value={formData.valor_referencia !== undefined ? formData.valor_referencia : ''}
+                value={formData.valor_referencia}
                 onChange={(e) => {
-                  changeForm('valor_referencia', currencyMask(e.target.value));
+                  const numericValue = parseFloat(currencyMask(e.target.value)) || 0;
+                  changeForm('valor_referencia', numericValue.toString());
                 }}
                 variant='standard'
                 fullWidth

@@ -54,8 +54,8 @@ export const CadastroDeDistribuicaoDeValoresPorRecarga = () => {
       navigate(
         '/primeiro-acesso-multinivel-parceiro/cadastro-de-distribuicao-de-valores-por-ativacao'
       );
-    } catch (error) {
-      errorToast;
+    } catch (error: any) {
+      errorToast(error);
     }
   }
 
@@ -69,7 +69,7 @@ export const CadastroDeDistribuicaoDeValoresPorRecarga = () => {
     <StepsPrimeiroAcessoMMN step={5}>
       <Cards
         title={'Cadastro de distribuição de valores por recarga'}
-        subTitle={'Cadastro do sistema de distribuição de valores por níveil da rede'}
+        subTitle={'Cadastro do sistema de distribuição de valores por nível da rede'}
         size={'50%'}
       >
         <Box component={'form'} onSubmit={handleSubmit} sx={{ width: '100%' }}>

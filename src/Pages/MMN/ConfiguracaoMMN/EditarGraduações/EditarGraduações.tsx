@@ -206,8 +206,8 @@ export function EditarGraduações() {
 
       await postPlayCadastroGraduacoesMMN(postDataToken);
       toast.success('Graduações cadastradas');
-    } catch (error) {
-      errorToast;
+    } catch (error: any) {
+      errorToast(error);
     } finally {
       setLoading(false);
     }

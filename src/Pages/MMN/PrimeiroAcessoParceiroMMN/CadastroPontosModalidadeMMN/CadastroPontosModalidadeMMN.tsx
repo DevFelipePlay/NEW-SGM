@@ -33,8 +33,8 @@ export function CadastroPontosModalidadeMMN() {
       navigate(
         '/primeiro-acesso-multinivel-parceiro/cadastro-de-distribuicao-de-valores-por-recarga'
       );
-    } catch (error) {
-      errorToast;
+    } catch (error: any) {
+      errorToast(error);
     } finally {
       setLoading(false);
     }

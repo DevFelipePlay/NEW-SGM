@@ -51,8 +51,8 @@ export function CadastroDadosFinanceiros() {
       await postPlayCadastroDadosFinanceiros(formData);
       toast.success('Dados Financeiros cadastrados!');
       navigate('/home-usuario-mmn');
-    } catch (error) {
-      errorToast;
+    } catch (error: any) {
+      errorToast(error);
     }
   }
 

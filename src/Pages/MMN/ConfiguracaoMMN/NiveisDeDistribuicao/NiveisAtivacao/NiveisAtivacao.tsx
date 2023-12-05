@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import {
   IResPostPlayVisualizaNiveisAtivacao,
-  postPlayCadastroNiveisAtivacaoMMN,
+  postPlayEditarNiveisAtivacao,
   postPlayVisualizaNiveisAtivacao,
 } from '../../../../../api';
 import { Cards, Loading } from '../../../../../components';
@@ -41,6 +41,7 @@ export function NiveisDeDistribuicaoAtivacao() {
     try {
       const payload = {
         token: user ? user.token : '',
+        cpf: user?.cpf || '',
         valor_referencia: parseFloat(formData.valor_referencia),
         nivel1: String(selectedValues[0]),
         nivel2: String(selectedValues[1]),
@@ -53,10 +54,10 @@ export function NiveisDeDistribuicaoAtivacao() {
         nivel9: String(selectedValues[8]),
         nivel10: String(selectedValues[9]),
       };
-      await postPlayCadastroNiveisAtivacaoMMN(payload);
+      await postPlayEditarNiveisAtivacao(payload);
       toast.success('Niveis Cadastrados com sucesso!');
-    } catch (error) {
-      errorToast;
+    } catch (error: any) {
+      errorToast(error);
     }
   }
 
@@ -68,6 +69,8 @@ export function NiveisDeDistribuicaoAtivacao() {
       };
       const data = await postPlayVisualizaNiveisAtivacao(payload);
       setResponseView(data);
+      const valorReferencia =
+        responseView?.valor_referencia !== null ? responseView?.valor_referencia.toString() : '';
       const newValues = [
         responseView?.nivel1 || '0',
         responseView?.nivel2 || '0',
@@ -82,7 +85,7 @@ export function NiveisDeDistribuicaoAtivacao() {
       ];
       //@ts-ignore
       setSelectedValues(newValues);
-      changeForm('valor_referencia', responseView ? responseView?.valor_referencia.toString() : '');
+      changeForm('valor_referencia', valorReferencia ? valorReferencia : '');
       setInitialValuesLoaded(true);
     } catch (error: any) {
       errorToast(error);
@@ -121,7 +124,7 @@ export function NiveisDeDistribuicaoAtivacao() {
         >
           <Cards
             title={'Cadastro de distribuição de valores por Ativação'}
-            subTitle={'Cadastro do sistema de distribuição de valores por níveil da rede'}
+            subTitle={'Cadastro do sistema de distribuição de valores por nível da rede'}
             size={'70%'}
           >
             <Box component={'form'} onSubmit={handleSubmit} sx={{ width: '100%' }}>
@@ -132,10 +135,9 @@ export function NiveisDeDistribuicaoAtivacao() {
                 id='id_valor_plano'
                 label='Valor de referencia'
                 placeholder='0,00'
-                value={formData.valor_referencia}
+                value={formData.valor_referencia !== undefined ? formData.valor_referencia : ''}
                 onChange={(e) => {
-                  const numericValue = parseFloat(currencyMask(e.target.value)) || 0;
-                  changeForm('valor_referencia', numericValue.toString());
+                  changeForm('valor_referencia', currencyMask(e.target.value));
                 }}
                 variant='standard'
                 fullWidth

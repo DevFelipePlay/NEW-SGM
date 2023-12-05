@@ -75,8 +75,8 @@ export function CadastroDosPlanosMMN() {
     try {
       const response = await postPlayRecuperaPlanosPrimeiroAcesso(payload);
       setResponseData(response);
-    } catch (error) {
-      errorToast;
+    } catch (error: any) {
+      errorToast(error);
     } finally {
       setLoading(false);
     }
@@ -100,8 +100,8 @@ export function CadastroDosPlanosMMN() {
       setResponseData(response.data);
       navigate('/primeiro-acesso-multinivel-parceiro/cadastro-graduacoes');
       toast.success('Escolha dos planos realizada');
-    } catch (error) {
-      errorToast;
+    } catch (error: any) {
+      errorToast(error);
     } finally {
       setLoadingSend(false);
     }

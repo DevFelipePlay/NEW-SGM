@@ -4,16 +4,16 @@ import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import {
   IResPostPlayVisualizaNiveisAtivacao,
-  postPlayEditarNiveisRecarga,
-  postPlayVisualizaNiveisRecarga,
+  postPlayVisualizaNiveisVendasChips,
 } from '../../../../../api';
+import { postPlayEditarNiveisVendasChips } from '../../../../../api/ApisEditarModulo/EditarNiveisVendasChips';
 import { Cards, Loading } from '../../../../../components';
 import { useForm } from '../../../../../hooks';
 import useUser from '../../../../../hooks/useUser';
 import { errorToast } from '../../../../../utils';
 import { currencyMask } from '../../../../../utils/masks/maskCurrency';
 
-export function NiveisDeDistribuicaoRecarga() {
+export function NiveisDeDistribuicaoVendasChips() {
   const [selectedValues, setSelectedValues] = useState<number[]>([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
 
   const [total, setTotal] = useState<number>(0);
@@ -48,13 +48,8 @@ export function NiveisDeDistribuicaoRecarga() {
         nivel3: String(selectedValues[2]),
         nivel4: String(selectedValues[3]),
         nivel5: String(selectedValues[4]),
-        nivel6: String(selectedValues[5]),
-        nivel7: String(selectedValues[6]),
-        nivel8: String(selectedValues[7]),
-        nivel9: String(selectedValues[8]),
-        nivel10: String(selectedValues[9]),
       };
-      await postPlayEditarNiveisRecarga(payload);
+      await postPlayEditarNiveisVendasChips(payload);
       toast.success('Niveis Cadastrados com sucesso!');
     } catch (error: any) {
       errorToast(error);
@@ -67,7 +62,7 @@ export function NiveisDeDistribuicaoRecarga() {
       let payload = {
         cpf: user?.cpf || '',
       };
-      const data = await postPlayVisualizaNiveisRecarga(payload);
+      const data = await postPlayVisualizaNiveisVendasChips(payload);
       setResponseView(data);
       const newValues = [
         responseView?.nivel1 || '0',
@@ -75,11 +70,6 @@ export function NiveisDeDistribuicaoRecarga() {
         responseView?.nivel3 || '0',
         responseView?.nivel4 || '0',
         responseView?.nivel5 || '0',
-        responseView?.nivel6 || '0',
-        responseView?.nivel7 || '0',
-        responseView?.nivel8 || '0',
-        responseView?.nivel9 || '0',
-        responseView?.nivel10 || '0',
       ];
       //@ts-ignore
       setSelectedValues(newValues);
@@ -103,7 +93,7 @@ export function NiveisDeDistribuicaoRecarga() {
   }, [initialValuesLoaded]);
 
   return (
-    <Cards title={'Recarga'} subTitle={''} size={'100%'}>
+    <Cards title={'Vendas Chips'} subTitle={''} size={'100%'}>
       {loadingView ? (
         <Box
           sx={{
@@ -121,7 +111,7 @@ export function NiveisDeDistribuicaoRecarga() {
           sx={{ width: '100%', alignItems: 'center', justifyContent: 'center', display: 'flex' }}
         >
           <Cards
-            title={'Cadastro de distribuição de valores por Recarga'}
+            title={'Cadastro de distribuição de valores por Vendas de Chips'}
             subTitle={'Cadastro do sistema de distribuição de valores por nível da rede'}
             size={'70%'}
           >
@@ -145,7 +135,7 @@ export function NiveisDeDistribuicaoRecarga() {
                 }}
               />
               <div style={{ width: '100%' }}>
-                {Array.from({ length: 10 }, (_, index) => (
+                {Array.from({ length: 5 }, (_, index) => (
                   <div key={index}>
                     <label>{`Nivel ${index + 1} `}</label>
                     <Slider

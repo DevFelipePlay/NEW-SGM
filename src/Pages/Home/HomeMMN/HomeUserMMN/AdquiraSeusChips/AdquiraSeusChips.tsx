@@ -5,9 +5,10 @@ import { useEffect, useState } from 'react';
 import {
   IResPostPlayVisualizaPacotesVendaChip,
   postPlayVisualizaPacotesVendaChip,
-} from '../../../../../../api';
-import { Cards, Loading } from '../../../../../../components';
-import useUser from '../../../../../../hooks/useUser';
+} from '../../../../../api';
+import { Cards, Loading } from '../../../../../components';
+import useUser from '../../../../../hooks/useUser';
+import { errorToast } from '../../../../../utils';
 
 export function AdquiraSeusChips() {
   const [loadingView, setLoadingView] = useState(false);
@@ -22,7 +23,11 @@ export function AdquiraSeusChips() {
       };
       const data = await postPlayVisualizaPacotesVendaChip(payload);
       setResponseView(data);
-    } catch (error) {}
+    } catch (error: any) {
+      errorToast(error);
+    } finally {
+      setLoadingView(false);
+    }
   }
 
   useEffect(() => {

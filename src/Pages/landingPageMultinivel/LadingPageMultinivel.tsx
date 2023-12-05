@@ -27,7 +27,7 @@ export function LandingPageMultinivel() {
 
       await postPlayValidaIdIndicacao(payload);
       setValidateIdIndicacao(true);
-    } catch (error) {
+    } catch (error: any) {
       setValidateIdIndicacao(false);
     } finally {
       setLoading(false);

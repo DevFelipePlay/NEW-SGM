@@ -2,7 +2,9 @@ import { Box, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from
 import { useState } from 'react';
 import { Cards } from '../../../../components';
 import { NiveisDeDistribuicaoAtivacao } from './NiveisAtivacao';
+import { NiveisDeDistribuicaoLicenciamento } from './NiveisLicenciamento';
 import { NiveisDeDistribuicaoRecarga } from './NiveisRecarga';
+import { NiveisDeDistribuicaoVendasChips } from './NiveisVendasChips';
 
 export function NiveisDeDistribuicao() {
   const [selectedValue, setSelectedValue] = useState('');
@@ -30,6 +32,8 @@ export function NiveisDeDistribuicao() {
 
       {selectedValue === '0' && <NiveisDeDistribuicaoAtivacao />}
       {selectedValue === '1' && <NiveisDeDistribuicaoRecarga />}
+      {selectedValue === '2' && <NiveisDeDistribuicaoLicenciamento />}
+      {selectedValue === '3' && <NiveisDeDistribuicaoVendasChips />}
     </Box>
   );
 }

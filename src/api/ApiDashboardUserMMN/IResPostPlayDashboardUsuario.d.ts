@@ -11,4 +11,5 @@ export interface IResPostPlayDashboardUsuario {
   bonus_recebidos: string | null;
   id_indicacao: string;
   plano: string;
+  licenciamento: boolean | null;
 }

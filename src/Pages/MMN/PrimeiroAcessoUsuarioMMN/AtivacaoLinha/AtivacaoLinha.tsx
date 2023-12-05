@@ -82,8 +82,8 @@ export function AtivacaoLinha() {
     try {
       const data = await postPlayRecuperaPlanosPreferidos(payload);
       setResponsePLanosPreferidos(data);
-    } catch (error) {
-      errorToast;
+    } catch (error: any) {
+      errorToast(error);
     }
   }
 
@@ -108,8 +108,8 @@ export function AtivacaoLinha() {
       await postPlayAtivacaoLinha(postData);
       toast.success('Sua fatura foi gerada e poderá ser vista no aplicativo');
       navigate('/primeiro-acesso-multinivel-usuario/cadastro-dados-financeiros-usuario');
-    } catch (error) {
-      errorToast;
+    } catch (error: any) {
+      errorToast(error);
     } finally {
       setLoadingValidate(false);
     }
@@ -125,8 +125,8 @@ export function AtivacaoLinha() {
       await postPlayValidaICCID(payload);
       setIsIccidNotValid(false);
       toast.success('Seu ICCID é valido');
-    } catch (error) {
-      errorToast;
+    } catch (error: any) {
+      errorToast(error);
       setIsIccidNotValid(true);
     } finally {
       setLoadingValidateICCID(false);
@@ -204,6 +204,17 @@ export function AtivacaoLinha() {
             disabled={isIccidNotValid || formData.iccid.length < 19}
           >
             Escolher plano
+          </LoadingButton>
+          <LoadingButton
+            loading={loadingValidate}
+            variant='outlined'
+            onClick={() =>
+              navigate('/primeiro-acesso-multinivel-usuario/cadastro-dados-financeiros-usuario')
+            }
+            sx={{ mt: 2 }}
+            color='warning'
+          >
+            Já Possuo uma linha ativa
           </LoadingButton>
         </Cards>
 

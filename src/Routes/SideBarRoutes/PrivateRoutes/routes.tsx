@@ -57,7 +57,6 @@ export function AllRoutes() {
         <Route element={<AuthGuard allowedRoles={[-1, 0, 1]} />}>
           <Route path='/home-admin-mmn' element={<HomeAdminMMN />} />
           <Route path='/cadastro-usuario' element={<CadastrarUsuarioHomeParceiro />} />
-          <Route path='/home-usuario-mmn' element={<HomeUserMMN />} />
           <Route path='home-play' element={<HomePlay />} />
           <Route path='/info-user-mmn' element={<InfoUserMMN />}>
             <Route path='dashboard-info-user-mmn' element={<DashBoardInfoUserMMN />} />
@@ -117,6 +116,8 @@ export function AllRoutes() {
           <Route path='/configuracao-mmn' element={<ConfiguracaoMMN />} />
         </Route>
         <Route path='/crm/parceiros' element={<ListPartner />} />
+        <Route path='/home-usuario-mmn' element={<HomeUserMMN />} />
+
         {/* ///////////////////// */}
       </Route>
     </RouterRoutes>

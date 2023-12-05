@@ -80,7 +80,7 @@ export function Saque() {
       };
       const data = await postPlaySaqueUsuario(payload);
       setResponseSaque(data);
-    } catch (error) {
+    } catch (error: any) {
     } finally {
       setLoading(false);
     }

@@ -1,4 +1,4 @@
-import { Avatar, Box, Grid, Tooltip, Typography } from '@mui/material';
+import { Avatar, Box, Button, Grid, Tooltip, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { MdOutlineContentCopy } from 'react-icons/md';
 import { toast } from 'react-toastify';
@@ -161,6 +161,7 @@ export function Inicio() {
 
                     <Typography>Expira em:</Typography>
                     <Typography>Graduação:</Typography>
+                    <Typography>Licenciado:</Typography>
                   </Grid>
                   <Grid
                     item
@@ -195,8 +196,17 @@ export function Inicio() {
                         ? responseIdIndicacao?.graduacao
                         : 'Sem Graduação'}
                     </Typography>
+                    <Typography>
+                      {responseIdIndicacao?.licenciamento ? 'Licenciado' : 'Não Licenciado'}
+                    </Typography>
                   </Grid>
                 </Grid>
+                {responseIdIndicacao?.licenciamento === false ||
+                  (null && (
+                    <Button variant='contained' sx={{ mt: 2 }}>
+                      Adquir Lincenciamento
+                    </Button>
+                  ))}
               </Box>
             </Cards>
           </Grid>

@@ -195,8 +195,8 @@ export function EditarPremios() {
       toast.success('Premio cadastrado');
       clearForm();
       handleDeletePhoto();
-    } catch (error) {
-      errorToast;
+    } catch (error: any) {
+      errorToast(error);
     } finally {
       setLoading(false);
     }

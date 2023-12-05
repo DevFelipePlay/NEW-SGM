@@ -48,8 +48,8 @@ export function CadastroDeDistribuicaoDeValoresPorLicenciamento() {
       navigate(
         '/primeiro-acesso-multinivel-parceiro/cadastro-de-distribuicao-de-valores-por-pacote-de-chips'
       );
-    } catch (error) {
-      errorToast;
+    } catch (error: any) {
+      errorToast(error);
     }
   }
 
@@ -63,7 +63,7 @@ export function CadastroDeDistribuicaoDeValoresPorLicenciamento() {
     <StepsPrimeiroAcessoMMN step={7}>
       <Cards
         title={'Cadastro de distribuição de valores por Licenciamento'}
-        subTitle={'Cadastro do sistema de distribuição de valores por níveil da rede'}
+        subTitle={'Cadastro do sistema de distribuição de valores por nível da rede'}
         size={'50%'}
       >
         <Box component={'form'} onSubmit={handleSubmit} sx={{ width: '100%' }}>

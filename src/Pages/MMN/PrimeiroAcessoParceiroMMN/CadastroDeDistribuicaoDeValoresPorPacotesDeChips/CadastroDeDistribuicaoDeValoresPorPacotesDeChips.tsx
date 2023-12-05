@@ -46,8 +46,8 @@ export function CadastroDeDistribuicaoDeValoresPorPacotesDeChips() {
       await postPlayCadastroNiveisVendasChipsMMN(payload);
       toast.success('Cadastro dos niveis realizado!');
       navigate('/primeiro-acesso-multinivel-parceiro/cadastro-valores-e-taxas');
-    } catch (error) {
-      errorToast;
+    } catch (error: any) {
+      errorToast(error);
     }
   }
 
@@ -61,7 +61,7 @@ export function CadastroDeDistribuicaoDeValoresPorPacotesDeChips() {
     <StepsPrimeiroAcessoMMN step={8}>
       <Cards
         title={'Cadastro de distribuição de valores por pacotes de chips'}
-        subTitle={'Cadastro do sistema de distribuição de valores por níveil da rede'}
+        subTitle={'Cadastro do sistema de distribuição de valores por nível da rede'}
         size={'50%'}
       >
         <Box component={'form'} onSubmit={handleSubmit} sx={{ width: '100%' }}>

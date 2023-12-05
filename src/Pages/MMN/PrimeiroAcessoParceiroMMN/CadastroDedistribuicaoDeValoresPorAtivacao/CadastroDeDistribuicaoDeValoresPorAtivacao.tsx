@@ -53,8 +53,8 @@ export function CadastroDeDistribuicaoDeValoresPorAtivacao() {
       navigate(
         '/primeiro-acesso-multinivel-parceiro/cadastro-de-distribuicao-de-valores-por-licenciamento'
       );
-    } catch (error) {
-      errorToast;
+    } catch (error: any) {
+      errorToast(error);
     }
   }
 
@@ -68,7 +68,7 @@ export function CadastroDeDistribuicaoDeValoresPorAtivacao() {
     <StepsPrimeiroAcessoMMN step={6}>
       <Cards
         title={'Cadastro de distribuição de valores por Ativação'}
-        subTitle={'Cadastro do sistema de distribuição de valores por níveil da rede'}
+        subTitle={'Cadastro do sistema de distribuição de valores por nível da rede'}
         size={'50%'}
       >
         <Box component={'form'} onSubmit={handleSubmit} sx={{ width: '100%' }}>

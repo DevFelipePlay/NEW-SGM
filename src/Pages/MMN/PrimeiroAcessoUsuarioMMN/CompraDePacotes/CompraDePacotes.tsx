@@ -62,8 +62,8 @@ export function CompraDePacotes() {
     try {
       const data = await postPlayRecuperaPacotesLicenciamento(payload);
       setResponse(data);
-    } catch (error) {
-      errorToast;
+    } catch (error: any) {
+      errorToast(error);
     } finally {
       setLoading(false);
     }
