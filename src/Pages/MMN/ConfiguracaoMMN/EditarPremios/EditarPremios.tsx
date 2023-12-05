@@ -276,18 +276,7 @@ export function EditarPremios() {
                       onChange={(e) => handleEditChange(index, 'descricao', e.target.value)}
                       label={'descrição'}
                     />
-                    <TextField
-                      variant='standard'
-                      sx={{ mb: 2 }}
-                      value={
-                        editedValues[index]?.quantidade !== undefined
-                          ? editedValues[index]?.quantidade
-                          : item?.quantidade
-                      }
-                      fullWidth
-                      onChange={(e) => handleEditChange(index, 'quantidade', e.target.value)}
-                      label={'Quantidade de itens'}
-                    />
+
                     <TextField
                       variant='standard'
                       value={
@@ -518,15 +507,7 @@ export function EditarPremios() {
                         onChange={(e) => changeForm('descricao', e.target.value)}
                         sx={{ mb: 2 }}
                       />
-                      <TextField
-                        label='Premios disponiveis'
-                        variant='standard'
-                        value={mask(formData.quantidade, ['9999'])}
-                        fullWidth
-                        type='tel'
-                        onChange={(e) => changeForm('quantidade', e.target.value)}
-                        sx={{ mb: 2 }}
-                      />
+
                       <TextField
                         label='Pontos para resgate'
                         variant='standard'
@@ -590,15 +571,7 @@ export function EditarPremios() {
                         type='tel'
                         sx={{ mb: 2 }}
                       />
-                      <TextField
-                        label='Premios disponiveis'
-                        variant='standard'
-                        value={mask(formData.quantidade, ['9999'])}
-                        fullWidth
-                        type='tel'
-                        onChange={(e) => changeForm('quantidade', e.target.value)}
-                        sx={{ mb: 2 }}
-                      />
+
                       <TextField
                         label='Pontos para resgate'
                         variant='standard'

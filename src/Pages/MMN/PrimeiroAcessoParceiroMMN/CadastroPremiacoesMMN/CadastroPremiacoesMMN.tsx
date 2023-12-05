@@ -42,7 +42,6 @@ export function CadastroPremiacoesMMN() {
     nome_premio: '',
     descricao: '',
     pontos_resgate: '',
-    quantidade: '',
     resgate: '',
     tempo_expiracao: '',
     valor_din: '',
@@ -130,15 +129,7 @@ export function CadastroPremiacoesMMN() {
                   onChange={(e) => changeForm('descricao', e.target.value)}
                   sx={{ mb: 2 }}
                 />
-                <TextField
-                  label='Premios disponiveis'
-                  variant='standard'
-                  value={mask(formData.quantidade, ['9999'])}
-                  fullWidth
-                  type='tel'
-                  onChange={(e) => changeForm('quantidade', e.target.value)}
-                  sx={{ mb: 2 }}
-                />
+
                 <TextField
                   label='Pontos para resgate'
                   variant='standard'
