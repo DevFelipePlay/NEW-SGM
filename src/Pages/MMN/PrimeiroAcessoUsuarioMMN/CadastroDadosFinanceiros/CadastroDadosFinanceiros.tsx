@@ -17,6 +17,7 @@ import { mask } from 'remask';
 import {
   IReqPostPlayCadastroDadosFinanceiros,
   postPlayCadastroDadosFinanceiros,
+  postPlayCompletaPrimeiroAcesso,
 } from '../../../../api';
 import { Cards, CustomTextField } from '../../../../components';
 import { useForm } from '../../../../hooks';
@@ -47,8 +48,14 @@ export function CadastroDadosFinanceiros() {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setLoading(true);
+
+    const completaPrimeiroAcesso = {
+      cpf: user?.cpf || '',
+      alteracompletaprimeiroacesso: true,
+    };
     try {
       await postPlayCadastroDadosFinanceiros(formData);
+      await postPlayCompletaPrimeiroAcesso(completaPrimeiroAcesso);
       toast.success('Dados Financeiros cadastrados!');
       navigate('/home-usuario-mmn');
     } catch (error: any) {

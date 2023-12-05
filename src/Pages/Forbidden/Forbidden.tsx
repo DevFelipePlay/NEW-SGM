@@ -1,9 +1,13 @@
 import { Box, Button, Stack, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import { Error401Image } from '../../assets/svg/Error401Image';
+import useUser from '../../hooks/useUser';
 import useWindowSize from '../../hooks/useWindowSize';
 
 export default function Forbidden() {
   const { isMobile } = useWindowSize();
+  const { user } = useUser();
+  const navigate = useNavigate();
   return (
     <Box
       height={isMobile ? '100vh' : '100vh'}
@@ -63,6 +67,20 @@ export default function Forbidden() {
         </Stack>
         <Button sx={{ color: 'var(--white)', fontWeight: '700', p: 1.25 }} variant='contained'>
           Entrar em contato
+        </Button>
+        <Button
+          sx={{ color: 'var(--white)', fontWeight: '700', p: 1.25 }}
+          variant='outlined'
+          color='warning'
+          onClick={() => {
+            if (user?.profileid === 7) {
+              navigate('/home-usuario-mmn');
+            } else {
+              navigate('home-admin-mmn');
+            }
+          }}
+        >
+          Voltar para Home
         </Button>
       </Box>
     </Box>

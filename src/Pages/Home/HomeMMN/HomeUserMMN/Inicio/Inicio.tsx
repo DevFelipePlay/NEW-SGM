@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import { Cards, Loading } from '../../../../../components';
 import { useCopyToClipboard } from '../../../../../hooks/useCopyToClipboard';
 
+import { useNavigate } from 'react-router-dom';
 import { IResPostPlayDashboardUsuario, postPlayDashboardUsuario } from '../../../../../api';
 import useUser from '../../../../../hooks/useUser';
 import { dadosFormatter, dateFormatter, errorToast } from '../../../../../utils';
@@ -15,6 +16,7 @@ export function Inicio() {
   // @ts-ignore
   const [value, copy] = useCopyToClipboard();
   const { user } = useUser();
+  const navigate = useNavigate();
 
   async function handleSubmit() {
     setLoading(true);
@@ -197,16 +199,20 @@ export function Inicio() {
                         : 'Sem Graduação'}
                     </Typography>
                     <Typography>
-                      {responseIdIndicacao?.licenciamento ? 'Licenciado' : 'Não Licenciado'}
+                      {responseIdIndicacao?.licenciado ? 'Licenciado' : 'Não Licenciado'}
                     </Typography>
                   </Grid>
                 </Grid>
-                {responseIdIndicacao?.licenciamento === false ||
-                  (null && (
-                    <Button variant='contained' sx={{ mt: 2 }}>
-                      Adquir Lincenciamento
-                    </Button>
-                  ))}
+
+                {responseIdIndicacao?.licenciado === false && (
+                  <Button
+                    variant='contained'
+                    sx={{ mt: 2 }}
+                    onClick={() => navigate('/adquirir-licenciamento-mmn')}
+                  >
+                    Adquir Lincenciamento
+                  </Button>
+                )}
               </Box>
             </Cards>
           </Grid>

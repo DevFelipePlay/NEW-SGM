@@ -389,15 +389,12 @@ export function EditarPremios() {
                           >
                             <img
                               alt={`Foto do prêmio`}
-                              src={item.foto}
+                              src={`data:image/jpeg;base64,${item.foto}`}
                               style={{
-                                width: '100%',
+                                width: '500px',
                                 borderRadius: '1rem',
                               }}
                             />
-                            <IconButton onClick={handleDeletePhoto} size='small'>
-                              <DeleteIcon color='error' />
-                            </IconButton>
                           </Box>
                         </Box>
                       ) : (

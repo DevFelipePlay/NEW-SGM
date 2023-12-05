@@ -2,7 +2,12 @@ import { Navigate, Route, Routes as RouterRoutes } from 'react-router-dom';
 
 import { AuthGuard, SideBarRoutes } from '../..';
 import ListPartner from '../../../Pages/CRM/Actions/ListPartner/ListPartner';
-import { CadastrarUsuarioHomeParceiro, HomePlay, HomeUserMMN } from '../../../Pages/Home';
+import {
+  AdquirirLicenciamento,
+  CadastrarUsuarioHomeParceiro,
+  HomePlay,
+  HomeUserMMN,
+} from '../../../Pages/Home';
 import Login from '../../../Pages/Login';
 
 import HomeAdminMMN from '../../../Pages/Home/HomeMMN/HomeAdminMMN';
@@ -117,6 +122,7 @@ export function AllRoutes() {
         </Route>
         <Route path='/crm/parceiros' element={<ListPartner />} />
         <Route path='/home-usuario-mmn' element={<HomeUserMMN />} />
+        <Route path='/adquirir-licenciamento-mmn' element={<AdquirirLicenciamento />} />
 
         {/* ///////////////////// */}
       </Route>
