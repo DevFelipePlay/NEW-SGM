@@ -20,7 +20,7 @@ export function ConfiguracaoMMN() {
 
   return (
     <DefaultContainer
-      page={'Configarações Gerais'}
+      page={'Configurações Gerais'}
       title={'Configurações '}
       subTitle={'Configure todo os dados usados no seu multinivel'}
       showSearch={false}
