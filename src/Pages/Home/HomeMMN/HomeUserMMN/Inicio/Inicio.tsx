@@ -37,7 +37,7 @@ export function Inicio() {
   }
 
   function copyToText() {
-    copy(`https://indicacao.opuscell.com.br/#/indicacao/${responseIdIndicacao?.id_indicacao}`);
+    copy(`https://indicacao.opuscell.com.br/#/${responseIdIndicacao?.id_indicacao}`);
     toast.success('Copiado para area de transferencia');
   }
 
@@ -104,7 +104,7 @@ export function Inicio() {
                       }}
                     >
                       <Typography sx={{ marginRight: '2rem' }}>
-                        {`https://indicacao.opuscell.com.br/#/indicacao/${responseIdIndicacao?.id_indicacao}`}
+                        {`https://indicacao.opuscell.com.br/#/${responseIdIndicacao?.id_indicacao}`}
                       </Typography>
                       <MdOutlineContentCopy />
                     </Box>

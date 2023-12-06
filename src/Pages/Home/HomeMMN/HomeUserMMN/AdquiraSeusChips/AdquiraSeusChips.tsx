@@ -52,9 +52,13 @@ export function AdquiraSeusChips() {
         <>
           {responseView.map((item, index) => (
             <Grid item xs={3} key={index}>
-              <Cards title={`${item.nome}`} subTitle={'Adquira Chips'} size={'400'}>
-                <Typography>Chips: {item.chips}</Typography>
-                <Typography>Compre e ganhe: {item.pontos}</Typography>
+              <Cards title={`${item.nome}`} subTitle={'Adquira'} size={'400'}>
+                <Typography variant='h4' sx={{ mb: 2 }}>
+                  {' '}
+                  {item.chips} Chips
+                </Typography>
+                <Typography variant='subtitle2'>Por Apenas:</Typography>
+
                 <Typography variant='h5' color={'var(--primary-color)'}>
                   R$ {item.valor_venda}
                 </Typography>
