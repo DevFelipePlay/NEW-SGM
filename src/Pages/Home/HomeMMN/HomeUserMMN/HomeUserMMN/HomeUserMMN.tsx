@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { Inicio, Progresso, Saque } from '..';
 import { CustomizedTabs, DefaultContainer } from '../../../../../components';
+import useUser from '../../../../../hooks/useUser';
 import { AdquiraSeusChips } from '../AdquiraSeusChips';
 
 export function HomeUserMMN() {
   const [tabValue, setTabValue] = useState(0);
+  const { user } = useUser();
   console.log(tabValue);
 
   return (
@@ -22,7 +24,8 @@ export function HomeUserMMN() {
           { label: 'Inicio', value: 0 },
           { label: 'Progresso', value: 1 },
           { label: 'Saque', value: 2 },
-          { label: 'Adquira Seus Chips', value: 3 },
+          //@ts-ignore
+          { label: user?.licenciado && 'Adquira Seus Chips', value: 3 },
         ]}
         mostrarBotaoVoltar={false}
         mostrarNavbar={true}
@@ -30,7 +33,7 @@ export function HomeUserMMN() {
       {tabValue === 0 && <Inicio />}
       {tabValue === 1 && <Progresso />}
       {tabValue === 2 && <Saque />}
-      {tabValue === 3 && <AdquiraSeusChips />}
+      {user?.licenciado === true && <>{tabValue === 3 && <AdquiraSeusChips />}</>}
     </DefaultContainer>
   );
 }

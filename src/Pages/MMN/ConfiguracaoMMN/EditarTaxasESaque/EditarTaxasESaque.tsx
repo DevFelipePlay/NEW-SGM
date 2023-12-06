@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import {
   IReqPostPlayEditarTaxas,
+  IResPostPlayVisualizaTaxas,
   postPlayEditarTaxas,
   postPlayVisualizaTaxas,
 } from '../../../../api';
@@ -14,6 +15,7 @@ import { currencyMask, currencyUnMask, errorToast } from '../../../../utils';
 export function EditarTaxasESaque() {
   const [loadingView, setLoadingView] = useState(false);
   const [loadingEdit, setLoadingEdit] = useState(false);
+  const [responseView, setResponseView] = useState<IResPostPlayVisualizaTaxas>();
   const { user } = useUser();
   const [editedValues, setEditedValues] = useState<IReqPostPlayEditarTaxas>({
     bonus_carreira: '',
@@ -22,6 +24,9 @@ export function EditarTaxasESaque() {
     taxa_saque: '',
   });
 
+  const handleEditChange = (key: any, value: any) => {
+    setEditedValues((prevData) => ({ ...prevData, [key]: value }));
+  };
   async function handleView() {
     setLoadingView(true);
 
@@ -30,22 +35,16 @@ export function EditarTaxasESaque() {
     };
     try {
       const data = await postPlayVisualizaTaxas(payload);
-      setEditedValues({
-        bonus_carreira: data.bonus_carreira,
-        cpf: data.cpf,
-        limite_minimo_saque: data.limite_minimo_saque,
-        taxa_saque: data.taxa_saque,
-      });
+      setResponseView(data);
+      handleEditChange('limite_minimo_saque', responseView?.limite_minimo_saque);
+      handleEditChange('taxa_saque', responseView?.taxa_saque);
+      handleEditChange('bonus_carreira', responseView?.bonus_carreira);
     } catch (error: any) {
       errorToast(error);
     } finally {
       setLoadingView(false);
     }
   }
-
-  const handleEditChange = (key: any, value: any) => {
-    setEditedValues((prevData) => ({ ...prevData, [key]: value }));
-  };
 
   async function handleEdit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -102,7 +101,7 @@ export function EditarTaxasESaque() {
                 display: 'flex',
               }}
               component={'form'}
-              onSubmit={() => ''}
+              onSubmit={handleEdit}
             >
               <Box
                 sx={{
@@ -119,7 +118,7 @@ export function EditarTaxasESaque() {
                   value={
                     editedValues?.taxa_saque !== undefined
                       ? editedValues?.taxa_saque.toString()
-                      : '0'
+                      : responseView?.taxa_saque
                   }
                   onChange={(e) => handleEditChange('taxa_saque', Number(e.target.value))}
                   variant='standard'
@@ -141,7 +140,7 @@ export function EditarTaxasESaque() {
                   value={
                     editedValues?.limite_minimo_saque !== undefined
                       ? editedValues?.limite_minimo_saque
-                      : ''
+                      : responseView?.limite_minimo_saque
                   }
                   onChange={(e) =>
                     handleEditChange('limite_minimo_saque', currencyMask(e.target.value))
@@ -159,7 +158,9 @@ export function EditarTaxasESaque() {
                   label='Primeiro bonus de carreira'
                   placeholder='0,00'
                   value={
-                    editedValues?.bonus_carreira !== undefined ? editedValues?.bonus_carreira : ''
+                    editedValues?.bonus_carreira !== undefined
+                      ? editedValues?.bonus_carreira
+                      : responseView?.bonus_carreira
                   }
                   onChange={(e) => handleEditChange('bonus_carreira', currencyMask(e.target.value))}
                   variant='standard'
@@ -171,12 +172,7 @@ export function EditarTaxasESaque() {
                   }}
                 />
 
-                <LoadingButton
-                  type='submit'
-                  variant='contained'
-                  onClick={(e: any) => handleEdit(e)}
-                  loading={loadingEdit}
-                >
+                <LoadingButton type='submit' variant='contained' loading={loadingEdit}>
                   Confirmar Edição
                 </LoadingButton>
               </Box>

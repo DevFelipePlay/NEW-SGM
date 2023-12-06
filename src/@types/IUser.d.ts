@@ -20,6 +20,7 @@ export interface IUser {
   primeiroAcesso: boolean;
   super: boolean;
   primeiroacessoconcluidoparceirommn: boolean;
+  licenciado: boolean;
 }
 
 /**

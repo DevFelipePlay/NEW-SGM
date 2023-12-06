@@ -326,7 +326,7 @@ export function EditarGraduações() {
                       </Grid>
                       <Grid item xs={3} sx={{ mb: 4 }}>
                         <TextField
-                          label='Meta para a próxima graduação'
+                          label='Pontos para graduar'
                           variant='standard'
                           value={
                             editedValues[index]?.meta_proxima_graduacao !== undefined
@@ -379,9 +379,7 @@ export function EditarGraduações() {
                 <React.Fragment key={index}>
                   <Cards title={`${item.nome_graduacao}`} subTitle={'Graduação'} size={'100%'}>
                     <Typography>Nome: {item.nome_graduacao}</Typography>
-                    <Typography>
-                      Meta para a proxima graduação: {item.meta_proxima_graduacao}
-                    </Typography>
+                    <Typography>Meta para graduar: {item.meta_proxima_graduacao}</Typography>
                     <Typography>
                       porcetagem de recebimento do bonus de carreita: {item.porcentagem}%
                     </Typography>
@@ -479,7 +477,7 @@ export function EditarGraduações() {
                 </Grid>
                 <Grid item xs={3} sx={{ mb: 4 }}>
                   <TextField
-                    label='Meta para a próxima graduação'
+                    label='Pontos para graduar'
                     variant='standard'
                     fullWidth
                     type='tel'
