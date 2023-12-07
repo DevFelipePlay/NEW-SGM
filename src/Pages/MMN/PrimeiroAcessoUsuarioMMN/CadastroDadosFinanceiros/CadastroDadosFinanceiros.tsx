@@ -17,7 +17,6 @@ import { mask } from 'remask';
 import {
   IReqPostPlayCadastroDadosFinanceiros,
   postPlayCadastroDadosFinanceiros,
-  postPlayCompletaPrimeiroAcesso,
 } from '../../../../api';
 import { Cards, CustomTextField } from '../../../../components';
 import { useForm } from '../../../../hooks';
@@ -55,9 +54,9 @@ export function CadastroDadosFinanceiros() {
     };
     try {
       await postPlayCadastroDadosFinanceiros(formData);
-      await postPlayCompletaPrimeiroAcesso(completaPrimeiroAcesso);
+      // await postPlayCompletaPrimeiroAcesso(completaPrimeiroAcesso);
       toast.success('Dados Financeiros cadastrados!');
-      if (!user?.msisdnativo) {
+      if (user?.msisdnativo) {
         navigate('/home-usuario-mmn');
       } else {
         navigate('/sem-linha-ativa');
