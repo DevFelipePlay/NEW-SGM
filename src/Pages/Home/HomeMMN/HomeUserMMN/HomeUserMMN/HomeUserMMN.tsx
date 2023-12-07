@@ -17,23 +17,36 @@ export function HomeUserMMN() {
       showSearch={false}
       showAvatar={true}
     >
-      <CustomizedTabs
-        value={tabValue}
-        onChange={(newValue: any) => setTabValue(newValue)}
-        tabsData={[
-          { label: 'Inicio', value: 0 },
-          { label: 'Progresso', value: 1 },
-          { label: 'Saque', value: 2 },
-          //@ts-ignore
-          { label: user?.licenciado && 'Adquira Seus Chips', value: 3 },
-        ]}
-        mostrarBotaoVoltar={false}
-        mostrarNavbar={true}
-      />
+      {user?.licenciado ? (
+        <CustomizedTabs
+          value={tabValue}
+          onChange={(newValue: any) => setTabValue(newValue)}
+          tabsData={[
+            { label: 'Inicio', value: 0 },
+            { label: 'Progresso', value: 1 },
+            { label: 'Saque', value: 2 },
+            { label: 'Adquira Seus Chips', value: 3 },
+          ]}
+          mostrarBotaoVoltar={false}
+          mostrarNavbar={true}
+        />
+      ) : (
+        <CustomizedTabs
+          value={tabValue}
+          onChange={(newValue: any) => setTabValue(newValue)}
+          tabsData={[
+            { label: 'Inicio', value: 0 },
+            { label: 'Progresso', value: 1 },
+            { label: 'Saque', value: 2 },
+          ]}
+          mostrarBotaoVoltar={false}
+          mostrarNavbar={true}
+        />
+      )}
       {tabValue === 0 && <Inicio />}
       {tabValue === 1 && <Progresso />}
       {tabValue === 2 && <Saque />}
-      {user?.licenciado === true && <>{tabValue === 3 && <AdquiraSeusChips />}</>}
+      {tabValue === 3 && <AdquiraSeusChips />}
     </DefaultContainer>
   );
 }

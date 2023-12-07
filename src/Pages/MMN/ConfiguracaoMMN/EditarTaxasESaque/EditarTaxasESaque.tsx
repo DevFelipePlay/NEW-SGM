@@ -27,6 +27,28 @@ export function EditarTaxasESaque() {
   const handleEditChange = (key: any, value: any) => {
     setEditedValues((prevData) => ({ ...prevData, [key]: value }));
   };
+
+  async function handleEdit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setLoadingEdit(true);
+
+    try {
+      let payload = {
+        taxa_saque: editedValues?.taxa_saque.toString() || '',
+        limite_minimo_saque: currencyUnMask(editedValues?.limite_minimo_saque).toString() || '',
+        bonus_carreira: currencyUnMask(editedValues?.bonus_carreira).toString() || '',
+        cpf: user?.cpf || '',
+      };
+
+      await postPlayEditarTaxas(payload);
+      toast.success('Taxas Editadas!');
+    } catch (error: any) {
+      errorToast(error);
+    } finally {
+      setLoadingEdit(false);
+    }
+  }
+
   async function handleView() {
     setLoadingView(true);
 
@@ -43,31 +65,16 @@ export function EditarTaxasESaque() {
       errorToast(error);
     } finally {
       setLoadingView(false);
+      console.log(responseView);
     }
   }
-
-  async function handleEdit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setLoadingEdit(true);
-
-    try {
-      let payload = {
-        taxa_saque: editedValues?.taxa_saque || '',
-        limite_minimo_saque: currencyUnMask(editedValues?.limite_minimo_saque) || '',
-        bonus_carreira: currencyUnMask(editedValues?.bonus_carreira) || '',
-        cpf: user?.cpf || '',
-      };
-
-      //@ts-ignore
-      await postPlayEditarTaxas(payload);
-      toast.success('Taxas Editadas!');
-    } catch (error: any) {
-      errorToast(error);
-    } finally {
-      setLoadingEdit(false);
+  useEffect(() => {
+    if (responseView) {
+      handleEditChange('limite_minimo_saque', responseView?.limite_minimo_saque);
+      handleEditChange('taxa_saque', responseView?.taxa_saque);
+      handleEditChange('bonus_carreira', responseView?.bonus_carreira);
     }
-  }
-
+  }, [responseView]);
   useEffect(() => {
     handleView();
   }, []);
@@ -118,9 +125,9 @@ export function EditarTaxasESaque() {
                   value={
                     editedValues?.taxa_saque !== undefined
                       ? editedValues?.taxa_saque.toString()
-                      : responseView?.taxa_saque
+                      : responseView?.taxa_saque.toString()
                   }
-                  onChange={(e) => handleEditChange('taxa_saque', Number(e.target.value))}
+                  onChange={(e) => handleEditChange('taxa_saque', e.target.value)}
                   variant='standard'
                   fullWidth
                   defaultValue='0'

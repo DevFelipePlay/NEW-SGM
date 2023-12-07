@@ -33,6 +33,7 @@ import {
 import { ConfiguracaoMMN } from '../../../Pages/MMN/ConfiguracaoMMN';
 import InfoUserMMN from '../../../Pages/MMN/InfoUserMMN';
 import DashBoardInfoUserMMN from '../../../Pages/MMN/InfoUserMMN/Tab0';
+import SemLinhaAtiva from '../../../Pages/MMN/PrimeiroAcessoUsuarioMMN/VailidacaoAtivacao/ValidacaoAtivacao';
 import NotFound from '../../../Pages/Notfound/NotFound';
 import { LandingPageMultinivel } from '../../../Pages/landingPageMultinivel';
 import AppScreen from '../../../Pages/landingPageMultinivel/AppOuSite/AppOuSute';
@@ -49,6 +50,7 @@ export function AllRoutes() {
       />
       <Route path='/landingpage-indicacao/:idIndicacao' element={<LandingPageMultinivel />} />
       <Route path='/landingpage-indicacao/appousistem' element={<AppScreen />} />
+      <Route path='/sem-linha-ativa' element={<SemLinhaAtiva />} />
       <Route path='*' element={<NotFound />} />
       <Route
         path='/cadastro-usuario-mmn/:idIndicacao'

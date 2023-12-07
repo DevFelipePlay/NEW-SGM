@@ -21,6 +21,7 @@ export interface IUser {
   super: boolean;
   primeiroacessoconcluidoparceirommn: boolean;
   licenciado: boolean;
+  msisdnativo: boolean;
 }
 
 /**

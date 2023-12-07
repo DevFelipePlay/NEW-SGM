@@ -57,9 +57,15 @@ export function CadastroDadosFinanceiros() {
       await postPlayCadastroDadosFinanceiros(formData);
       await postPlayCompletaPrimeiroAcesso(completaPrimeiroAcesso);
       toast.success('Dados Financeiros cadastrados!');
-      navigate('/home-usuario-mmn');
+      if (!user?.msisdnativo) {
+        navigate('/home-usuario-mmn');
+      } else {
+        navigate('/sem-linha-ativa');
+      }
     } catch (error: any) {
       errorToast(error);
+    } finally {
+      setLoading(false);
     }
   }
 

@@ -237,12 +237,12 @@ export function Inicio() {
                             : 'Sem Graduação'}
                         </Typography>
                         <Typography>
-                          {responseIdIndicacao?.licenciado ? 'Licenciado' : 'Não Licenciado'}
+                          {user?.licenciado ? 'Licenciado' : 'Não Licenciado'}
                         </Typography>
                       </Grid>
                     </Grid>
 
-                    {responseIdIndicacao?.licenciado === false && (
+                    {!user?.licenciado && (
                       <Button
                         variant='contained'
                         sx={{ mt: 2 }}
