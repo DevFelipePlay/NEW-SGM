@@ -7,6 +7,7 @@ export interface IUser {
   userid: number;
   companyid: number | blob;
   profileid: EnumProfileId;
+  profileid_multinivel: EnumProfileIdMultinivel;
   token: string | Blob;
   logotipo: string | null;
   status: number;
@@ -36,6 +37,7 @@ export interface IUser {
  * `7 - multinivel`
  */
 export type EnumProfileId = -1 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
+export type EnumProfileIdMultinivel = 1 | 7;
 
 /**`-1 - Ultra` */
 const Ultra: EnumProfileId = -1;

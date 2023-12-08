@@ -42,8 +42,8 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
       .post('login', dados)
       .then((response) => {
         if (response.data.profileid === 5) return toast.error('CPF não encontrado'); // Perfil está Excluído
-        if (response.data.profileid === 3 && response.data.cpf.length === 11)
-          return toast.warning('Você não possui acesso a plataforma!'); //Perfil de Cliente PF
+        // if (response.data.profileid_multinivel === 3 && response.data.cpf.length === 11)
+        //   return toast.warning('Você não possui acesso a plataforma!'); //Perfil de Cliente PF
 
         setUser(response.data);
         setItem('loginTime', loginTime);
@@ -57,10 +57,16 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
         if (!response.data.primeiroacessoconcluidoparceirommn && response.data?.super) {
           !isOnBg && navigate('/primeiro-acesso-multinivel-parceiro/cadastro-de-pacotes-mmn');
         }
-        if (response.data.primeiroacessoconcluidoparceirommn && response.data?.profileid === 7) {
+        if (
+          response.data.primeiroacessoconcluidoparceirommn &&
+          response.data?.profileid_multinivel === 7
+        ) {
           !isOnBg && navigate('/home-usuario-mmn');
         }
-        if (!response.data.primeiroacessoconcluidoparceirommn && response.data?.profileid === 7) {
+        if (
+          !response.data.primeiroacessoconcluidoparceirommn &&
+          response.data?.profileid_multinivel === 7
+        ) {
           !isOnBg && navigate('/primeiro-acesso-multinivel-usuario/compra-de-pacotes');
         }
       })
