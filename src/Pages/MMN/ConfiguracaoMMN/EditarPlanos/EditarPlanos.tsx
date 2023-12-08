@@ -46,7 +46,7 @@ export function EditarPlanos() {
         const editedItem = editedValues[index];
 
         return {
-          plan_id: editedItem?.id || item.id || '',
+          plano_id: editedItem?.id || item.id || '',
           acao: editedItem?.preferido !== undefined ? editedItem.preferido : item.preferido,
 
           nivel: editedItem?.nivel || item.nivel || '',
