@@ -1,12 +1,23 @@
 import { Box, Typography } from '@mui/material';
+import { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import AppStoreBadge from '../../../../assets/badge-appstore.svg';
 import PlayStoreBadge from '../../../../assets/badge-playstore.svg';
 import SemLinhaAtivaImg from '../../../../assets/svg/SemLinhaAtivaImg';
+import { AuthContext } from '../../../../components';
 import useWindowSize from '../../../../hooks/useWindowSize';
 
 export default function SemLinhaAtiva() {
   const { isMobile } = useWindowSize();
+  const { signOut } = useContext(AuthContext);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      signOut();
+    }, 5000);
+    return () => clearTimeout(timeoutId);
+  }, []);
+
   return (
     <Box
       height={isMobile ? '100vh' : '100vh'}

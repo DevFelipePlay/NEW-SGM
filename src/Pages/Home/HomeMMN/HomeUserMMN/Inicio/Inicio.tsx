@@ -6,7 +6,11 @@ import { Cards, Loading } from '../../../../../components';
 import { useCopyToClipboard } from '../../../../../hooks/useCopyToClipboard';
 
 import { useNavigate } from 'react-router-dom';
-import { IResPostPlayDashboardUsuario, postPlayDashboardUsuario } from '../../../../../api';
+import {
+  IResPostPlayDashboardUsuario,
+  postPlayCompletaPrimeiroAcesso,
+  postPlayDashboardUsuario,
+} from '../../../../../api';
 import useUser from '../../../../../hooks/useUser';
 import { dadosFormatter, dateFormatter, errorToast } from '../../../../../utils';
 
@@ -25,6 +29,7 @@ export function Inicio() {
       cpf: user?.cpf ? user?.cpf : '',
       token: user?.token ? user?.token : '',
     };
+
     try {
       const data = await postPlayDashboardUsuario(payload);
       setresponseIdIndicacao(data);
@@ -36,6 +41,17 @@ export function Inicio() {
     }
   }
 
+  async function comppleteFirstAcess() {
+    const completaPrimeiroAcesso = {
+      cpf: user?.cpf || '',
+      alteracompletaprimeiroacesso: true,
+    };
+
+    try {
+      await postPlayCompletaPrimeiroAcesso(completaPrimeiroAcesso);
+    } catch (error) {}
+  }
+
   function copyToText() {
     copy(`https://indicacao.opuscell.com.br/#/${responseIdIndicacao?.id_indicacao}`);
     toast.success('Copiado para area de transferencia');
@@ -43,6 +59,9 @@ export function Inicio() {
 
   useEffect(() => {
     handleSubmit();
+    if (user?.primeiroAcesso !== true) {
+      comppleteFirstAcess();
+    }
   }, []);
 
   return (

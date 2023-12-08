@@ -48,13 +48,8 @@ export function CadastroDadosFinanceiros() {
     e.preventDefault();
     setLoading(true);
 
-    const completaPrimeiroAcesso = {
-      cpf: user?.cpf || '',
-      alteracompletaprimeiroacesso: true,
-    };
     try {
       await postPlayCadastroDadosFinanceiros(formData);
-      // await postPlayCompletaPrimeiroAcesso(completaPrimeiroAcesso);
       toast.success('Dados Financeiros cadastrados!');
       if (user?.msisdnativo) {
         navigate('/home-usuario-mmn');
