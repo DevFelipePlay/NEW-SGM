@@ -1,4 +1,5 @@
 export * from './CompletaPrimeiroAcesso';
+export * from './FaturasUsuario';
 export * from './RecuperaIdIndicacao';
 export * from './RecuperaNiveisParceiro';
 export * from './SaqueUsuario';

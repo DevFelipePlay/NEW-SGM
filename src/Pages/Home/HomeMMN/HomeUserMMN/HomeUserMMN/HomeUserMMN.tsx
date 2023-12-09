@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Inicio, Progresso, Saque } from '..';
+import { Faturas, Inicio, Progresso, Saque } from '..';
 import { CustomizedTabs, DefaultContainer } from '../../../../../components';
 import useUser from '../../../../../hooks/useUser';
 import { AdquiraSeusChips } from '../AdquiraSeusChips';
@@ -25,7 +25,8 @@ export function HomeUserMMN() {
             { label: 'Inicio', value: 0 },
             { label: 'Progresso', value: 1 },
             { label: 'Saque', value: 2 },
-            { label: 'Adquira Seus Chips', value: 3 },
+            { label: 'Faturas', value: 3 },
+            { label: 'Adquira Seus Chips', value: 4 },
           ]}
           mostrarBotaoVoltar={false}
           mostrarNavbar={true}
@@ -38,6 +39,7 @@ export function HomeUserMMN() {
             { label: 'Inicio', value: 0 },
             { label: 'Progresso', value: 1 },
             { label: 'Saque', value: 2 },
+            { label: 'Faturas', value: 3 },
           ]}
           mostrarBotaoVoltar={false}
           mostrarNavbar={true}
@@ -46,7 +48,8 @@ export function HomeUserMMN() {
       {tabValue === 0 && <Inicio />}
       {tabValue === 1 && <Progresso />}
       {tabValue === 2 && <Saque />}
-      {tabValue === 3 && <AdquiraSeusChips />}
+      {tabValue === 3 && <Faturas />}
+      {tabValue === 4 && <AdquiraSeusChips />}
     </DefaultContainer>
   );
 }
