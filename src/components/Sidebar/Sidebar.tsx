@@ -1,5 +1,5 @@
 import { Avatar, Box, Button, Modal, Typography, keyframes } from '@mui/material';
-import { CSSProperties, useContext, useState } from 'react';
+import { CSSProperties, useContext, useEffect, useRef, useState } from 'react';
 import { AiOutlineMenuUnfold } from 'react-icons/ai';
 import { IoSettingsOutline } from 'react-icons/io5';
 import { PiSignOut } from 'react-icons/pi';
@@ -7,8 +7,11 @@ import { useNavigate } from 'react-router-dom';
 import backgroundTab from '../../assets/MMNImg/TabBarBackground.jpg';
 import icone from '../../assets/MMNImg/icon.png';
 
+import { ReactNode } from 'react';
+import { BiHomeSmile } from 'react-icons/bi';
+import { GiHumanPyramid } from 'react-icons/gi';
+import useUser from '../../hooks/useUser';
 import { AuthContext } from '../Auth/auth';
-import { IListItemsTabBar, RowsSideBar } from './RowsSideBar';
 
 export function Sidebar(): JSX.Element {
   const navigate = useNavigate();
@@ -18,6 +21,7 @@ export function Sidebar(): JSX.Element {
   const [isTabBarOpen, setIsTabBarOpen] = useState(false); // Estado de abertura Tabbar
   const [activeIcon, setActiveIcon] = useState(''); //Estado de ativação do icone da SideBar Ativo
   const [open, setOpen] = useState(false); // Dialog
+  const { user } = useUser();
 
   const displayFlexComponent: CSSProperties = {
     display: 'flex',
@@ -164,6 +168,49 @@ export function Sidebar(): JSX.Element {
     setActiveIcon(icon); // Ativa ou desativa o ícone
     handleClickOpen();
   };
+
+  ////////////////////////////////// Rotas Sidebar /////////////////////////////////////
+  interface IListItemsTabBar {
+    render: boolean;
+    label: ReactNode | null;
+    icon: ReactNode;
+    to: string | null;
+  }
+  interface IRowsSideBar {
+    switches: string;
+    render?: boolean | undefined;
+    label?: any;
+    icon?: null | ReactNode;
+    to?: string;
+    listItemsTabBar?: IListItemsTabBar[];
+  }
+
+  const RowsSideBar: IRowsSideBar[] = [
+    {
+      switches: '',
+      render: true,
+      label: 'Modulo Multinivel',
+      icon: <GiHumanPyramid />,
+      to: user?.profileid_multinivel === 7 ? 'home-usuario-mmn' : 'home-admin-mmn',
+      listItemsTabBar: [
+        {
+          render: true,
+          label: 'Home',
+          icon: <BiHomeSmile />,
+          to: user?.profileid_multinivel === 7 ? '/home-usuario-mmn' : '/home-admin-mmn',
+        },
+
+        {
+          render: user?.super ? true : false,
+          label: 'Configurações Gerais',
+          icon: <IoSettingsOutline />,
+          to: 'configuracao-mmn',
+        },
+      ],
+    },
+  ];
+  /////////////////////////////////////////////////////////////////////////////////////
+
   //Dialog
   function AlertDialog() {
     const style: CSSProperties = {
@@ -222,37 +269,67 @@ export function Sidebar(): JSX.Element {
   // Costumização e redenrização de itens da TabBar
   const renderTabItems = (tabItems: IListItemsTabBar[]) => {
     return tabItems.map((item, index) => (
-      <Box key={index} sx={{ width: '100%' }} onClick={() => navigate(item.to || '')}>
-        <Typography
-          sx={{
-            ...displayFlexComponent,
-            flexDirection: 'column',
-            backdropFilter: 'blur(50px)',
-            borderRadius: '10px',
-            animation: `${fadeIn} 0.5s ease-in-out`,
-            boxShadow: 'rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px',
-            color: 'var(--text-color)',
-            fontSize: '1rem',
-            py: 1,
-            mb: 2,
-            cursor: 'pointer',
-            fontWeight: '700',
-            transition: 'background-color 0.3s, color 0.3s', // Adicione uma transição suave
-            '&:hover': {
-              backgroundColor: 'var(--backGround-button-hover-color)', // Cor de fundo no hover
-              color: 'var(--primary-color)', // Cor do texto no hover
-            },
-          }}
-        >
-          {}
-          <Box sx={displayFlexComponent}>
-            <Typography sx={{ mr: '1rem', fontSize: '1.2rem' }}>{item.icon}</Typography>
-            <Typography sx={{ fontSize: '1rem' }}>{item.label}</Typography>
+      <Box key={index}>
+        {item.render && (
+          <Box sx={{ width: '100%' }} onClick={() => navigate(item.to || '')}>
+            <Typography
+              sx={{
+                ...displayFlexComponent,
+                flexDirection: 'column',
+                backdropFilter: 'blur(50px)',
+                borderRadius: '10px',
+                animation: `${fadeIn} 0.5s ease-in-out`,
+                boxShadow: 'rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px',
+                color: 'var(--text-color)',
+                fontSize: '1rem',
+                py: 1,
+                mb: 2,
+                cursor: 'pointer',
+                fontWeight: '700',
+                transition: 'background-color 0.3s, color 0.3s', // Adicione uma transição suave
+                '&:hover': {
+                  backgroundColor: 'var(--backGround-button-hover-color)', // Cor de fundo no hover
+                  color: 'var(--primary-color)', // Cor do texto no hover
+                },
+              }}
+            >
+              {item.render && (
+                <>
+                  <Box sx={displayFlexComponent} onClick={() => setIsTabBarOpen(false)}>
+                    <Typography sx={{ mr: '1rem', fontSize: '1.2rem' }}>{item.icon}</Typography>
+                    <Typography sx={{ fontSize: '1rem' }}>{item.label}</Typography>
+                  </Box>
+                </>
+              )}
+            </Typography>
           </Box>
-        </Typography>
+        )}
       </Box>
     ));
   };
+
+  const tabBarRef = useRef<HTMLDivElement>(null);
+
+  function handleCloseMouseDonwTabBar() {
+    // Função para fechar a TabBar ao clicar fora dela
+    const handleClickOutside = (event: MouseEvent) => {
+      if (tabBarRef.current && !tabBarRef.current.contains(event.target as Node)) {
+        setIsTabBarOpen(false);
+      }
+    };
+
+    // Adiciona o event listener ao montar o componente
+    document.addEventListener('mousedown', handleClickOutside);
+
+    // Remove o event listener ao desmontar o componente
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }
+
+  useEffect(() => {
+    handleCloseMouseDonwTabBar();
+  }, []);
 
   return (
     <Box>
@@ -376,6 +453,7 @@ export function Sidebar(): JSX.Element {
       </Box>
 
       <Box
+        ref={tabBarRef}
         sx={{
           ...tabBarStyles,
           ...(isTabBarOpen ? tabOpenStyles : {}),

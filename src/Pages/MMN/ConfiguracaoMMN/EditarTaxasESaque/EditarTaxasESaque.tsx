@@ -36,7 +36,7 @@ export function EditarTaxasESaque() {
       let payload = {
         taxa_saque: editedValues?.taxa_saque.toString() || '',
         limite_minimo_saque: currencyUnMask(editedValues?.limite_minimo_saque).toString() || '',
-        bonus_carreira: currencyUnMask(editedValues?.bonus_carreira).toString() || '',
+        bonus_carreira: editedValues?.bonus_carreira.toString() || '',
         cpf: user?.cpf || '',
       };
 
@@ -162,7 +162,7 @@ export function EditarTaxasESaque() {
                 />
                 <TextField
                   type='tel'
-                  label='Primeiro bonus de carreira'
+                  label='Referencial bonus de carreira'
                   placeholder='0,00'
                   value={
                     editedValues?.bonus_carreira !== undefined

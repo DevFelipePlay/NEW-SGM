@@ -50,7 +50,7 @@ export function Faturas() {
       <Box sx={{ width: '100%' }} key={index}>
         <ListFaturas
           colorStatus={''}
-          dataDePagamento={item.}
+          dataDePagamento={''}
           dataDeCriacao={''}
           tipoDaFaturas={''}
           status={''}
