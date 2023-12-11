@@ -270,7 +270,13 @@ export function Sidebar(): JSX.Element {
     return tabItems.map((item, index) => (
       <Box key={index}>
         {item.render && (
-          <Box sx={{ width: '100%' }} onClick={() => navigate(item.to || '')}>
+          <Box
+            sx={{ width: '100%' }}
+            onClick={() => {
+              navigate(item.to || '');
+              setIsTabBarOpen(false);
+            }}
+          >
             <Typography
               sx={{
                 ...displayFlexComponent,
@@ -294,7 +300,7 @@ export function Sidebar(): JSX.Element {
             >
               {item.render && (
                 <>
-                  <Box sx={displayFlexComponent} onClick={() => setIsTabBarOpen(false)}>
+                  <Box sx={displayFlexComponent}>
                     <Typography sx={{ mr: '1rem', fontSize: '1.2rem' }}>{item.icon}</Typography>
                     <Typography sx={{ fontSize: '1rem' }}>{item.label}</Typography>
                   </Box>

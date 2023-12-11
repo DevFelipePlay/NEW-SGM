@@ -7,7 +7,7 @@ import { IResPostPlayVisualizaFaturas } from '../../../../../api/ApisUtils/Fatur
 import { Loading } from '../../../../../components';
 import { ListFaturas } from '../../../../../components/ListCustom/ListFaturas';
 import useUser from '../../../../../hooks/useUser';
-import { errorToast } from '../../../../../utils';
+import { dateFormatter, errorToast } from '../../../../../utils';
 
 export function Faturas() {
   const [loading, setLoading] = useState(false);
@@ -47,7 +47,7 @@ export function Faturas() {
       <Box sx={{ width: '100%' }} key={index}>
         <ListFaturas
           colorStatus={item.paymentstatus === '0' ? '#dbbe00' : 'green'}
-          dataDeCriacao={item.created ? item.created : 'Sem data de criação'}
+          dataDeCriacao={item.created ? dateFormatter(item.created) : 'Sem data de criação'}
           tipoDaFaturas={item.tipo}
           status={item.paymentstatus === '0' ? 'Pendente' : 'Pago'}
           valor={item.valuetopup}
