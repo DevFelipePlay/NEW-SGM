@@ -5,7 +5,6 @@ import { IoSettingsOutline } from 'react-icons/io5';
 import { PiSignOut } from 'react-icons/pi';
 import { useNavigate } from 'react-router-dom';
 import backgroundTab from '../../assets/MMNImg/TabBarBackground.jpg';
-import icone from '../../assets/MMNImg/icon.png';
 
 import { ReactNode } from 'react';
 import { BiHomeSmile } from 'react-icons/bi';
@@ -380,9 +379,9 @@ export function Sidebar(): JSX.Element {
             }}
           >
             <img
-              src={icone}
+              src={`data:image/png;base64,${user?.logotipo}`}
               style={{
-                width: '100%',
+                width: '120px',
                 backgroundColor: 'var(--backGround-default)',
               }}
             />
