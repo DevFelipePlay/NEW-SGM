@@ -49,12 +49,12 @@ export function Faturas() {
     return paginatedItems.map((item, index) => (
       <Box sx={{ width: '100%' }} key={index}>
         <ListFaturas
-          colorStatus={''}
-          dataDePagamento={''}
-          dataDeCriacao={''}
-          tipoDaFaturas={''}
-          status={''}
-          valor={''}
+          colorStatus={item.paymentstatus === '0' ? '#dbbe00' : 'green'}
+          dataDePagamento={'Em desenvolvimento'}
+          dataDeCriacao={'Em desenvolvimento'}
+          tipoDaFaturas={'Em desenvolvimento'}
+          status={'Em desenvolvimento'}
+          valor={'Em desenvolvimento'}
           pressItemList={() => navigate(`/daashboard-relatorio-usuario-mmn/${item.cpf}`)}
         />
       </Box>
@@ -68,7 +68,7 @@ export function Faturas() {
 
   return (
     <>
-      {responseList.length === 0 ? (
+      {loading !== true && responseList.length === 0 ? (
         <>
           <Box
             sx={{
@@ -82,7 +82,7 @@ export function Faturas() {
             <Typography variant='h4'>Faturas</Typography>
           </Box>
           <Typography variant='h4' sx={{ mt: 10 }}>
-            Sem usuários cadastrados
+            Não há faturas
           </Typography>
         </>
       ) : (

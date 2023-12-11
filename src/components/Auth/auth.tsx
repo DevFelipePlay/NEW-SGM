@@ -5,7 +5,9 @@ import { toast } from 'react-toastify';
 import useStorage from '../../hooks/useStorage';
 //
 
+import { Box } from '@mui/material';
 import moment from 'moment';
+import { Loading } from '..';
 import { IUser } from '../../@types/IUser';
 import { apiPlayMMN } from '../../services/apiPlayMMN';
 
@@ -137,7 +139,20 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
-  if (loadingSystem) return <div></div>;
+  if (loadingSystem)
+    return (
+      <Box
+        sx={{
+          width: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: '90vh',
+        }}
+      >
+        <Loading />
+      </Box>
+    );
 
   return (
     <AuthContext.Provider
