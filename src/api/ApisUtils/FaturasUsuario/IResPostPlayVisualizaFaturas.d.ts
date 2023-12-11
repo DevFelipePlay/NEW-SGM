@@ -1,12 +1,12 @@
 export interface IResPostPlayVisualizaFaturas {
-  id: number;
+  id: string;
   userid: number;
   pacotelicenciamentoid: number;
   cpf: string;
   parceiro: string;
   paymentid: null;
   paymenttypeid: string;
-  paymentstatus: string;
+  paymentstatus: '0' | '1';
   created: null;
   paymentasaasid: string;
   invoiceurl: string;
@@ -17,7 +17,7 @@ export interface IResPostPlayVisualizaFaturas {
   invoicenumber: string;
   nossonumero: string;
   netvalue: string;
-  bankslipurl: string;
+  bankslipurl: str;
   split: string;
   transactionreceipturl: null;
   atualizadoem: null;

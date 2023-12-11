@@ -1,24 +1,22 @@
 import { Box, Grid, List, ListItem, ListItemText, Stack, styled } from '@mui/material';
-import { MouseEventHandler } from 'react';
+import { Link } from 'react-router-dom';
 
 interface IlistCustom {
   valor: string;
   dataDeCriacao: string;
-  dataDePagamento: string;
   tipoDaFaturas: string;
   status: string;
   colorStatus: string;
-  pressItemList: MouseEventHandler<HTMLDivElement>;
+  idFatura: string;
 }
 
 export function ListFaturas({
   valor,
   dataDeCriacao,
-  dataDePagamento,
+  idFatura,
   tipoDaFaturas,
   status,
   colorStatus,
-  pressItemList,
 }: IlistCustom) {
   const Demo = styled('div')(() => ({
     backgroundColor: 'color.background.default',
@@ -54,20 +52,15 @@ export function ListFaturas({
                 }}
               ></div>
               <Box>
-                <ListItemText sx={{ userSelect: 'none' }} onClick={pressItemList}>
-                  Criada em:{dataDeCriacao}
-                </ListItemText>
-                <ListItemText sx={{ userSelect: 'none' }} onClick={pressItemList}>
-                  Paga em:{dataDePagamento}
-                </ListItemText>
-                <ListItemText sx={{ userSelect: 'none' }} onClick={pressItemList}>
-                  Tipo: {tipoDaFaturas}
-                </ListItemText>
-                <ListItemText sx={{ userSelect: 'none' }} onClick={pressItemList}>
-                  Status: {status}
-                </ListItemText>
-                <ListItemText sx={{ userSelect: 'none' }} onClick={pressItemList}>
-                  R$ {valor}
+                <ListItemText sx={{ userSelect: 'none' }}>Criada em: {dataDeCriacao}</ListItemText>
+                <ListItemText sx={{ userSelect: 'none' }}>Tipo: {tipoDaFaturas}</ListItemText>
+                <ListItemText sx={{ userSelect: 'none' }}>Status: {status}</ListItemText>
+                <ListItemText sx={{ userSelect: 'none' }}>R$ {valor}</ListItemText>
+                <ListItemText sx={{ userSelect: 'none' }}>
+                  link:
+                  <Link to={`https://fatura.operadora.app.br/?payid=${idFatura}`}>
+                    https://fatura.operadora.app.br/?payid={idFatura}
+                  </Link>
                 </ListItemText>
               </Box>
             </ListItem>

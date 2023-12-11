@@ -2,7 +2,6 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { Box, Pagination, PaginationItem, Stack, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { postPLayVisualizaFaturas } from '../../../../../api';
 import { IResPostPlayVisualizaFaturas } from '../../../../../api/ApisUtils/FaturasUsuario/IResPostPlayVisualizaFaturas';
 import { Loading } from '../../../../../components';
@@ -16,8 +15,6 @@ export function Faturas() {
   const { user } = useUser();
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
-
-  const navigate = useNavigate();
 
   async function handleListFaturas() {
     setLoading(true);
@@ -50,12 +47,11 @@ export function Faturas() {
       <Box sx={{ width: '100%' }} key={index}>
         <ListFaturas
           colorStatus={item.paymentstatus === '0' ? '#dbbe00' : 'green'}
-          dataDePagamento={'Em desenvolvimento'}
-          dataDeCriacao={'Em desenvolvimento'}
-          tipoDaFaturas={'Em desenvolvimento'}
-          status={'Em desenvolvimento'}
-          valor={'Em desenvolvimento'}
-          pressItemList={() => navigate(`/daashboard-relatorio-usuario-mmn/${item.cpf}`)}
+          dataDeCriacao={item.created ? item.created : 'Sem data de criação'}
+          tipoDaFaturas={item.tipo}
+          status={item.paymentstatus === '0' ? 'Pendente' : 'Pago'}
+          valor={item.valuetopup}
+          idFatura={item.paymentasaasid}
         />
       </Box>
     ));
