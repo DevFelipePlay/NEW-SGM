@@ -29,6 +29,7 @@ import {
   CadastroValoresETaxasMMN,
   CompraDePacotes,
   DashboardRelatorioUsuario,
+  SolicitacoesSaque,
 } from '../../../Pages/MMN';
 import { ConfiguracaoMMN } from '../../../Pages/MMN/ConfiguracaoMMN';
 import InfoUserMMN from '../../../Pages/MMN/InfoUserMMN';
@@ -101,6 +102,7 @@ export function AllRoutes() {
             <Route path='cadastro-valores-e-taxas' element={<CadastroValoresETaxasMMN />} />
             <Route path='cadastro-premiacoes' element={<CadastroPremiacoesMMN />} />
           </Route>
+          <Route path='/solicitacoes-saque' element={<SolicitacoesSaque />} />
         </Route>
 
         {/* //////// */}

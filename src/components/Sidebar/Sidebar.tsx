@@ -1,6 +1,7 @@
 import { Avatar, Box, Button, Modal, Typography, keyframes } from '@mui/material';
 import { CSSProperties, useContext, useEffect, useRef, useState } from 'react';
 import { AiOutlineMenuUnfold } from 'react-icons/ai';
+import { FaMoneyBillTransfer } from 'react-icons/fa6';
 import { IoSettingsOutline } from 'react-icons/io5';
 import { PiSignOut } from 'react-icons/pi';
 import { useNavigate } from 'react-router-dom';
@@ -199,6 +200,12 @@ export function Sidebar(): JSX.Element {
           to: user?.profileid_multinivel === 7 ? '/home-usuario-mmn' : '/home-admin-mmn',
         },
 
+        {
+          render: user?.super ? true : false,
+          label: 'Solicitações de Saque',
+          icon: <FaMoneyBillTransfer />,
+          to: 'solicitacoes-saque',
+        },
         {
           render: user?.super ? true : false,
           label: 'Configurações Gerais',

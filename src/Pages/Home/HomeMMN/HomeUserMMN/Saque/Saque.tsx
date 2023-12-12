@@ -1,37 +1,51 @@
 import {
+  Alert,
   Box,
   Button,
   FormControlLabel,
   Grid,
+  InputAdornment,
   Modal,
   Radio,
   RadioGroup,
+  TextField,
   Typography,
 } from '@mui/material';
 
 import LoadingButton from '@mui/lab/LoadingButton';
 import { upperCase } from 'lodash';
-import { CSSProperties, useEffect, useState } from 'react';
+import React, { CSSProperties, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { mask } from 'remask';
 import {
   IReqPostPlayCadastroDadosFinanceiros,
+  IReqPostPlayLimiteDeSaque,
+  IReqPostPlaySolicitacaoSaque,
+  IResPostPlayLimiteDeSaque,
   postPlayCadastroDadosFinanceiros,
+  postPlayLimiteDeSaque,
+  postPlaySolicitacaoSaque,
 } from '../../../../../api';
 import { postPlaySaqueUsuario } from '../../../../../api/ApisUtils/SaqueUsuario';
 import { IResPostPlaySaqueUsuario } from '../../../../../api/ApisUtils/SaqueUsuario/IResPostPlaySaqueUsuario';
 import { Cards, CustomTextField, Loading } from '../../../../../components';
 import { useForm } from '../../../../../hooks';
 import useUser from '../../../../../hooks/useUser';
-import { errorToast } from '../../../../../utils';
+import { currencyMask, currencyUnMask, errorToast } from '../../../../../utils';
 
 export function Saque() {
   const [loading, setLoading] = useState(false);
   const [loadingSubmit, setLoadingSubmit] = useState(false);
-  const [responseSaque, setResponseSaque] = useState<IResPostPlaySaqueUsuario>();
+  const [loadingSubmitSaque, setLoadingSubmitSaque] = useState(false);
+  const [responseLimitesSaque, setResponseLimitesSaque] = useState<IResPostPlayLimiteDeSaque>();
   const { user } = useUser();
+  const [valueSolicitacao, setValueSolicitacao] = useState<IReqPostPlaySolicitacaoSaque>({
+    valor_solicitado: '',
+    cpf: user?.cpf || '',
+  });
+  const [responseSaque, setResponseSaque] = useState<IResPostPlaySaqueUsuario>();
 
-  // Modal exclusao de pacotes
+  // Modal dados financeiros
   const [open, setOpen] = useState(false);
   const handleClose = () => setOpen(false);
 
@@ -57,6 +71,34 @@ export function Saque() {
     border: 'none',
   };
   //////
+  // Modal de solicitacao de saque
+  const [openSaque, setOpenSaque] = useState(false);
+  const handleCloseSaque = () => setOpenSaque(false);
+
+  const handleOpenSaque = () => {
+    setOpenSaque(true);
+  };
+  const styleSaque: CSSProperties = {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: '50%',
+    borderRadius: '10px',
+    boxShadow: '24',
+    backgroundColor: 'white',
+    padding: '4rem',
+    textAlign: 'center',
+    border: 'none',
+  };
+  //////
+  const handleEditChange = (key: any, value: any) => {
+    setValueSolicitacao((prevData) => ({ ...prevData, [key]: value }));
+  };
 
   const { formData, changeForm } = useForm<IReqPostPlayCadastroDadosFinanceiros>({
     chave_pix: '',
@@ -74,11 +116,16 @@ export function Saque() {
 
   async function handleDataSaque() {
     setLoading(true);
+    const postDataLimiteSaque: IReqPostPlayLimiteDeSaque = {
+      token: user?.token || '',
+    };
     try {
       let payload = {
         cpf: user?.cpf ? user?.cpf : '',
       };
       const data = await postPlaySaqueUsuario(payload);
+      const dataLimites = await postPlayLimiteDeSaque(postDataLimiteSaque);
+      setResponseLimitesSaque(dataLimites);
       setResponseSaque(data);
     } catch (error: any) {
     } finally {
@@ -86,11 +133,31 @@ export function Saque() {
     }
   }
 
+  async function handleSubmitSaque(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setLoadingSubmitSaque(true);
+    try {
+      const postData = {
+        valor_solicitado: currencyUnMask(valueSolicitacao.valor_solicitado).toString(),
+        cpf: valueSolicitacao.cpf,
+      };
+      await postPlaySolicitacaoSaque(postData);
+      toast.success('Solicitação de saque realizada!');
+    } catch (error: any) {
+      errorToast(error);
+    } finally {
+      setLoadingSubmitSaque(false);
+      handleCloseSaque();
+    }
+  }
+
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setLoadingSubmit(true);
+
     try {
       await postPlayCadastroDadosFinanceiros(formData);
+
       toast.success('Dados financeiros editados!');
       handleClose();
       handleDataSaque();
@@ -141,14 +208,10 @@ export function Saque() {
             <Cards title={'Saldo'} subTitle={'Total disponivel para saque'} size={'100%'}>
               <Typography variant='h5' sx={{ mb: 2 }}>
                 {responseSaque?.saldo_disponivel
-                  ? `R$ ${responseSaque?.saldo_disponivel}`
+                  ? `R$ ${currencyMask(responseSaque?.saldo_disponivel.toString())}`
                   : `Sem Saldo`}
               </Typography>
-              <Button
-                size='small'
-                onClick={() => alert('Função temporariamente indisponivel')}
-                variant='contained'
-              >
+              <Button size='small' onClick={() => handleOpenSaque()} variant='contained'>
                 Solicitar saque
               </Button>
             </Cards>
@@ -159,7 +222,7 @@ export function Saque() {
             >
               <Typography variant='h5' sx={{ mb: 2 }}>
                 {responseSaque?.valor_total_sacado
-                  ? `R$ ${responseSaque?.valor_total_sacado}`
+                  ? `R$ ${currencyMask(responseSaque?.valor_total_sacado.toString())}`
                   : `Sem Saldo`}
               </Typography>
             </Cards>
@@ -286,6 +349,44 @@ export function Saque() {
                         Editar
                       </LoadingButton>
                     </Box>
+                  </Box>
+                </Modal>
+                <Modal
+                  open={openSaque}
+                  onClose={handleCloseSaque}
+                  aria-labelledby='modal-modal-title'
+                  aria-describedby='modal-modal-description'
+                >
+                  <Box sx={styleSaque} component={'form'} onSubmit={handleSubmitSaque}>
+                    <Cards
+                      title={'Solicitação de Saque'}
+                      subTitle={'Faça a solicitação do valor desejado'}
+                      size={'100%'}
+                    >
+                      <Alert severity='info' sx={{ mb: 2, width: '100%' }}>
+                        O valor mínimo pra saque é de: R$
+                        {responseLimitesSaque?.limite_minimo_saque}
+                      </Alert>
+                      <TextField
+                        type='tel'
+                        label='Valor a ser sacado'
+                        placeholder='0,00'
+                        value={valueSolicitacao.valor_solicitado}
+                        onChange={(e) =>
+                          handleEditChange('valor_solicitado', currencyMask(e.target.value))
+                        }
+                        variant='standard'
+                        fullWidth
+                        required
+                        sx={{ mb: 2 }}
+                        InputProps={{
+                          startAdornment: <InputAdornment position='start'>R$</InputAdornment>,
+                        }}
+                      />
+                      <LoadingButton variant='contained' type='submit' loading={loadingSubmitSaque}>
+                        Solicitar
+                      </LoadingButton>
+                    </Cards>
                   </Box>
                 </Modal>
               </Cards>

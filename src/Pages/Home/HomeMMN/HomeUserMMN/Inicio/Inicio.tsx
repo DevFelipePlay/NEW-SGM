@@ -59,7 +59,7 @@ export function Inicio() {
 
   useEffect(() => {
     handleSubmit();
-    if (user?.primeiroAcesso !== true) {
+    if (user?.primeiroAcesso === false) {
       comppleteFirstAcess();
     }
   }, []);

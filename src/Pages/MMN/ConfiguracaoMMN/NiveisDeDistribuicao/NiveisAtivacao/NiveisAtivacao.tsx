@@ -72,16 +72,16 @@ export function NiveisDeDistribuicaoAtivacao() {
       const valorReferencia =
         responseView?.valor_referencia !== null ? responseView?.valor_referencia.toString() : '';
       const newValues = [
-        responseView?.nivel1 || '0',
-        responseView?.nivel2 || '0',
-        responseView?.nivel3 || '0',
-        responseView?.nivel4 || '0',
-        responseView?.nivel5 || '0',
-        responseView?.nivel6 || '0',
-        responseView?.nivel7 || '0',
-        responseView?.nivel8 || '0',
-        responseView?.nivel9 || '0',
-        responseView?.nivel10 || '0',
+        responseView?.nivel1 || 0,
+        responseView?.nivel2 || 0,
+        responseView?.nivel3 || 0,
+        responseView?.nivel4 || 0,
+        responseView?.nivel5 || 0,
+        responseView?.nivel6 || 0,
+        responseView?.nivel7 || 0,
+        responseView?.nivel8 || 0,
+        responseView?.nivel9 || 0,
+        responseView?.nivel10 || 0,
       ];
       //@ts-ignore
       setSelectedValues(newValues);
