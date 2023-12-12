@@ -87,15 +87,8 @@ export function DefaultContainer({
                   variant='subtitle2'
                 >
                   Nivel de usuário:{' '}
-                  {(user?.profileid === -1 && 'Ultra') ||
-                    (user?.profileid === 0 && 'Super') ||
-                    (user?.profileid === 1 && 'Admin') ||
-                    (user?.profileid === 2 && 'Atendente') ||
-                    (user?.profileid === 3 && 'Cliente') ||
-                    (user?.profileid === 4 && 'Vendedor') ||
-                    (user?.profileid === 5 && 'Desativado') ||
-                    (user?.profileid === 6 && 'Franquia') ||
-                    (user?.profileid === 7 && 'Multinivel')}
+                  {(user?.profileid_multinivel === 1 && 'Admin') ||
+                    (user?.profileid_multinivel === 7 && 'Multinivel')}
                 </Typography>
               </Box>
             </Box>
