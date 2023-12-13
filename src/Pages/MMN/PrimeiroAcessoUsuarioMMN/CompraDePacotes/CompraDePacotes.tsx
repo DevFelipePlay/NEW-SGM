@@ -10,10 +10,11 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { StepsCadastroUserMMN } from '..';
 import {
+  IResPostPlayGeraFaturaLicenciamento,
   IResPostPlayRecuperaPacotesLicenciamento,
+  postPlayGeraFaturaLicenciamento,
   postPlayRecuperaPacotesLicenciamento,
 } from '../../../../api';
-import { postPlayGeraFaturaLicenciamento } from '../../../../api/ApisPrimeiroAcessoUsuario/GerafaturaLicenciamento/postPlayGeraFaturaLicenciamento';
 import { Cards, Loading } from '../../../../components';
 import useUser from '../../../../hooks/useUser';
 import { errorToast } from '../../../../utils';
@@ -38,7 +39,7 @@ export function CompraDePacotes() {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const [responseBuy, setResponseBuy] = useState();
+  const [responseBuy, setResponseBuy] = useState<IResPostPlayGeraFaturaLicenciamento>();
 
   const theme = useTheme();
   const mdDown = useMediaQuery(theme.breakpoints.down('md'));
@@ -183,10 +184,12 @@ export function CompraDePacotes() {
             <Box sx={{ backgroundColor: 'white', p: 1, borderRadius: '10px' }}>
               <a
                 id='modal-modal-description'
-                href={`https://fatura.operadora.app.br/?payid=${responseBuy}`}
+                href={`https://fatura.operadora.app.br/?payid=${responseBuy?.payid}`}
                 target='_blank'
               >
-                {`https://fatura.operadora.app.br/?payid=${responseBuy}`}
+                <Typography>
+                  https://fatura.operadora.app.br/?payid=${responseBuy?.payid}
+                </Typography>
               </a>
             </Box>
             <Button
