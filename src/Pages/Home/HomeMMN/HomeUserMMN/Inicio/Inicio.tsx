@@ -41,7 +41,7 @@ export function Inicio() {
     }
   }
 
-  async function comppleteFirstAcess() {
+  async function completeFirstAccess() {
     const completaPrimeiroAcesso = {
       cpf: user?.cpf || '',
       alteracompletaprimeiroacesso: true,
@@ -56,12 +56,16 @@ export function Inicio() {
     copy(`https://indicacao.opuscell.com.br/#/${responseIdIndicacao?.id_indicacao}`);
     toast.success('Copiado para area de transferencia');
   }
-
   useEffect(() => {
-    handleSubmit();
-    if (user?.primeiroAcesso === false) {
-      comppleteFirstAcess();
-    }
+    const fetchData = async () => {
+      await handleSubmit();
+
+      if (user && !user.primeiroAcesso) {
+        completeFirstAccess();
+      }
+    };
+
+    fetchData();
   }, []);
 
   return (

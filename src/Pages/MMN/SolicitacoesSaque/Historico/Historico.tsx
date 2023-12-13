@@ -43,9 +43,10 @@ export function Historico() {
   };
 
   const renderPaginatedList = () => {
+    const reversedList = [...responseList].reverse();
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
-    const paginatedItems = responseList.slice(startIndex, endIndex);
+    const paginatedItems = reversedList.slice(startIndex, endIndex);
 
     return paginatedItems.map((item, index) => (
       <Box sx={{ width: '100%' }} key={index}>
