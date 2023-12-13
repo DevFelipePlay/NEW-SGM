@@ -1,11 +1,17 @@
 import LoadingButton from '@mui/lab/LoadingButton/LoadingButton';
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Button, Grid, Modal, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 
+import { toast } from 'react-toastify';
 import {
   IResPostPlayVisualizaPacotesVendaChip,
   postPlayVisualizaPacotesVendaChip,
 } from '../../../../../api';
+import {
+  IReqPostPlayGeraFaturaVendaChip,
+  IResPostPlayGeraFaturaVendaChip,
+  postPlayGeraFaturaVendaChip,
+} from '../../../../../api/ApisPrimeiroAcessoUsuario/GerafaturaVendaChip';
 import { Cards, Loading } from '../../../../../components';
 import useUser from '../../../../../hooks/useUser';
 import { errorToast } from '../../../../../utils';
@@ -13,7 +19,29 @@ import { errorToast } from '../../../../../utils';
 export function AdquiraSeusChips() {
   const [loadingView, setLoadingView] = useState(false);
   const [responseView, setResponseView] = useState<IResPostPlayVisualizaPacotesVendaChip[]>([]);
+  const [responseBuy, setResponseBuy] = useState<IResPostPlayGeraFaturaVendaChip>();
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const [loadingBuy, setLoadingBuy] = useState(false);
   const { user } = useUser();
+
+  const style = {
+    flexDirection: 'column',
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    borderRadius: '10px',
+    boxShadow: '24',
+    backgroundColor: 'var(--backGround-sideBar-color)',
+    color: 'var(--text-color)',
+    padding: '4rem',
+    textAlign: 'center',
+    border: 'none',
+  };
+
   async function handleView() {
     setLoadingView(true);
 
@@ -27,6 +55,27 @@ export function AdquiraSeusChips() {
       errorToast(error);
     } finally {
       setLoadingView(false);
+    }
+  }
+
+  async function handleBuyPacks(packageId: number) {
+    setLoadingBuy(true);
+
+    const payload: IReqPostPlayGeraFaturaVendaChip = {
+      cpf: user?.cpf || '',
+      token: user?.token || '',
+      id: packageId,
+    };
+
+    try {
+      const data = await postPlayGeraFaturaVendaChip(payload);
+      setResponseBuy(data);
+      toast.success('Solicitação de compra realizada');
+      handleOpen();
+    } catch (error: any) {
+      toast.error('Erro ao contratar');
+    } finally {
+      setLoadingBuy(false);
     }
   }
 
@@ -65,7 +114,8 @@ export function AdquiraSeusChips() {
                 <LoadingButton
                   variant='contained'
                   sx={{ mt: 2 }}
-                  onClick={() => alert('Função temporariamente indisponivel')}
+                  onClick={() => handleBuyPacks(item.id)}
+                  loading={loadingBuy}
                 >
                   Adquirir
                 </LoadingButton>
@@ -74,6 +124,31 @@ export function AdquiraSeusChips() {
           ))}
         </>
       )}
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby='modal-modal-title'
+        aria-describedby='modal-modal-description'
+      >
+        <Box sx={{ ...style, textAlign: 'center' }}>
+          <Typography id='modal-modal-title' variant='h6' component='h2' sx={{ mb: 2 }}>
+            Sua solicitação de compra foi realizada, clique no link e pague sua fatura ou visualize
+            a fatura pelo seu aplicativo ou na aba de faturas do seu modulo:
+          </Typography>
+          <Box sx={{ backgroundColor: 'white', p: 1, borderRadius: '10px' }}>
+            <a
+              id='modal-modal-description'
+              href={`https://fatura.operadora.app.br/?payid=${responseBuy?.payid}`}
+              target='_blank'
+            >
+              <Typography>https://fatura.operadora.app.br/?payid={responseBuy?.payid}</Typography>
+            </a>
+          </Box>
+          <Button variant='contained' sx={{ mt: 2 }} onClick={() => handleClose()}>
+            voltar para home
+          </Button>
+        </Box>
+      </Modal>
     </Grid>
   );
 }

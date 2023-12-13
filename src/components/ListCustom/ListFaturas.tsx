@@ -54,7 +54,7 @@ export function ListFaturas({
                 <ListItemText sx={{ userSelect: 'none' }}>R$ {valor}</ListItemText>
                 <ListItemText sx={{ userSelect: 'none' }}>
                   link:
-                  <Link to={`https://fatura.operadora.app.br/?payid=${idFatura}`}>
+                  <Link to={`https://fatura.operadora.app.br/?payid=${idFatura}`} target='_blank'>
                     https://fatura.operadora.app.br/?payid={idFatura}
                   </Link>
                 </ListItemText>
