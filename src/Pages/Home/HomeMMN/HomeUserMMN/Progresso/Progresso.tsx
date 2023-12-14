@@ -8,7 +8,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { useEffect, useState } from 'react';
 import {
-  IReqPostPlayVisualizaPremios,
+  IReqPostPlayVisualizaListaPremios,
   IResPostPlayVisualizaPremios,
   postPlayVisualizaListaPremios,
 } from '../../../../../api';
@@ -28,7 +28,7 @@ export function Progresso() {
   async function handleView() {
     setLoadingView(true);
 
-    const payload: IReqPostPlayVisualizaPremios = {
+    const payload: IReqPostPlayVisualizaListaPremios = {
       token: user?.token || '',
     };
 

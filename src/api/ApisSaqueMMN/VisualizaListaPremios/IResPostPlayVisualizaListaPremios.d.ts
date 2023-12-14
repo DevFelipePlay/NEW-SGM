@@ -1,4 +1,4 @@
-export interface IResPostPlayVisualizaPremios {
+export interface IResPostPlayVisualizaListaPremios {
   id: number;
   companyid: number;
   cnpj: string;

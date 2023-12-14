@@ -141,11 +141,10 @@ export function Faturas() {
                     alignItems: 'center',
                   }}
                 >
-                  <Typography variant='h4'>Faturas</Typography>
+                  <Typography variant='h4' sx={{ mt: 10 }}>
+                    Não há faturas
+                  </Typography>
                 </Box>
-                <Typography variant='h4' sx={{ mt: 10 }}>
-                  Não há faturas
-                </Typography>
               </>
             ) : (
               <>
@@ -217,11 +216,10 @@ export function Faturas() {
                     alignItems: 'center',
                   }}
                 >
-                  <Typography variant='h4'>Faturas</Typography>
+                  <Typography variant='h4' sx={{ mt: 10 }}>
+                    Não há faturas
+                  </Typography>
                 </Box>
-                <Typography variant='h4' sx={{ mt: 10 }}>
-                  Não há faturas
-                </Typography>
               </>
             ) : (
               <>
