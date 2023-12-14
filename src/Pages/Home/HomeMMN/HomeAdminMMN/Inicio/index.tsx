@@ -114,14 +114,14 @@ export default function Tab0() {
         </Cards>
         <Cards
           title={'Total do lucro mensal'}
-          subTitle={'Lucro do mes de testeneiro'}
+          subTitle={'Lucro do mês de testeneiro'}
           size={'100%'}
         >
           <Typography variant='h4'>R$ 320.000</Typography>
         </Cards>
         <Cards
           title={'Total do faturamento bruto'}
-          subTitle={'Lucro do mes de testeneiro'}
+          subTitle={'Lucro do mês de testeneiro'}
           size={'100%'}
         >
           <PieChart width={400} height={400}>

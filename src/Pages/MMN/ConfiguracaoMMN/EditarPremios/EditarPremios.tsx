@@ -53,7 +53,7 @@ export function EditarPremios() {
       const data = await postPlayVisualizaPremios(payload);
       setResponseView(data);
     } catch (error: any) {
-      errorToast(error);
+      console.log(error);
     } finally {
       setLoadingView(false);
     }
@@ -155,7 +155,7 @@ export function EditarPremios() {
     }
   }
 
-  //   Cadastro dos nosvos premios
+  //   Cadastro dos nosvos prêmios
   const [selectedValuePremios, setSelectedValuePremios] = useState('0');
   const [loading, setLoading] = useState(false);
   const [premiosImg, setPremiosImg] = useState<{ blob: Blob | null; url: string }>({
@@ -221,8 +221,8 @@ export function EditarPremios() {
             name='radio-buttons-group'
             onChange={(e: any) => setSelectedValue(e.target.value)}
           >
-            <FormControlLabel value='0' control={<Radio />} label='Editar premios já existentes' />
-            <FormControlLabel value='1' control={<Radio />} label='Excluir premios' />
+            <FormControlLabel value='0' control={<Radio />} label='Editar prêmios já existentes' />
+            <FormControlLabel value='1' control={<Radio />} label='Excluir prêmios' />
             <FormControlLabel value='2' control={<Radio />} label='Acrescentar uma novo premio' />
           </RadioGroup>
         </FormControl>
@@ -230,7 +230,7 @@ export function EditarPremios() {
 
       <>
         {selectedValue === '0' && (
-          <Cards title={'Edição de Premios'} subTitle={'Edite seus premios'} size={'100%'}>
+          <Cards title={'Edição de Premios'} subTitle={'Edite seus prêmios'} size={'100%'}>
             {loadingView ? (
               <Box
                 sx={{
@@ -338,7 +338,7 @@ export function EditarPremios() {
         {selectedValue === '1' && (
           <Cards
             title={'Exclusão de Premios'}
-            subTitle={'Exclua premios do seu modulo'}
+            subTitle={'Exclua prêmios do seu modulo'}
             size={'100%'}
           >
             {loadingView ? (
@@ -442,7 +442,7 @@ export function EditarPremios() {
         {selectedValue === '2' && (
           <Cards
             title={'Cadastro de Premios'}
-            subTitle={'Cadastre novos premios para os usuários'}
+            subTitle={'Cadastre novos prêmios para os usuários'}
             size={'100%'}
           >
             <Box
@@ -457,7 +457,7 @@ export function EditarPremios() {
             >
               <Cards
                 title={'Premiações'}
-                subTitle={'Cadastre os premios e as suas metas'}
+                subTitle={'Cadastre os prêmios e as suas metas'}
                 size={'50%'}
               >
                 <FormControl>

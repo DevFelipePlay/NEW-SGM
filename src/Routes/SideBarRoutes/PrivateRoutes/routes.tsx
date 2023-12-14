@@ -72,53 +72,9 @@ export function AllRoutes() {
             element={<DashboardRelatorioUsuario />}
           />
 
-          {/* Primeiro acesso Parceiro*/}
-
-          <Route path='/primeiro-acesso-multinivel-parceiro'>
-            <Route path='cadastro-de-pacotes-mmn' element={<CadastroDePacotesMMN />} />
-            <Route path='cadastro-de-pacotes-de-chips-mmn' element={<CadastroDePacotesDeChip />} />
-            <Route path='cadastro-dos-planos-mmn' element={<CadastroDosPlanosMMN />} />
-            <Route
-              path='cadastro-de-distribuicao-de-valores-por-recarga'
-              element={<CadastroDeDistribuicaoDeValoresPorRecarga />}
-            />
-            <Route
-              path='cadastro-de-distribuicao-de-valores-por-ativacao'
-              element={<CadastroDeDistribuicaoDeValoresPorAtivacao />}
-            />
-            <Route
-              path='cadastro-de-distribuicao-de-valores-por-licenciamento'
-              element={<CadastroDeDistribuicaoDeValoresPorLicenciamento />}
-            />
-            <Route
-              path='cadastro-de-distribuicao-de-valores-por-pacote-de-chips'
-              element={<CadastroDeDistribuicaoDeValoresPorPacotesDeChips />}
-            />
-            <Route path='cadastro-graduacoes' element={<CadastroGraduacoesMMN />} />
-            <Route
-              path='cadastro-pontos-por-modalidade'
-              element={<CadastroPontosModalidadeMMN />}
-            />
-            <Route path='cadastro-valores-e-taxas' element={<CadastroValoresETaxasMMN />} />
-            <Route path='cadastro-premiacoes' element={<CadastroPremiacoesMMN />} />
-          </Route>
           <Route path='/solicitacoes-saque' element={<SolicitacoesSaque />} />
         </Route>
 
-        {/* //////// */}
-
-        {/* Primeiro acesso usuãrio */}
-        <Route element={<AuthGuard allowedRoles={[-1, 0, 1, 7]} />}>
-          <Route path='/primeiro-acesso-multinivel-usuario'>
-            <Route path='compra-de-pacotes' element={<CompraDePacotes />} />
-            <Route
-              path='cadastro-dados-financeiros-usuario'
-              element={<CadastroDadosFinanceiros />}
-            />
-            <Route path='ativacao-linha' element={<AtivacaoLinha />} />
-          </Route>
-        </Route>
-        {/* //////// */}
         <Route element={<AuthGuard allowedRoles={[-1, 0, 1]} />}>
           <Route path='/configuracao-mmn' element={<ConfiguracaoMMN />} />
         </Route>
@@ -128,6 +84,44 @@ export function AllRoutes() {
 
         {/* ///////////////////// */}
       </Route>
+      {/* Primeiro acesso usuãrio */}
+      <Route element={<AuthGuard allowedRoles={[-1, 0, 1, 7]} />}>
+        <Route path='/primeiro-acesso-multinivel-usuario'>
+          <Route path='compra-de-pacotes' element={<CompraDePacotes />} />
+          <Route path='cadastro-dados-financeiros-usuario' element={<CadastroDadosFinanceiros />} />
+          <Route path='ativacao-linha' element={<AtivacaoLinha />} />
+        </Route>
+      </Route>
+      {/* //////// */}
+      {/* Primeiro acesso Parceiro*/}
+      <Route element={<AuthGuard allowedRoles={[-1, 0, 1]} />}>
+        <Route path='/primeiro-acesso-multinivel-parceiro'>
+          <Route path='cadastro-de-pacotes-mmn' element={<CadastroDePacotesMMN />} />
+          <Route path='cadastro-de-pacotes-de-chips-mmn' element={<CadastroDePacotesDeChip />} />
+          <Route path='cadastro-dos-planos-mmn' element={<CadastroDosPlanosMMN />} />
+          <Route
+            path='cadastro-de-distribuicao-de-valores-por-recarga'
+            element={<CadastroDeDistribuicaoDeValoresPorRecarga />}
+          />
+          <Route
+            path='cadastro-de-distribuicao-de-valores-por-ativacao'
+            element={<CadastroDeDistribuicaoDeValoresPorAtivacao />}
+          />
+          <Route
+            path='cadastro-de-distribuicao-de-valores-por-licenciamento'
+            element={<CadastroDeDistribuicaoDeValoresPorLicenciamento />}
+          />
+          <Route
+            path='cadastro-de-distribuicao-de-valores-por-pacote-de-chips'
+            element={<CadastroDeDistribuicaoDeValoresPorPacotesDeChips />}
+          />
+          <Route path='cadastro-graduacoes' element={<CadastroGraduacoesMMN />} />
+          <Route path='cadastro-pontos-por-modalidade' element={<CadastroPontosModalidadeMMN />} />
+          <Route path='cadastro-valores-e-taxas' element={<CadastroValoresETaxasMMN />} />
+          <Route path='cadastro-premiacoes' element={<CadastroPremiacoesMMN />} />
+        </Route>
+      </Route>
+      {/* //////// */}
     </RouterRoutes>
   );
 }

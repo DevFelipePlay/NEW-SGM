@@ -6,7 +6,7 @@ export interface IResPostPlayVisualizaFaturas {
   parceiro: string;
   paymentid: null;
   paymenttypeid: string;
-  paymentstatus: '0' | '1';
+  paymentstatus: 0 | 1;
   created: null;
   paymentasaasid: string;
   invoiceurl: string;

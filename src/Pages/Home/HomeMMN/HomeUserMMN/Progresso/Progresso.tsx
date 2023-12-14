@@ -14,9 +14,9 @@ import {
 } from '../../../../../api';
 import dinheiro from '../../../../../assets/MMNImg/din.png';
 import moto from '../../../../../assets/MMNImg/moto.jpg';
-import { Cards, ProgressBar } from '../../../../../components';
+import { Cards, Loading, ProgressBar } from '../../../../../components';
 import useUser from '../../../../../hooks/useUser';
-import { errorToast } from '../../../../../utils';
+import { currencyMask, errorToast } from '../../../../../utils';
 
 export function Progresso() {
   //@ts-ignore
@@ -37,6 +37,8 @@ export function Progresso() {
       setResponseView(data);
     } catch (error: any) {
       errorToast(error);
+    } finally {
+      setLoadingView(false);
     }
   }
 
@@ -89,6 +91,8 @@ export function Progresso() {
                   onClick={function (): void {
                     throw new Error('Function not implemented.');
                   }}
+                  variant='contained'
+                  color='warning'
                 >
                   Acumular
                 </Button>
@@ -96,6 +100,7 @@ export function Progresso() {
                   onClick={function (): void {
                     throw new Error('Function not implemented.');
                   }}
+                  variant='contained'
                 >
                   Resgatar
                 </Button>
@@ -151,49 +156,69 @@ export function Progresso() {
             </Cards>
           </Grid>
           <Grid item xs={12}>
-            <Typography
-              sx={{
-                m: 0,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-              variant='h4'
-            >
-              Premios
-            </Typography>
-            <Box>
-              <Swiper
-                spaceBetween={2}
-                slidesPerView={2.3}
-                onSlideChange={() => console.log('slide change')}
-                onSwiper={(swiper) => console.log(swiper)}
-                pagination={{ clickable: true }}
-                modules={[Navigation, Pagination]}
-                navigation
+            {loadingView ? (
+              <Box
+                sx={{
+                  width: '100%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  height: '50vh',
+                }}
               >
-                {responseView.map((item, index) => (
-                  <SwiperSlide key={index}>
-                    <Cards title={item.nome_premio} subTitle={''} size={'90%'}>
-                      {item.foto ? (
-                        <img
-                          src={`data:image/jpeg;base64,${item.foto}`}
-                          style={{ width: '200px', borderRadius: '16px' }}
-                        />
-                      ) : (
-                        <img src={dinheiro} style={{ width: '100px', borderRadius: '16px' }} />
-                      )}
-                      <Typography sx={{ color: 'var(--primary-color)' }}>
-                        {item.descricao}
-                      </Typography>
-                      <Typography variant='h5' sx={{ mt: 2 }}>
-                        Meta: 1.000 pontos
-                      </Typography>
-                    </Cards>
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-            </Box>
+                <Loading />
+              </Box>
+            ) : (
+              <>
+                <Typography
+                  sx={{
+                    m: 0,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                  variant='h4'
+                >
+                  Premios
+                </Typography>
+                <Box>
+                  <Swiper
+                    spaceBetween={2}
+                    slidesPerView={2.3}
+                    onSlideChange={() => console.log('slide change')}
+                    onSwiper={(swiper) => console.log(swiper)}
+                    pagination={{ clickable: true }}
+                    modules={[Navigation, Pagination]}
+                    navigation
+                  >
+                    {responseView.map((item, index) => (
+                      <SwiperSlide key={index}>
+                        <Cards title={item.nome_premio} subTitle={''} size={'90%'}>
+                          {item.foto ? (
+                            <img
+                              src={`data:image/jpeg;base64,${item.foto}`}
+                              style={{ width: '200px', borderRadius: '16px' }}
+                            />
+                          ) : (
+                            <img src={dinheiro} style={{ width: '100px', borderRadius: '16px' }} />
+                          )}
+                          <Typography sx={{ color: 'var(--primary-color)' }}>
+                            {item.descricao}
+                          </Typography>
+                          <Typography>Valor estimado:</Typography>
+                          <Typography sx={{ color: 'var(--primary-color)' }} variant='h4'>
+                            R$ {currencyMask(item.valor_premio)}
+                          </Typography>
+                          <Typography variant='h5' sx={{ mt: 2 }}>
+                            Meta: {item.pontos_resgate} Pontos
+                          </Typography>
+                        </Cards>
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
+                </Box>
+              </>
+            )}
           </Grid>
         </Grid>
       ) : (

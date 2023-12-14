@@ -92,7 +92,7 @@ export function CadastroPremiacoesMMN() {
         component={'form'}
         onSubmit={handeSubmit}
       >
-        <Cards title={'Premiações'} subTitle={'Cadastre os premios e as suas metas'} size={'50%'}>
+        <Cards title={'Premiações'} subTitle={'Cadastre os prêmios e as suas metas'} size={'50%'}>
           <FormControl>
             <Typography variant='h5'>Escolha o metodo que deseja cadastrar a premiação</Typography>
             <RadioGroup

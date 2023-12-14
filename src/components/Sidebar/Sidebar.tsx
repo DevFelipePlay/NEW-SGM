@@ -190,7 +190,7 @@ export function Sidebar(): JSX.Element {
     {
       switches: '',
       render: true,
-      label: 'Modulo Multinivel',
+      label: 'Módulo Multinivel',
       icon: <GiHumanPyramid />,
       to: user?.profileid_multinivel === 7 ? 'home-usuario-mmn' : 'home-admin-mmn',
       listItemsTabBar: [
@@ -266,7 +266,7 @@ export function Sidebar(): JSX.Element {
       case 'Play Admin':
       case 'Home':
       case 'Minha operadora':
-      case 'Modulo Multinivel':
+      case 'Módulo Multinivel':
         return renderTabItems(activeItem?.listItemsTabBar || []);
       default:
         return null;

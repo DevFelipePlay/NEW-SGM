@@ -59,16 +59,10 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
         if (!response.data.primeiroacessoconcluidoparceirommn && response.data?.super) {
           !isOnBg && navigate('/primeiro-acesso-multinivel-parceiro/cadastro-de-pacotes-mmn');
         }
-        if (
-          response.data.primeiroacessoconcluidoparceirommn &&
-          response.data?.profileid_multinivel === 7
-        ) {
+        if (response.data.msisdnativo && response.data?.profileid_multinivel === 7) {
           !isOnBg && navigate('/home-usuario-mmn');
         }
-        if (
-          !response.data.primeiroacessoconcluidoparceirommn &&
-          response.data?.profileid_multinivel === 7
-        ) {
+        if (!response.data.msisdnativo && response.data?.profileid_multinivel === 7) {
           !isOnBg && navigate('/primeiro-acesso-multinivel-usuario/compra-de-pacotes');
         }
       })

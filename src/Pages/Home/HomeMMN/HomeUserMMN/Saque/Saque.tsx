@@ -205,7 +205,7 @@ export function Saque() {
       ) : (
         <Grid container spacing={2}>
           <Grid item xs={4}>
-            <Cards title={'Saldo'} subTitle={'Total disponivel para saque'} size={'100%'}>
+            <Cards title={'Saldo'} subTitle={'Total disponível para saque'} size={'100%'}>
               <Typography variant='h5' sx={{ mb: 2 }}>
                 {responseSaque?.saldo_disponivel
                   ? `R$ ${currencyMask(responseSaque?.saldo_disponivel.toString())}`
@@ -231,7 +231,7 @@ export function Saque() {
             {responseSaque ? (
               <Cards
                 title={'Seu QR Code'}
-                subTitle={'Este é o pix que voce usa para receber o seu bonus'}
+                subTitle={'Este é o pix que será usado para depositar o seu bônus'}
                 size={'100%'}
                 showIcon
               >

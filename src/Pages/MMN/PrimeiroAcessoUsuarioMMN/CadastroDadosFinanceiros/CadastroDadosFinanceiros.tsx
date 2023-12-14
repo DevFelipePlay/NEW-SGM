@@ -157,7 +157,18 @@ export function CadastroDadosFinanceiros() {
           />
 
           <Box mt={2}>
-            <LoadingButton type='submit' variant='contained' loading={loading}>
+            <LoadingButton
+              type='submit'
+              variant='contained'
+              loading={loading}
+              disabled={
+                formData.chave_pix === '' ||
+                formData.titular_pix === '' ||
+                formData.cpf === '' ||
+                formData.type_pix === '' ||
+                !validations.cpf_titular_pix
+              }
+            >
               Enviar
             </LoadingButton>
           </Box>

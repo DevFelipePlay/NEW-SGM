@@ -95,7 +95,7 @@ export function CadastroDePacotesDeChip() {
               label={'Nome'}
               value={card.nome}
               onChange={(e: any) => handleInputChanges(index, 'nome', e.target.value.trim())}
-              helperText={'Escolha um nome para o pacote, este nome será mostrado para os usuárips'}
+              helperText={'Escolha um nome para o pacote, este nome será mostrado para os usuários'}
               sx={{ mb: 2 }}
               required
             />

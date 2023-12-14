@@ -37,7 +37,7 @@ export function AtivacaoLinha() {
 
   const [loadingValidate, setLoadingValidate] = useState(false);
   const [loadingValidateICCID, setLoadingValidateICCID] = useState(false);
-  const [isIccidNotValid, setIsIccidNotValid] = useState<boolean>(false);
+  const [isIccidValid, setIsIccidValid] = useState<boolean>(false);
   const [responsePLanosPreferidos, setResponsePLanosPreferidos] = useState<
     IresPostPlayRecuperaPlanosPreferidos[]
   >([]);
@@ -123,11 +123,11 @@ export function AtivacaoLinha() {
     };
     try {
       await postPlayValidaICCID(payload);
-      setIsIccidNotValid(false);
+      setIsIccidValid(true);
       toast.success('Seu ICCID é valido');
     } catch (error: any) {
       errorToast(error);
-      setIsIccidNotValid(true);
+      setIsIccidValid(false);
     } finally {
       setLoadingValidateICCID(false);
     }
@@ -180,12 +180,12 @@ export function AtivacaoLinha() {
             variant='standard'
             onChange={(e) => changeForm('iccid', e.target.value)}
             helperText={
-              isIccidNotValid
+              !isIccidValid
                 ? 'O ICCID não é valido, o numero do iccid encontra-se abaixo do codigo de barras do seu chip'
                 : 'O numero do iccid encontra-se abaixo do codigo de barras do seu chip'
             }
             fullWidth
-            error={formData.iccid.length > 19 ? !isIccidNotValid : isIccidNotValid}
+            error={formData.iccid.length > 19 && !isIccidValid}
             required
             InputProps={{
               endAdornment: (
@@ -201,7 +201,7 @@ export function AtivacaoLinha() {
             variant='contained'
             type='submit'
             sx={{ mt: 2 }}
-            disabled={isIccidNotValid || formData.iccid.length < 19}
+            disabled={isIccidValid === false}
           >
             Escolher plano
           </LoadingButton>

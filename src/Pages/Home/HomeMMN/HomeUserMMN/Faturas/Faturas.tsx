@@ -9,6 +9,7 @@ import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { IResPostPlayVisualizaFaturas } from '../../../../../api';
 import {
+  IResPostPlayVisualizaFaturasPacotes,
   postPLayVisualizaFaturasPacotes,
   postPlayVisualizaFaturasAtivacaoERecarga,
 } from '../../../../../api/ApisUtils/FaturasUsuario';
@@ -25,9 +26,9 @@ export function Faturas() {
   const [responseListAtivacaoERecarga, setResponseListAtivacaoERecarga] = useState<
     IResPostPlayVisualizaFaturas[]
   >([]);
-  const [responseListPacotes, setResponseListPacotes] = useState<IResPostPlayVisualizaFaturas[]>(
-    []
-  );
+  const [responseListPacotes, setResponseListPacotes] = useState<
+    IResPostPlayVisualizaFaturasPacotes[]
+  >([]);
   const { user } = useUser();
   const [currentPagePacotes, setCurrentPagePacotes] = useState(1);
   const [currentPageAtivacaoERecarga, setCurrentPageAtivacaoERecarga] = useState(1);
@@ -79,10 +80,10 @@ export function Faturas() {
     return paginatedItemsAtivacaoERecarga.map((item, index) => (
       <Box sx={{ width: '100%' }} key={index}>
         <ListFaturasAtivacaoERecarga
-          colorStatus={item.paymentstatus === '0' ? '#dbbe00' : 'green'}
+          colorStatus={item.paymentstatus === 0 ? '#dbbe00' : 'green'}
           dataDeCriacao={item.created ? dateFormatter(item.created) : 'Sem data de criação'}
           tipoDaFaturas={item.tipo}
-          status={item.paymentstatus === '0' ? 'Pendente' : 'Pago'}
+          status={item.paymentstatus === 0 ? 'Pendente' : 'Pago'}
           valor={item.valuetopup}
           idFatura={item.paymentasaasid}
         />

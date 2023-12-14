@@ -125,7 +125,7 @@ export function StepsPrimeiroAcessoMMN({ step, children }: IStepsCadastro) {
     'Cadastro de destribuição de valores por Licenciamento ',
     'Cadastro de destribuição de valores por Pacote de Chips ',
     'Cadastro de taxas de saque e valores',
-    'Cadastro de premios',
+    'Cadastro de prêmios',
   ];
 
   /////// function step /////

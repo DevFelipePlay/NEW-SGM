@@ -291,7 +291,7 @@ export function EditarPacotesChips() {
                         }
                         onChange={(e) => handleEditChange(index, 'nome', e.target.value)}
                         helperText={
-                          'Escolha um nome para o pacote, este nome será mostrado para os usuárips'
+                          'Escolha um nome para o pacote, este nome será mostrado para os usuários'
                         }
                         sx={{ mb: 2 }}
                         fullWidth
@@ -485,7 +485,7 @@ export function EditarPacotesChips() {
                   value={card.nome}
                   onChange={(e: any) => handleInputChanges(index, 'nome', e.target.value.trim())}
                   helperText={
-                    'Escolha um nome para o pacote, este nome será mostrado para os usuárips'
+                    'Escolha um nome para o pacote, este nome será mostrado para os usuários'
                   }
                   sx={{ mb: 2 }}
                   required

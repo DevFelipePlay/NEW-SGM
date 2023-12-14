@@ -280,7 +280,7 @@ export function EditarPacotes() {
                         }
                         onChange={(e) => handleEditChange(index, 'nome', e.target.value)}
                         helperText={
-                          'Escolha um nome para o pacote, este nome será mostrado para os usuárips'
+                          'Escolha um nome para o pacote, este nome será mostrado para os usuários'
                         }
                         sx={{ mb: 2 }}
                         fullWidth
@@ -314,7 +314,7 @@ export function EditarPacotes() {
                         }
                         onChange={(e) => handleEditChange(index, 'pontos', e.target.value)}
                         helperText={
-                          'Defina a quantidade de pontos que cada venda deste modulo irá gerar para os usuários'
+                          'Defina a quantidade de pontos que cada venda deste módulo irá gerar para os usuários'
                         }
                         sx={{ mb: 2 }}
                         fullWidth
@@ -401,7 +401,7 @@ export function EditarPacotes() {
                           <Typography>
                             Oferece: {item.pontos} pontos para a rede do usuário
                           </Typography>
-                          <Typography>Oferedece acesso ao multinivel</Typography>
+                          <Typography>Oferece acesso ao multinivel</Typography>
                           <Typography> Valor de venda: R$ {item.valor_venda}</Typography>
                         </Box>
 
@@ -421,7 +421,7 @@ export function EditarPacotes() {
                           Certeza que deseja excluir : {item.nome}
                         </Typography>
                         <Typography id='modal-modal-description' sx={{ mt: 2 }}>
-                          Ao excluir este pacote ele nao vai poder ser comprado por novos usuários
+                          Ao excluir este pacote ele não vai poder ser comprado por novos usuários
                         </Typography>
                         <LoadingButton
                           color='error'
@@ -475,7 +475,7 @@ export function EditarPacotes() {
                   value={card.nome}
                   onChange={(e: any) => handleInputChanges(index, 'nome', e.target.value.trim())}
                   helperText={
-                    'Escolha um nome para o pacote, este nome será mostrado para os usuárips'
+                    'Escolha um nome para o pacote, este nome será mostrado para os usuários'
                   }
                   sx={{ mb: 2 }}
                   required

@@ -13,7 +13,7 @@ export function HomeUserMMN() {
     <DefaultContainer
       page={'Multinivel'}
       title={'Bem-vindo'}
-      subTitle={'Ficamos felizes em te-lo de volta'}
+      subTitle={'Ficamos felizes em tê-lo de volta'}
       showSearch={false}
       showAvatar={true}
     >
@@ -22,7 +22,7 @@ export function HomeUserMMN() {
           value={tabValue}
           onChange={(newValue: any) => setTabValue(newValue)}
           tabsData={[
-            { label: 'Inicio', value: 0 },
+            { label: 'Início', value: 0 },
             { label: 'Progresso', value: 1 },
             { label: 'Saque', value: 2 },
             { label: 'Faturas', value: 3 },

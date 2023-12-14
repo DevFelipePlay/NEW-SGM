@@ -381,7 +381,7 @@ export function EditarGraduações() {
                     <Typography>Nome: {item.nome_graduacao}</Typography>
                     <Typography>Meta para graduar: {item.meta_proxima_graduacao}</Typography>
                     <Typography>
-                      porcetagem de recebimento do bonus de carreita: {item.porcentagem}%
+                      porcentagem de recebimento do bonus de carreita: {item.porcentagem}%
                     </Typography>
                     <IconButton color='error' onClick={() => handleOpen(index)}>
                       <TbTrashX />

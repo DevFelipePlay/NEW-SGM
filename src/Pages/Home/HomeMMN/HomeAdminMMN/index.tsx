@@ -19,7 +19,7 @@ export default function HomeAdminMMN() {
         value={tabValue}
         onChange={(newValue) => setTabValue(newValue)}
         tabsData={[
-          { label: 'Inicio', value: 0 },
+          { label: 'Início', value: 0 },
           { label: 'Patrocinados', value: 2 },
         ]}
         mostrarBotaoVoltar={false}
