@@ -133,7 +133,8 @@ export function ListaAprovaocao() {
                         Tipo Pix: {toUpper(item.tipo_pix)}
                       </ListItemText>
                       <ListItemText sx={{ userSelect: 'none' }}>
-                        CPF do Titular: {mask(item.cpf_titular_pix, ['999.999.999-99'])}
+                        CPF do Titular:{' '}
+                        {item.cpf_titular_pix ? mask(item.cpf_titular_pix, ['999.999.999-99']) : ''}
                       </ListItemText>
                       <ListItemText sx={{ userSelect: 'none' }}>
                         Data da Solicitação: {dateFormatter(item.Data_Solicitacao)}

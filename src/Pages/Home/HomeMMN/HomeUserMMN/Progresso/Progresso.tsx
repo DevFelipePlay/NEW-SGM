@@ -6,15 +6,43 @@ import 'swiper/css/pagination';
 import { Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import { useState } from 'react';
-import carro from '../../../../../assets/MMNImg/carro.jpeg.webp';
-import mansao from '../../../../../assets/MMNImg/mansao.webp';
+import { useEffect, useState } from 'react';
+import {
+  IReqPostPlayVisualizaPremios,
+  IResPostPlayVisualizaPremios,
+  postPlayVisualizaListaPremios,
+} from '../../../../../api';
+import dinheiro from '../../../../../assets/MMNImg/din.png';
 import moto from '../../../../../assets/MMNImg/moto.jpg';
 import { Cards, ProgressBar } from '../../../../../components';
+import useUser from '../../../../../hooks/useUser';
+import { errorToast } from '../../../../../utils';
 
 export function Progresso() {
   //@ts-ignore
-  const [telaEmDesenvilvimento, setTelaEmDesenvilvimento] = useState(false);
+  const [telaEmDesenvilvimento, setTelaEmDesenvilvimento] = useState(true);
+  const [loadingView, setLoadingView] = useState(false);
+  const [responseView, setResponseView] = useState<IResPostPlayVisualizaPremios[]>([]);
+  const { user } = useUser();
+
+  async function handleView() {
+    setLoadingView(true);
+
+    const payload: IReqPostPlayVisualizaPremios = {
+      token: user?.token || '',
+    };
+
+    try {
+      const data = await postPlayVisualizaListaPremios(payload);
+      setResponseView(data);
+    } catch (error: any) {
+      errorToast(error);
+    }
+  }
+
+  useEffect(() => {
+    handleView();
+  }, []);
 
   return (
     <>
@@ -144,39 +172,26 @@ export function Progresso() {
                 modules={[Navigation, Pagination]}
                 navigation
               >
-                <SwiperSlide>
-                  <Cards title={'Duccati'} subTitle={''} size={'90%'}>
-                    <img src={moto} style={{ width: '300px', borderRadius: '16px' }} />
-                    <Typography sx={{ color: 'var(--primary-color)' }}>
-                      Moto Duccati, 1000 cilindradas, 0 KM
-                    </Typography>
-                    <Typography variant='h5' sx={{ mt: 2 }}>
-                      Meta: 1.000 pontos
-                    </Typography>
-                  </Cards>
-                </SwiperSlide>
-                <SwiperSlide>
-                  <Cards title={'Carro'} subTitle={''} size={'90%'}>
-                    <img src={carro} style={{ width: '300px', borderRadius: '16px' }} />
-                    <Typography sx={{ color: 'var(--primary-color)' }}>
-                      Carro de luxo, 2 portas, 960 cavalos, para pistas
-                    </Typography>
-                    <Typography variant='h5' sx={{ mt: 2 }}>
-                      Meta: 5.000 pontos
-                    </Typography>
-                  </Cards>
-                </SwiperSlide>
-                <SwiperSlide>
-                  <Cards title={'Casa de luxo'} subTitle={''} size={'90%'}>
-                    <img src={mansao} style={{ width: '300px', borderRadius: '16px' }} />
-                    <Typography sx={{ color: 'var(--primary-color)' }}>
-                      Mansão no Guarujá, 8 quartos, piscina, bem localizada, condominio fechado
-                    </Typography>
-                    <Typography variant='h5' sx={{ mt: 2 }}>
-                      Meta: 100.000 pontos
-                    </Typography>
-                  </Cards>
-                </SwiperSlide>
+                {responseView.map((item, index) => (
+                  <SwiperSlide key={index}>
+                    <Cards title={item.nome_premio} subTitle={''} size={'90%'}>
+                      {item.foto ? (
+                        <img
+                          src={`data:image/jpeg;base64,${item.foto}`}
+                          style={{ width: '200px', borderRadius: '16px' }}
+                        />
+                      ) : (
+                        <img src={dinheiro} style={{ width: '100px', borderRadius: '16px' }} />
+                      )}
+                      <Typography sx={{ color: 'var(--primary-color)' }}>
+                        {item.descricao}
+                      </Typography>
+                      <Typography variant='h5' sx={{ mt: 2 }}>
+                        Meta: 1.000 pontos
+                      </Typography>
+                    </Cards>
+                  </SwiperSlide>
+                ))}
               </Swiper>
             </Box>
           </Grid>
