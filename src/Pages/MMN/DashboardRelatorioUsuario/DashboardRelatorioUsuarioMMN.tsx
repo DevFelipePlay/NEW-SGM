@@ -1,18 +1,27 @@
-import { Avatar, Box, Grid, Tooltip, Typography } from '@mui/material';
+import { Avatar, Box, Grid, Skeleton, Tooltip, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { GiLaurelsTrophy } from 'react-icons/gi';
 import { MdOutlineContentCopy } from 'react-icons/md';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { IResPostPlayDashboardUsuario, postPlayDashboardUsuario } from '../../../api';
+import {
+  IReqPostPlayDashboardUsuarioContinue,
+  IResPostPlayDashboardUsuario,
+  IResPostPlayDashboardUsuarioContinue,
+  postPlayDashboardUsuario,
+  postPlayDashboardUsuarioContinue,
+} from '../../../api';
 import { Cards, DefaultContainer, Loading } from '../../../components';
 import { useCopyToClipboard } from '../../../hooks/useCopyToClipboard';
 import useUser from '../../../hooks/useUser';
-import { dadosFormatter, dateFormatter, errorToast } from '../../../utils';
+import { currencyMask, dadosFormatter, dateFormatter, errorToast } from '../../../utils';
 
 export function DashboardRelatorioUsuario() {
   const [responseIdIndicacao, setresponseIdIndicacao] = useState<IResPostPlayDashboardUsuario>();
+  const [responseViewContinue, setResponseViewContinue] =
+    useState<IResPostPlayDashboardUsuarioContinue>();
   const [loading, setLoading] = useState(false);
+  const [loadingDados, setLoadingDados] = useState(false);
   const { cpf } = useParams();
   //@ts-ignore
   const [value, copy] = useCopyToClipboard();
@@ -34,15 +43,31 @@ export function DashboardRelatorioUsuario() {
     }
   }
 
+  async function handleDados() {
+    setLoadingDados(true);
+
+    try {
+      const payload: IReqPostPlayDashboardUsuarioContinue = {
+        cpf: user?.cpf || '',
+        token: user?.token || '',
+      };
+      const data = await postPlayDashboardUsuarioContinue(payload);
+      setResponseViewContinue(data);
+    } catch (error: any) {
+      errorToast(error);
+    } finally {
+      setLoadingDados(false);
+    }
+  }
+
   function copyToText() {
-    copy(
-      `https://multinivel.operadora.app.br/#/landingpage-indicacao/${responseIdIndicacao?.id_indicacao}`
-    );
+    copy(`https://indicacao.opuscell.com.br/#/${responseIdIndicacao?.id_indicacao}`);
     toast.success('Copiado para area de transferencia');
   }
 
   useEffect(() => {
     handleSubmit();
+    handleDados();
   }, []);
 
   return (
@@ -85,7 +110,7 @@ export function DashboardRelatorioUsuario() {
                     }}
                   >
                     <Typography sx={{ marginRight: '2rem' }}>
-                      {`https://multinivel.operadora.app.br/#/landingpage-indicacao/${responseIdIndicacao?.id_indicacao}`}
+                      {`https://indicacao.opuscell.com.br/#/${responseIdIndicacao?.id_indicacao}`}
                     </Typography>
                     <MdOutlineContentCopy />
                   </Box>
@@ -100,7 +125,7 @@ export function DashboardRelatorioUsuario() {
               >
                 <Typography variant='h5'>
                   {responseIdIndicacao?.bonus_receber
-                    ? 'R$' + ' ' + responseIdIndicacao?.bonus_receber
+                    ? 'R$' + ' ' + currencyMask(responseIdIndicacao?.bonus_receber)
                     : 'Sem Saldo'}
                 </Typography>
               </Cards>
@@ -126,7 +151,7 @@ export function DashboardRelatorioUsuario() {
               >
                 <Typography variant='h5'>
                   {responseIdIndicacao?.bonus_recebidos
-                    ? 'R$' + ' ' + responseIdIndicacao?.bonus_recebidos
+                    ? 'R$' + ' ' + currencyMask(responseIdIndicacao?.bonus_recebidos)
                     : 'Sem Saldo'}
                 </Typography>
               </Cards>
@@ -236,26 +261,42 @@ export function DashboardRelatorioUsuario() {
                       }}
                     >
                       <Typography>{responseIdIndicacao?.indicado_por}</Typography>
-                      <Typography>{responseIdIndicacao?.status}</Typography>
+                      {loadingDados ? (
+                        <Skeleton variant='text' sx={{ fontSize: '1rem', width: '250px' }} />
+                      ) : (
+                        <Typography>
+                          {responseViewContinue?.status ? responseViewContinue?.status : 'Inativo'}
+                        </Typography>
+                      )}
                       <Typography>
                         {responseIdIndicacao?.plano
                           ? responseIdIndicacao?.plano
                           : 'Sem Plano Ativo'}
                       </Typography>
-                      <Typography>
-                        {dadosFormatter(
-                          responseIdIndicacao?.saldo_dados
-                            ? responseIdIndicacao?.saldo_dados
-                            : 'Sem saldo'
-                        )}
-                      </Typography>
-                      <Typography>
-                        {dateFormatter(
-                          responseIdIndicacao?.expira_em
-                            ? responseIdIndicacao?.expira_em
-                            : 'Sem expiração'
-                        )}
-                      </Typography>
+                      {loadingDados ? (
+                        <Skeleton variant='text' sx={{ fontSize: '1rem', width: '250px' }} />
+                      ) : (
+                        <Typography>
+                          {dadosFormatter(
+                            responseViewContinue?.saldo_dados
+                              ? responseViewContinue?.saldo_dados
+                              : 'Sem saldo'
+                          )}
+                        </Typography>
+                      )}
+
+                      {loadingDados ? (
+                        <Skeleton variant='text' sx={{ fontSize: '1rem', width: '250px' }} />
+                      ) : (
+                        <Typography>
+                          {dateFormatter(
+                            responseViewContinue?.expira_em
+                              ? responseViewContinue?.expira_em
+                              : 'Indefinido'
+                          )}
+                        </Typography>
+                      )}
+
                       <Typography>
                         {responseIdIndicacao?.graduacao
                           ? responseIdIndicacao?.graduacao

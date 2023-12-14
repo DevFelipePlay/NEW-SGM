@@ -138,10 +138,12 @@ export function AdquiraSeusChips() {
           <Box sx={{ backgroundColor: 'white', p: 1, borderRadius: '10px' }}>
             <a
               id='modal-modal-description'
-              href={`https://fatura.operadora.app.br/?payid=${responseBuy?.payid}`}
+              href={`https://faturammn.operadora.app.br/?payid=${responseBuy?.payid}`}
               target='_blank'
             >
-              <Typography>https://fatura.operadora.app.br/?payid={responseBuy?.payid}</Typography>
+              <Typography>
+                https://faturammn.operadora.app.br/?payid={responseBuy?.payid}
+              </Typography>
             </a>
           </Box>
           <Button variant='contained' sx={{ mt: 2 }} onClick={() => handleClose()}>

@@ -10,7 +10,7 @@ interface IlistCustom {
   idFatura: string;
 }
 
-export function ListFaturasAtivacaoERecarga({
+export function ListFaturasPacotes({
   valor,
   dataDeCriacao,
   idFatura,
@@ -54,8 +54,11 @@ export function ListFaturasAtivacaoERecarga({
                 <ListItemText sx={{ userSelect: 'none' }}>R$ {valor}</ListItemText>
                 <ListItemText sx={{ userSelect: 'none' }}>
                   link:
-                  <Link to={`https://fatura.operadora.app.br/?payid=${idFatura}`} target='_blank'>
-                    https://fatura.operadora.app.br/?payid={idFatura}
+                  <Link
+                    to={`https://faturammn.operadora.app.br/?payid=${idFatura}`}
+                    target='_blank'
+                  >
+                    https://faturammn.operadora.app.br/?payid={idFatura}
                   </Link>
                 </ListItemText>
               </Box>

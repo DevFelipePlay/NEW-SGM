@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Grid, Tooltip, Typography } from '@mui/material';
+import { Avatar, Box, Button, Grid, Skeleton, Tooltip, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { MdOutlineContentCopy } from 'react-icons/md';
 import { toast } from 'react-toastify';
@@ -7,15 +7,21 @@ import { useCopyToClipboard } from '../../../../../hooks/useCopyToClipboard';
 
 import { useNavigate } from 'react-router-dom';
 import {
+  IReqPostPlayDashboardUsuarioContinue,
   IResPostPlayDashboardUsuario,
+  IResPostPlayDashboardUsuarioContinue,
   postPlayCompletaPrimeiroAcesso,
   postPlayDashboardUsuario,
+  postPlayDashboardUsuarioContinue,
 } from '../../../../../api';
 import useUser from '../../../../../hooks/useUser';
-import { dadosFormatter, dateFormatter, errorToast } from '../../../../../utils';
+import { currencyMask, dadosFormatter, dateFormatter, errorToast } from '../../../../../utils';
 
 export function Inicio() {
   const [responseIdIndicacao, setresponseIdIndicacao] = useState<IResPostPlayDashboardUsuario>();
+  const [responseViewContinue, setResponseViewContinue] =
+    useState<IResPostPlayDashboardUsuarioContinue>();
+  const [loadingDados, setLoadingDados] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errorEndpoint, setErrorEndpoint] = useState(false);
   // @ts-ignore
@@ -52,6 +58,23 @@ export function Inicio() {
     } catch (error) {}
   }
 
+  async function handleDados() {
+    setLoadingDados(true);
+
+    try {
+      const payload: IReqPostPlayDashboardUsuarioContinue = {
+        cpf: user?.cpf || '',
+        token: user?.token || '',
+      };
+      const data = await postPlayDashboardUsuarioContinue(payload);
+      setResponseViewContinue(data);
+    } catch (error: any) {
+      errorToast(error);
+    } finally {
+      setLoadingDados(false);
+    }
+  }
+
   function copyToText() {
     copy(`https://indicacao.opuscell.com.br/#/${responseIdIndicacao?.id_indicacao}`);
     toast.success('Copiado para area de transferencia');
@@ -66,6 +89,7 @@ export function Inicio() {
     };
 
     fetchData();
+    handleDados();
   }, []);
 
   return (
@@ -142,7 +166,7 @@ export function Inicio() {
                 >
                   <Typography variant='h5'>
                     {responseIdIndicacao?.bonus_receber
-                      ? 'R$' + ' ' + responseIdIndicacao?.bonus_receber
+                      ? 'R$' + ' ' + currencyMask(responseIdIndicacao?.bonus_receber)
                       : 'Sem Saldo'}
                   </Typography>
                 </Cards>
@@ -166,7 +190,7 @@ export function Inicio() {
                 >
                   <Typography variant='h5'>
                     {responseIdIndicacao?.bonus_recebidos
-                      ? 'R$' + ' ' + responseIdIndicacao?.bonus_recebidos
+                      ? 'R$' + ' ' + currencyMask(responseIdIndicacao?.bonus_recebidos)
                       : 'Sem Saldo'}
                   </Typography>
                 </Cards>
@@ -234,26 +258,42 @@ export function Inicio() {
                         }}
                       >
                         <Typography>{responseIdIndicacao?.indicado_por}</Typography>
-                        <Typography>{responseIdIndicacao?.status}</Typography>
+                        {loadingDados ? (
+                          <Skeleton variant='text' sx={{ fontSize: '1rem', width: '250px' }} />
+                        ) : (
+                          <Typography>
+                            {responseViewContinue?.status
+                              ? responseViewContinue?.status
+                              : 'Inativo'}
+                          </Typography>
+                        )}
                         <Typography>
                           {responseIdIndicacao?.plano
                             ? responseIdIndicacao?.plano
                             : 'Sem Plano Ativo'}
                         </Typography>
-                        <Typography>
-                          {dadosFormatter(
-                            responseIdIndicacao?.saldo_dados
-                              ? responseIdIndicacao?.saldo_dados
-                              : 'Sem saldo'
-                          )}
-                        </Typography>
-                        <Typography>
-                          {dateFormatter(
-                            responseIdIndicacao?.expira_em
-                              ? responseIdIndicacao?.expira_em
-                              : 'Sem expiração'
-                          )}
-                        </Typography>
+                        {loadingDados ? (
+                          <Skeleton variant='text' sx={{ fontSize: '1rem', width: '250px' }} />
+                        ) : (
+                          <Typography>
+                            {dadosFormatter(
+                              responseViewContinue?.saldo_dados
+                                ? responseViewContinue?.saldo_dados
+                                : 'Sem saldo'
+                            )}
+                          </Typography>
+                        )}
+                        {loadingDados ? (
+                          <Skeleton variant='text' sx={{ fontSize: '1rem', width: '250px' }} />
+                        ) : (
+                          <Typography>
+                            {dateFormatter(
+                              responseViewContinue?.expira_em
+                                ? responseViewContinue?.expira_em
+                                : 'Indefinido'
+                            )}
+                          </Typography>
+                        )}
                         <Typography>
                           {responseIdIndicacao?.graduacao
                             ? responseIdIndicacao?.graduacao

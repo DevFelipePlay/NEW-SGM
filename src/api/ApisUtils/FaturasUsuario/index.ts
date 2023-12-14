@@ -1,2 +1,3 @@
-export * from './IReqPostPlayVisualizaFaturas.d';
-export * from './postPlayVisualizaFaturas';
+export * from './FaturasAtivacaoERecarga';
+export * from './FaturasPacotes';
+export * from './TodasAsFaturas';
