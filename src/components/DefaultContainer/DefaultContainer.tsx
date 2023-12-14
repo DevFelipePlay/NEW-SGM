@@ -153,7 +153,7 @@ export function DefaultContainer({
                   </Badge>
                 </IconButton>
               </Tooltip>
-              <Tooltip title='Account settings'>
+              <Tooltip title='Conta'>
                 <IconButton
                   onClick={handleClick}
                   size='small'

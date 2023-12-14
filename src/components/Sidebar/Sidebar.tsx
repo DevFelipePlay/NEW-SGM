@@ -11,6 +11,7 @@ import { ReactNode } from 'react';
 import { BiHomeSmile } from 'react-icons/bi';
 import { GiHumanPyramid } from 'react-icons/gi';
 import useUser from '../../hooks/useUser';
+import { ExtrairLetras } from '../../utils';
 import { AuthContext } from '../Auth/auth';
 
 export function Sidebar(): JSX.Element {
@@ -391,13 +392,17 @@ export function Sidebar(): JSX.Element {
               top: '3rem',
             }}
           >
-            <img
-              src={`data:image/png;base64,${user?.logotipo}`}
-              style={{
-                width: '120px',
-                backgroundColor: 'var(--backGround-default)',
-              }}
-            />
+            {user?.logotipo ? (
+              <img
+                src={`data:image/png;base64,${user?.logotipo}`}
+                style={{
+                  width: '120px',
+                  backgroundColor: 'var(--backGround-default)',
+                }}
+              />
+            ) : (
+              <ExtrairLetras nome={user?.parceiro} />
+            )}
           </Avatar>
         )}
         {/* Rows SideBar */}
