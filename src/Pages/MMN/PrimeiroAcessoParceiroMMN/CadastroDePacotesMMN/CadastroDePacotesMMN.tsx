@@ -90,7 +90,7 @@ export function CadastroDePacotesMMN() {
               variant='standard'
               label={'Nome'}
               value={card.nome}
-              onChange={(e: any) => handleInputChanges(index, 'nome', e.target.value.trim())}
+              onChange={(e: any) => handleInputChanges(index, 'nome', e.target.value)}
               helperText={'Escolha um nome para o pacote, este nome será mostrado para os usuários'}
               sx={{ mb: 2 }}
               required

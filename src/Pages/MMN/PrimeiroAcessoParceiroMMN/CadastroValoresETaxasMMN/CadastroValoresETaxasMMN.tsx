@@ -92,7 +92,7 @@ export function CadastroValoresETaxasMMN() {
           <TextField
             type='tel'
             id='id_valor_plano'
-            label='Primeiro bonus de carreira'
+            label='Referencial bonus de carreira'
             placeholder='0,00'
             value={formData.bonus_carreira}
             onChange={(e) => changeForm('bonus_carreira', currencyMask(e.target.value))}
