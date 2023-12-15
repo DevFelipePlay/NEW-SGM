@@ -1,25 +1,28 @@
 import LoadingButton from '@mui/lab/LoadingButton';
-import { Box, Grid, ListItemText, TextField, Tooltip, Typography } from '@mui/material';
+import { Box, Grid, ListItemText, TextField, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import {
+  IReqPostPLayConfirmacaoSolicitacaoSaquePremio,
   IReqPostPlayListaSolicitacaoSaquePremio,
   IResPostPlayListaSolicitacaoSaquePremio,
+  postPLayConfirmacaoSolicitacaoSaquePremio,
   postPlayListaSolicitacaoSaquePremio,
 } from '../../../../api';
-import {
-  IReqPostPlayConfirmacaoSolicitacaoSaque,
-  postPlayConfirmacaoSolicitacaoSaque,
-} from '../../../../api/ApisSaqueMMN/ConfirmacaoSolicitacaoSaque';
 import { Cards, Loading } from '../../../../components';
+import { useForm } from '../../../../hooks';
 import useUser from '../../../../hooks/useUser';
 import { dateFormatter, errorToast } from '../../../../utils';
 
 export function ListaPostagem() {
   const [loadingView, setLoadingView] = useState(false);
+  const [loadingSubmit, setLoadingSubmit] = useState(false);
   const [responseView, setResponseView] = useState<IResPostPlayListaSolicitacaoSaquePremio[]>([]);
   const { user } = useUser();
 
+  const { formData, changeForm } = useForm({
+    codigo_ratreio: '',
+  });
   async function handleViewListaDeSolicitacoes() {
     setLoadingView(true);
 
@@ -36,46 +39,28 @@ export function ListaPostagem() {
       setLoadingView(false);
     }
   }
-  async function handleConfirmacaoSolicitacaoSaqueTrue(index: number) {
-    setLoadingView(true);
+  async function handleConfirmacaoSolicitacaoSaque(
+    e: React.FormEvent<HTMLFormElement>,
+    index: any
+  ) {
+    e.preventDefault();
+    setLoadingSubmit(true);
 
     try {
-      const payload: IReqPostPlayConfirmacaoSolicitacaoSaque = {
+      const payload: IReqPostPLayConfirmacaoSolicitacaoSaquePremio = {
         id: responseView[index].ID_Solicitacao,
         status_pagamento: 1,
         token: user?.token || '',
+        coodigo_rastreio: formData.codigo_ratreio || '',
       };
 
-      await postPlayConfirmacaoSolicitacaoSaque(payload);
+      await postPLayConfirmacaoSolicitacaoSaquePremio(payload);
       toast.success('Solicitação Respondida com sucesso');
-      window.location.reload();
+      handleViewListaDeSolicitacoes();
     } catch (error: any) {
       errorToast(error);
     } finally {
-      setLoadingView(false);
-    }
-  }
-  async function handleConfirmacaoSolicitacaoSaqueFalse(
-    e: React.FormEvent<HTMLFormElement>,
-    index: number
-  ) {
-    e.preventDefault();
-    setLoadingView(true);
-
-    try {
-      const payload: IReqPostPlayConfirmacaoSolicitacaoSaque = {
-        id: responseView[index].ID_Solicitacao,
-        status_pagamento: 0,
-        token: user?.token || '',
-      };
-
-      await postPlayConfirmacaoSolicitacaoSaque(payload);
-      toast.success('Solicitação Respondida com sucesso');
-    } catch (error: any) {
-      errorToast(error);
-      window.location.reload();
-    } finally {
-      setLoadingView(false);
+      setLoadingSubmit(false);
     }
   }
 
@@ -116,7 +101,7 @@ export function ListaPostagem() {
               {responseView.map((item, index) => (
                 <Box sx={{ flexGrow: 1, width: '100%' }} key={index}>
                   <Grid item xs={12} md={6}>
-                    <Cards title={'Solicitação de Saque'} subTitle={''} size={'100%'}>
+                    <Cards title={'Solicitação de Premios'} subTitle={''} size={'100%'}>
                       <ListItemText sx={{ userSelect: 'none' }}>
                         ID: {item.ID_Solicitacao}
                       </ListItemText>
@@ -129,10 +114,22 @@ export function ListaPostagem() {
                       </ListItemText>
                       <ListItemText sx={{ userSelect: 'none' }}>Endereço para envio:</ListItemText>
                       <ListItemText sx={{ userSelect: 'none' }}>{item.endereco}</ListItemText>
+                      <img
+                        src={`data:image/png;base64,${item.foto}`}
+                        style={{
+                          width: '200px ',
+                          marginTop: '2rem ',
+                          borderRadius: '10px',
+                          boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+                        }}
+                      />
                       <TextField
                         variant='standard'
-                        label='Codigo de rastreio'
+                        label='Codigo de Rastreio'
                         helperText='Poste o codigo de rastreio aqui'
+                        value={formData.codigo_ratreio}
+                        onChange={(e) => changeForm('codigo_ratreio', e.target.value)}
+                        fullWidth
                         required
                       />
                       <Box
@@ -144,11 +141,15 @@ export function ListaPostagem() {
                           justifyContent: 'center',
                         }}
                       >
-                        <Tooltip title='Confirmar Pagamento'>
-                          <LoadingButton variant='contained' sx={{ my: 2 }}>
-                            Confirme a postagem do premio
-                          </LoadingButton>
-                        </Tooltip>
+                        <LoadingButton
+                          variant='contained'
+                          sx={{ my: 2 }}
+                          loading={loadingSubmit}
+                          disabled={formData.codigo_ratreio.length < 8}
+                          onClick={(e: any) => handleConfirmacaoSolicitacaoSaque(e, index)}
+                        >
+                          Confirme a postagem do premio
+                        </LoadingButton>
                       </Box>
                     </Cards>
                   </Grid>

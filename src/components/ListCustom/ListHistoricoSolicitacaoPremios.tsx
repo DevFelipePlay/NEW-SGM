@@ -1,4 +1,5 @@
 import { Box, Grid, List, ListItem, ListItemText, styled } from '@mui/material';
+import foto from '../../assets/MMNImg/din.png';
 import { dateFormatter } from '../../utils';
 
 interface IlistCustom {
@@ -8,7 +9,7 @@ interface IlistCustom {
   endereco: string;
   id: number;
   dataPagamento: string;
-  cod: boolean;
+  cod: string;
 }
 
 export function ListHistoricoSolicitacoesPremios({
@@ -44,10 +45,14 @@ export function ListHistoricoSolicitacoesPremios({
             >
               <Box>
                 <ListItemText sx={{ userSelect: 'none' }}>
-                  <img
-                    src={`data:image/png;base64,${logotipo}`}
-                    style={{ width: '100px', borderRadius: '10px' }}
-                  />
+                  {logotipo !== '' ? (
+                    <img
+                      src={`data:image/png;base64,${logotipo}`}
+                      style={{ width: '100px', borderRadius: '10px' }}
+                    />
+                  ) : (
+                    <img src={foto} style={{ width: '100px', borderRadius: '10px' }} />
+                  )}
                 </ListItemText>
                 <ListItemText sx={{ userSelect: 'none' }}>ID: {id}</ListItemText>
                 <ListItemText sx={{ userSelect: 'none' }}>Nome: {nome}</ListItemText>
@@ -61,9 +66,7 @@ export function ListHistoricoSolicitacoesPremios({
                 <ListItemText sx={{ userSelect: 'none' }}>
                   Data da solicitação:{dateFormatter(dataPagamento)}
                 </ListItemText>
-                <ListItemText sx={{ userSelect: 'none' }}>
-                  Cod. de rastreio: {cod ? 'em desenvolvimento' : 'Sem codigo de rastreio'}
-                </ListItemText>
+                <ListItemText sx={{ userSelect: 'none' }}>Cod. de rastreio: {cod}</ListItemText>
               </Box>
             </ListItem>
           </List>

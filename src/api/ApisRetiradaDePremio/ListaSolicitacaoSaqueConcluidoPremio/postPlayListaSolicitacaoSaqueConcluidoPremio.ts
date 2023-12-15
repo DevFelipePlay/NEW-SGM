@@ -1,6 +1,6 @@
-import { IReqPostPlayListaSolicitacaoSaqueConcluido } from '../..';
+import { IReqPostPlayListaSolicitacaoSaqueConcluidoPremio } from '../..';
 import { apiPlayMMN } from '../../../services/apiPlayMMN';
 
-export const postPlayListaSolicitacaoSaqueConcluido = async (
-  req: IReqPostPlayListaSolicitacaoSaqueConcluido
+export const postPlayListaSolicitacaoSaqueConcluidoPremio = async (
+  req: IReqPostPlayListaSolicitacaoSaqueConcluidoPremio
 ) => (await apiPlayMMN.post('/ListaSolicitacaoSaqueConcluidoPremio', req)).data;

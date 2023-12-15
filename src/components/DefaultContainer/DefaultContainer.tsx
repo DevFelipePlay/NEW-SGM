@@ -19,8 +19,14 @@ import { RiNotificationLine } from 'react-icons/ri';
 import { AuthContext, SearchInput } from '..';
 import useUser from '../../hooks/useUser';
 
+import { LiaAwardSolid } from 'react-icons/lia';
 import { useNavigate } from 'react-router-dom';
-import { IReqPostPlayListaDeSolicitacoes, postPlayListaDeSolicitacoes } from '../../api';
+import {
+  IReqPostPlayListaDeSolicitacoes,
+  IReqPostPlayListaSolicitacaoSaquePremio,
+  postPlayListaDeSolicitacoes,
+  postPlayListaSolicitacaoSaquePremio,
+} from '../../api';
 import { ExtrairLetras } from '../../utils';
 
 interface IDefaultCOntainer {
@@ -86,17 +92,36 @@ export function DefaultContainer({
   ////////////
 
   const [quantidadeItens, setQuantidadeItens] = useState(0);
+  const [quantidadePremios, setQuantidadePremios] = useState(0);
 
   async function calcularNotificacoes() {
     try {
       const payload: IReqPostPlayListaDeSolicitacoes = {
         token: user?.token || '',
       };
-      const data = await postPlayListaDeSolicitacoes(payload);
+      const dataSaque = await postPlayListaDeSolicitacoes(payload);
 
-      if (data && Array.isArray(data)) {
-        setQuantidadeItens(data.length);
+      let quantidadeItensTotal = 0;
+      if (dataSaque && Array.isArray(dataSaque)) {
+        quantidadeItensTotal += dataSaque.length;
       }
+
+      setQuantidadeItens(quantidadeItensTotal);
+    } catch (error: any) {
+      console.log(error);
+    }
+    try {
+      const payload: IReqPostPlayListaSolicitacaoSaquePremio = {
+        token: user?.token || '',
+      };
+      const dataPremios = await postPlayListaSolicitacaoSaquePremio(payload);
+      setQuantidadePremios(dataPremios);
+      let quantidadePremiosTotal = 0;
+      if (dataPremios && Array.isArray(dataPremios)) {
+        quantidadePremiosTotal += dataPremios.length;
+      }
+
+      setQuantidadePremios(quantidadePremiosTotal);
     } catch (error) {}
   }
 
@@ -111,6 +136,8 @@ export function DefaultContainer({
       return () => clearInterval(intervalId);
     }
   }, []);
+
+  const quantidadeTotal = quantidadeItens + quantidadePremios;
 
   return (
     <Grid>
@@ -143,7 +170,7 @@ export function DefaultContainer({
               <Tooltip title='Notificações'>
                 <IconButton onClick={handleClickNotification}>
                   <Badge
-                    badgeContent={quantidadeItens}
+                    badgeContent={quantidadeItens || quantidadePremios ? quantidadeTotal : 0}
                     color='error'
                     sx={{ marginRight: '0.5rem' }}
                   >
@@ -245,20 +272,26 @@ export function DefaultContainer({
             Solicitações de Saques Pendentes
           </MenuItem>
         ) : (
-          <MenuItem onClick={handleClose}>Não há notificações</MenuItem>
+          <MenuItem onClick={handleClose}>Não há notificações de saque</MenuItem>
         )}
-        {/* <Divider />
-        <MenuItem
-          onClick={() => {
-            handleClose;
-            signOut();
-          }}
-        >
-          <ListItemIcon>
-            <LiaAwardSolid />
-          </ListItemIcon>
-          Solicitação de Premios pendentes
-        </MenuItem> */}
+        {quantidadePremios !== 0 ? (
+          <>
+            <Divider />
+            <MenuItem
+              onClick={() => {
+                handleClose;
+                navigate('/solicitacoes-premios');
+              }}
+            >
+              <ListItemIcon>
+                <LiaAwardSolid />
+              </ListItemIcon>
+              Solicitação de Premios pendentes
+            </MenuItem>
+          </>
+        ) : (
+          <MenuItem onClick={handleClose}>Não há notificações de prêmios</MenuItem>
+        )}
       </Menu>
       {/* /////////////// */}
 

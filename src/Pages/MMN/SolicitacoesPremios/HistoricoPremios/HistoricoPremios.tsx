@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import {
   IReqPostPlayListaSolicitacaoSaqueConcluidoPremio,
   IResPostPlayListaSolicitacaoSaqueConcluidoPremio,
-  postPlayListaSolicitacaoSaquePremio,
+  postPlayListaSolicitacaoSaqueConcluidoPremio,
 } from '../../../../api';
 import { ListHistoricoSolicitacoesPremios, Loading } from '../../../../components';
 import useUser from '../../../../hooks/useUser';
@@ -28,7 +28,7 @@ export function HistoricoPremios() {
       token: user?.token || '',
     };
     try {
-      const data = await postPlayListaSolicitacaoSaquePremio(payload);
+      const data = await postPlayListaSolicitacaoSaqueConcluidoPremio(payload);
       setResponseList(data);
     } catch (error: any) {
       errorToast(error);
@@ -52,12 +52,12 @@ export function HistoricoPremios() {
       <Box sx={{ width: '100%' }} key={index}>
         <ListHistoricoSolicitacoesPremios
           nome={item.Nome}
-          dataPagamento={item.Data_Solicitacao}
+          dataPagamento={item.Data_Pagamento}
           endereco={item.endereco}
-          id={item.ID_Solicitacao}
+          id={item.ID}
           logotipo={item.foto}
-          nomePremio={item.Nome_premio}
-          cod={false}
+          nomePremio={item.Nome_Premio}
+          cod={item.Codigo_Rastreio}
         />
       </Box>
     ));
@@ -81,7 +81,7 @@ export function HistoricoPremios() {
               alignItems: 'center',
             }}
           >
-            <Typography variant='h4'>Histórico de solicitações de saque</Typography>
+            <Typography variant='h4'>Histórico de solicitações de Prêmios</Typography>
           </Box>
           <Typography variant='h4' sx={{ mt: 10 }}>
             Nenhuma solicitação realizada!
@@ -121,7 +121,7 @@ export function HistoricoPremios() {
                   alignItems: 'center',
                 }}
               >
-                <Typography variant='h4'>Histórico de solicitações de saque</Typography>
+                <Typography variant='h4'>Histórico de solicitações de Prêmios</Typography>
               </Box>
               {renderPaginatedList()}
 

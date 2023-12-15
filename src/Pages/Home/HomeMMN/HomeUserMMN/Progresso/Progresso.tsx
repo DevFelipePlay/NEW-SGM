@@ -141,7 +141,7 @@ export function Progresso() {
 
   async function handleSubmitAcumularPremios(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setLoadSubmitResgate(true);
+    setLoadSubmitAcumular(true);
 
     try {
       const payloadSubmitAcumular: IReqPostPlayAcumularPremio = {
@@ -233,10 +233,14 @@ export function Progresso() {
                   </Typography>
 
                   <Box>
-                    <img
-                      src={`data:image/jpeg;base64,${responsePremioSaque?.foto}`}
-                      style={{ width: '300px', borderRadius: '16px' }}
-                    />
+                    {responsePremioSaque?.foto ? (
+                      <img
+                        src={`data:image/jpeg;base64,${responsePremioSaque?.foto}`}
+                        style={{ width: '300px', borderRadius: '16px' }}
+                      />
+                    ) : (
+                      <img src={dinheiro} style={{ width: '100px', borderRadius: '16px' }} />
+                    )}
                     <Typography sx={{ color: 'var(--primary-color)' }}>
                       {responsePremioSaque?.Descricao}
                     </Typography>

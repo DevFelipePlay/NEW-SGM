@@ -1,3 +1,4 @@
+export * from './AcumularPremio';
 export * from './ConfirmacaoSolicitacaoSaquePremio';
 export * from './FilaListPremios';
 export * from './ListaSolicitacaoSaqueConcluidoPremio';
