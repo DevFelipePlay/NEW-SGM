@@ -29,6 +29,7 @@ import {
   CadastroValoresETaxasMMN,
   CompraDePacotes,
   DashboardRelatorioUsuario,
+  SolicitacoesPremios,
   SolicitacoesSaque,
 } from '../../../Pages/MMN';
 import { ConfiguracaoMMN } from '../../../Pages/MMN/ConfiguracaoMMN';
@@ -73,6 +74,7 @@ export function AllRoutes() {
           />
 
           <Route path='/solicitacoes-saque' element={<SolicitacoesSaque />} />
+          <Route path='/solicitacoes-premios' element={<SolicitacoesPremios />} />
         </Route>
 
         <Route element={<AuthGuard allowedRoles={[-1, 0, 1]} />}>

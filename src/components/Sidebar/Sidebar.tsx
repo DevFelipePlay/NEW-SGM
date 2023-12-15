@@ -3,6 +3,7 @@ import { CSSProperties, useContext, useEffect, useRef, useState } from 'react';
 import { AiOutlineMenuUnfold } from 'react-icons/ai';
 import { FaMoneyBillTransfer } from 'react-icons/fa6';
 import { IoSettingsOutline } from 'react-icons/io5';
+import { LiaAwardSolid } from 'react-icons/lia';
 import { PiSignOut } from 'react-icons/pi';
 import { useNavigate } from 'react-router-dom';
 import backgroundTab from '../../assets/MMNImg/TabBarBackground.jpg';
@@ -206,6 +207,12 @@ export function Sidebar(): JSX.Element {
           label: 'Solicitações de Saque',
           icon: <FaMoneyBillTransfer />,
           to: 'solicitacoes-saque',
+        },
+        {
+          render: user?.super ? true : false,
+          label: 'Solicitações de Prêmios',
+          icon: <LiaAwardSolid />,
+          to: 'solicitacoes-premios',
         },
         {
           render: user?.super ? true : false,
