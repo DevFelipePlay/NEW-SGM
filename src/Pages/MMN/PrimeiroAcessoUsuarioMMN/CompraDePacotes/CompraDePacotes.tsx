@@ -123,42 +123,83 @@ export function CompraDePacotes() {
             </Box>
           ) : (
             <Box width={'100%'}>
-              <Grid container width={'100%'}>
-                {response &&
-                  response.map &&
-                  response.map((i: IResPostPlayRecuperaPacotesLicenciamento, index) => (
-                    <Grid item xs={4} key={index}>
-                      <Cards
-                        title={i.nome}
-                        subTitle={'Escolha o seu pacote'}
-                        size={smDown ? '100vm' : mdDown ? '200px' : lgDown ? '200px' : '350px'}
-                        showIcon
-                        bgColorIcon='var(--primary-color)'
-                        icon={<PiHandCoins />}
-                      >
-                        <Typography> Acesso ao multinivel +</Typography>
-                        <Typography>{i.chips} Chips </Typography>
+              <>
+                {response.length !== 1 ? (
+                  <Grid container width={'100%'}>
+                    {response &&
+                      response.map((i: IResPostPlayRecuperaPacotesLicenciamento, index) => (
+                        <Grid item xs={4} key={index}>
+                          <Cards
+                            title={i.nome}
+                            subTitle={'Escolha o seu pacote'}
+                            size={smDown ? '100vm' : mdDown ? '200px' : lgDown ? '200px' : '350px'}
+                            showIcon
+                            bgColorIcon='var(--primary-color)'
+                            icon={<PiHandCoins />}
+                          >
+                            <Typography> Acesso ao multinivel +</Typography>
+                            <Typography>{i.chips} Chips </Typography>
 
-                        <Typography
-                          variant='subtitle2'
-                          color={'var(--sub-text-color)'}
-                          sx={{ mt: 2 }}
+                            <Typography
+                              variant='subtitle2'
+                              color={'var(--sub-text-color)'}
+                              sx={{ mt: 2 }}
+                            >
+                              Por apenas:
+                            </Typography>
+                            <Typography variant='h5'>R$ {i.valor_venda}</Typography>
+                            <LoadingButton
+                              onClick={() => handleBuyPacks(i.id)}
+                              variant='contained'
+                              sx={{ mt: 2 }}
+                              loading={loadingBuy}
+                            >
+                              Contratar
+                            </LoadingButton>
+                          </Cards>
+                        </Grid>
+                      ))}
+                  </Grid>
+                ) : (
+                  <>
+                    {response.map((i, index) => (
+                      <Box
+                        sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                        key={index}
+                      >
+                        <Cards
+                          title={i.nome}
+                          subTitle={'Escolha o seu pacote'}
+                          size={smDown ? '100vm' : mdDown ? '200px' : lgDown ? '200px' : '350px'}
+                          showIcon
+                          bgColorIcon='var(--primary-color)'
+                          icon={<PiHandCoins />}
                         >
-                          Por apenas:
-                        </Typography>
-                        <Typography variant='h5'>R$ {i.valor_venda}</Typography>
-                        <LoadingButton
-                          onClick={() => handleBuyPacks(i.id)}
-                          variant='contained'
-                          sx={{ mt: 2 }}
-                          loading={loadingBuy}
-                        >
-                          Contratar
-                        </LoadingButton>
-                      </Cards>
-                    </Grid>
-                  ))}
-              </Grid>
+                          <Typography> Acesso ao multinivel +</Typography>
+                          <Typography>{i.chips} Chips </Typography>
+
+                          <Typography
+                            variant='subtitle2'
+                            color={'var(--sub-text-color)'}
+                            sx={{ mt: 2 }}
+                          >
+                            Por apenas:
+                          </Typography>
+                          <Typography variant='h5'>R$ {i.valor_venda}</Typography>
+                          <LoadingButton
+                            onClick={() => handleBuyPacks(i.id)}
+                            variant='contained'
+                            sx={{ mt: 2 }}
+                            loading={loadingBuy}
+                          >
+                            Contratar
+                          </LoadingButton>
+                        </Cards>
+                      </Box>
+                    ))}
+                  </>
+                )}
+              </>
             </Box>
           )}
           <Button
@@ -184,7 +225,7 @@ export function CompraDePacotes() {
             <Box sx={{ backgroundColor: 'white', p: 1, borderRadius: '10px' }}>
               <a
                 id='modal-modal-description'
-                href={`https://faturammn.operadora.app.br/?payid=${responseBuy?.payid}`}
+                href={`https://fatura.operadora.app.br/?payid=${responseBuy?.payid}`}
                 target='_blank'
               >
                 <Typography>
