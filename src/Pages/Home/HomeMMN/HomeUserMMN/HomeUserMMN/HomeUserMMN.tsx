@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { Faturas, Inicio, Progresso, Saque } from '..';
-import { CustomizedTabs, DefaultContainer } from '../../../../../components';
-import useUser from '../../../../../hooks/useUser';
-import { AdquiraSeusChips } from '../AdquiraSeusChips';
+import { useState } from "react";
+import { Faturas, Inicio, Progresso, Saque } from "..";
+import { CustomizedTabs, DefaultContainer } from "../../../../../components";
+import useUser from "../../../../../hooks/useUser";
+import { AdquiraSeusChips } from "../AdquiraSeusChips";
 
 export function HomeUserMMN() {
   const [tabValue, setTabValue] = useState(0);
@@ -11,9 +11,9 @@ export function HomeUserMMN() {
 
   return (
     <DefaultContainer
-      page={'Multinivel'}
-      title={'Bem-vindo'}
-      subTitle={'Ficamos felizes em tê-lo de volta'}
+      page={"Multinivel"}
+      title={"Bem-vindo"}
+      subTitle={"Ficamos felizes em tê-lo de volta"}
       showSearch={false}
       showAvatar={true}
     >
@@ -22,11 +22,11 @@ export function HomeUserMMN() {
           value={tabValue}
           onChange={(newValue: any) => setTabValue(newValue)}
           tabsData={[
-            { label: 'Início', value: 0 },
-            { label: 'Progresso', value: 1 },
-            { label: 'Saque', value: 2 },
-            { label: 'Faturas', value: 3 },
-            { label: 'Adquira Seus Chips', value: 4 },
+            { label: "Início", value: 0 },
+            { label: "Progresso", value: 1 },
+            { label: "Saque", value: 2 },
+            { label: "Faturas", value: 3 },
+            { label: "Adquira Seus Chips", value: 4 },
           ]}
           mostrarBotaoVoltar={false}
           mostrarNavbar={true}
@@ -36,10 +36,10 @@ export function HomeUserMMN() {
           value={tabValue}
           onChange={(newValue: any) => setTabValue(newValue)}
           tabsData={[
-            { label: 'Inicio', value: 0 },
-            { label: 'Progresso', value: 1 },
-            { label: 'Saque', value: 2 },
-            { label: 'Faturas', value: 3 },
+            { label: "Início", value: 0 },
+            { label: "Progresso", value: 1 },
+            { label: "Saque", value: 2 },
+            { label: "Faturas", value: 3 },
           ]}
           mostrarBotaoVoltar={false}
           mostrarNavbar={true}
