@@ -1,6 +1,7 @@
-import { Avatar, Box, Stack, Typography } from '@mui/material';
-import { CSSProperties } from '@mui/styled-engine-sc';
-import { ReactNode } from 'react';
+import { Avatar, Box, Stack, Typography } from "@mui/material";
+import { CSSProperties } from "@mui/styled-engine-sc";
+import { ReactNode } from "react";
+import useWindowSize from "../../hooks/useWindowSize";
 
 interface ICards {
   title: string;
@@ -25,38 +26,49 @@ export function Cards({
   icon,
   bgColorIcon,
 }: ICards) {
+  const { isMobile } = useWindowSize();
+
   const displayDefault: CSSProperties = {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   };
   const stylesContainer: CSSProperties = {
     ...displayDefault,
-    flexDirection: 'column',
+    flexDirection: "column",
     width: `${size}`,
-    height: 'auto',
-    boxShadow: ' rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px',
-    borderRadius: '10px',
-    padding: '1rem',
-    textAlign: 'center',
-    margin: '2rem 1rem 2rem 1rem',
+    height: "auto",
+    boxShadow:
+      " rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px",
+    borderRadius: "10px",
+    padding: "1rem",
+    textAlign: "center",
+    margin: `${isMobile ? "2rem auto" : "2rem 1rem 2rem 1rem"}`,
   };
 
   return (
     <Stack spacing={1} sx={stylesContainer}>
-      <Typography variant='h5'>{title}</Typography>
-      <div style={{ width: '90%', height: '1px', backgroundColor: 'var(--primary-color)' }} />
-      <Typography variant='subtitle1' color={'var(--sub-text-color)'}>
+      <Typography variant="h5">{title}</Typography>
+      <div
+        style={{
+          width: "90%",
+          height: "1px",
+          backgroundColor: "var(--primary-color)",
+        }}
+      />
+      <Typography variant="subtitle1" color={"var(--sub-text-color)"}>
         {subTitle}
       </Typography>
-      {showIcon && <Avatar sx={{ backgroundColor: `${bgColorIcon}` }}>{icon}</Avatar>}
-      {isNumber && <Typography variant='h5'>{number}</Typography>}
+      {showIcon && (
+        <Avatar sx={{ backgroundColor: `${bgColorIcon}` }}>{icon}</Avatar>
+      )}
+      {isNumber && <Typography variant="h5">{number}</Typography>}
       <Box
-        id='content'
+        id="content"
         sx={{
           ...displayDefault,
-          flexDirection: 'column',
-          textAlign: 'center',
+          flexDirection: "column",
+          textAlign: "center",
           width: `${size}`,
         }}
       >

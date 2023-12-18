@@ -1,4 +1,4 @@
-import { Logout, Settings } from '@mui/icons-material';
+import { Logout, Settings } from "@mui/icons-material";
 import {
   Avatar,
   Badge,
@@ -11,23 +11,30 @@ import {
   MenuItem,
   Tooltip,
   Typography,
-} from '@mui/material';
-import { CSSProperties, ReactNode, useContext, useEffect, useState } from 'react';
-import { AiOutlineSearch } from 'react-icons/ai';
-import { FaMoneyBillTransfer } from 'react-icons/fa6';
-import { RiNotificationLine } from 'react-icons/ri';
-import { AuthContext, SearchInput } from '..';
-import useUser from '../../hooks/useUser';
+} from "@mui/material";
+import {
+  CSSProperties,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
+import { AiOutlineSearch } from "react-icons/ai";
+import { FaMoneyBillTransfer } from "react-icons/fa6";
+import { RiNotificationLine } from "react-icons/ri";
+import { AuthContext, SearchInput } from "..";
+import useUser from "../../hooks/useUser";
 
-import { LiaAwardSolid } from 'react-icons/lia';
-import { useNavigate } from 'react-router-dom';
+import { LiaAwardSolid } from "react-icons/lia";
+import { useNavigate } from "react-router-dom";
 import {
   IReqPostPlayListaDeSolicitacoes,
   IReqPostPlayListaSolicitacaoSaquePremio,
   postPlayListaDeSolicitacoes,
   postPlayListaSolicitacaoSaquePremio,
-} from '../../api';
-import { ExtrairLetras } from '../../utils';
+} from "../../api";
+import useWindowSize from "../../hooks/useWindowSize";
+import { ExtrairLetras } from "../../utils";
 
 interface IDefaultCOntainer {
   page: string;
@@ -46,24 +53,26 @@ export function DefaultContainer({
   showAvatar,
   children,
 }: IDefaultCOntainer) {
+  const { isMobile } = useWindowSize();
+
   const displayFlexComponent: CSSProperties = {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   };
   const contentStyles: CSSProperties = {
-    paddingLeft: '100px ',
-    paddingRight: '20px ',
-    transition: 'margin-left 0.3s, margin-right 0.3s, max-width 0.3s',
-    height: '100vh',
-    backgroundColor: 'white',
-    overflowY: 'auto',
+    paddingLeft: `${isMobile ? "20px" : "100px "}`,
+    paddingRight: "20px ",
+    transition: "margin-left 0.3s, margin-right 0.3s, max-width 0.3s",
+    height: "100vh",
+    backgroundColor: "white",
+    overflowY: "auto",
   };
   const defaultContent: CSSProperties = {
     ...displayFlexComponent,
-    flexDirection: 'column',
-    marginTop: '2rem',
-    padding: '0px 40px 0px 100px',
+    flexDirection: "column",
+    marginTop: "2rem",
+    padding: `${isMobile ? "0 20px" : "0px 40px 0px 100px"}`,
   };
 
   const { user } = useUser();
@@ -81,7 +90,8 @@ export function DefaultContainer({
   };
   ////////////
   /////// Menu  Perfil///////
-  const [anchorElNotification, setAnchorElNotification] = useState<null | HTMLElement>(null);
+  const [anchorElNotification, setAnchorElNotification] =
+    useState<null | HTMLElement>(null);
   const openNotification = Boolean(anchorElNotification);
   const handleClickNotification = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNotification(event.currentTarget);
@@ -97,7 +107,7 @@ export function DefaultContainer({
   async function calcularNotificacoes() {
     try {
       const payload: IReqPostPlayListaDeSolicitacoes = {
-        token: user?.token || '',
+        token: user?.token || "",
       };
       const dataSaque = await postPlayListaDeSolicitacoes(payload);
 
@@ -112,7 +122,7 @@ export function DefaultContainer({
     }
     try {
       const payload: IReqPostPlayListaSolicitacaoSaquePremio = {
-        token: user?.token || '',
+        token: user?.token || "",
       };
       const dataPremios = await postPlayListaSolicitacaoSaquePremio(payload);
       setQuantidadePremios(dataPremios);
@@ -143,78 +153,109 @@ export function DefaultContainer({
     <Grid>
       <Box
         sx={{
-          width: '100%',
-          py: '1rem',
+          width: "100%",
+          py: "1rem",
           ...contentStyles,
-          backgroundColor: 'var(--backGround-header-color)',
-          height: 'auto',
+          backgroundColor: "var(--backGround-header-color)",
+          height: "auto",
         }}
       >
         <Box
           sx={{
-            width: '100%',
-            display: 'flex',
-            alignItems: 'center',
+            width: "100%",
+            display: "flex",
+            alignItems: "center",
             justifyContent:
-              showAvatar === false && showSearch === false ? 'center' : 'space-between',
-            height: 'auto',
+              showAvatar === false && showSearch === false
+                ? "center"
+                : "space-between",
+            height: "auto",
           }}
         >
-          <Typography sx={{ color: 'var(--text-color)', fontSize: '1.3rem' }}>{page}</Typography>
+          <Typography
+            sx={{
+              color: "var(--text-color)",
+              fontSize: "1.3rem",
+            }}
+          >
+            {page}
+          </Typography>
 
           {showSearch && (
-            <SearchInput icon={<AiOutlineSearch />} placeholder={'Buscar'} rest={undefined} />
+            <SearchInput
+              icon={<AiOutlineSearch />}
+              placeholder={"Buscar"}
+              rest={undefined}
+            />
           )}
           {showAvatar && (
-            <Box sx={{ ...displayFlexComponent }}>
-              <Tooltip title='Notificações'>
+            <Box
+              sx={{
+                ...displayFlexComponent,
+              }}
+            >
+              <Tooltip title="Notificações">
                 <IconButton onClick={handleClickNotification}>
                   <Badge
-                    badgeContent={quantidadeItens || quantidadePremios ? quantidadeTotal : 0}
-                    color='error'
-                    sx={{ marginRight: '0.5rem' }}
+                    badgeContent={
+                      quantidadeItens || quantidadePremios ? quantidadeTotal : 0
+                    }
+                    color="error"
+                    sx={{ marginRight: "0.5rem" }}
                   >
                     <RiNotificationLine
-                      style={{ color: 'var(--text-color)', fontSize: '1.3rem' }}
+                      style={{ color: "var(--text-color)", fontSize: "1.3rem" }}
                     />
                   </Badge>
                 </IconButton>
               </Tooltip>
-              <Tooltip title='Conta'>
+              <Tooltip title="Conta">
                 <IconButton
                   onClick={handleClick}
-                  size='small'
-                  sx={{ ml: 2 }}
-                  aria-controls={open ? 'account-menu' : undefined}
-                  aria-haspopup='true'
-                  aria-expanded={open ? 'true' : undefined}
+                  size="small"
+                  sx={{
+                    ml: 2,
+                  }}
+                  aria-controls={open ? "account-menu" : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={open ? "true" : undefined}
                 >
                   <Avatar sx={{ width: 40, height: 40, mr: 1 }}>
                     <ExtrairLetras nome={user?.name} />
                   </Avatar>
                 </IconButton>
               </Tooltip>
-              <Box>
-                <Typography sx={{ color: 'var(--text-color)' }}>
-                  {user ? user.name : 'Bem Vindo'}
+              <Box
+                sx={{
+                  display: {
+                    xs: "none",
+                    sm: "block",
+                  },
+                }}
+              >
+                <Typography sx={{ color: "var(--text-color)" }}>
+                  {user ? user.name : "Bem Vindo"}
                 </Typography>
                 <Typography
-                  sx={{ color: 'var(--sub-text-color)', fontSize: '12px' }}
-                  variant='subtitle2'
+                  sx={{ color: "var(--sub-text-color)", fontSize: "12px" }}
+                  variant="subtitle2"
                 >
-                  Nivel de usuário:{' '}
-                  {(user?.profileid_multinivel === 1 && 'Admin') ||
-                    (user?.profileid_multinivel === 7 && 'Multinivel')}
+                  Nivel de usuário:{" "}
+                  {(user?.profileid_multinivel === 1 && "Admin") ||
+                    (user?.profileid_multinivel === 7 && "Multinivel")}
                 </Typography>
               </Box>
             </Box>
           )}
         </Box>
         <Box sx={{ mt: 5 }}>
-          <Typography sx={{ color: 'var(--text-color)' }} variant='h3'>
+          <Typography sx={{ color: "var(--text-color)" }} variant="h3">
             {title}
           </Typography>
-          <Typography sx={{ color: 'var(--sub-text-color)' }} variant='subtitle2'>
+          <Typography
+            sx={{ color: "var(--sub-text-color)" }}
+            variant="subtitle2"
+          >
             {subTitle}
           </Typography>
         </Box>
@@ -226,44 +267,44 @@ export function DefaultContainer({
       {/* MENU Notificação */}
       <Menu
         anchorEl={anchorElNotification}
-        id='account-menu'
+        id="account-menu"
         open={openNotification}
         onClose={handleCloseNotification}
         onClick={handleCloseNotification}
         PaperProps={{
           elevation: 0,
           sx: {
-            overflow: 'visible',
-            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+            overflow: "visible",
+            filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
             mt: 1.5,
-            '& .MuiAvatar-root': {
+            "& .MuiAvatar-root": {
               width: 32,
               height: 32,
               ml: -0.5,
               mr: 1,
             },
-            '&:before': {
+            "&:before": {
               content: '""',
-              display: 'block',
-              position: 'absolute',
+              display: "block",
+              position: "absolute",
               top: 0,
               right: 22,
               width: 10,
               height: 10,
-              bgcolor: 'background.paper',
-              transform: 'translateY(-50%) rotate(45deg)',
+              bgcolor: "background.paper",
+              transform: "translateY(-50%) rotate(45deg)",
               zIndex: 0,
             },
           },
         }}
-        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+        transformOrigin={{ horizontal: "right", vertical: "top" }}
+        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         {quantidadeItens !== 0 ? (
           <MenuItem
             onClick={() => {
               handleClose;
-              navigate('/solicitacoes-saque');
+              navigate("/solicitacoes-saque");
             }}
           >
             <ListItemIcon>
@@ -272,7 +313,9 @@ export function DefaultContainer({
             Solicitações de Saques Pendentes
           </MenuItem>
         ) : (
-          <MenuItem onClick={handleClose}>Não há notificações de saque</MenuItem>
+          <MenuItem onClick={handleClose}>
+            Não há notificações de saque
+          </MenuItem>
         )}
         {quantidadePremios !== 0 ? (
           <>
@@ -280,7 +323,7 @@ export function DefaultContainer({
             <MenuItem
               onClick={() => {
                 handleClose;
-                navigate('/solicitacoes-premios');
+                navigate("/solicitacoes-premios");
               }}
             >
               <ListItemIcon>
@@ -290,7 +333,9 @@ export function DefaultContainer({
             </MenuItem>
           </>
         ) : (
-          <MenuItem onClick={handleClose}>Não há notificações de prêmios</MenuItem>
+          <MenuItem onClick={handleClose}>
+            Não há notificações de prêmios
+          </MenuItem>
         )}
       </Menu>
       {/* /////////////// */}
@@ -298,42 +343,42 @@ export function DefaultContainer({
       {/* MENU Perfils */}
       <Menu
         anchorEl={anchorEl}
-        id='account-menu'
+        id="account-menu"
         open={open}
         onClose={handleClose}
         onClick={handleClose}
         PaperProps={{
           elevation: 0,
           sx: {
-            overflow: 'visible',
-            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+            overflow: "visible",
+            filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
             mt: 1.5,
-            '& .MuiAvatar-root': {
+            "& .MuiAvatar-root": {
               width: 32,
               height: 32,
               ml: -0.5,
               mr: 1,
             },
-            '&:before': {
+            "&:before": {
               content: '""',
-              display: 'block',
-              position: 'absolute',
+              display: "block",
+              position: "absolute",
               top: 0,
               right: 30,
               width: 10,
               height: 10,
-              bgcolor: 'background.paper',
-              transform: 'translateY(-50%) rotate(45deg)',
+              bgcolor: "background.paper",
+              transform: "translateY(-50%) rotate(45deg)",
               zIndex: 0,
             },
           },
         }}
-        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+        transformOrigin={{ horizontal: "right", vertical: "top" }}
+        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         <MenuItem onClick={handleClose}>
           <ListItemIcon>
-            <Settings fontSize='small' />
+            <Settings fontSize="small" />
           </ListItemIcon>
           Configurações
         </MenuItem>
@@ -343,10 +388,10 @@ export function DefaultContainer({
             handleClose;
             signOut();
           }}
-          sx={{ color: 'red' }}
+          sx={{ color: "red" }}
         >
           <ListItemIcon>
-            <Logout fontSize='small' sx={{ color: 'red' }} />
+            <Logout fontSize="small" sx={{ color: "red" }} />
           </ListItemIcon>
           Sair
         </MenuItem>
