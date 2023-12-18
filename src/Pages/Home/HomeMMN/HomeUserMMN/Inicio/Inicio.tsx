@@ -276,11 +276,13 @@ export function Inicio() {
                           <Skeleton variant='text' sx={{ fontSize: '1rem', width: '250px' }} />
                         ) : (
                           <Typography>
-                            {dadosFormatter(
-                              responseViewContinue?.saldo_dados
-                                ? responseViewContinue?.saldo_dados
-                                : 'Sem saldo'
-                            )}
+                            {responseViewContinue?.saldo_dados !== 'Indefinido'
+                              ? dadosFormatter(
+                                  responseViewContinue?.saldo_dados
+                                    ? responseViewContinue?.saldo_dados
+                                    : 0
+                                )
+                              : 'Falha ao buscar dados!'}
                           </Typography>
                         )}
                         {loadingDados ? (
@@ -295,9 +297,9 @@ export function Inicio() {
                           </Typography>
                         )}
                         <Typography>
-                          {responseIdIndicacao?.graduacao
-                            ? responseIdIndicacao?.graduacao
-                            : 'Sem Graduação'}
+                          {responseIdIndicacao?.graduacao === 'Indefinido'
+                            ? 'Sem Graduação'
+                            : responseIdIndicacao?.graduacao}
                         </Typography>
                         <Typography>
                           {user?.licenciado ? 'Licenciado' : 'Não Licenciado'}

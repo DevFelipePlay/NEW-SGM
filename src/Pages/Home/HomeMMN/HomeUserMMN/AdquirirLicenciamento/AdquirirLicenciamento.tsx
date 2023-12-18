@@ -85,7 +85,7 @@ export function AdquirirLicenciamento() {
       toast.success('Solicitação de compra realizada');
       handleOpen();
     } catch (error: any) {
-      toast.error('Erro ao contratar');
+      errorToast(error);
     } finally {
       setLoadingBuy(false);
     }
