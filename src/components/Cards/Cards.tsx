@@ -43,7 +43,7 @@ export function Cards({
     borderRadius: "10px",
     padding: "1rem",
     textAlign: "center",
-    margin: `${isMobile ? "2rem 0.5rem" : "2rem 1rem 2rem 1rem"}`,
+    margin: `${isMobile ? "1rem 0.5rem" : "2rem 1rem 2rem 1rem"}`,
   };
 
   return (
