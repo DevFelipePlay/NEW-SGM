@@ -26,6 +26,11 @@ import {
   IReqPostPlayAcumularPremio,
   postPlayAcumularPremios,
 } from '../../../../../api/ApisRetiradaDePremio/AcumularPremio';
+import {
+  IReqPostPlayMetaGraduacao,
+  IResPostPlayMetaGraduacao,
+  postPlayMetaGraduacao,
+} from '../../../../../api/ApisUtils/MetaGraduacao';
 import dinheiro from '../../../../../assets/MMNImg/din.png';
 import { Cards, Loading, ProgressBar } from '../../../../../components';
 import useUser from '../../../../../hooks/useUser';
@@ -41,6 +46,7 @@ export function Progresso() {
   const [responsePremioSaque, setResponsePremioSaque] = useState<IResPostPlayFilaPremios>();
   const [responseQuantidadePontosUsuario, setResponseQuantidadePontosUsuario] =
     useState<IResPostPlayQuantidadePontosUsuario>();
+  const [responseMetaGraduacao, setResponseMetaGraduacao] = useState<IResPostPlayMetaGraduacao>();
   const { user } = useUser();
 
   //Modal Resgatar
@@ -114,7 +120,16 @@ export function Progresso() {
         payloadQuantidadePontosUsuario
       );
       setResponseQuantidadePontosUsuario(dataQuantidadePontosUsuario);
+    } catch (error: any) {}
+    const payloadMetaGraduacao: IReqPostPlayMetaGraduacao = {
+      cpf: user?.cpf || '',
+      token: user?.token || '',
+    };
+    try {
+      const dataMetaGraduacao = await postPlayMetaGraduacao(payloadMetaGraduacao);
+      setResponseMetaGraduacao(dataMetaGraduacao);
     } catch (error: any) {
+      console.log(error);
     } finally {
       setLoadingView(false);
     }
@@ -178,166 +193,68 @@ export function Progresso() {
     }
   }, [responseQuantidadePontosUsuario, responsePremioSaque]);
 
+  const [progressPercentageMetaGraduacao, setProgressPercentageMetaGraduacao] = useState(0);
+
+  // ...
+
+  useEffect(() => {
+    if (responseQuantidadePontosUsuario && responseMetaGraduacao) {
+      const pontosDisponiveis = responseMetaGraduacao.pontos_graduacao || 0;
+      const pontosMetaGraduacao = responseMetaGraduacao.meta_proxima_graduacao || 0;
+
+      //@ts-ignore
+      let percentageMetaGraduacao = (pontosDisponiveis / pontosMetaGraduacao) * 100;
+
+      // Garanta que a porcentagem não ultrapasse 100%
+      percentageMetaGraduacao = Math.min(percentageMetaGraduacao, 100);
+
+      // Atualize o estado
+      setProgressPercentageMetaGraduacao(percentageMetaGraduacao);
+    }
+  }, [responseQuantidadePontosUsuario, responseMetaGraduacao]);
+
   useEffect(() => {
     handleView();
   }, []);
 
   return (
     <>
-      {telaEmDesenvilvimento ? (
-        <Grid container spacing={2}>
-          <Grid item xs={7}>
+      <Grid container spacing={2}>
+        <Grid item xs={7}>
+          {loadingView ? (
+            <Box
+              sx={{
+                width: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: '50vh',
+              }}
+            >
+              <Loading />
+            </Box>
+          ) : (
             <Cards
-              title={'Graduação'}
+              title={`${responseMetaGraduacao?.graduacao}`}
               subTitle={'Realize vendas para subir para a proxima graduação'}
               size={'100%'}
             >
               <Typography sx={{ mb: 2 }}>
-                Meta para proxima graduação : 400 | 1000 Pontos
+                Meta para proxima graduação : {responseMetaGraduacao?.pontos_graduacao} |{' '}
+                {responseMetaGraduacao?.meta_proxima_graduacao} Pontos
               </Typography>
               <Box width={'100%'}>
-                <ProgressBar progress={40} />
+                <ProgressBar progress={progressPercentageMetaGraduacao} />
               </Box>
             </Cards>
+          )}
 
-            {/* Ganhe Premios */}
-            <Cards
-              title={'Ganhe Premios'}
-              subTitle={'Conquiste a meta para ganhar este premio'}
-              size={'100%'}
-            >
-              {loadingView ? (
-                <Box
-                  sx={{
-                    width: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    height: '30vh',
-                  }}
-                >
-                  <Loading />
-                </Box>
-              ) : (
-                <>
-                  <Typography sx={{ mb: 2 }}>
-                    Meta para o premio :{' '}
-                    {responseQuantidadePontosUsuario
-                      ? responseQuantidadePontosUsuario?.saldo_pontos_disponivel
-                      : 'Sem Premios'}{' '}
-                    |{' '}
-                    {responsePremioSaque?.Pontos_resgate
-                      ? responsePremioSaque?.Pontos_resgate
-                      : 'Sem Meta'}{' '}
-                    pontos
-                  </Typography>
-
-                  <Box>
-                    {responsePremioSaque?.foto ? (
-                      <img
-                        src={`data:image/jpeg;base64,${responsePremioSaque?.foto}`}
-                        style={{ width: '300px', borderRadius: '16px' }}
-                      />
-                    ) : (
-                      <img src={dinheiro} style={{ width: '100px', borderRadius: '16px' }} />
-                    )}
-                    <Typography sx={{ color: 'var(--primary-color)' }}>
-                      {responsePremioSaque?.Descricao}
-                    </Typography>
-                  </Box>
-                  <Box width={'100%'}>
-                    <ProgressBar progress={progressPercentage} />
-                    {progressPercentage !== 100 ? (
-                      <Typography sx={{ mb: 1 }} color='error'>
-                        Para retirar os premios atinja 100%
-                      </Typography>
-                    ) : (
-                      <Typography sx={{ mb: 1 }} color='darkgreen'>
-                        Parabéns! Você já pode retirar seu prêmio ou acumular seus pontos para o
-                        próximo prêmio
-                      </Typography>
-                    )}
-                  </Box>
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-evenly',
-                      width: '100%',
-                    }}
-                  >
-                    <Button
-                      onClick={() => handleOpenAcumular()}
-                      variant='contained'
-                      color='warning'
-                      disabled={progressPercentage !== 100}
-                    >
-                      Acumular
-                    </Button>
-                    <LoadingButton
-                      onClick={() => handleOpen()}
-                      variant='contained'
-                      loading={loadSubmitResgate}
-                      disabled={progressPercentage !== 100}
-                    >
-                      Resgatar
-                    </LoadingButton>
-                  </Box>
-                </>
-              )}
-            </Cards>
-
-            {/* /////////// */}
-          </Grid>
-          <Grid item xs={5}>
-            <Cards
-              title={'Plano mais vendido'}
-              subTitle={'Plano mais vendido este mes'}
-              size={'100%'}
-            >
-              <Avatar
-                sx={{
-                  backgroundColor: '#FFCD4D',
-                  width: '100px',
-                  height: '100px',
-                  boxShadow: ' rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px',
-                  mb: 4,
-                }}
-              >
-                <GiLaurelsTrophy style={{ fontSize: '3rem' }} />
-              </Avatar>
-              <div
-                style={{ width: '30%', height: '1px', backgroundColor: 'var(--primary-color)' }}
-              />
-              <Typography variant='h5' sx={{ m: 2, color: 'var(--primary-color)' }}>
-                MAXX
-              </Typography>
-              <Box sx={{ mb: 2 }}>
-                <Typography sx={{ fontSize: '1.2rem' }}>6 GB</Typography>
-                <Typography sx={{ fontSize: '1.2rem' }}>100 minutos para SMS</Typography>
-                <Typography sx={{ fontSize: '1.2rem' }}>Whats app gratis</Typography>
-                <Typography sx={{ fontSize: '1.2rem' }}>Dizzer</Typography>
-              </Box>
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                <Box sx={{ mr: 5 }}>
-                  <Typography>Total de ativações</Typography>
-                  <Typography variant='h5'>525</Typography>
-                </Box>
-                <Box>
-                  <Typography>Total de recargas</Typography>
-                  <Typography variant='h5'>1525</Typography>
-                </Box>
-              </Box>
-            </Cards>
-          </Grid>
-          <Grid item xs={12}>
+          {/* Ganhe Premios */}
+          <Cards
+            title={'Ganhe Premios'}
+            subTitle={'Conquiste a meta para ganhar este premio'}
+            size={'100%'}
+          >
             {loadingView ? (
               <Box
                 sx={{
@@ -345,118 +262,244 @@ export function Progresso() {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  height: '50vh',
+                  height: '30vh',
                 }}
               >
                 <Loading />
               </Box>
             ) : (
               <>
-                <Typography
+                <Typography sx={{ mb: 2 }}>
+                  Meta para o premio :{' '}
+                  {responseQuantidadePontosUsuario
+                    ? responseQuantidadePontosUsuario?.saldo_pontos_disponivel
+                    : 'Sem Premios'}{' '}
+                  |{' '}
+                  {responsePremioSaque?.Pontos_resgate
+                    ? responsePremioSaque?.Pontos_resgate
+                    : 'Sem Meta'}{' '}
+                  pontos
+                </Typography>
+
+                <Box>
+                  {responsePremioSaque?.foto ? (
+                    <img
+                      src={`data:image/jpeg;base64,${responsePremioSaque?.foto}`}
+                      style={{ width: '300px', borderRadius: '16px' }}
+                    />
+                  ) : (
+                    <img src={dinheiro} style={{ width: '100px', borderRadius: '16px' }} />
+                  )}
+                  <Typography sx={{ color: 'var(--primary-color)' }}>
+                    {responsePremioSaque?.Descricao}
+                  </Typography>
+                </Box>
+                <Box width={'100%'}>
+                  <ProgressBar progress={progressPercentage} />
+                  {progressPercentage !== 100 ? (
+                    <Typography sx={{ mb: 1 }} color='error'>
+                      Para retirar os premios atinja 100%
+                    </Typography>
+                  ) : (
+                    <Typography sx={{ mb: 1 }} color='darkgreen'>
+                      Parabéns! Você já pode retirar seu prêmio ou acumular seus pontos para o
+                      próximo prêmio
+                    </Typography>
+                  )}
+                </Box>
+                <Box
                   sx={{
-                    m: 0,
                     display: 'flex',
                     alignItems: 'center',
-                    justifyContent: 'center',
+                    justifyContent: 'space-evenly',
+                    width: '100%',
                   }}
-                  variant='h4'
                 >
-                  Premios
-                </Typography>
-                <Box>
-                  <Swiper
-                    spaceBetween={2}
-                    slidesPerView={2.3}
-                    onSlideChange={() => console.log('slide change')}
-                    onSwiper={(swiper) => console.log(swiper)}
-                    pagination={{ clickable: true }}
-                    modules={[Navigation, Pagination]}
-                    navigation
+                  <Button
+                    onClick={() => handleOpenAcumular()}
+                    variant='contained'
+                    color='warning'
+                    disabled={progressPercentage !== 100}
                   >
-                    {responseView.map((item, index) => (
-                      <SwiperSlide key={index}>
-                        <Cards title={item.nome_premio} subTitle={''} size={'90%'}>
-                          {item.foto ? (
-                            <img
-                              src={`data:image/jpeg;base64,${item.foto}`}
-                              style={{ width: '200px', borderRadius: '16px' }}
-                            />
-                          ) : (
-                            <img src={dinheiro} style={{ width: '100px', borderRadius: '16px' }} />
-                          )}
-                          <Typography sx={{ color: 'var(--primary-color)' }}>
-                            {item.descricao}
-                          </Typography>
-                          <Typography>Valor estimado:</Typography>
-                          <Typography sx={{ color: 'var(--primary-color)' }} variant='h4'>
-                            R$ {currencyMask(item.valor_premio)}
-                          </Typography>
-                          <Typography variant='h5' sx={{ mt: 2 }}>
-                            Meta: {item.pontos_resgate} Pontos
-                          </Typography>
-                        </Cards>
-                      </SwiperSlide>
-                    ))}
-                  </Swiper>
+                    Acumular
+                  </Button>
+                  <LoadingButton
+                    onClick={() => handleOpen()}
+                    variant='contained'
+                    loading={loadSubmitResgate}
+                    disabled={progressPercentage !== 100}
+                  >
+                    Resgatar
+                  </LoadingButton>
                 </Box>
               </>
             )}
-          </Grid>
-          <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby='modal-modal-title'
-            aria-describedby='modal-modal-description'
-          >
-            <Box sx={{ ...style, textAlign: 'center' }}>
-              <Alert sx={{ mb: 2, textAlign: 'center' }} severity='warning'>
-                <AlertTitle>Aviso</AlertTitle>
-                Ao retirar o prêmio, os pontos do mesmo serão debitados de sua base de pontos.
-                clique em confirmar para prosseguir com a solicitação de retirada de prêmios
-              </Alert>
+          </Cards>
 
-              <Button
-                variant='contained'
-                sx={{ mt: 2 }}
-                onClick={(e: any) => {
-                  handleSubmitResgatePremios(e);
-                  handleClose();
-                }}
-              >
-                Confirmar
-              </Button>
-            </Box>
-          </Modal>
-          <Modal
-            open={openAcumular}
-            onClose={handleCloseAcumular}
-            aria-labelledby='modal-modal-title'
-            aria-describedby='modal-modal-description'
-          >
-            <Box sx={{ ...styleAcumular, textAlign: 'center' }}>
-              <Alert sx={{ mb: 2, textAlign: 'center' }} severity='warning'>
-                <AlertTitle>Aviso</AlertTitle>
-                Ao acumular o prêmio, os pontos do mesmo serão mantidos. E você não terá mais acesso
-                à este prêmio clique em confirmar para prosseguir com o acumulo de pontos para o
-                prêmios
-              </Alert>
-              <LoadingButton
-                variant='contained'
-                sx={{ mt: 2 }}
-                onClick={(e: any) => {
-                  handleSubmitAcumularPremios(e);
-                  handleCloseAcumular();
-                }}
-                loading={loadSubmitAcumular}
-              >
-                Confirmar
-              </LoadingButton>
-            </Box>
-          </Modal>
+          {/* /////////// */}
         </Grid>
-      ) : (
-        <Typography>Tela em desenvolvimento</Typography>
-      )}
+        <Grid item xs={5}>
+          <Cards
+            title={'Plano mais vendido'}
+            subTitle={'Plano mais vendido este mes'}
+            size={'100%'}
+          >
+            <Avatar
+              sx={{
+                backgroundColor: '#FFCD4D',
+                width: '100px',
+                height: '100px',
+                boxShadow: ' rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px',
+                mb: 4,
+              }}
+            >
+              <GiLaurelsTrophy style={{ fontSize: '3rem' }} />
+            </Avatar>
+            <div style={{ width: '30%', height: '1px', backgroundColor: 'var(--primary-color)' }} />
+            <Typography variant='h5' sx={{ m: 2, color: 'var(--primary-color)' }}>
+              MAXX
+            </Typography>
+            <Box sx={{ mb: 2 }}>
+              <Typography sx={{ fontSize: '1.2rem' }}>6 GB</Typography>
+              <Typography sx={{ fontSize: '1.2rem' }}>100 minutos para SMS</Typography>
+              <Typography sx={{ fontSize: '1.2rem' }}>Whats app gratis</Typography>
+              <Typography sx={{ fontSize: '1.2rem' }}>Dizzer</Typography>
+            </Box>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <Box sx={{ mr: 5 }}>
+                <Typography>Total de ativações</Typography>
+                <Typography variant='h5'>525</Typography>
+              </Box>
+              <Box>
+                <Typography>Total de recargas</Typography>
+                <Typography variant='h5'>1525</Typography>
+              </Box>
+            </Box>
+          </Cards>
+        </Grid>
+        <Grid item xs={12}>
+          {loadingView ? (
+            <Box
+              sx={{
+                width: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: '50vh',
+              }}
+            >
+              <Loading />
+            </Box>
+          ) : (
+            <>
+              <Typography
+                sx={{
+                  m: 0,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+                variant='h4'
+              >
+                Prêmios
+              </Typography>
+              <Box>
+                <Swiper
+                  spaceBetween={2}
+                  slidesPerView={2.3}
+                  onSlideChange={() => console.log('slide change')}
+                  onSwiper={(swiper) => console.log(swiper)}
+                  pagination={{ clickable: true }}
+                  modules={[Navigation, Pagination]}
+                  navigation
+                >
+                  {responseView.map((item, index) => (
+                    <SwiperSlide key={index}>
+                      <Cards title={item.nome_premio} subTitle={''} size={'90%'}>
+                        {item.foto ? (
+                          <img
+                            src={`data:image/jpeg;base64,${item.foto}`}
+                            style={{ width: '200px', borderRadius: '16px' }}
+                          />
+                        ) : (
+                          <img src={dinheiro} style={{ width: '100px', borderRadius: '16px' }} />
+                        )}
+                        <Typography sx={{ color: 'var(--primary-color)' }}>
+                          {item.descricao}
+                        </Typography>
+                        <Typography>Valor estimado:</Typography>
+                        <Typography sx={{ color: 'var(--primary-color)' }} variant='h4'>
+                          R$ {currencyMask(item.valor_premio)}
+                        </Typography>
+                        <Typography variant='h5' sx={{ mt: 2 }}>
+                          Meta: {item.pontos_resgate} Pontos
+                        </Typography>
+                      </Cards>
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              </Box>
+            </>
+          )}
+        </Grid>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby='modal-modal-title'
+          aria-describedby='modal-modal-description'
+        >
+          <Box sx={{ ...style, textAlign: 'center' }}>
+            <Alert sx={{ mb: 2, textAlign: 'center' }} severity='warning'>
+              <AlertTitle>Aviso</AlertTitle>
+              Ao retirar o prêmio, os pontos do mesmo serão debitados de sua base de pontos. clique
+              em confirmar para prosseguir com a solicitação de retirada de prêmios
+            </Alert>
+
+            <Button
+              variant='contained'
+              sx={{ mt: 2 }}
+              onClick={(e: any) => {
+                handleSubmitResgatePremios(e);
+                handleClose();
+              }}
+            >
+              Confirmar
+            </Button>
+          </Box>
+        </Modal>
+        <Modal
+          open={openAcumular}
+          onClose={handleCloseAcumular}
+          aria-labelledby='modal-modal-title'
+          aria-describedby='modal-modal-description'
+        >
+          <Box sx={{ ...styleAcumular, textAlign: 'center' }}>
+            <Alert sx={{ mb: 2, textAlign: 'center' }} severity='warning'>
+              <AlertTitle>Aviso</AlertTitle>
+              Ao acumular o prêmio, os pontos do mesmo serão mantidos. E você não terá mais acesso à
+              este prêmio clique em confirmar para prosseguir com o acumulo de pontos para o prêmios
+            </Alert>
+            <LoadingButton
+              variant='contained'
+              sx={{ mt: 2 }}
+              onClick={(e: any) => {
+                handleSubmitAcumularPremios(e);
+                handleCloseAcumular();
+              }}
+              loading={loadSubmitAcumular}
+            >
+              Confirmar
+            </LoadingButton>
+          </Box>
+        </Modal>
+      </Grid>
     </>
   );
 }

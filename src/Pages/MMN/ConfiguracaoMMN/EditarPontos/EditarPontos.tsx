@@ -35,11 +35,12 @@ export function EditarPontos() {
 
     try {
       let payload = {
-        ativacao: editedValues?.ativacao || '',
-        recarga: editedValues?.recarga || '',
-        chips: editedValues?.chips || '',
+        ativacao: editedValues?.ativacao || responseView?.ativacao || '',
+        recarga: editedValues?.recarga || responseView?.recarga || '',
+        chips: editedValues?.chips || responseView?.chips || '',
         cpf: user?.cpf || '',
       };
+      //@ts-ignore
       await postPlayEditarPontosPorNivel(payload);
       toast.success('Pontos Editados');
     } catch (error: any) {
