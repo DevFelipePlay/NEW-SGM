@@ -36,14 +36,14 @@ export function Cards({
   const stylesContainer: CSSProperties = {
     ...displayDefault,
     flexDirection: "column",
-    width: `${size}`,
+    width: `${isMobile ? "auto" : size}`,
     height: "auto",
     boxShadow:
       " rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px",
     borderRadius: "10px",
     padding: "1rem",
     textAlign: "center",
-    margin: `${isMobile ? "2rem auto" : "2rem 1rem 2rem 1rem"}`,
+    margin: `${isMobile ? "2rem 0.5rem" : "2rem 1rem 2rem 1rem"}`,
   };
 
   return (

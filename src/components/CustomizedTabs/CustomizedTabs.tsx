@@ -99,13 +99,21 @@ export function CustomizedTabs({
             value={value}
             // @ts-ignore
             onChange={(e, newValue) => onChange(newValue)}
-            aria-label="styled tabs example"
+            aria-label="styled tabs"
           >
             {tabsData.map((tab, index) => (
               <StyledTab key={index} label={tab.label} />
             ))}
           </StyledTabs>
-          <Box sx={{ p: 3 }} />
+          <Box
+            sx={{
+              p: 3,
+              display: {
+                xs: "none",
+                sm: "block",
+              },
+            }}
+          />
         </Box>
       )}
     </Box>
