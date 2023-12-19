@@ -54,7 +54,7 @@ export function ListHistoricoSolicitacoesSaqueParceiro({
                   style={{
                     width: '12px',
                     background: statusPagamento === true ? `green` : 'red',
-                    height: statusPagamento === true ? '140px' : '220px',
+                    height: '140px',
                     border: 'solid 1px ',
                     marginRight: '10px',
                     borderRadius: '20px',

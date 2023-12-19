@@ -493,7 +493,7 @@ export function EditarPacotesChips() {
                 <TextField
                   variant='standard'
                   label={'Chips'}
-                  value={mask(card.chips, '999')}
+                  value={card.chips}
                   type='tel'
                   onChange={(e: any) => handleInputChanges(index, 'chips', e.target.value)}
                   helperText={'Escolha a quantidade de chips que será oferecido pra este pacote'}

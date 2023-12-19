@@ -10,7 +10,7 @@ import {
 import { IResPostPlayListaSolicitacaoSaqueConcluido } from '../../../../api/ApisSaqueMMN/ListaSolicitacaoSaqueConcluido/IResPostPlayListaSolicitacoes';
 import { ListHistoricoSolicitacoesSaqueParceiro, Loading } from '../../../../components';
 import useUser from '../../../../hooks/useUser';
-import { currencyMask, dateFormatter, errorToast } from '../../../../utils';
+import { currencyMask, dateFormatter } from '../../../../utils';
 
 export function Historico() {
   const [loading, setLoading] = useState(false);
@@ -31,7 +31,7 @@ export function Historico() {
       const data = await postPlayListaSolicitacaoSaqueConcluido(payload);
       setResponseList(data);
     } catch (error: any) {
-      errorToast(error);
+      console.log(error);
     } finally {
       setLoading(false);
     }

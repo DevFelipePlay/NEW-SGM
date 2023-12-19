@@ -130,6 +130,16 @@ export default function Login() {
               Multinível Opuscell
             </Typography>
           </Stack>
+          <Typography
+            sx={{
+              position: 'fixed',
+              bottom: 5,
+              textAlign: 'center',
+              color: 'var(--sub-text-color)',
+            }}
+          >
+            Copyright © 2023 Play Tecnologia - 33.093.462.0001/50 | Todos os direitos reservados
+          </Typography>
         </Box>
       </Box>
     </Box>

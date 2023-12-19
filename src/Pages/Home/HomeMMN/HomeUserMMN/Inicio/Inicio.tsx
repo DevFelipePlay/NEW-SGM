@@ -172,7 +172,7 @@ export function Inicio() {
                 </Cards>
                 <Cards
                   title={'Total de níveis'}
-                  subTitle={'Total de niveis de usuários ativos que voce pode receber '}
+                  subTitle={'Total de niveis de usuários ativos '}
                   size={'100%'}
                 >
                   <Typography variant='h5'>
@@ -195,7 +195,7 @@ export function Inicio() {
                   </Typography>
                 </Cards>
                 <Cards
-                  title={'Usuários ativos'}
+                  title={'Usuários'}
                   subTitle={'Total de usuários ativos na sua rede'}
                   size={'100%'}
                 >
