@@ -50,7 +50,7 @@ export function HistoricoSaque() {
       <Box sx={{ width: '100%' }} key={index}>
         <ListHistoricoSolicitacoesSaqueParceiro
           nome={user ? user?.name : ''}
-          statusPagamento={item.status_pagamento === 1 ? true : false}
+          statusPagamento={item.status_pagamento}
           id={item.ID}
           valorPago={currencyMask(item.valor_solicitado)}
           dataPagamento={dateFormatter(item.data_solicitacao)}

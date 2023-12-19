@@ -49,16 +49,31 @@ export function ListHistoricoSolicitacoesSaqueParceiro({
                 borderRadius: '10px',
               }}
             >
-              <div
-                style={{
-                  width: '12px',
-                  background: statusPagamento === true ? `green` : 'red',
-                  height: statusPagamento === true ? '140px' : '220px',
-                  border: 'solid 1px ',
-                  marginRight: '10px',
-                  borderRadius: '20px',
-                }}
-              ></div>
+              {user?.super && (
+                <div
+                  style={{
+                    width: '12px',
+                    background: statusPagamento === true ? `green` : 'red',
+                    height: statusPagamento === true ? '140px' : '220px',
+                    border: 'solid 1px ',
+                    marginRight: '10px',
+                    borderRadius: '20px',
+                  }}
+                ></div>
+              )}
+              {user?.profileid === 7 && (
+                <div
+                  style={{
+                    width: '12px',
+                    background:
+                      statusPagamento === 1 ? 'green' : statusPagamento === 0 ? 'red' : '#cdc600',
+                    height: statusPagamento !== 0 ? '140px' : '220px',
+                    border: 'solid 1px ',
+                    marginRight: '10px',
+                    borderRadius: '20px',
+                  }}
+                ></div>
+              )}
               <Box>
                 <ListItemText sx={{ userSelect: 'none' }}>ID: {id}</ListItemText>
                 <ListItemText sx={{ userSelect: 'none' }}>Nome: {nome}</ListItemText>
@@ -66,7 +81,7 @@ export function ListHistoricoSolicitacoesSaqueParceiro({
                   Data do Pagamento: {dataPagamento}
                 </ListItemText>
                 <ListItemText sx={{ userSelect: 'none' }}>Valor Pago: R$ {valorPago}</ListItemText>
-                {statusPagamento === false && user?.profileid === 7 && (
+                {statusPagamento === 0 && user?.profileid === 7 && (
                   <ListItem sx={{ userSelect: 'none' }}>
                     <Alert severity='error'>
                       <AlertTitle>Solicitação negada</AlertTitle>
