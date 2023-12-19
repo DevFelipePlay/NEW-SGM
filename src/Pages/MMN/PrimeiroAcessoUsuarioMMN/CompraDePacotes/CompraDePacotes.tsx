@@ -1,4 +1,13 @@
-import { Box, Button, Grid, Modal, Typography, useMediaQuery, useTheme } from '@mui/material';
+import {
+  Box,
+  Button,
+  Grid,
+  Modal,
+  Tooltip,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
 import { PiHandCoins } from 'react-icons/pi';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -6,16 +15,26 @@ import 'swiper/css/pagination';
 
 import LoadingButton from '@mui/lab/LoadingButton/LoadingButton';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { IoIosCheckmarkCircleOutline } from 'react-icons/io';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { StepsCadastroUserMMN } from '..';
+
+import { MdOutlineContentCopy } from 'react-icons/md';
 import {
+  IReqPostPlayValidaLicenciamento,
+  IReqPostPlayVisualizaFaturasPacotes,
   IResPostPlayGeraFaturaLicenciamento,
   IResPostPlayRecuperaPacotesLicenciamento,
+  IResPostPlayValidaLicenciamento,
+  IResPostPlayVisualizaFaturasPacotes,
   postPlayGeraFaturaLicenciamento,
   postPlayRecuperaPacotesLicenciamento,
+  postPlayValidaLicenciamento,
+  postPLayVisualizaFaturasPacotes as postPlayVisualizaFaturasPacotes,
 } from '../../../../api';
 import { Cards, Loading } from '../../../../components';
+import { useCopyToClipboard } from '../../../../hooks/useCopyToClipboard';
 import useUser from '../../../../hooks/useUser';
 import { errorToast } from '../../../../utils';
 
@@ -40,6 +59,7 @@ export function CompraDePacotes() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [responseBuy, setResponseBuy] = useState<IResPostPlayGeraFaturaLicenciamento>();
+  const [loadingValidaLicenciamento, setLoadingValidaLicenciamento] = useState(false);
 
   const theme = useTheme();
   const mdDown = useMediaQuery(theme.breakpoints.down('md'));
@@ -49,9 +69,23 @@ export function CompraDePacotes() {
   const { user } = useUser();
 
   const [response, setResponse] = useState<IResPostPlayRecuperaPacotesLicenciamento[]>([]);
+  const [responseValidaLicenciamento, setResponseValidaLicenciamento] =
+    useState<IResPostPlayValidaLicenciamento>();
+  const [responseVisualizaFaturaPacotes, setResponseVisualizaFaturaPacotes] = useState<
+    IResPostPlayVisualizaFaturasPacotes[]
+  >([]);
   const [loading, setLoading] = useState(false);
+
   const [loadingBuy, setLoadingBuy] = useState(false);
   const navigate = useNavigate();
+
+  //@ts-ignore
+  const [value, copy] = useCopyToClipboard();
+
+  function copyToText(index: string) {
+    copy(`https://indicacao.opuscell.com.br/#/${index}`);
+    toast.success('Copiado para area de transferencia');
+  }
 
   async function handleSubmit() {
     setLoading(true);
@@ -67,6 +101,30 @@ export function CompraDePacotes() {
       errorToast(error);
     } finally {
       setLoading(false);
+    }
+  }
+  async function handleValidateLicenciamento() {
+    setLoadingValidaLicenciamento(true);
+    try {
+      const payloadValidaLicenciamento: IReqPostPlayValidaLicenciamento = {
+        cpf: user?.cpf || '',
+      };
+      const data = await postPlayValidaLicenciamento(payloadValidaLicenciamento);
+      setResponseValidaLicenciamento(data);
+    } catch (error: any) {
+      errorToast(error);
+    }
+    try {
+      const payloadVisualizaFaturasPacotes: IReqPostPlayVisualizaFaturasPacotes = {
+        cpf: user?.cpf || '',
+        token: user?.token || '',
+      };
+      const data = await postPlayVisualizaFaturasPacotes(payloadVisualizaFaturasPacotes);
+      setResponseVisualizaFaturaPacotes(data);
+    } catch (error: any) {
+      errorToast(error);
+    } finally {
+      setLoadingValidaLicenciamento(false);
     }
   }
 
@@ -92,156 +150,330 @@ export function CompraDePacotes() {
   }
 
   useEffect(() => {
+    handleValidateLicenciamento();
     handleSubmit();
   }, []);
 
   return (
     <StepsCadastroUserMMN step={0}>
       <>
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexDirection: 'column',
-            width: '100%',
-          }}
-        >
-          <Typography variant='h4'>Pacotes</Typography>
-          <Typography>Escolha o melhor pacote para você</Typography>
-          {loading ? (
-            <Box
-              sx={{
-                width: '100%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                height: '50vh',
-              }}
-            >
-              <Loading />
-            </Box>
-          ) : (
-            <Box width={'100%'}>
-              <>
-                {response.length !== 1 ? (
-                  <Grid container width={'100%'}>
-                    {response &&
-                      response.map((i: IResPostPlayRecuperaPacotesLicenciamento, index) => (
-                        <Grid item xs={4} key={index}>
-                          <Cards
-                            title={i.nome}
-                            subTitle={'Escolha o seu pacote'}
-                            size={smDown ? '100vm' : mdDown ? '200px' : lgDown ? '200px' : '350px'}
-                            showIcon
-                            bgColorIcon='var(--primary-color)'
-                            icon={<PiHandCoins />}
-                          >
-                            <Typography> Acesso ao multinivel +</Typography>
-                            <Typography>{i.chips} Chips </Typography>
-
-                            <Typography
-                              variant='subtitle2'
-                              color={'var(--sub-text-color)'}
-                              sx={{ mt: 2 }}
-                            >
-                              Por apenas:
-                            </Typography>
-                            <Typography variant='h5'>R$ {i.valor_venda}</Typography>
-                            <LoadingButton
-                              onClick={() => handleBuyPacks(i.id)}
-                              variant='contained'
-                              sx={{ mt: 2 }}
-                              loading={loadingBuy}
-                            >
-                              Contratar
-                            </LoadingButton>
-                          </Cards>
-                        </Grid>
-                      ))}
-                  </Grid>
-                ) : (
-                  <>
-                    {response.map((i, index) => (
-                      <Box
-                        sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-                        key={index}
-                      >
-                        <Cards
-                          title={i.nome}
-                          subTitle={'Escolha o seu pacote'}
-                          size={smDown ? '100vm' : mdDown ? '200px' : lgDown ? '200px' : '350px'}
-                          showIcon
-                          bgColorIcon='var(--primary-color)'
-                          icon={<PiHandCoins />}
-                        >
-                          <Typography> Acesso ao multinivel +</Typography>
-                          <Typography>{i.chips} Chips </Typography>
-
-                          <Typography
-                            variant='subtitle2'
-                            color={'var(--sub-text-color)'}
-                            sx={{ mt: 2 }}
-                          >
-                            Por apenas:
-                          </Typography>
-                          <Typography variant='h5'>R$ {i.valor_venda}</Typography>
-                          <LoadingButton
-                            onClick={() => handleBuyPacks(i.id)}
-                            variant='contained'
-                            sx={{ mt: 2 }}
-                            loading={loadingBuy}
-                          >
-                            Contratar
-                          </LoadingButton>
-                        </Cards>
-                      </Box>
-                    ))}
-                  </>
-                )}
-              </>
-            </Box>
-          )}
-          <Button
-            onClick={() => navigate('/primeiro-acesso-multinivel-usuario/ativacao-linha')}
-            variant='outlined'
-            sx={{ my: 2 }}
-            color='secondary'
+        {loadingValidaLicenciamento ? (
+          <Box
+            sx={{
+              width: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              height: '50vh',
+            }}
           >
-            Continuar sem comprar
-          </Button>
-        </Box>
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby='modal-modal-title'
-          aria-describedby='modal-modal-description'
-        >
-          <Box sx={{ ...style, textAlign: 'center' }}>
-            <Typography id='modal-modal-title' variant='h6' component='h2' sx={{ mb: 2 }}>
-              Sua solicitação de compra foi realizada, clique no link e pague sua fatura ou
-              visualize a fatura pelo seu aplicativo:
-            </Typography>
-            <Box sx={{ backgroundColor: 'white', p: 1, borderRadius: '10px' }}>
-              <a
-                id='modal-modal-description'
-                href={`https://fatura.operadora.app.br/?payid=${responseBuy?.payid}`}
-                target='_blank'
-              >
-                <Typography>
-                  https://faturammn.operadora.app.br/?payid={responseBuy?.payid}
-                </Typography>
-              </a>
-            </Box>
-            <Button
-              variant='contained'
-              sx={{ mt: 2 }}
-              onClick={() => navigate('/primeiro-acesso-multinivel-usuario/ativacao-linha')}
-            >
-              Continuar cadastro
-            </Button>
+            <Loading />
           </Box>
-        </Modal>
+        ) : (
+          <>
+            {responseValidaLicenciamento?.status_licenciamento === 0 && (
+              <>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flexDirection: 'column',
+                    width: '100%',
+                  }}
+                >
+                  <Typography variant='h4'>Pacotes</Typography>
+                  <Typography>Escolha o melhor pacote para você</Typography>
+                  {loading ? (
+                    <Box
+                      sx={{
+                        width: '100%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        height: '50vh',
+                      }}
+                    >
+                      <Loading />
+                    </Box>
+                  ) : (
+                    <Box width={'100%'}>
+                      <>
+                        {response.length !== 1 ? (
+                          <Grid container width={'100%'}>
+                            {response &&
+                              response.map((i: IResPostPlayRecuperaPacotesLicenciamento, index) => (
+                                <Grid item xs={4} key={index}>
+                                  <Cards
+                                    title={i.nome}
+                                    subTitle={'Escolha o seu pacote'}
+                                    size={
+                                      smDown
+                                        ? '100vm'
+                                        : mdDown
+                                        ? '200px'
+                                        : lgDown
+                                        ? '200px'
+                                        : '350px'
+                                    }
+                                    showIcon
+                                    bgColorIcon='var(--primary-color)'
+                                    icon={<PiHandCoins />}
+                                  >
+                                    <Typography> Acesso ao multinivel +</Typography>
+                                    <Typography>{i.chips} Chips </Typography>
+
+                                    <Typography
+                                      variant='subtitle2'
+                                      color={'var(--sub-text-color)'}
+                                      sx={{ mt: 2 }}
+                                    >
+                                      Por apenas:
+                                    </Typography>
+                                    <Typography variant='h5'>R$ {i.valor_venda}</Typography>
+                                    <LoadingButton
+                                      onClick={() => handleBuyPacks(i.id)}
+                                      variant='contained'
+                                      sx={{ mt: 2 }}
+                                      loading={loadingBuy}
+                                    >
+                                      Contratar
+                                    </LoadingButton>
+                                  </Cards>
+                                </Grid>
+                              ))}
+                          </Grid>
+                        ) : (
+                          <>
+                            {response.map((i, index) => (
+                              <Box
+                                sx={{
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                }}
+                                key={index}
+                              >
+                                <Cards
+                                  title={i.nome}
+                                  subTitle={'Escolha o seu pacote'}
+                                  size={
+                                    smDown ? '100vm' : mdDown ? '200px' : lgDown ? '200px' : '350px'
+                                  }
+                                  showIcon
+                                  bgColorIcon='var(--primary-color)'
+                                  icon={<PiHandCoins />}
+                                >
+                                  <Typography> Acesso ao multinivel +</Typography>
+                                  <Typography>{i.chips} Chips </Typography>
+
+                                  <Typography
+                                    variant='subtitle2'
+                                    color={'var(--sub-text-color)'}
+                                    sx={{ mt: 2 }}
+                                  >
+                                    Por apenas:
+                                  </Typography>
+                                  <Typography variant='h5'>R$ {i.valor_venda}</Typography>
+                                  <LoadingButton
+                                    onClick={() => handleBuyPacks(i.id)}
+                                    variant='contained'
+                                    sx={{ mt: 2 }}
+                                    loading={loadingBuy}
+                                  >
+                                    Contratar
+                                  </LoadingButton>
+                                </Cards>
+                              </Box>
+                            ))}
+                          </>
+                        )}
+                      </>
+                    </Box>
+                  )}
+                  <Button
+                    onClick={() => navigate('/primeiro-acesso-multinivel-usuario/ativacao-linha')}
+                    variant='outlined'
+                    sx={{ my: 2 }}
+                    color='secondary'
+                  >
+                    Continuar sem comprar
+                  </Button>
+                </Box>
+                <Modal
+                  open={open}
+                  onClose={handleClose}
+                  aria-labelledby='modal-modal-title'
+                  aria-describedby='modal-modal-description'
+                >
+                  <Box sx={{ ...style, textAlign: 'center' }}>
+                    <Typography id='modal-modal-title' variant='h6' component='h2' sx={{ mb: 2 }}>
+                      Sua solicitação de compra foi realizada, clique no link e pague sua fatura ou
+                      visualize a fatura pelo seu aplicativo:
+                    </Typography>
+                    <Box sx={{ backgroundColor: 'white', p: 1, borderRadius: '10px' }}>
+                      <a
+                        id='modal-modal-description'
+                        href={`https://fatura.operadora.app.br/?payid=${responseBuy?.payid}`}
+                        target='_blank'
+                      >
+                        <Typography>
+                          https://faturammn.operadora.app.br/?payid={responseBuy?.payid}
+                        </Typography>
+                      </a>
+                    </Box>
+                    <Button
+                      variant='contained'
+                      sx={{ mt: 2 }}
+                      onClick={() => navigate('/primeiro-acesso-multinivel-usuario/ativacao-linha')}
+                    >
+                      Continuar cadastro
+                    </Button>
+                  </Box>
+                </Modal>
+              </>
+            )}
+          </>
+        )}
+        {responseValidaLicenciamento?.status_licenciamento === 1 && (
+          <>
+            {loadingValidaLicenciamento ? (
+              <Box
+                sx={{
+                  width: '100%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  height: '50vh',
+                }}
+              >
+                <Loading />
+              </Box>
+            ) : (
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexDirection: 'column',
+                }}
+              >
+                <Typography variant='h4'>
+                  Você possui uma compra de licenciamento em andamento
+                </Typography>
+
+                {responseVisualizaFaturaPacotes
+                  .filter((item) => item.tipo === 'Licenciamento')
+                  .map((item, index) => (
+                    <Box
+                      key={index}
+                      sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      <Cards title={`Fatura de ${item.tipo} em Aberto`} subTitle={''} size={'80%'}>
+                        <Link
+                          to={`https://faturammn.operadora.app.br/?payid=${item?.paymentasaasid}`}
+                          target='_blank'
+                        >
+                          https://faturammn.operadora.app.br/?payid=${item?.paymentasaasid}
+                        </Link>
+                      </Cards>
+                    </Box>
+                  ))}
+                <Button
+                  variant='outlined'
+                  color='secondary'
+                  sx={{ my: 2 }}
+                  onClick={() => navigate('/primeiro-acesso-multinivel-usuario/ativacao-linha')}
+                >
+                  Continuar cadastro
+                </Button>
+              </Box>
+            )}
+          </>
+        )}
+        {responseValidaLicenciamento?.status_licenciamento === 2 && (
+          <>
+            {loadingValidaLicenciamento ? (
+              <Box
+                sx={{
+                  width: '100%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  height: '50vh',
+                }}
+              >
+                <Loading />
+              </Box>
+            ) : (
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexDirection: 'column',
+                }}
+              >
+                <Typography variant='h4'>
+                  Você possui uma compra de licenciamento concluida!
+                </Typography>
+                <Box sx={{ fontSize: '5rem', color: 'green' }}>
+                  <IoIosCheckmarkCircleOutline />
+                </Box>
+
+                <Box
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Cards
+                    title={`Link de indicação`}
+                    subTitle={
+                      '  Agora você pode começar a utilizar o seu link de indicação para criar a sua rede de usuários!'
+                    }
+                    size={'100%'}
+                  >
+                    <Tooltip title={'Copiar'}>
+                      <Box
+                        onClick={() => copyToText(responseValidaLicenciamento.link_indicacao)}
+                        sx={{
+                          cursor: 'pointer',
+                          display: 'flex',
+                          flexDirection: 'row',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          width: '100%',
+                          fontSize: '1.5rem',
+                        }}
+                        color={'var(--primary-color)'}
+                      >
+                        <Typography sx={{ marginRight: '2rem', fontSize: '1.5rem' }}>
+                          {`https://indicacao.opuscell.com.br/#/${responseValidaLicenciamento.link_indicacao}`}
+                        </Typography>
+                        <MdOutlineContentCopy />
+                      </Box>
+                    </Tooltip>
+                  </Cards>
+                </Box>
+
+                <Button
+                  variant='outlined'
+                  color='secondary'
+                  sx={{ my: 2 }}
+                  onClick={() => navigate('/primeiro-acesso-multinivel-usuario/ativacao-linha')}
+                >
+                  Continuar cadastro
+                </Button>
+              </Box>
+            )}
+          </>
+        )}
       </>
     </StepsCadastroUserMMN>
   );

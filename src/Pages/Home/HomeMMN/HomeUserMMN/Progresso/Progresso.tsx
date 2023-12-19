@@ -1,14 +1,12 @@
 import {
   Alert,
   AlertTitle,
-  Avatar,
   Box,
   Button,
   Grid,
   Modal,
   Typography,
 } from "@mui/material";
-import { GiLaurelsTrophy } from "react-icons/gi";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -17,6 +15,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 import LoadingButton from "@mui/lab/LoadingButton";
 import { useEffect, useState } from "react";
+import { GiLaurelsTrophy } from "react-icons/gi";
 import { toast } from "react-toastify";
 import {
   IReqPostPlayFilaPremios,
@@ -43,9 +42,11 @@ import {
 import dinheiro from "../../../../../assets/MMNImg/din.png";
 import { Cards, Loading, ProgressBar } from "../../../../../components";
 import useUser from "../../../../../hooks/useUser";
+import useWindowSize from "../../../../../hooks/useWindowSize";
 import { currencyMask, errorToast } from "../../../../../utils";
 
 export function Progresso() {
+  const { isMobile } = useWindowSize();
   //@ts-ignore
   const [telaEmDesenvilvimento, setTelaEmDesenvilvimento] = useState(true);
   const [loadingView, setLoadingView] = useState(false);
@@ -194,6 +195,8 @@ export function Progresso() {
   }
 
   const [progressPercentage, setProgressPercentage] = useState(0);
+  const compareByPoints = (a: any, b: any) =>
+    a.pontos_resgate - b.pontos_resgate;
 
   // ...
 
@@ -244,7 +247,12 @@ export function Progresso() {
   return (
     <>
       <Grid container spacing={2}>
-        <Grid item xs={12} md={7}>
+        <Grid
+          item
+          xs={12}
+          display={"flex"}
+          flexDirection={isMobile ? "column" : "row"}
+        >
           {loadingView ? (
             <Box
               sx={{
@@ -263,6 +271,10 @@ export function Progresso() {
               subTitle={"Realize vendas para subir para a proxima graduação"}
               size={"100%"}
             >
+              <Box sx={{ fontSize: "8rem", color: "var(--primary-color)" }}>
+                <GiLaurelsTrophy />
+              </Box>
+
               <Typography sx={{ mb: 2 }}>
                 Meta para proxima graduação :{" "}
                 {responseMetaGraduacao?.pontos_graduacao} |{" "}
@@ -366,67 +378,7 @@ export function Progresso() {
 
           {/* /////////// */}
         </Grid>
-        <Grid item xs={12} md={5}>
-          <Cards
-            title={"Plano mais vendido"}
-            subTitle={"Plano mais vendido este mes"}
-            size={"100%"}
-          >
-            <Avatar
-              sx={{
-                backgroundColor: "#FFCD4D",
-                width: "100px",
-                height: "100px",
-                boxShadow:
-                  " rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px",
-                mb: 4,
-              }}
-            >
-              <GiLaurelsTrophy style={{ fontSize: "3rem" }} />
-            </Avatar>
-            <div
-              style={{
-                width: "30%",
-                height: "1px",
-                backgroundColor: "var(--primary-color)",
-              }}
-            />
-            <Typography
-              variant="h5"
-              sx={{ m: 2, color: "var(--primary-color)" }}
-            >
-              MAXX
-            </Typography>
-            <Box sx={{ mb: 2 }}>
-              <Typography sx={{ fontSize: "1.2rem" }}>6 GB</Typography>
-              <Typography sx={{ fontSize: "1.2rem" }}>
-                100 minutos para SMS
-              </Typography>
-              <Typography sx={{ fontSize: "1.2rem" }}>
-                Whats app gratis
-              </Typography>
-              <Typography sx={{ fontSize: "1.2rem" }}>Dizzer</Typography>
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Box sx={{ mr: 5 }}>
-                <Typography>Total de ativações</Typography>
-                <Typography variant="h5">525</Typography>
-              </Box>
-              <Box>
-                <Typography>Total de recargas</Typography>
-                <Typography variant="h5">1525</Typography>
-              </Box>
-            </Box>
-          </Cards>
-        </Grid>
-        <Grid item xs={12} md={12}>
+        <Grid item xs={12}>
           {loadingView ? (
             <Box
               sx={{
@@ -462,7 +414,7 @@ export function Progresso() {
                   modules={[Navigation, Pagination]}
                   navigation
                 >
-                  {responseView.map((item, index) => (
+                  {responseView.sort(compareByPoints).map((item, index) => (
                     <SwiperSlide key={index}>
                       <Cards
                         title={item.nome_premio}

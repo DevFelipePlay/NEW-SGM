@@ -1,6 +1,5 @@
 import { Avatar, Box, Grid, Skeleton, Tooltip, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { GiLaurelsTrophy } from 'react-icons/gi';
 import { MdOutlineContentCopy } from 'react-icons/md';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -133,7 +132,7 @@ export function DashboardRelatorioUsuario() {
             <Grid item xs={3}>
               <Cards
                 title={'Total de niveis'}
-                subTitle={'Total de niveis de usuarios ativos que voce pode receber '}
+                subTitle={'Total de niveis de usuarios ativos'}
                 size={'100%'}
               >
                 <Typography variant='h5'>
@@ -169,56 +168,8 @@ export function DashboardRelatorioUsuario() {
                 </Typography>
               </Cards>
             </Grid>
-            <Grid item xs={5}>
-              <Cards
-                title={'Plano mais vendido'}
-                subTitle={'Plano mais vendido este mes'}
-                size={'100%'}
-              >
-                <Avatar
-                  sx={{
-                    backgroundColor: '#FFCD4D',
-                    width: '100px',
-                    height: '100px',
-                    boxShadow:
-                      ' rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px',
-                    mb: 4,
-                  }}
-                >
-                  <GiLaurelsTrophy style={{ fontSize: '3rem' }} />
-                </Avatar>
-                <div
-                  style={{ width: '30%', height: '1px', backgroundColor: 'var(--primary-color)' }}
-                />
-                <Typography variant='h5' sx={{ m: 2, color: 'var(--primary-color)' }}>
-                  MAXX
-                </Typography>
-                <Box sx={{ mb: 2 }}>
-                  <Typography sx={{ fontSize: '1.2rem' }}>6 GB</Typography>
-                  <Typography sx={{ fontSize: '1.2rem' }}>100 minutos para SMS</Typography>
-                  <Typography sx={{ fontSize: '1.2rem' }}>Whats app gratis</Typography>
-                  <Typography sx={{ fontSize: '1.2rem' }}>Dizzer</Typography>
-                </Box>
-                <Box
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <Box sx={{ mr: 5 }}>
-                    <Typography>Total de ativações</Typography>
-                    <Typography variant='h5'>525</Typography>
-                  </Box>
-                  <Box>
-                    <Typography>Total de recargas</Typography>
-                    <Typography variant='h5'>1525</Typography>
-                  </Box>
-                </Box>
-              </Cards>
-            </Grid>
-            <Grid item xs={7}>
+
+            <Grid item xs={15}>
               <Cards title={'Dados Pessoais'} subTitle={''} size={'100%'}>
                 <Box
                   sx={{
