@@ -1,8 +1,19 @@
-import { Box, Grid, List, ListItem, ListItemText, styled } from '@mui/material';
+import {
+  Alert,
+  AlertTitle,
+  Box,
+  Grid,
+  List,
+  ListItem,
+  ListItemText,
+  Typography,
+  styled,
+} from '@mui/material';
+import useUser from '../../hooks/useUser';
 
 interface IlistCustom {
   nome: string;
-  statusPagamento: boolean;
+  statusPagamento: boolean | number;
   id: number;
   valorPago: string;
   dataPagamento: string;
@@ -19,6 +30,7 @@ export function ListHistoricoSolicitacoesSaqueParceiro({
     backgroundColor: 'color.background.default',
   }));
 
+  const { user } = useUser();
   return (
     <Box sx={{ flexGrow: 1, width: '100%' }}>
       <Grid item xs={12} md={6}>
@@ -41,7 +53,7 @@ export function ListHistoricoSolicitacoesSaqueParceiro({
                 style={{
                   width: '12px',
                   background: statusPagamento === true ? `green` : 'red',
-                  height: '140px',
+                  height: statusPagamento === true ? '140px' : '220px',
                   border: 'solid 1px ',
                   marginRight: '10px',
                   borderRadius: '20px',
@@ -54,6 +66,17 @@ export function ListHistoricoSolicitacoesSaqueParceiro({
                   Data do Pagamento: {dataPagamento}
                 </ListItemText>
                 <ListItemText sx={{ userSelect: 'none' }}>Valor Pago: R$ {valorPago}</ListItemText>
+                {statusPagamento === false && user?.profileid === 7 && (
+                  <ListItem sx={{ userSelect: 'none' }}>
+                    <Alert severity='error'>
+                      <AlertTitle>Solicitação negada</AlertTitle>
+                      <Typography>Algo deu errado com os seus dados financeiros!</Typography>
+                      <Typography>
+                        Atualize seus dados financeiros e faça a solicitação de saque novamente.
+                      </Typography>
+                    </Alert>
+                  </ListItem>
+                )}
               </Box>
             </ListItem>
           </List>

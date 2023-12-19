@@ -51,7 +51,7 @@ export function ListaPostagem() {
         id: responseView[index].ID_Solicitacao,
         status_pagamento: 1,
         token: user?.token || '',
-        coodigo_rastreio: formData.codigo_ratreio || '',
+        codigo_rastreio: formData.codigo_ratreio || '',
       };
 
       await postPLayConfirmacaoSolicitacaoSaquePremio(payload);

@@ -33,6 +33,7 @@ import {
   SolicitacoesSaque,
 } from '../../../Pages/MMN';
 import { ConfiguracaoMMN } from '../../../Pages/MMN/ConfiguracaoMMN';
+import { HistoricoDeSolicitacoesUsuario } from '../../../Pages/MMN/HistoricoDeSolicitacoesUsuario';
 import InfoUserMMN from '../../../Pages/MMN/InfoUserMMN';
 import DashBoardInfoUserMMN from '../../../Pages/MMN/InfoUserMMN/Tab0';
 import SemLinhaAtiva from '../../../Pages/MMN/PrimeiroAcessoUsuarioMMN/VailidacaoAtivacao/ValidacaoAtivacao';
@@ -83,6 +84,10 @@ export function AllRoutes() {
         <Route path='/crm/parceiros' element={<ListPartner />} />
         <Route path='/home-usuario-mmn' element={<HomeUserMMN />} />
         <Route path='/adquirir-licenciamento-mmn' element={<AdquirirLicenciamento />} />
+        <Route
+          path='/historico-de-solicitacoes-usuario'
+          element={<HistoricoDeSolicitacoesUsuario />}
+        />
 
         {/* ///////////////////// */}
       </Route>

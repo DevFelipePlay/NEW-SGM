@@ -1,5 +1,6 @@
 import { Box, Grid, List, ListItem, ListItemText, styled } from '@mui/material';
 import foto from '../../assets/MMNImg/din.png';
+import useUser from '../../hooks/useUser';
 import { dateFormatter } from '../../utils';
 
 interface IlistCustom {
@@ -10,6 +11,7 @@ interface IlistCustom {
   id: number;
   dataPagamento: string;
   cod: string;
+  statusSolicitacao?: number;
 }
 
 export function ListHistoricoSolicitacoesPremios({
@@ -20,10 +22,13 @@ export function ListHistoricoSolicitacoesPremios({
   id,
   dataPagamento,
   cod,
+  statusSolicitacao,
 }: IlistCustom) {
   const Demo = styled('div')(() => ({
     backgroundColor: 'color.background.default',
   }));
+
+  const { user } = useUser();
 
   return (
     <Box sx={{ flexGrow: 1, width: '100%' }}>
@@ -67,6 +72,11 @@ export function ListHistoricoSolicitacoesPremios({
                   Data da solicitação:{dateFormatter(dataPagamento)}
                 </ListItemText>
                 <ListItemText sx={{ userSelect: 'none' }}>Cod. de rastreio: {cod}</ListItemText>
+                {user?.profileid === 7 && (
+                  <ListItemText sx={{ userSelect: 'none' }}>
+                    Status da solicitação: {statusSolicitacao === 1 ? 'Enviado' : 'Pendente'}
+                  </ListItemText>
+                )}
               </Box>
             </ListItem>
           </List>
