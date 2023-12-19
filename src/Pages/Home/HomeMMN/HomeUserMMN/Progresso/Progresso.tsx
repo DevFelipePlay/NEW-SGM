@@ -6,6 +6,8 @@ import {
   Grid,
   Modal,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -46,7 +48,6 @@ import useWindowSize from "../../../../../hooks/useWindowSize";
 import { currencyMask, errorToast } from "../../../../../utils";
 
 export function Progresso() {
-  const { isMobile } = useWindowSize();
   //@ts-ignore
   const [telaEmDesenvilvimento, setTelaEmDesenvilvimento] = useState(true);
   const [loadingView, setLoadingView] = useState(false);
@@ -101,6 +102,13 @@ export function Progresso() {
     textAlign: "center",
     border: "none",
   };
+
+  // breakpoints
+  const { isMobile } = useWindowSize();
+  const theme = useTheme();
+  const mdDown = useMediaQuery(theme.breakpoints.down("md"));
+
+  console.log(mdDown);
   ////////
 
   async function handleView() {
@@ -407,7 +415,7 @@ export function Progresso() {
               <Box>
                 <Swiper
                   spaceBetween={2}
-                  slidesPerView={1}
+                  slidesPerView={mdDown ? 1 : 2}
                   onSlideChange={() => console.log("slide change")}
                   onSwiper={(swiper) => console.log(swiper)}
                   pagination={{ clickable: true }}
