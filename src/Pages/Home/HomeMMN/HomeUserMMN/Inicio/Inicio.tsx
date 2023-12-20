@@ -192,7 +192,7 @@ export function Inicio() {
               <Grid item xs={12} sm={6} md={3}>
                 <Cards
                   title={"Bônus a receber"}
-                  subTitle={"Total de Bonus a ser recebido"}
+                  subTitle={"Total de Bônus a ser recebido"}
                   size={"100%"}
                 >
                   <Typography variant="h5">
@@ -205,7 +205,7 @@ export function Inicio() {
                 </Cards>
                 <Cards
                   title={"Total de níveis"}
-                  subTitle={"Total de niveis de usuários ativos "}
+                  subTitle={"Total de Níveis de usuários ativos "}
                   size={"100%"}
                 >
                   <Typography variant="h5">
@@ -218,7 +218,7 @@ export function Inicio() {
               <Grid item xs={12} sm={6} md={3}>
                 <Cards
                   title={"Total de bônus recebidos"}
-                  subTitle={"Total de Bonus recebidos"}
+                  subTitle={"Total de Bônus recebidos"}
                   size={"100%"}
                 >
                   <Typography variant="h5">

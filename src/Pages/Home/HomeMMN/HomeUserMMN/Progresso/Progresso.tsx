@@ -277,7 +277,7 @@ export function Progresso() {
           ) : (
             <Cards
               title={`${responseMetaGraduacao?.graduacao}`}
-              subTitle={"Realize vendas para subir para a proxima graduação"}
+              subTitle={"Realize vendas para subir para a próxima graduação"}
               size={"100%"}
             >
               <Box sx={{ fontSize: "8rem", color: "var(--primary-color)" }}>
@@ -285,7 +285,7 @@ export function Progresso() {
               </Box>
 
               <Typography sx={{ mb: 2 }}>
-                Meta para proxima graduação :{" "}
+                Meta para próxima graduação :{" "}
                 {responseMetaGraduacao?.pontos_graduacao} |{" "}
                 {responseMetaGraduacao?.meta_proxima_graduacao} Pontos
               </Typography>
@@ -297,8 +297,8 @@ export function Progresso() {
 
           {/* Ganhe Premios */}
           <Cards
-            title={"Ganhe Premios"}
-            subTitle={"Conquiste a meta para ganhar este premio"}
+            title={"Ganhe Prêmios"}
+            subTitle={"Conquiste a meta para ganhar este prêmio"}
             size={"100%"}
           >
             {loadingView ? (
@@ -316,10 +316,10 @@ export function Progresso() {
             ) : (
               <>
                 <Typography sx={{ mb: 2 }}>
-                  Meta para o premio :{" "}
+                  Meta para o prêmio :{" "}
                   {responseQuantidadePontosUsuario
                     ? responseQuantidadePontosUsuario?.saldo_pontos_disponivel
-                    : "Sem Premios"}{" "}
+                    : "Sem Prêmios"}{" "}
                   |{" "}
                   {responsePremioSaque?.Pontos_resgate
                     ? responsePremioSaque?.Pontos_resgate
@@ -347,7 +347,7 @@ export function Progresso() {
                   <ProgressBar progress={progressPercentage} />
                   {progressPercentage !== 100 ? (
                     <Typography sx={{ mb: 1 }} color="error">
-                      Para retirar os premios atinja 100%
+                      Para retirar os prêmios atinja 100%
                     </Typography>
                   ) : (
                     <Typography sx={{ mb: 1 }} color="darkgreen">

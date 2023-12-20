@@ -242,7 +242,7 @@ export function DefaultContainer({
                 >
                   Nivel de usuário:{" "}
                   {(user?.profileid_multinivel === 1 && "Admin") ||
-                    (user?.profileid_multinivel === 7 && "Multinivel")}
+                    (user?.profileid_multinivel === 7 && "Multinível")}
                 </Typography>
               </Box>
             </Box>

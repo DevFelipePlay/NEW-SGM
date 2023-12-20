@@ -272,7 +272,7 @@ export function CadastroDeDadosPessoaisUserMMN() {
             maxWidth: '400px',
           }}
         >
-          cadastre aqui seu modulo multinivel
+          Cadastre aqui seu modulo multinível
         </Typography>
       </Box>
       <Box
