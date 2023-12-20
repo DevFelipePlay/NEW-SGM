@@ -48,6 +48,8 @@ import useWindowSize from "../../../../../hooks/useWindowSize";
 import { currencyMask, errorToast } from "../../../../../utils";
 
 export function Progresso() {
+  const { isMobile } = useWindowSize();
+
   //@ts-ignore
   const [telaEmDesenvilvimento, setTelaEmDesenvilvimento] = useState(true);
   const [loadingView, setLoadingView] = useState(false);
@@ -74,12 +76,12 @@ export function Progresso() {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 600,
+    width: isMobile ? 300 : 600,
     borderRadius: "10px",
     boxShadow: "24",
     backgroundColor: "var(--backGround-sideBar-color)",
     color: "var(--text-color)",
-    padding: "4rem",
+    padding: isMobile ? "1rem" : "4rem",
     textAlign: "center",
     border: "none",
   };
@@ -93,18 +95,17 @@ export function Progresso() {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 600,
+    width: isMobile ? 300 : 600,
     borderRadius: "10px",
     boxShadow: "24",
     backgroundColor: "var(--backGround-sideBar-color)",
     color: "var(--text-color)",
-    padding: "4rem",
+    padding: isMobile ? "1rem" : "4rem",
     textAlign: "center",
     border: "none",
   };
 
   // breakpoints
-  const { isMobile } = useWindowSize();
   const theme = useTheme();
   const mdDown = useMediaQuery(theme.breakpoints.down("md"));
 
@@ -233,7 +234,7 @@ export function Progresso() {
   useEffect(() => {
     if (responseQuantidadePontosUsuario && responseMetaGraduacao) {
       const pontosDisponiveis = responseMetaGraduacao.pontos_graduacao || 0;
-      const pontosMetaGraduacao =
+      const pontosMetaGraduacao: any =
         responseMetaGraduacao.meta_proxima_graduacao || 0;
 
       //@ts-ignore
@@ -468,7 +469,15 @@ export function Progresso() {
           aria-describedby="modal-modal-description"
         >
           <Box sx={{ ...style, textAlign: "center" }}>
-            <Alert sx={{ mb: 2, textAlign: "center" }} severity="warning">
+            <Alert
+              sx={{
+                mb: 2,
+                textAlign: "center",
+                flexDirection: `${isMobile ? "column" : "row"}`,
+                alignItems: `${isMobile ? "center" : "start"}`,
+              }}
+              severity="warning"
+            >
               <AlertTitle>Aviso</AlertTitle>
               Ao retirar o prêmio, os pontos do mesmo serão debitados de sua
               base de pontos. clique em confirmar para prosseguir com a
@@ -494,7 +503,15 @@ export function Progresso() {
           aria-describedby="modal-modal-description"
         >
           <Box sx={{ ...styleAcumular, textAlign: "center" }}>
-            <Alert sx={{ mb: 2, textAlign: "center" }} severity="warning">
+            <Alert
+              sx={{
+                mb: 2,
+                textAlign: "center",
+                flexDirection: `${isMobile ? "column" : "row"}`,
+                alignItems: `${isMobile ? "center" : "start"}`,
+              }}
+              severity="warning"
+            >
               <AlertTitle>Aviso</AlertTitle>
               Ao acumular o prêmio, os pontos do mesmo serão mantidos. E você
               não terá mais acesso à este prêmio clique em confirmar para
