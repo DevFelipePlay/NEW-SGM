@@ -87,7 +87,10 @@ export default function Login() {
                 justifyContent: "center",
               }}
             >
-              <Typography variant="h4" sx={{ color: "#c0c0c0" }}>
+              <Typography
+                variant={smDown ? "h5" : "h4"}
+                sx={{ color: "#c0c0c0" }}
+              >
                 Login
               </Typography>
               <TextInput
