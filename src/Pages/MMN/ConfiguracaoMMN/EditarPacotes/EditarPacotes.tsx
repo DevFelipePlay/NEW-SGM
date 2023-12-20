@@ -14,6 +14,8 @@ import {
   TextField,
   Tooltip,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import { CSSProperties, useEffect, useState } from "react";
 import { HiOutlinePlusSmall } from "react-icons/hi2";
@@ -48,6 +50,11 @@ export function EditarPacotes() {
   const [selectedValue, setSelectedValue] = useState("");
   const [selectedCardIndex, setSelectedCardIndex] = useState(-1); // Novo estado para o índice do card selecionado
 
+  // breakpoints
+  const theme = useTheme();
+  const smDown = useMediaQuery(theme.breakpoints.down("sm"));
+  //
+
   // Modal exclusao de pacotes
   const [open, setOpen] = useState(false);
   const handleClose = () => setOpen(false);
@@ -64,12 +71,12 @@ export function EditarPacotes() {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 400,
+    width: `${smDown ? "300px" : "400px"}`,
     borderRadius: "10px",
     boxShadow: "24",
     backgroundColor: "var(--backGround-sideBar-color)",
     color: "var(--text-color)",
-    padding: "4rem",
+    padding: `${smDown ? "1rem" : "4rem"}`,
     textAlign: "center",
     border: "none",
   };
@@ -229,7 +236,7 @@ export function EditarPacotes() {
       >
         <FormControl>
           <FormLabel id="demo-radio-buttons-group-label">
-            Marque a ideal opção para o seu objetivo
+            Marque a opção ideal para o seu objetivo
           </FormLabel>
           <RadioGroup
             aria-labelledby="demo-radio-buttons-group-label"
@@ -237,6 +244,9 @@ export function EditarPacotes() {
             value={selectedValue}
             name="radio-buttons-group"
             onChange={(e: any) => setSelectedValue(e.target.value)}
+            sx={{
+              textAlign: "start",
+            }}
           >
             <FormControlLabel
               value="0"
@@ -284,7 +294,7 @@ export function EditarPacotes() {
               onSubmit={hendleEdit}
             >
               {responsePacotes.map((item, index) => (
-                <Grid item xs={8} key={index}>
+                <Grid item xs={12} sm={8} key={index}>
                   <Cards
                     title={item.nome}
                     subTitle={
@@ -431,7 +441,7 @@ export function EditarPacotes() {
               >
                 {responsePacotes.map((item, index) => (
                   <>
-                    <Grid item xs={8}>
+                    <Grid item xs={12} sm={8}>
                       <Cards
                         key={index}
                         title={item.nome}
@@ -523,8 +533,8 @@ export function EditarPacotes() {
               <Cards
                 key={index}
                 title={"Pacote de licenciamento"}
-                subTitle={"Cadastre os dados dos seus pacotes de costumizaveis"}
-                size={"50%"}
+                subTitle={"Cadastre os dados dos seus pacotes de customizáveis"}
+                size={`${smDown ? "100%" : "50%"}`}
               >
                 <TextField
                   variant="standard"
@@ -563,7 +573,7 @@ export function EditarPacotes() {
                   }
                   type="tel"
                   helperText={
-                    "Defina a quantidade de pontos que cada venda deste modulo irá gerar para os usuários"
+                    "Defina a quantidade de pontos que cada venda deste módulo irá gerar para os usuários"
                   }
                   sx={{ mb: 2 }}
                   required
@@ -606,9 +616,10 @@ export function EditarPacotes() {
                 width: "100%",
                 display: "flex",
                 justifyContent: "space-evenly",
+                alignItems: "center",
               }}
             >
-              <Box mt={2}>
+              <Box>
                 <Tooltip title="Adicionar um novo pacote">
                   <IconButton
                     onClick={() => handleAddCard()}

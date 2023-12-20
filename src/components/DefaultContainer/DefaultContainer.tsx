@@ -11,6 +11,8 @@ import {
   MenuItem,
   Tooltip,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import {
   CSSProperties,
@@ -149,6 +151,11 @@ export function DefaultContainer({
 
   const quantidadeTotal = quantidadeItens + quantidadePremios;
 
+  // breakpoints
+  const theme = useTheme();
+  const smDown = useMediaQuery(theme.breakpoints.down("sm"));
+  //
+
   return (
     <Grid>
       <Box
@@ -175,7 +182,7 @@ export function DefaultContainer({
           <Typography
             sx={{
               color: "var(--text-color)",
-              fontSize: "1.3rem",
+              fontSize: `${smDown ? "1.125rem" : "1.3rem"}`,
             }}
           >
             {page}
@@ -249,7 +256,10 @@ export function DefaultContainer({
           )}
         </Box>
         <Box sx={{ mt: 5 }}>
-          <Typography sx={{ color: "var(--text-color)" }} variant="h3">
+          <Typography
+            sx={{ color: "var(--text-color)" }}
+            variant={smDown ? "h4" : "h3"}
+          >
             {title}
           </Typography>
           <Typography

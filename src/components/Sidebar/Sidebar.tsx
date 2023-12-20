@@ -220,9 +220,9 @@ export function Sidebar(): JSX.Element {
 
         {
           render: user?.profileid === 7 ? true : false,
-          label: 'Solicitações',
+          label: "Solicitações",
           icon: <FaMoneyBillTransfer />,
-          to: '/historico-de-solicitacoes-usuario',
+          to: "/historico-de-solicitacoes-usuario",
         },
         {
           render: user?.super ? true : false,
