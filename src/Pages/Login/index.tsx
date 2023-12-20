@@ -189,85 +189,26 @@ export default function Login() {
               boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
             }}
           >
-            <Stack
-              spacing={2}
-              sx={{
-                backdropFilter: "blur(10px)",
-                zIndex: "100",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Typography variant="h4" sx={{ color: "#c0c0c0" }}>
-                Login
-              </Typography>
-              <TextInput
-                icon={undefined}
-                placeholder={"CNPJ/CPF"}
-                type={"tel"}
-                value={formatCpf(cpf)}
-                onChange={handleCpfChange}
-              />
-              <TextInputPassword
-                icon
-                placeholder={"Senha"}
-                value={senha}
-                onChange={(e: any) => setSenha(e.target.value)}
-              />
-              <LoadingButton
-                onClick={(e) => {
-                  e.preventDefault();
-                  signIn(cpf, senha);
-                }}
-                size="small"
-                loading={loadingAuth}
-                variant="contained"
-                type="submit"
-              >
-                Entrar
-              </LoadingButton>
-            </Stack>
-          </Box>
-          <Box
+            <Typography variant='h2' color={'white'}>
+              Seja bem-vindo
+            </Typography>
+            <Typography variant='h2' color={'white'}>
+              ao
+            </Typography>
+            <Typography variant='h2' color={'var(--primary-color)'} fontWeight={'900'}>
+              Multinível Opuscell
+            </Typography>
+          </Stack>
+          <Typography
             sx={{
-              width: "60%",
-              height: "100vh",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              mx: 3,
+              position: 'fixed',
+              bottom: 5,
+              textAlign: 'center',
+              color: 'var(--sub-text-color)',
             }}
           >
-            <Stack
-              sx={{
-                backdropFilter: "blur(10px)",
-                dislay: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                p: 2,
-                borderRadius: "30px",
-                border: "solid 1px var(--primary-color)",
-                textAlign: "center",
-              }}
-            >
-              <Typography variant="h2" color={"white"}>
-                Seja bem-vindo
-              </Typography>
-              <Typography variant="h2" color={"white"}>
-                ao
-              </Typography>
-              <Typography
-                variant="h2"
-                color={"var(--primary-color)"}
-                fontWeight={"900"}
-              >
-                Multinível Opuscell
-              </Typography>
-            </Stack>
-          </Box>
+            Copyright © 2023 Play Tecnologia - 33.093.462.0001/50 | Todos os direitos reservados
+          </Typography>
         </Box>
       )}
     </Box>

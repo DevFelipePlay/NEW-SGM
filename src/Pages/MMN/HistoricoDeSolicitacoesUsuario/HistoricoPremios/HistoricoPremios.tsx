@@ -2,21 +2,18 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { Box, Pagination, PaginationItem, Stack, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
-
 import {
-  IReqPostPlayListaSolicitacaoSaqueConcluido,
-  postPlayListaSolicitacaoSaqueConcluido,
-} from '../../../../api/ApisSaqueMMN/ListaSolicitacaoSaqueConcluido';
-import { IResPostPlayListaSolicitacaoSaqueConcluido } from '../../../../api/ApisSaqueMMN/ListaSolicitacaoSaqueConcluido/IResPostPlayListaSolicitacoes';
-import { ListHistoricoSolicitacoesSaqueParceiro, Loading } from '../../../../components';
+  IReqPostPlaySolicitacoesPremiosUsuario,
+  IResPostPlaySolicitacoesPremiosUsuario,
+  postPlaySolicitacaoPremiosUsuario,
+} from '../../../../api';
+import { ListHistoricoSolicitacoesPremios, Loading } from '../../../../components';
 import useUser from '../../../../hooks/useUser';
-import { currencyMask, dateFormatter } from '../../../../utils';
+import { errorToast } from '../../../../utils';
 
-export function Historico() {
+export function HistoricoPremios() {
   const [loading, setLoading] = useState(false);
-  const [responseList, setResponseList] = useState<IResPostPlayListaSolicitacaoSaqueConcluido[]>(
-    []
-  );
+  const [responseList, setResponseList] = useState<IResPostPlaySolicitacoesPremiosUsuario[]>([]);
   const { user } = useUser();
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
@@ -24,14 +21,14 @@ export function Historico() {
   async function handleListRedeDeUsuarioMMN() {
     setLoading(true);
 
-    const payload: IReqPostPlayListaSolicitacaoSaqueConcluido = {
-      token: user?.token || '',
+    const payload: IReqPostPlaySolicitacoesPremiosUsuario = {
+      cpf: user?.cpf || '',
     };
     try {
-      const data = await postPlayListaSolicitacaoSaqueConcluido(payload);
+      const data = await postPlaySolicitacaoPremiosUsuario(payload);
       setResponseList(data);
     } catch (error: any) {
-      console.log(error);
+      errorToast(error);
     } finally {
       setLoading(false);
     }
@@ -50,12 +47,15 @@ export function Historico() {
 
     return paginatedItems.map((item, index) => (
       <Box sx={{ width: '100%' }} key={index}>
-        <ListHistoricoSolicitacoesSaqueParceiro
-          nome={item.Nome}
-          statusPagamento={item.status_pagamento}
+        <ListHistoricoSolicitacoesPremios
+          nome={user ? user.name : ''}
+          dataPagamento={item.data_solicitacao}
+          endereco={item.endereco}
           id={item.ID}
-          valorPago={currencyMask(item.Valor_Pago)}
-          dataPagamento={dateFormatter(item.Data_Pagamento)}
+          logotipo={item.foto}
+          nomePremio={item.nome_premio}
+          cod={item.codigo_rastreio}
+          statusSolicitacao={item.status_pagamento}
         />
       </Box>
     ));
@@ -68,7 +68,7 @@ export function Historico() {
 
   return (
     <>
-      {responseList.length === 0 ? (
+      {!loading && responseList.length === 0 ? (
         <>
           <Box
             sx={{
@@ -79,7 +79,7 @@ export function Historico() {
               alignItems: 'center',
             }}
           >
-            <Typography variant='h4'>Histórico de solicitações de saque</Typography>
+            <Typography variant='h4'>Histórico de solicitações de Prêmios</Typography>
           </Box>
           <Typography variant='h4' sx={{ mt: 10 }}>
             Nenhuma solicitação realizada!
@@ -119,7 +119,7 @@ export function Historico() {
                   alignItems: 'center',
                 }}
               >
-                <Typography variant='h4'>Histórico de solicitações de saque</Typography>
+                <Typography variant='h4'>Histórico de solicitações de Prêmios</Typography>
               </Box>
               {renderPaginatedList()}
 

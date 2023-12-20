@@ -45,7 +45,7 @@ import dinheiro from "../../../../../assets/MMNImg/din.png";
 import { Cards, Loading, ProgressBar } from "../../../../../components";
 import useUser from "../../../../../hooks/useUser";
 import useWindowSize from "../../../../../hooks/useWindowSize";
-import { currencyMask, errorToast } from "../../../../../utils";
+import { errorToast } from "../../../../../utils";
 
 export function Progresso() {
   const { isMobile } = useWindowSize();
@@ -443,13 +443,6 @@ export function Progresso() {
                         )}
                         <Typography sx={{ color: "var(--primary-color)" }}>
                           {item.descricao}
-                        </Typography>
-                        <Typography>Valor estimado:</Typography>
-                        <Typography
-                          sx={{ color: "var(--primary-color)" }}
-                          variant="h4"
-                        >
-                          R$ {currencyMask(item.valor_premio)}
                         </Typography>
                         <Typography variant="h5" sx={{ mt: 2 }}>
                           Meta: {item.pontos_resgate} Pontos

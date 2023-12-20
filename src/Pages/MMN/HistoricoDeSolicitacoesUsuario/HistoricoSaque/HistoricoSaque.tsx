@@ -4,19 +4,17 @@ import { Box, Pagination, PaginationItem, Stack, Typography } from '@mui/materia
 import { useEffect, useState } from 'react';
 
 import {
-  IReqPostPlayListaSolicitacaoSaqueConcluido,
-  postPlayListaSolicitacaoSaqueConcluido,
-} from '../../../../api/ApisSaqueMMN/ListaSolicitacaoSaqueConcluido';
-import { IResPostPlayListaSolicitacaoSaqueConcluido } from '../../../../api/ApisSaqueMMN/ListaSolicitacaoSaqueConcluido/IResPostPlayListaSolicitacoes';
+  IReqPostPlaySolicitacoesSaqueUsuario,
+  IResPostPlaySolicitacoesSaqueUsuario,
+  postPlaySolicitacaoSaqueUsuario,
+} from '../../../../api';
 import { ListHistoricoSolicitacoesSaqueParceiro, Loading } from '../../../../components';
 import useUser from '../../../../hooks/useUser';
-import { currencyMask, dateFormatter } from '../../../../utils';
+import { currencyMask, dateFormatter, errorToast } from '../../../../utils';
 
-export function Historico() {
+export function HistoricoSaque() {
   const [loading, setLoading] = useState(false);
-  const [responseList, setResponseList] = useState<IResPostPlayListaSolicitacaoSaqueConcluido[]>(
-    []
-  );
+  const [responseList, setResponseList] = useState<IResPostPlaySolicitacoesSaqueUsuario[]>([]);
   const { user } = useUser();
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
@@ -24,14 +22,14 @@ export function Historico() {
   async function handleListRedeDeUsuarioMMN() {
     setLoading(true);
 
-    const payload: IReqPostPlayListaSolicitacaoSaqueConcluido = {
-      token: user?.token || '',
+    const payload: IReqPostPlaySolicitacoesSaqueUsuario = {
+      cpf: user?.cpf || '',
     };
     try {
-      const data = await postPlayListaSolicitacaoSaqueConcluido(payload);
+      const data = await postPlaySolicitacaoSaqueUsuario(payload);
       setResponseList(data);
     } catch (error: any) {
-      console.log(error);
+      errorToast(error);
     } finally {
       setLoading(false);
     }
@@ -51,11 +49,11 @@ export function Historico() {
     return paginatedItems.map((item, index) => (
       <Box sx={{ width: '100%' }} key={index}>
         <ListHistoricoSolicitacoesSaqueParceiro
-          nome={item.Nome}
+          nome={user ? user?.name : ''}
           statusPagamento={item.status_pagamento}
           id={item.ID}
-          valorPago={currencyMask(item.Valor_Pago)}
-          dataPagamento={dateFormatter(item.Data_Pagamento)}
+          valorPago={currencyMask(item.valor_solicitado)}
+          dataPagamento={dateFormatter(item.data_solicitacao)}
         />
       </Box>
     ));

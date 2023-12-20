@@ -6,9 +6,9 @@ export function SolicitacoesPremios() {
   const [tabValue, setTabValue] = useState(0);
   return (
     <DefaultContainer
-      page={'Aprovar Saque'}
-      title={'Solicitações de Saque'}
-      subTitle={'Aprovar solicitações de saque'}
+      page={'Aprovar Solicitações de Prêmios'}
+      title={'Solicitações de Prêmios'}
+      subTitle={'Aprovar solicitações de Prêmios'}
       showSearch={false}
       showAvatar={true}
     >

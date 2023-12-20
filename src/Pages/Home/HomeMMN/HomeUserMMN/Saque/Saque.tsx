@@ -149,8 +149,10 @@ export function Saque() {
       };
       await postPlaySolicitacaoSaque(postData);
       toast.success("Solicitação de saque realizada!");
+      handleDataSaque();
     } catch (error: any) {
       errorToast(error);
+      handleDataSaque();
     } finally {
       setLoadingSubmitSaque(false);
       handleCloseSaque();

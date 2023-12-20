@@ -51,7 +51,7 @@ export function ListaAprovaocao() {
 
       await postPlayConfirmacaoSolicitacaoSaque(payload);
       toast.success('Solicitação Respondida com sucesso');
-      window.location.reload();
+      handleViewListaDeSolicitacoes();
     } catch (error: any) {
       errorToast(error);
     } finally {

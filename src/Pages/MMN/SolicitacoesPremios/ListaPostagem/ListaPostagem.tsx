@@ -9,6 +9,7 @@ import {
   postPLayConfirmacaoSolicitacaoSaquePremio,
   postPlayListaSolicitacaoSaquePremio,
 } from '../../../../api';
+import foto from '../../../../assets/MMNImg/din.png';
 import { Cards, Loading } from '../../../../components';
 import { useForm } from '../../../../hooks';
 import useUser from '../../../../hooks/useUser';
@@ -51,12 +52,13 @@ export function ListaPostagem() {
         id: responseView[index].ID_Solicitacao,
         status_pagamento: 1,
         token: user?.token || '',
-        coodigo_rastreio: formData.codigo_ratreio || '',
+        codigo_rastreio: formData.codigo_ratreio || '',
       };
 
       await postPLayConfirmacaoSolicitacaoSaquePremio(payload);
       toast.success('Solicitação Respondida com sucesso');
       handleViewListaDeSolicitacoes();
+      window.location.reload();
     } catch (error: any) {
       errorToast(error);
     } finally {
@@ -114,15 +116,26 @@ export function ListaPostagem() {
                       </ListItemText>
                       <ListItemText sx={{ userSelect: 'none' }}>Endereço para envio:</ListItemText>
                       <ListItemText sx={{ userSelect: 'none' }}>{item.endereco}</ListItemText>
-                      <img
-                        src={`data:image/png;base64,${item.foto}`}
-                        style={{
-                          width: '200px ',
-                          marginTop: '2rem ',
-                          borderRadius: '10px',
-                          boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
-                        }}
-                      />
+                      {item.foto ? (
+                        <img
+                          src={`data:image/png;base64,${item.foto}`}
+                          style={{
+                            width: '200px ',
+                            marginTop: '2rem ',
+                            borderRadius: '10px',
+                            boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+                          }}
+                        />
+                      ) : (
+                        <img
+                          src={foto}
+                          style={{
+                            width: '100px ',
+                            marginTop: '2rem ',
+                            borderRadius: '10px',
+                          }}
+                        />
+                      )}
                       <TextField
                         variant='standard'
                         label='Codigo de Rastreio'
