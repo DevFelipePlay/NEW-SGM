@@ -313,7 +313,7 @@ export function Inicio() {
                         sx={{ mt: 2 }}
                         onClick={() => navigate('/adquirir-licenciamento-mmn')}
                       >
-                        Adquirir Lincenciamento
+                        Adquirir Licenciamento
                       </Button>
                     )}
                   </Box>
