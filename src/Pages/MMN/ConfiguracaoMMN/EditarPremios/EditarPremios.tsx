@@ -22,6 +22,7 @@ import {
   IResPostPlayVisualizaPremios,
   postPlayCadastroPremiacaoMMN,
   postPlayDeletarPremiacao,
+  postPlayEditarImagemPremio,
   postPlayVisualizaPremios,
 } from '../../../../api';
 import { postPlayEditaPremios } from '../../../../api/ApisEditarModulo/EditarPremiacao';
@@ -43,6 +44,57 @@ export function EditarPremios() {
   }>({});
   const { user } = useUser();
 
+  const [premiosEditImg, setPremiosEditImg] = useState<{
+    [key: string]: { blob: Blob | null; url: string; idpremio: string };
+  }>({});
+  const handleDeletePhotoEdit = (index: number) => {
+    setPremiosEditImg((prevImgs) => {
+      const updatedImgs = { ...prevImgs };
+      delete updatedImgs[index.toString()];
+      return updatedImgs;
+    });
+  };
+  async function handleSubmitFoto(index: number, idpremio: string) {
+    const dadosFotos = new FormData();
+
+    const premioEditImg = premiosEditImg[index.toString()];
+    if (premioEditImg) {
+      dadosFotos.append('foto', premioEditImg.blob || '');
+      // dadosFotos.append('token', user?.token || '');
+      dadosFotos.append('idpremio', idpremio);
+    }
+
+    try {
+      //@ts-ignore
+      await postPlayEditarImagemPremio(dadosFotos);
+      clearForm();
+      handleDeletePhoto();
+      setPremiosEditImg((prevImgs) => ({
+        ...prevImgs,
+        [index.toString()]: {
+          blob: null,
+          url: '',
+          idpremio: idpremio,
+        },
+      }));
+      handleView();
+    } catch (error: any) {
+      errorToast(error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const handleDropzoneChange = (files: any, index: number, idpremio: string) => {
+    setPremiosEditImg((prevImgs) => ({
+      ...prevImgs,
+      [index.toString()]: {
+        blob: files[0],
+        url: URL.createObjectURL(files[0]),
+        idpremio: idpremio,
+      },
+    }));
+  };
   async function handleView() {
     setLoadingView(true);
 
@@ -59,33 +111,28 @@ export function EditarPremios() {
     }
   }
 
-  async function handleEdit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+  async function handleEdit(index: number) {
     setLoadingEdit(true);
 
     try {
-      const editedData = responseView.map((item, index) => {
-        const editedItem = editedValues[index];
+      const editedItem = editedValues[index];
+      const item = responseView[index];
 
-        return {
-          id: editedItem?.id || item.id || '',
-          nome_premio: editedItem?.nome_premio || item.nome_premio || '',
-          descricao: editedItem?.descricao || item.descricao || '',
-          foto: editedItem?.foto || item.foto || '',
-          quantidade: editedItem?.quantidade || item.quantidade || '',
-          tempo_expiracao: editedItem?.tempo_expiracao || item.tempo_expiracao || '',
-          valor_din: editedItem?.valor_din || item.valor_din || '',
-          valor_premio: editedItem?.valor_premio || item.valor_premio || '',
-          pontos_resgate: editedItem?.pontos_resgate || item.pontos_resgate || '',
-        };
-      });
       const postData = {
-        ...editedData,
+        idpremio: editedItem?.id || item.id || '',
+        nome_premio: editedItem?.nome_premio || item.nome_premio || '',
+        descricao: editedItem?.descricao || item.descricao || '',
+        tempo_expiracao: editedItem?.tempo_expiracao || item.tempo_expiracao || '',
+        valor_din: editedItem?.valor_din || item.valor_din || '',
+        valor_premio: editedItem?.valor_premio || item.valor_premio || '',
+        pontos_resgate: editedItem?.pontos_resgate || item.pontos_resgate || '',
         cpf: user?.cpf || '',
       };
+
       //@ts-ignore
       await postPlayEditaPremios(postData);
       toast.success('Graduações Editados!');
+      handleView();
     } catch (error: any) {
       errorToast(error);
     } finally {
@@ -246,91 +293,141 @@ export function EditarPremios() {
             ) : (
               <>
                 {responseView.map((item, index) => (
-                  <Cards
-                    title={`${item.nome_premio}`}
-                    subTitle={'Premios'}
-                    size={'50%'}
-                    key={index}
-                  >
-                    <TextField
-                      variant='standard'
-                      sx={{ mb: 2 }}
-                      value={
-                        editedValues[index]?.nome_premio !== undefined
-                          ? editedValues[index]?.nome_premio
-                          : item?.nome_premio
-                      }
-                      fullWidth
-                      onChange={(e) => handleEditChange(index, 'nome_premio', e.target.value)}
-                      label={'Nome do Premio'}
-                    />
-                    <TextField
-                      variant='standard'
-                      sx={{ mb: 2 }}
-                      value={
-                        editedValues[index]?.descricao !== undefined
-                          ? editedValues[index]?.descricao
-                          : item?.descricao
-                      }
-                      fullWidth
-                      onChange={(e) => handleEditChange(index, 'descricao', e.target.value)}
-                      label={'descrição'}
-                    />
+                  <>
+                    <Cards
+                      title={`${item.nome_premio}`}
+                      subTitle={'Premios'}
+                      size={'50%'}
+                      key={index}
+                    >
+                      <TextField
+                        variant='standard'
+                        sx={{ mb: 2 }}
+                        value={
+                          editedValues[index]?.nome_premio !== undefined
+                            ? editedValues[index]?.nome_premio
+                            : item?.nome_premio
+                        }
+                        fullWidth
+                        onChange={(e) => handleEditChange(index, 'nome_premio', e.target.value)}
+                        label={'Nome do Premio'}
+                      />
+                      <TextField
+                        variant='standard'
+                        sx={{ mb: 2 }}
+                        value={
+                          editedValues[index]?.descricao !== undefined
+                            ? editedValues[index]?.descricao
+                            : item?.descricao
+                        }
+                        fullWidth
+                        onChange={(e) => handleEditChange(index, 'descricao', e.target.value)}
+                        label={'descrição'}
+                      />
 
-                    <TextField
-                      variant='standard'
-                      value={
-                        editedValues[index]?.pontos_resgate !== undefined
-                          ? editedValues[index]?.pontos_resgate
-                          : item?.pontos_resgate
-                      }
-                      fullWidth
-                      onChange={(e) => handleEditChange(index, 'pontos_resgate', e.target.value)}
-                      label={'Quantidade de pontos para resgate'}
-                    />
-                    <TextField
-                      variant='standard'
-                      sx={{ mb: 2 }}
-                      value={
-                        editedValues[index]?.valor_din !== undefined
-                          ? editedValues[index]?.valor_din
-                          : item?.valor_din
-                      }
-                      fullWidth
-                      onChange={(e) =>
-                        handleEditChange(index, 'valor_din', currencyMask(e.target.value))
-                      }
-                      label={'Valor em dinheiro'}
-                      InputProps={{
-                        startAdornment: <InputAdornment position='start'>R$</InputAdornment>,
-                      }}
-                    />
-                    <TextField
-                      variant='standard'
-                      sx={{ mb: 2 }}
-                      value={
-                        editedValues[index]?.valor_premio !== undefined
-                          ? editedValues[index]?.valor_premio
-                          : item?.valor_premio
-                      }
-                      fullWidth
-                      onChange={(e) =>
-                        handleEditChange(index, 'valor_premio', currencyMask(e.target.value))
-                      }
-                      label={'Valor estimado do premio'}
-                      InputProps={{
-                        startAdornment: <InputAdornment position='start'>R$</InputAdornment>,
-                      }}
-                    />
-                  </Cards>
+                      <TextField
+                        variant='standard'
+                        value={
+                          editedValues[index]?.pontos_resgate !== undefined
+                            ? editedValues[index]?.pontos_resgate
+                            : item?.pontos_resgate
+                        }
+                        fullWidth
+                        onChange={(e) => handleEditChange(index, 'pontos_resgate', e.target.value)}
+                        label={'Quantidade de pontos para resgate'}
+                      />
+                      <TextField
+                        variant='standard'
+                        sx={{ mb: 2 }}
+                        value={
+                          editedValues[index]?.valor_din !== undefined
+                            ? editedValues[index]?.valor_din
+                            : currencyMask(item.valor_din ? item?.valor_din : '')
+                        }
+                        fullWidth
+                        onChange={(e) =>
+                          handleEditChange(index, 'valor_din', currencyMask(e.target.value))
+                        }
+                        label={'Valor em dinheiro'}
+                        InputProps={{
+                          startAdornment: <InputAdornment position='start'>R$</InputAdornment>,
+                        }}
+                      />
+                      <TextField
+                        variant='standard'
+                        sx={{ mb: 2 }}
+                        value={
+                          editedValues[index]?.valor_premio !== undefined
+                            ? editedValues[index]?.valor_premio
+                            : currencyMask(item.valor_premio ? item?.valor_premio : '')
+                        }
+                        fullWidth
+                        onChange={(e) =>
+                          handleEditChange(index, 'valor_premio', currencyMask(e.target.value))
+                        }
+                        label={'Valor estimado do premio'}
+                        InputProps={{
+                          startAdornment: <InputAdornment position='start'>R$</InputAdornment>,
+                        }}
+                      />
+                      {item.foto && (
+                        <>
+                          <Typography sx={{ marginTop: '2rem', mb: 1 }}>Foto atual:</Typography>
+                          <img
+                            src={`data:image/png;base64,${item.foto}`}
+                            style={{
+                              width: '200px',
+                              borderRadius: '10px',
+                              boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+                              marginBottom: '2rem',
+                            }}
+                          />
+                        </>
+                      )}
+
+                      <>
+                        {premiosEditImg[index.toString()] && (
+                          <>
+                            <Typography sx={{ marginTop: '2rem', mb: 1 }}>Nova Foto:</Typography>
+                            <img
+                              src={premiosEditImg[index.toString()].url}
+                              style={{
+                                width: '200px',
+                                borderRadius: '10px',
+                                boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+                              }}
+                            />
+                            <IconButton onClick={() => handleDeletePhotoEdit(index)} size='small'>
+                              <DeleteIcon color='error' />
+                            </IconButton>
+                            <IconButton
+                              onClick={() => handleSubmitFoto(index, item.id.toString())}
+                              size='small'
+                            ></IconButton>
+                          </>
+                        )}
+                        <Typography>
+                          Adicione uma nova foto do item no campo abaixo para edita-las
+                        </Typography>
+                        <Dropzone
+                          accept={{ 'image/*': ['.png', '.jpeg', '.jpg'] }}
+                          onDrop={(files) => handleDropzoneChange(files, index, item.id.toString())}
+                        />
+                      </>
+                      <LoadingButton
+                        variant='contained'
+                        onClick={() => {
+                          handleSubmitFoto(index, item.id.toString());
+                          handleEdit(index);
+                        }}
+                        sx={{ mt: 2 }}
+                        loading={loadingEdit}
+                      >
+                        Editar
+                      </LoadingButton>
+                    </Cards>
+                  </>
                 ))}
-                <LoadingButton
-                  variant='contained'
-                  onClick={(e: any) => handleEdit(e)}
-                  loading={loadingEdit}
-                >
-                  Confirmar edição
-                </LoadingButton>
               </>
             )}
           </Cards>
