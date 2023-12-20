@@ -1,27 +1,34 @@
-import LoadingButton from '@mui/lab/LoadingButton';
-import { Box, InputAdornment, MenuItem, Select, TextField } from '@mui/material';
-import { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
+import LoadingButton from "@mui/lab/LoadingButton";
+import {
+  Box,
+  InputAdornment,
+  MenuItem,
+  Select,
+  TextField,
+} from "@mui/material";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import {
   IReqPostPlayEditarTaxas,
   IResPostPlayVisualizaTaxas,
   postPlayEditarTaxas,
   postPlayVisualizaTaxas,
-} from '../../../../api';
-import { Cards, Loading } from '../../../../components';
-import useUser from '../../../../hooks/useUser';
-import { currencyMask, currencyUnMask, errorToast } from '../../../../utils';
+} from "../../../../api";
+import { Cards, Loading } from "../../../../components";
+import useUser from "../../../../hooks/useUser";
+import { currencyMask, currencyUnMask, errorToast } from "../../../../utils";
 
 export function EditarTaxasESaque() {
   const [loadingView, setLoadingView] = useState(false);
   const [loadingEdit, setLoadingEdit] = useState(false);
-  const [responseView, setResponseView] = useState<IResPostPlayVisualizaTaxas>();
+  const [responseView, setResponseView] =
+    useState<IResPostPlayVisualizaTaxas>();
   const { user } = useUser();
   const [editedValues, setEditedValues] = useState<IReqPostPlayEditarTaxas>({
-    bonus_carreira: '',
-    cpf: '',
-    limite_minimo_saque: '',
-    taxa_saque: '',
+    bonus_carreira: "",
+    cpf: "",
+    limite_minimo_saque: "",
+    taxa_saque: "",
   });
 
   const handleEditChange = (key: any, value: any) => {
@@ -34,14 +41,15 @@ export function EditarTaxasESaque() {
 
     try {
       let payload = {
-        taxa_saque: editedValues?.taxa_saque.toString() || '',
-        limite_minimo_saque: currencyUnMask(editedValues?.limite_minimo_saque).toString() || '',
-        bonus_carreira: editedValues?.bonus_carreira.toString() || '',
-        cpf: user?.cpf || '',
+        taxa_saque: editedValues?.taxa_saque.toString() || "",
+        limite_minimo_saque:
+          currencyUnMask(editedValues?.limite_minimo_saque).toString() || "",
+        bonus_carreira: editedValues?.bonus_carreira.toString() || "",
+        cpf: user?.cpf || "",
       };
 
       await postPlayEditarTaxas(payload);
-      toast.success('Taxas Editadas!');
+      toast.success("Taxas Editadas!");
     } catch (error: any) {
       errorToast(error);
     } finally {
@@ -53,14 +61,17 @@ export function EditarTaxasESaque() {
     setLoadingView(true);
 
     let payload = {
-      cpf: user?.cpf || '',
+      cpf: user?.cpf || "",
     };
     try {
       const data = await postPlayVisualizaTaxas(payload);
       setResponseView(data);
-      handleEditChange('limite_minimo_saque', responseView?.limite_minimo_saque);
-      handleEditChange('taxa_saque', responseView?.taxa_saque);
-      handleEditChange('bonus_carreira', responseView?.bonus_carreira);
+      handleEditChange(
+        "limite_minimo_saque",
+        responseView?.limite_minimo_saque
+      );
+      handleEditChange("taxa_saque", responseView?.taxa_saque);
+      handleEditChange("bonus_carreira", responseView?.bonus_carreira);
     } catch (error: any) {
       errorToast(error);
     } finally {
@@ -70,9 +81,12 @@ export function EditarTaxasESaque() {
   }
   useEffect(() => {
     if (responseView) {
-      handleEditChange('limite_minimo_saque', responseView?.limite_minimo_saque);
-      handleEditChange('taxa_saque', responseView?.taxa_saque);
-      handleEditChange('bonus_carreira', responseView?.bonus_carreira);
+      handleEditChange(
+        "limite_minimo_saque",
+        responseView?.limite_minimo_saque
+      );
+      handleEditChange("taxa_saque", responseView?.taxa_saque);
+      handleEditChange("bonus_carreira", responseView?.bonus_carreira);
     }
   }, [responseView]);
   useEffect(() => {
@@ -84,11 +98,11 @@ export function EditarTaxasESaque() {
       {loadingView ? (
         <Box
           sx={{
-            width: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: '50vh',
+            width: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            height: "50vh",
           }}
         >
           <Loading />
@@ -96,41 +110,57 @@ export function EditarTaxasESaque() {
       ) : (
         <>
           <Cards
-            title={'Configure as Taxas e Saques'}
-            subTitle={'Edite os valores usados para taxas e saques'}
-            size={'100%'}
+            title={"Configure as Taxas e Saques"}
+            subTitle={"Edite os valores usados para taxas e saques"}
+            size={"100%"}
           >
             <Box
               sx={{
-                width: '100%',
-                alignItems: 'center',
-                justifyContent: 'center',
-                display: 'flex',
+                width: "100%",
+                alignItems: "center",
+                justifyContent: "center",
+                display: "flex",
               }}
-              component={'form'}
+              component={"form"}
               onSubmit={handleEdit}
             >
               <Box
                 sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  flexDirection: 'column',
+                  display: "flex",
+                  alignItems: {
+                    xs: "start",
+                    sm: "center",
+                  },
+                  justifyContent: "center",
+                  flexDirection: "column",
+                  textAlign: {
+                    xs: "start",
+                    sm: "center",
+                  },
                 }}
               >
-                <span style={{ fontSize: '12px', color: '#6F6F6F' }}>Taxa de saque</span>
+                <span
+                  style={{
+                    fontSize: "12px",
+                    color: "#6F6F6F",
+                  }}
+                >
+                  Taxa de saque
+                </span>
                 <Select
-                  label='Porcentagem'
-                  id='porcentagem'
+                  label="Porcentagem"
+                  id="porcentagem"
                   value={
                     editedValues?.taxa_saque !== undefined
                       ? editedValues?.taxa_saque.toString()
                       : responseView?.taxa_saque.toString()
                   }
-                  onChange={(e) => handleEditChange('taxa_saque', e.target.value)}
-                  variant='standard'
+                  onChange={(e) =>
+                    handleEditChange("taxa_saque", e.target.value)
+                  }
+                  variant="standard"
                   fullWidth
-                  defaultValue='0'
+                  defaultValue="0"
                   sx={{ mb: 2 }}
                 >
                   {[...Array(101).keys()].map((value) => (
@@ -141,45 +171,61 @@ export function EditarTaxasESaque() {
                 </Select>
 
                 <TextField
-                  type='tel'
-                  label='Limite minimo para saque'
-                  placeholder='0,00'
+                  type="tel"
+                  label="Limite mínimo para saque"
+                  placeholder="0,00"
                   value={
                     editedValues?.limite_minimo_saque !== undefined
                       ? editedValues?.limite_minimo_saque
                       : responseView?.limite_minimo_saque
                   }
                   onChange={(e) =>
-                    handleEditChange('limite_minimo_saque', currencyMask(e.target.value))
+                    handleEditChange(
+                      "limite_minimo_saque",
+                      currencyMask(e.target.value)
+                    )
                   }
-                  variant='standard'
+                  variant="standard"
                   fullWidth
                   required
                   sx={{ mb: 2 }}
                   InputProps={{
-                    startAdornment: <InputAdornment position='start'>R$</InputAdornment>,
+                    startAdornment: (
+                      <InputAdornment position="start">R$</InputAdornment>
+                    ),
                   }}
                 />
                 <TextField
-                  type='tel'
-                  label='Referencial bonus de carreira'
-                  placeholder='0,00'
+                  type="tel"
+                  label="Referencial bônus de carreira"
+                  placeholder="0,00"
                   value={
                     editedValues?.bonus_carreira !== undefined
                       ? editedValues?.bonus_carreira
                       : responseView?.bonus_carreira
                   }
-                  onChange={(e) => handleEditChange('bonus_carreira', currencyMask(e.target.value))}
-                  variant='standard'
+                  onChange={(e) =>
+                    handleEditChange(
+                      "bonus_carreira",
+                      currencyMask(e.target.value)
+                    )
+                  }
+                  variant="standard"
                   fullWidth
                   required
                   sx={{ mb: 2 }}
                   InputProps={{
-                    startAdornment: <InputAdornment position='start'>R$</InputAdornment>,
+                    startAdornment: (
+                      <InputAdornment position="start">R$</InputAdornment>
+                    ),
                   }}
                 />
 
-                <LoadingButton type='submit' variant='contained' loading={loadingEdit}>
+                <LoadingButton
+                  type="submit"
+                  variant="contained"
+                  loading={loadingEdit}
+                >
                   Confirmar Edição
                 </LoadingButton>
               </Box>
