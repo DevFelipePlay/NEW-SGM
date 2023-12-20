@@ -31,9 +31,13 @@ import { IResPostPlaySaqueUsuario } from "../../../../../api/ApisUtils/SaqueUsua
 import { Cards, CustomTextField, Loading } from "../../../../../components";
 import { useForm } from "../../../../../hooks";
 import useUser from "../../../../../hooks/useUser";
+import useWindowSize from "../../../../../hooks/useWindowSize";
 import { currencyMask, currencyUnMask, errorToast } from "../../../../../utils";
 
 export function Saque() {
+  // breakpoints
+  const { isMobile } = useWindowSize();
+  /////
   const [loading, setLoading] = useState(false);
   const [loadingSubmit, setLoadingSubmit] = useState(false);
   const [loadingSubmitSaque, setLoadingSubmitSaque] = useState(false);
@@ -90,11 +94,11 @@ export function Saque() {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: "50%",
+    width: `${isMobile ? "80%" : "50%"}`,
     borderRadius: "10px",
     boxShadow: "24",
     backgroundColor: "white",
-    padding: "4rem",
+    padding: `${isMobile ? "0rem" : "4rem"}`,
     textAlign: "center",
     border: "none",
   };
