@@ -11,7 +11,7 @@ export default function HomeAdminMMN() {
     <DefaultContainer
       page={"Multinível"}
       title={"Bem-vindo"}
-      subTitle={"Ficamos felizes tem te-lo de volta"}
+      subTitle={"Ficamos felizes tem te-lô de volta"}
       showSearch={false}
       showAvatar={true}
     >
