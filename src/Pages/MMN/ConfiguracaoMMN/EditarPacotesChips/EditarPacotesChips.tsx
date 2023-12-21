@@ -573,7 +573,7 @@ export function EditarPacotesChips() {
                   }
                   type="tel"
                   helperText={
-                    "Defina a quantidade de pontos que cada venda deste modulo irá gerar para os usuários"
+                    "Defina a quantidade de pontos que cada venda deste módulo irá gerar para os usuários"
                   }
                   sx={{ mb: 2 }}
                   required

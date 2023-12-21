@@ -206,7 +206,7 @@ export function AdquiraSeusChips() {
           >
             Sua solicitação de compra foi realizada, clique no link e pague sua
             fatura ou visualize a fatura pelo seu aplicativo ou na aba de
-            faturas do seu modulo:
+            faturas do seu módulo:
           </Typography>
           <Box sx={{ backgroundColor: "white", p: 1, borderRadius: "10px" }}>
             <a

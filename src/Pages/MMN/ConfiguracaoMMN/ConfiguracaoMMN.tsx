@@ -36,7 +36,7 @@ export function ConfiguracaoMMN() {
           { label: "Graduações", value: 3 },
           { label: "Pontos", value: 4 },
           { label: "Taxas e saque", value: 5 },
-          { label: "Premios", value: 6 },
+          { label: "Prêmios", value: 6 },
           { label: "Níveis de distribuição", value: 7 },
         ]}
         mostrarBotaoVoltar={false}
