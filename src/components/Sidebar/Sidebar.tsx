@@ -52,7 +52,6 @@ export function Sidebar(): JSX.Element {
   // Estilos da sidebar
   const sidebarStyles: CSSProperties = {
     ...displayFlexComponent,
-    display: `${isMobile ? "none" : "flex"}`,
     flexDirection: "column",
     height: "100vh",
     width: "70px",

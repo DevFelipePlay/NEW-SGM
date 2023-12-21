@@ -165,6 +165,7 @@ export function DefaultContainer({
           ...contentStyles,
           backgroundColor: "var(--backGround-header-color)",
           height: "auto",
+          mt: isMobile ? 8 : 0,
         }}
       >
         <Box

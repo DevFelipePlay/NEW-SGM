@@ -11,21 +11,20 @@ import { AiOutlineMenuUnfold } from "react-icons/ai";
 import { FaMoneyBillTransfer } from "react-icons/fa6";
 import { IoSettingsOutline } from "react-icons/io5";
 import { LiaAwardSolid } from "react-icons/lia";
-import { PiSignOut } from "react-icons/pi";
 import { useNavigate } from "react-router-dom";
+
 import backgroundTab from "../../assets/MMNImg/TabBarBackground.jpg";
 
 import { ReactNode } from "react";
 import { BiHomeSmile } from "react-icons/bi";
 import { GiHumanPyramid } from "react-icons/gi";
 import useUser from "../../hooks/useUser";
-import useWindowSize from "../../hooks/useWindowSize";
 import { ExtrairLetras } from "../../utils";
+
 import { AuthContext } from "../Auth/auth";
 
-export function Sidebar(): JSX.Element {
+export function SidebarMobile(): JSX.Element {
   const navigate = useNavigate();
-  const { isMobile } = useWindowSize();
   ///////////////////////////////////////////////////////////Estilização //////////////////////////////////////////////////////////////////////////////
   // Estados para controlar o Drawer, TabBar e ícone ativo
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -41,21 +40,21 @@ export function Sidebar(): JSX.Element {
   };
 
   // Largura da sidebar e tabBar abertas
-  const sidebarWidth = "250px";
-  const tabWidth = "400px";
+  const sidebarWidth = "100vw";
+  const tabWidth = "100vw";
 
   // Estilos quando a sidebar está aberta
   const sidebarOpenStyles: CSSProperties = {
     width: sidebarWidth,
+    height: "100vh",
+    transition: "0.3s",
   };
 
   // Estilos da sidebar
   const sidebarStyles: CSSProperties = {
     ...displayFlexComponent,
-    display: `${isMobile ? "none" : "flex"}`,
-    flexDirection: "column",
-    height: "100vh",
-    width: "70px",
+    height: "70px",
+    width: "100vw",
     backgroundColor: "var(--backGround-sideBar-color)",
     position: "fixed",
     top: 0,
@@ -63,10 +62,6 @@ export function Sidebar(): JSX.Element {
     zIndex: 100,
     transition: "width 0.3s",
     userSelect: "none",
-  };
-  const sidebarIconActiveStyles: CSSProperties = {
-    backgroundColor: "#444", // Cor de fundo quando o ícone da sidebar está ativo
-    color: "var(--primary-color)",
   };
 
   //Animação padrão para os botões da sidebar e tabbar
@@ -77,31 +72,33 @@ export function Sidebar(): JSX.Element {
   to {
     opacity: 1;
   }`;
+
   // Estilos para os ícones da sidebar
   const sidebarIconStyles: CSSProperties = {
     display: "flex",
     alignItems: "center",
-    justifyContent: "initial",
+    justifyContent: "center",
     //@ts-ignore
     height: "50px",
-    padding: "1rem",
     width: "80%",
+    padding: "1rem",
     fontSize: "1.5rem",
     color: "var(--text-header-color)",
     cursor: "pointer",
     borderRadius: "10px",
   };
+
+  const sidebarIconActiveStyles: CSSProperties = {
+    backgroundColor: "#444", // Cor de fundo quando o ícone da sidebar está ativo
+    color: "var(--primary-color)",
+  };
+
   // Lista dos textos dos botões da sideBar Aberta
   const sidebarIconTextStyles: CSSProperties = {
     marginLeft: "20px",
     fontSize: "1rem",
 
     animation: `${fadeIn} 0.5s ease-in-out`, // Aplicar animação de fade
-  };
-  //Estilos do icone ativo do botão de sair da Sidebar
-  const sidebarIconExitActiveStyles: CSSProperties = {
-    backgroundColor: "#444", // Cor de fundo quando o ícone de sair está ativo
-    color: "red",
   };
 
   // Estilos quando a tabBar está aberta
@@ -118,13 +115,11 @@ export function Sidebar(): JSX.Element {
     height: "100vh",
     position: "fixed",
     top: "0",
+    left: "0",
     transition: "width 0.3s, margin-left 0.3s",
-    width: isTabBarOpen ? "400px" : "0",
-    marginLeft: isDrawerOpen ? sidebarWidth : "70px",
-    borderTopRightRadius: "10px",
-    borderBottomRightRadius: "10px",
-    zIndex: 100,
+    zIndex: 999,
   };
+
   //Estilização do titulo das abas da Tabbar
   const titleTabBar: CSSProperties = {
     padding: "0rem 2.5rem",
@@ -317,6 +312,7 @@ export function Sidebar(): JSX.Element {
             onClick={() => {
               navigate(item.to || "");
               setIsTabBarOpen(false);
+              setIsDrawerOpen(false);
             }}
           >
             <Typography
@@ -449,77 +445,39 @@ export function Sidebar(): JSX.Element {
           </Avatar>
         )}
         {/* Rows SideBar */}
-
-        <Box
-          sx={{
-            ...displayFlexComponent,
-            maxHeight: "400px",
-            width: "100%",
-            flexDirection: "column",
-            textAlign: "center",
-            whiteSpace: "nowrap",
-          }}
-        >
-          {RowsSideBar.map((item, index) => (
-            <Box
-              sx={{
-                ...sidebarIconStyles,
-                ...(activeIcon === item.label ? sidebarIconActiveStyles : {}),
-                height: "auto",
-              }}
-              key={index}
-              onClick={() =>
-                handleIconClick(item.label, item.to, item.listItemsTabBar)
-              }
-            >
-              {item.icon}
-              {isDrawerOpen && (
-                <Typography sx={sidebarIconTextStyles}>{item.label}</Typography>
-              )}
-            </Box>
-          ))}
-        </Box>
-
-        {/* /////////////// */}
-
-        <Box
-          sx={{
-            ...displayFlexComponent,
-            flexDirection: "column",
-            position: "absolute",
-            bottom: "10px",
-            width: "100%",
-          }}
-        >
+        {isDrawerOpen && (
           <Box
             sx={{
-              ...sidebarIconStyles,
-              ...(activeIcon === "configurações"
-                ? sidebarIconActiveStyles
-                : {}),
-              alignItems: "center",
-              justifyContent: "initial",
+              ...displayFlexComponent,
+              maxHeight: "400px",
+              width: "100%",
+              flexDirection: "column",
+              textAlign: "center",
+              whiteSpace: "nowrap",
             }}
-            onClick={() => handleIconClick("configurações", "")}
           >
-            <IoSettingsOutline />
-            {isDrawerOpen && (
-              <Typography sx={sidebarIconTextStyles}> Configurações</Typography>
-            )}
+            {RowsSideBar.map((item, index) => (
+              <Box
+                sx={{
+                  ...sidebarIconStyles,
+                  ...(activeIcon === item.label ? sidebarIconActiveStyles : {}),
+                  height: "auto",
+                }}
+                key={index}
+                onClick={() =>
+                  handleIconClick(item.label, item.to, item.listItemsTabBar)
+                }
+              >
+                {item.icon}
+                {isDrawerOpen && (
+                  <Typography sx={sidebarIconTextStyles}>
+                    {item.label}
+                  </Typography>
+                )}
+              </Box>
+            ))}
           </Box>
-          <Box
-            sx={{
-              ...sidebarIconStyles,
-              ...(activeIcon === "sair" ? sidebarIconExitActiveStyles : {}),
-            }}
-            onClick={() => handleClickOpen()}
-          >
-            <PiSignOut />
-            {isDrawerOpen && (
-              <Typography sx={sidebarIconTextStyles}> Sair</Typography>
-            )}
-          </Box>
-        </Box>
+        )}
       </Box>
 
       <Box

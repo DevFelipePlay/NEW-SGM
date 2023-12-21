@@ -34,3 +34,23 @@ ul {
 .swiper-pagination {
     z-index: -1;
 }
+
+/* Adicione ao seu arquivo de estilos (pode ser global ou específico para este componente) */
+@keyframes slide-in {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes slide-out {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-100%);
+    }
+  }
+  
