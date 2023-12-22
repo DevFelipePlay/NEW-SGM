@@ -9,7 +9,6 @@ import {
 } from '../../../../api';
 import { ListHistoricoSolicitacoesPremios, Loading } from '../../../../components';
 import useUser from '../../../../hooks/useUser';
-import { errorToast } from '../../../../utils';
 
 export function HistoricoPremios() {
   const [loading, setLoading] = useState(false);
@@ -28,7 +27,7 @@ export function HistoricoPremios() {
       const data = await postPlaySolicitacaoPremiosUsuario(payload);
       setResponseList(data);
     } catch (error: any) {
-      errorToast(error);
+      console.log(error);
     } finally {
       setLoading(false);
     }

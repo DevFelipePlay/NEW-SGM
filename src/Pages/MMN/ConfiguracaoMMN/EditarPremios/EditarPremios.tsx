@@ -22,6 +22,7 @@ import {
   IResPostPlayVisualizaPremios,
   postPlayCadastroPremiacaoMMN,
   postPlayDeletarPremiacao,
+  postPlayEditarImagemPremio,
   postPlayVisualizaPremios,
 } from "../../../../api";
 import { postPlayEditaPremios } from "../../../../api/ApisEditarModulo/EditarPremiacao";
@@ -45,6 +46,61 @@ export function EditarPremios() {
   }>({});
   const { user } = useUser();
 
+  const [premiosEditImg, setPremiosEditImg] = useState<{
+    [key: string]: { blob: Blob | null; url: string; idpremio: string };
+  }>({});
+  const handleDeletePhotoEdit = (index: number) => {
+    setPremiosEditImg((prevImgs) => {
+      const updatedImgs = { ...prevImgs };
+      delete updatedImgs[index.toString()];
+      return updatedImgs;
+    });
+  };
+  async function handleSubmitFoto(index: number, idpremio: string) {
+    const dadosFotos = new FormData();
+
+    const premioEditImg = premiosEditImg[index.toString()];
+    if (premioEditImg) {
+      dadosFotos.append("foto", premioEditImg.blob || "");
+      // dadosFotos.append('token', user?.token || '');
+      dadosFotos.append("idpremio", idpremio);
+    }
+
+    try {
+      //@ts-ignore
+      await postPlayEditarImagemPremio(dadosFotos);
+      clearForm();
+      handleDeletePhoto();
+      setPremiosEditImg((prevImgs) => ({
+        ...prevImgs,
+        [index.toString()]: {
+          blob: null,
+          url: "",
+          idpremio: idpremio,
+        },
+      }));
+      handleView();
+    } catch (error: any) {
+      errorToast(error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const handleDropzoneChange = (
+    files: any,
+    index: number,
+    idpremio: string
+  ) => {
+    setPremiosEditImg((prevImgs) => ({
+      ...prevImgs,
+      [index.toString()]: {
+        blob: files[0],
+        url: URL.createObjectURL(files[0]),
+        idpremio: idpremio,
+      },
+    }));
+  };
   async function handleView() {
     setLoadingView(true);
 
@@ -61,35 +117,29 @@ export function EditarPremios() {
     }
   }
 
-  async function handleEdit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+  async function handleEdit(index: number) {
     setLoadingEdit(true);
 
     try {
-      const editedData = responseView.map((item, index) => {
-        const editedItem = editedValues[index];
+      const editedItem = editedValues[index];
+      const item = responseView[index];
 
-        return {
-          id: editedItem?.id || item.id || "",
-          nome_premio: editedItem?.nome_premio || item.nome_premio || "",
-          descricao: editedItem?.descricao || item.descricao || "",
-          foto: editedItem?.foto || item.foto || "",
-          quantidade: editedItem?.quantidade || item.quantidade || "",
-          tempo_expiracao:
-            editedItem?.tempo_expiracao || item.tempo_expiracao || "",
-          valor_din: editedItem?.valor_din || item.valor_din || "",
-          valor_premio: editedItem?.valor_premio || item.valor_premio || "",
-          pontos_resgate:
-            editedItem?.pontos_resgate || item.pontos_resgate || "",
-        };
-      });
       const postData = {
-        ...editedData,
+        idpremio: editedItem?.id || item.id || "",
+        nome_premio: editedItem?.nome_premio || item.nome_premio || "",
+        descricao: editedItem?.descricao || item.descricao || "",
+        tempo_expiracao:
+          editedItem?.tempo_expiracao || item.tempo_expiracao || "",
+        valor_din: editedItem?.valor_din || item.valor_din || "",
+        valor_premio: editedItem?.valor_premio || item.valor_premio || "",
+        pontos_resgate: editedItem?.pontos_resgate || item.pontos_resgate || "",
         cpf: user?.cpf || "",
       };
+
       //@ts-ignore
       await postPlayEditaPremios(postData);
       toast.success("Graduações Editados!");
+      handleView();
     } catch (error: any) {
       errorToast(error);
     } finally {
@@ -219,7 +269,7 @@ export function EditarPremios() {
       <Cards title={"Configure seus Prêmios"} subTitle={" "} size={"100%"}>
         <FormControl>
           <FormLabel id="demo-radio-buttons-group-label">
-            Marque a ideal opção para o seu objetivo
+            Marque a opção ideal para o seu objetivo
           </FormLabel>
           <RadioGroup
             aria-labelledby="demo-radio-buttons-group-label"
@@ -253,140 +303,8 @@ export function EditarPremios() {
       <>
         {selectedValue === "0" && (
           <Cards
-            title={"Edição de Premios"}
+            title={"Edição de Prêmios"}
             subTitle={"Edite seus prêmios"}
-            size={"100%"}
-          >
-            {loadingView ? (
-              <Box
-                sx={{
-                  width: "100%",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  height: "50vh",
-                }}
-              >
-                <Loading />
-              </Box>
-            ) : (
-              <>
-                {responseView.map((item, index) => (
-                  <Cards
-                    title={`${item.nome_premio}`}
-                    subTitle={"Premios"}
-                    size={"50%"}
-                    key={index}
-                  >
-                    <TextField
-                      variant="standard"
-                      sx={{ mb: 2 }}
-                      value={
-                        editedValues[index]?.nome_premio !== undefined
-                          ? editedValues[index]?.nome_premio
-                          : item?.nome_premio
-                      }
-                      fullWidth
-                      onChange={(e) =>
-                        handleEditChange(index, "nome_premio", e.target.value)
-                      }
-                      label={"Nome do Premio"}
-                    />
-                    <TextField
-                      variant="standard"
-                      sx={{ mb: 2 }}
-                      value={
-                        editedValues[index]?.descricao !== undefined
-                          ? editedValues[index]?.descricao
-                          : item?.descricao
-                      }
-                      fullWidth
-                      onChange={(e) =>
-                        handleEditChange(index, "descricao", e.target.value)
-                      }
-                      label={"descrição"}
-                    />
-
-                    <TextField
-                      variant="standard"
-                      value={
-                        editedValues[index]?.pontos_resgate !== undefined
-                          ? editedValues[index]?.pontos_resgate
-                          : item?.pontos_resgate
-                      }
-                      fullWidth
-                      onChange={(e) =>
-                        handleEditChange(
-                          index,
-                          "pontos_resgate",
-                          e.target.value
-                        )
-                      }
-                      label={"Quantidade de pontos para resgate"}
-                    />
-                    <TextField
-                      variant="standard"
-                      sx={{ mb: 2 }}
-                      value={
-                        editedValues[index]?.valor_din !== undefined
-                          ? editedValues[index]?.valor_din
-                          : item?.valor_din
-                      }
-                      fullWidth
-                      onChange={(e) =>
-                        handleEditChange(
-                          index,
-                          "valor_din",
-                          currencyMask(e.target.value)
-                        )
-                      }
-                      label={"Valor em dinheiro"}
-                      InputProps={{
-                        startAdornment: (
-                          <InputAdornment position="start">R$</InputAdornment>
-                        ),
-                      }}
-                    />
-                    <TextField
-                      variant="standard"
-                      sx={{ mb: 2 }}
-                      value={
-                        editedValues[index]?.valor_premio !== undefined
-                          ? editedValues[index]?.valor_premio
-                          : item?.valor_premio
-                      }
-                      fullWidth
-                      onChange={(e) =>
-                        handleEditChange(
-                          index,
-                          "valor_premio",
-                          currencyMask(e.target.value)
-                        )
-                      }
-                      label={"Valor estimado do premio"}
-                      InputProps={{
-                        startAdornment: (
-                          <InputAdornment position="start">R$</InputAdornment>
-                        ),
-                      }}
-                    />
-                  </Cards>
-                ))}
-                <LoadingButton
-                  variant="contained"
-                  onClick={(e: any) => handleEdit(e)}
-                  loading={loadingEdit}
-                >
-                  Confirmar edição
-                </LoadingButton>
-              </>
-            )}
-          </Cards>
-        )}
-        {selectedValue === "1" && (
-          <Cards
-            title={"Exclusão de Premios"}
-            subTitle={"Exclua prêmios do seu modulo"}
             size={"100%"}
           >
             {loadingView ? (
@@ -407,7 +325,209 @@ export function EditarPremios() {
                   <>
                     <Cards
                       title={`${item.nome_premio}`}
-                      subTitle={"Premio"}
+                      subTitle={"Prêmios"}
+                      size={"50%"}
+                      key={index}
+                    >
+                      <TextField
+                        variant="standard"
+                        sx={{ mb: 2 }}
+                        value={
+                          editedValues[index]?.nome_premio !== undefined
+                            ? editedValues[index]?.nome_premio
+                            : item?.nome_premio
+                        }
+                        fullWidth
+                        onChange={(e) =>
+                          handleEditChange(index, "nome_premio", e.target.value)
+                        }
+                        label={"Nome do Prêmio"}
+                      />
+                      <TextField
+                        variant="standard"
+                        sx={{ mb: 2 }}
+                        value={
+                          editedValues[index]?.descricao !== undefined
+                            ? editedValues[index]?.descricao
+                            : item?.descricao
+                        }
+                        fullWidth
+                        onChange={(e) =>
+                          handleEditChange(index, "descricao", e.target.value)
+                        }
+                        label={"Descrição"}
+                      />
+
+                      <TextField
+                        variant="standard"
+                        value={
+                          editedValues[index]?.pontos_resgate !== undefined
+                            ? editedValues[index]?.pontos_resgate
+                            : item?.pontos_resgate
+                        }
+                        fullWidth
+                        onChange={(e) =>
+                          handleEditChange(
+                            index,
+                            "pontos_resgate",
+                            e.target.value
+                          )
+                        }
+                        label={"Quantidade de pontos para resgate"}
+                      />
+                      <TextField
+                        variant="standard"
+                        sx={{ mb: 2, mt: 1 }}
+                        value={
+                          editedValues[index]?.valor_din !== undefined
+                            ? editedValues[index]?.valor_din
+                            : currencyMask(
+                                item.valor_din ? item?.valor_din : ""
+                              )
+                        }
+                        fullWidth
+                        onChange={(e) =>
+                          handleEditChange(
+                            index,
+                            "valor_din",
+                            currencyMask(e.target.value)
+                          )
+                        }
+                        label={"Valor em dinheiro"}
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">R$</InputAdornment>
+                          ),
+                        }}
+                      />
+                      <TextField
+                        variant="standard"
+                        sx={{ mb: 2 }}
+                        value={
+                          editedValues[index]?.valor_premio !== undefined
+                            ? editedValues[index]?.valor_premio
+                            : currencyMask(
+                                item.valor_premio ? item?.valor_premio : ""
+                              )
+                        }
+                        fullWidth
+                        onChange={(e) =>
+                          handleEditChange(
+                            index,
+                            "valor_premio",
+                            currencyMask(e.target.value)
+                          )
+                        }
+                        label={"Valor estimado do prêmio"}
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">R$</InputAdornment>
+                          ),
+                        }}
+                      />
+                      {item.foto && (
+                        <>
+                          <Typography sx={{ marginTop: "2rem", mb: 1 }}>
+                            Foto atual:
+                          </Typography>
+                          <img
+                            src={`data:image/png;base64,${item.foto}`}
+                            style={{
+                              width: "200px",
+                              borderRadius: "10px",
+                              boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
+                              marginBottom: "2rem",
+                            }}
+                          />
+                        </>
+                      )}
+
+                      <>
+                        {premiosEditImg[index.toString()] && (
+                          <>
+                            <Typography sx={{ marginTop: "2rem", mb: 1 }}>
+                              Nova Foto:
+                            </Typography>
+                            <img
+                              src={premiosEditImg[index.toString()].url}
+                              style={{
+                                width: "200px",
+                                borderRadius: "10px",
+                                boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
+                              }}
+                            />
+                            <IconButton
+                              onClick={() => handleDeletePhotoEdit(index)}
+                              size="small"
+                            >
+                              <DeleteIcon color="error" />
+                            </IconButton>
+                            <IconButton
+                              onClick={() =>
+                                handleSubmitFoto(index, item.id.toString())
+                              }
+                              size="small"
+                            ></IconButton>
+                          </>
+                        )}
+                        <Typography>
+                          Adicione uma nova foto do item no campo abaixo para
+                          editá-las
+                        </Typography>
+                        <Dropzone
+                          accept={{ "image/*": [".png", ".jpeg", ".jpg"] }}
+                          onDrop={(files) =>
+                            handleDropzoneChange(
+                              files,
+                              index,
+                              item.id.toString()
+                            )
+                          }
+                        />
+                      </>
+                      <LoadingButton
+                        variant="contained"
+                        onClick={() => {
+                          handleSubmitFoto(index, item.id.toString());
+                          handleEdit(index);
+                        }}
+                        sx={{ mt: 2 }}
+                        loading={loadingEdit}
+                      >
+                        Editar
+                      </LoadingButton>
+                    </Cards>
+                  </>
+                ))}
+              </>
+            )}
+          </Cards>
+        )}
+        {selectedValue === "1" && (
+          <Cards
+            title={"Exclusão de Prêmios"}
+            subTitle={"Exclua prêmios do seu módulo"}
+            size={"100%"}
+          >
+            {loadingView ? (
+              <Box
+                sx={{
+                  width: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  height: "50vh",
+                }}
+              >
+                <Loading />
+              </Box>
+            ) : (
+              <>
+                {responseView.map((item, index) => (
+                  <>
+                    <Cards
+                      title={`${item.nome_premio}`}
+                      subTitle={"Prêmio"}
                       size={"100%"}
                       key={index}
                     >
@@ -420,7 +540,7 @@ export function EditarPremios() {
                         Valor em dinheiro: {item.valor_din}
                       </Typography>
                       <Typography>
-                        Valor estimado para o premio: {item.valor_premio}
+                        Valor estimado para o prêmio: {item.valor_premio}
                       </Typography>
                       {item.foto ? (
                         <Box
@@ -452,7 +572,7 @@ export function EditarPremios() {
                           </Box>
                         </Box>
                       ) : (
-                        <Typography sx={{ mt: 2 }}>Premio sem foto</Typography>
+                        <Typography sx={{ mt: 2 }}>Prêmio sem foto</Typography>
                       )}
                       <IconButton
                         color="error"
@@ -476,7 +596,7 @@ export function EditarPremios() {
                           Certeza que deseja excluir : {item.nome_premio}
                         </Typography>
                         <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                          Ao excluir este pacote ele nao vai poder ser comprado
+                          Ao excluir este pacote ele não vai poder ser comprado
                           por novos usuários
                         </Typography>
                         <LoadingButton
@@ -507,7 +627,7 @@ export function EditarPremios() {
 
         {selectedValue === "2" && (
           <Cards
-            title={"Cadastro de Premios"}
+            title={"Cadastro de Prêmios"}
             subTitle={"Cadastre novos prêmios para os usuários"}
             size={"100%"}
           >
@@ -528,7 +648,7 @@ export function EditarPremios() {
               >
                 <FormControl>
                   <Typography variant="h5">
-                    Escolha o metodo que deseja cadastrar a premiação
+                    Escolha o método que deseja cadastrar a premiação
                   </Typography>
                   <RadioGroup
                     aria-labelledby="demo-radio-buttons-group-label"
@@ -539,12 +659,12 @@ export function EditarPremios() {
                     <FormControlLabel
                       value={"0"}
                       control={<Radio />}
-                      label="Premio em dinheiro"
+                      label="Prêmio em dinheiro"
                     />
                     <FormControlLabel
                       value={"1"}
                       control={<Radio />}
-                      label="Premio em itens"
+                      label="Prêmio em itens"
                     />
                     <FormControlLabel
                       value={"2"}
@@ -563,9 +683,9 @@ export function EditarPremios() {
                 <>
                   {selectedValuePremios === "0" && (
                     <Box sx={{ my: 2 }}>
-                      <Typography>Premio em dinheiro</Typography>
+                      <Typography>Prêmio em dinheiro</Typography>
                       <TextField
-                        label="Nome do premio"
+                        label="Nome do prêmio"
                         variant="standard"
                         value={formData.nome_premio}
                         fullWidth
@@ -601,7 +721,7 @@ export function EditarPremios() {
                       <TextField
                         type="tel"
                         id="id_valor_plano"
-                        label="Valor total estimado do premio"
+                        label="Valor total estimado do prêmio"
                         placeholder="0,00"
                         value={formData.valor_premio}
                         onChange={(e) =>
@@ -643,9 +763,9 @@ export function EditarPremios() {
                   )}
                   {selectedValuePremios === "1" && (
                     <Box sx={{ my: 2 }}>
-                      <Typography variant="h5">Premio em Itens</Typography>
+                      <Typography variant="h5">Prêmio em Itens</Typography>
                       <TextField
-                        label="Nome do premio"
+                        label="Nome do prêmio"
                         variant="standard"
                         value={formData.nome_premio}
                         fullWidth
@@ -682,7 +802,7 @@ export function EditarPremios() {
                       <TextField
                         type="tel"
                         id="id_valor_plano"
-                        label="Valor total estimado do premio"
+                        label="Valor total estimado do prêmio"
                         placeholder="0,00"
                         value={formData.valor_premio}
                         onChange={(e) =>
@@ -757,10 +877,10 @@ export function EditarPremios() {
                     <>
                       <Box sx={{ my: 2 }}>
                         <Typography variant="h5">
-                          Premio em dinheiro e itens
+                          Prêmio em dinheiro e itens
                         </Typography>
                         <TextField
-                          label="Nome do premio"
+                          label="Nome do prêmio"
                           variant="standard"
                           value={formData.nome_premio}
                           fullWidth
@@ -782,7 +902,7 @@ export function EditarPremios() {
                           sx={{ mb: 2 }}
                         />
                         <TextField
-                          label="Premios disponiveis"
+                          label="Prêmios disponiveis"
                           variant="standard"
                           value={mask(formData.quantidade, ["9999"])}
                           fullWidth
@@ -806,7 +926,7 @@ export function EditarPremios() {
                         <TextField
                           type="tel"
                           id="id_valor_plano"
-                          label="Valor total estimado do premio"
+                          label="Valor total estimado do prêmio"
                           placeholder="0,00"
                           value={formData.valor_premio}
                           onChange={(e) =>

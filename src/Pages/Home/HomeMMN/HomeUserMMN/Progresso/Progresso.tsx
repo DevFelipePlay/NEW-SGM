@@ -51,10 +51,11 @@ export function Progresso() {
   const { isMobile } = useWindowSize();
 
   //@ts-ignore
-  const [telaEmDesenvilvimento, setTelaEmDesenvilvimento] = useState(true);
-  const [loadingView, setLoadingView] = useState(false);
-  const [loadSubmitResgate, setLoadSubmitResgate] = useState(false);
-  const [loadSubmitAcumular, setLoadSubmitAcumular] = useState(false);
+  const [telaEmDesenvilvimento, setTelaEmDesenvilvimento] = useState(false);
+  const [loading, setloading] = useState(true);
+
+  const [loadingSubmitResgate, setLoadingSubmitResgate] = useState(false);
+  const [loadingSubmitAcumular, setloadingSubmitAcumular] = useState(false);
   const [responseView, setResponseView] = useState<
     IResPostPlayVisualizaPremios[]
   >([]);
@@ -113,7 +114,7 @@ export function Progresso() {
   ////////
 
   async function handleView() {
-    setLoadingView(true);
+    setloading(true);
 
     const payload: IReqPostPlayVisualizaListaPremios = {
       token: user?.token || "",
@@ -157,7 +158,7 @@ export function Progresso() {
     } catch (error: any) {
       console.log(error);
     } finally {
-      setLoadingView(false);
+      setloading(false);
     }
   }
 
@@ -165,7 +166,7 @@ export function Progresso() {
     e: React.FormEvent<HTMLFormElement>
   ) {
     e.preventDefault();
-    setLoadSubmitResgate(true);
+    setLoadingSubmitResgate(true);
 
     const payloadSubmitResgate: IReqPostPlaySolicitacaoSaquePremios = {
       cpf: user?.cpf || "",
@@ -178,7 +179,7 @@ export function Progresso() {
     } catch (error: any) {
       errorToast(error);
     } finally {
-      setLoadSubmitResgate(false);
+      setLoadingSubmitResgate(false);
     }
   }
 
@@ -186,7 +187,7 @@ export function Progresso() {
     e: React.FormEvent<HTMLFormElement>
   ) {
     e.preventDefault();
-    setLoadSubmitAcumular(true);
+    setloadingSubmitAcumular(true);
 
     try {
       const payloadSubmitAcumular: IReqPostPlayAcumularPremio = {
@@ -199,7 +200,7 @@ export function Progresso() {
     } catch (error: any) {
       errorToast(error);
     } finally {
-      setLoadSubmitAcumular(false);
+      setloadingSubmitAcumular(false);
     }
   }
 
@@ -255,26 +256,31 @@ export function Progresso() {
 
   return (
     <>
-      <Grid container spacing={2}>
-        <Grid
-          item
-          xs={12}
-          display={"flex"}
-          flexDirection={isMobile ? "column" : "row"}
+      {loading ? (
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            height: "50vh",
+          }}
         >
-          {loadingView ? (
-            <Box
-              sx={{
-                width: "100%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                height: "50vh",
-              }}
-            >
-              <Loading />
-            </Box>
-          ) : (
+          <Loading />
+        </Box>
+      ) : (
+        <Grid container spacing={2}>
+          <Grid
+            item
+            xs={12}
+            sx={{
+              display: "flex",
+              flexDirection: {
+                xs: "column",
+                sm: "row",
+              },
+            }}
+          >
             <Cards
               title={`${responseMetaGraduacao?.graduacao}`}
               subTitle={"Realize vendas para subir para a próxima graduação"}
@@ -293,27 +299,13 @@ export function Progresso() {
                 <ProgressBar progress={progressPercentageMetaGraduacao} />
               </Box>
             </Cards>
-          )}
 
-          {/* Ganhe Premios */}
-          <Cards
-            title={"Ganhe Prêmios"}
-            subTitle={"Conquiste a meta para ganhar este prêmio"}
-            size={"100%"}
-          >
-            {loadingView ? (
-              <Box
-                sx={{
-                  width: "100%",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  height: "30vh",
-                }}
-              >
-                <Loading />
-              </Box>
-            ) : (
+            {/* Ganhe Premios */}
+            <Cards
+              title={"Ganhe Prêmios"}
+              subTitle={"Conquiste a meta para ganhar este prêmio"}
+              size={"100%"}
+            >
               <>
                 <Typography sx={{ mb: 2 }}>
                   Meta para o prêmio :{" "}
@@ -375,32 +367,19 @@ export function Progresso() {
                   <LoadingButton
                     onClick={() => handleOpen()}
                     variant="contained"
-                    loading={loadSubmitResgate}
+                    loading={loadingSubmitResgate}
                     disabled={progressPercentage !== 100}
                   >
                     Resgatar
                   </LoadingButton>
                 </Box>
               </>
-            )}
-          </Cards>
+            </Cards>
 
-          {/* /////////// */}
-        </Grid>
-        <Grid item xs={12}>
-          {loadingView ? (
-            <Box
-              sx={{
-                width: "100%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                height: "50vh",
-              }}
-            >
-              <Loading />
-            </Box>
-          ) : (
+            {/* /////////// */}
+          </Grid>
+
+          <Grid item xs={12}>
             <>
               <Typography
                 sx={{
@@ -453,77 +432,61 @@ export function Progresso() {
                 </Swiper>
               </Box>
             </>
-          )}
-        </Grid>
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box sx={{ ...style, textAlign: "center" }}>
-            <Alert
-              sx={{
-                mb: 2,
-                textAlign: "center",
-                flexDirection: `${isMobile ? "column" : "row"}`,
-                alignItems: `${isMobile ? "center" : "start"}`,
-              }}
-              severity="warning"
-            >
-              <AlertTitle>Aviso</AlertTitle>
-              Ao retirar o prêmio, os pontos do mesmo serão debitados de sua
-              base de pontos. clique em confirmar para prosseguir com a
-              solicitação de retirada de prêmios
-            </Alert>
+          </Grid>
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={{ ...style, textAlign: "center" }}>
+              <Alert sx={{ mb: 2, textAlign: "center" }} severity="warning">
+                <AlertTitle>Aviso</AlertTitle>
+                Ao retirar o prêmio, os pontos do mesmo serão debitados de sua
+                base de pontos. clique em confirmar para prosseguir com a
+                solicitação de retirada de prêmios
+              </Alert>
 
-            <Button
-              variant="contained"
-              sx={{ mt: 2 }}
-              onClick={(e: any) => {
-                handleSubmitResgatePremios(e);
-                handleClose();
-              }}
-            >
-              Confirmar
-            </Button>
-          </Box>
-        </Modal>
-        <Modal
-          open={openAcumular}
-          onClose={handleCloseAcumular}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box sx={{ ...styleAcumular, textAlign: "center" }}>
-            <Alert
-              sx={{
-                mb: 2,
-                textAlign: "center",
-                flexDirection: `${isMobile ? "column" : "row"}`,
-                alignItems: `${isMobile ? "center" : "start"}`,
-              }}
-              severity="warning"
-            >
-              <AlertTitle>Aviso</AlertTitle>
-              Ao acumular o prêmio, os pontos do mesmo serão mantidos. E você
-              não terá mais acesso à este prêmio clique em confirmar para
-              prosseguir com o acumulo de pontos para o prêmios
-            </Alert>
-            <LoadingButton
-              variant="contained"
-              sx={{ mt: 2 }}
-              onClick={(e: any) => {
-                handleSubmitAcumularPremios(e);
-                handleCloseAcumular();
-              }}
-              loading={loadSubmitAcumular}
-            >
-              Confirmar
-            </LoadingButton>
-          </Box>
-        </Modal>
-      </Grid>
+              <Button
+                variant="contained"
+                sx={{ mt: 2 }}
+                onClick={(e: any) => {
+                  handleSubmitResgatePremios(e);
+                  handleClose();
+                }}
+              >
+                Confirmar
+              </Button>
+            </Box>
+          </Modal>
+          <Modal
+            open={openAcumular}
+            onClose={handleCloseAcumular}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={{ ...styleAcumular, textAlign: "center" }}>
+              <Alert sx={{ mb: 2, textAlign: "center" }} severity="warning">
+                <AlertTitle>Aviso</AlertTitle>
+                Ao acumular o prêmio, os pontos do mesmo serão mantidos. E você
+                não terá mais acesso à este prêmio clique em confirmar para
+                prosseguir com o acumulo de pontos para o prêmios
+              </Alert>
+              <LoadingButton
+                variant="contained"
+                sx={{ mt: 2 }}
+                onClick={(e: any) => {
+                  handleSubmitAcumularPremios(e);
+                  handleCloseAcumular();
+                }}
+                loading={loadingSubmitAcumular}
+              >
+                Confirmar
+              </LoadingButton>
+            </Box>
+          </Modal>
+        </Grid>
+      )}
     </>
   );
 }

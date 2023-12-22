@@ -10,7 +10,7 @@ import {
 } from '../../../../api';
 import { ListHistoricoSolicitacoesSaqueParceiro, Loading } from '../../../../components';
 import useUser from '../../../../hooks/useUser';
-import { currencyMask, dateFormatter, errorToast } from '../../../../utils';
+import { currencyMask, dateFormatter } from '../../../../utils';
 
 export function HistoricoSaque() {
   const [loading, setLoading] = useState(false);
@@ -29,7 +29,7 @@ export function HistoricoSaque() {
       const data = await postPlaySolicitacaoSaqueUsuario(payload);
       setResponseList(data);
     } catch (error: any) {
-      errorToast(error);
+      console.log(error);
     } finally {
       setLoading(false);
     }

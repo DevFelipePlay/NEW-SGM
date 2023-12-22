@@ -2,6 +2,7 @@ export * from './DeletarGraduacao';
 export * from './DeletarPacoteLicenciamento';
 export * from './DeletarPacotesChips';
 export * from './DeletarPremiacao';
+export * from './EditarFotoPremiacao';
 export * from './EditarGraduacao';
 export * from './EditarNiveisAtivacao';
 export * from './EditarNiveisLicenciamento';
