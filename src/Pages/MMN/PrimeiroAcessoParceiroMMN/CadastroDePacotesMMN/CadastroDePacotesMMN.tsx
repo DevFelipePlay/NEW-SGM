@@ -11,9 +11,9 @@ import {
   postPlayPctLicenciamento,
 } from '../../../../api/ApisPrimeiroAcessoParceiro/PctLicenciamento';
 import { Cards } from '../../../../components';
-import useUser from '../../../../hooks/useUser';
 import { errorToast } from '../../../../utils';
 import { currencyMask, currencyUnMask } from '../../../../utils/masks/maskCurrency';
+import useUser from '../../../hooks/useUser';
 import { StepsPrimeiroAcessoMMN } from '../StepsPrimeiroAcessoMMN';
 
 export function CadastroDePacotesMMN() {

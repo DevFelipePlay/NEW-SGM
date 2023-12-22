@@ -8,7 +8,7 @@ import {
   postPlaySolicitacaoPremiosUsuario,
 } from '../../../../api';
 import { ListHistoricoSolicitacoesPremios, Loading } from '../../../../components';
-import useUser from '../../../../hooks/useUser';
+import useUser from '../../../hooks/useUser';
 
 export function HistoricoPremios() {
   const [loading, setLoading] = useState(false);

@@ -5,7 +5,7 @@ import AppStoreBadge from '../../../../assets/badge-appstore.svg';
 import PlayStoreBadge from '../../../../assets/badge-playstore.svg';
 import SemLinhaAtivaImg from '../../../../assets/svg/SemLinhaAtivaImg';
 import { AuthContext } from '../../../../components';
-import useWindowSize from '../../../../hooks/useWindowSize';
+import useWindowSize from '../../../hooks/useWindowSize';
 
 export default function SemLinhaAtiva() {
   const { isMobile } = useWindowSize();

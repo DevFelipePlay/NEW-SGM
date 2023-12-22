@@ -33,8 +33,8 @@ import {
 } from '../../../../../api/ApisUtils/MetaGraduacao';
 import dinheiro from '../../../../../assets/MMNImg/din.png';
 import { Cards, Loading, ProgressBar } from '../../../../../components';
-import useUser from '../../../../../hooks/useUser';
 import { errorToast } from '../../../../../utils';
+import useUser from '../../../../hooks/useUser';
 
 export function Progresso() {
   //@ts-ignore

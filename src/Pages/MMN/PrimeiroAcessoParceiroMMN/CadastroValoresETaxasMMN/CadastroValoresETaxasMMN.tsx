@@ -6,10 +6,10 @@ import { toast } from 'react-toastify';
 import { StepsPrimeiroAcessoMMN } from '..';
 import { postPlayCadastroValoresETaxasMMN } from '../../../../api/ApisPrimeiroAcessoParceiro/CadastroValoresETaxasMMN';
 import { Cards } from '../../../../components';
-import { useForm } from '../../../../hooks';
-import useUser from '../../../../hooks/useUser';
 import { errorToast } from '../../../../utils';
 import { currencyMask, currencyUnMask } from '../../../../utils/masks/maskCurrency';
+import { useForm } from '../../../hooks';
+import useUser from '../../../hooks/useUser';
 
 export function CadastroValoresETaxasMMN() {
   const [loading, setLoading] = useState(false);

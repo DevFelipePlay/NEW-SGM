@@ -15,8 +15,8 @@ import {
   postPlayConfirmacaoSolicitacaoSaque,
 } from '../../../../api/ApisSaqueMMN/ConfirmacaoSolicitacaoSaque';
 import { Cards, Loading } from '../../../../components';
-import useUser from '../../../../hooks/useUser';
 import { currencyMask, dateFormatter, errorToast } from '../../../../utils';
+import useUser from '../../../hooks/useUser';
 
 export function ListaAprovaocao() {
   const [loadingView, setLoadingView] = useState(false);

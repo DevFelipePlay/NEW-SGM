@@ -19,9 +19,9 @@ import {
   postPlayCadastroDadosFinanceiros,
 } from '../../../../api';
 import { Cards, CustomTextField } from '../../../../components';
-import { useForm } from '../../../../hooks';
-import useUser from '../../../../hooks/useUser';
 import { errorToast } from '../../../../utils';
+import { useForm } from '../../../hooks';
+import useUser from '../../../hooks/useUser';
 
 export function CadastroDadosFinanceiros() {
   const theme = useTheme();

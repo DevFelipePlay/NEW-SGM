@@ -1,6 +1,6 @@
 import { Box, Grid, List, ListItem, ListItemText, styled } from '@mui/material';
+import useUser from '../../Pages/hooks/useUser';
 import foto from '../../assets/MMNImg/din.png';
-import useUser from '../../hooks/useUser';
 import { dateFormatter } from '../../utils';
 
 interface IlistCustom {

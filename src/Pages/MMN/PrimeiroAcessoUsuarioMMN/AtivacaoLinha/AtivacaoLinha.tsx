@@ -26,9 +26,9 @@ import {
 } from '../../../../api';
 import { postPlayValidaICCID } from '../../../../api/ApisUtils/validaICCID';
 import { Cards } from '../../../../components';
-import { useForm } from '../../../../hooks';
-import useUser from '../../../../hooks/useUser';
 import { errorToast } from '../../../../utils';
+import { useForm } from '../../../hooks';
+import useUser from '../../../hooks/useUser';
 
 export function AtivacaoLinha() {
   const theme = useTheme();

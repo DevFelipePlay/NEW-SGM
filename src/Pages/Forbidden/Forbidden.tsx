@@ -1,8 +1,8 @@
 import { Box, Button, Stack, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { Error401Image } from '../../assets/svg/Error401Image';
-import useUser from '../../hooks/useUser';
-import useWindowSize from '../../hooks/useWindowSize';
+import useUser from '../hooks/useUser';
+import useWindowSize from '../hooks/useWindowSize';
 
 export default function Forbidden() {
   const { isMobile } = useWindowSize();

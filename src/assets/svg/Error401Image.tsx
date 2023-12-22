@@ -1,4 +1,4 @@
-import useWindowSize from '../../hooks/useWindowSize';
+import useWindowSize from '../../Pages/hooks/useWindowSize';
 
 export function Error401Image() {
   const { isMobile } = useWindowSize();

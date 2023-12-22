@@ -7,8 +7,8 @@ import { mask } from 'remask';
 import { postPlayRecuperaNiveisParceiro } from '../../../../../api';
 import { IResPostPlayRecuperaNiveisParceiro } from '../../../../../api/ApisUtils/RecuperaNiveisParceiro/IResPostPlayRecuperaNiveisParceiro';
 import { ListCustom, Loading } from '../../../../../components';
-import useUser from '../../../../../hooks/useUser';
 import { errorToast } from '../../../../../utils';
+import useUser from '../../../../hooks/useUser';
 
 export default function RedeDeUsuariosParceiroMMN() {
   const [loading, setLoading] = useState(false);

@@ -6,10 +6,10 @@ import { toast } from 'react-toastify';
 import { StepsPrimeiroAcessoMMN } from '..';
 import { postPlayCadastroNiveisVendasChipsMMN } from '../../../../api';
 import { Cards } from '../../../../components';
-import { useForm } from '../../../../hooks';
-import useUser from '../../../../hooks/useUser';
 import { errorToast } from '../../../../utils';
 import { currencyMask } from '../../../../utils/masks/maskCurrency';
+import { useForm } from '../../../hooks';
+import useUser from '../../../hooks/useUser';
 
 export function CadastroDeDistribuicaoDeValoresPorPacotesDeChips() {
   const [selectedValues, setSelectedValues] = useState<number[]>(new Array(10).fill(0));

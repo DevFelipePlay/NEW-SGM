@@ -19,10 +19,10 @@ import { StepsPrimeiroAcessoMMN } from '..';
 import { postPlayCompletaPrimeiroAcesso } from '../../../../api';
 import { postPlayCadastroPremiacaoMMN } from '../../../../api/ApisPrimeiroAcessoParceiro/CadastrarPremiacaoMMN';
 import { Cards, Dropzone } from '../../../../components';
-import { useForm } from '../../../../hooks';
-import useUser from '../../../../hooks/useUser';
 import { errorToast } from '../../../../utils';
 import { currencyMask } from '../../../../utils/masks/maskCurrency';
+import { useForm } from '../../../hooks';
+import useUser from '../../../hooks/useUser';
 
 export function CadastroPremiacoesMMN() {
   const [selectedValue, setSelectedValue] = useState('0');

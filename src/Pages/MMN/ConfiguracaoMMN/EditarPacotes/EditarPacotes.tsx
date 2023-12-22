@@ -29,8 +29,8 @@ import {
   postPlayRecuperaPacotesLicenciamento,
 } from '../../../../api';
 import { Cards, Loading } from '../../../../components';
-import useUser from '../../../../hooks/useUser';
 import { currencyMask, currencyUnMask, errorToast } from '../../../../utils';
+import useUser from '../../../hooks/useUser';
 
 export function EditarPacotes() {
   const [loading, setloading] = useState(false);

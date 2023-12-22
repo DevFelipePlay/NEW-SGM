@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { MdOutlineContentCopy } from 'react-icons/md';
 import { toast } from 'react-toastify';
 import { Cards, Loading } from '../../../../../components';
-import { useCopyToClipboard } from '../../../../../hooks/useCopyToClipboard';
+import { useCopyToClipboard } from '../../../../hooks/useCopyToClipboard';
 
 import { useNavigate } from 'react-router-dom';
 import {
@@ -14,8 +14,8 @@ import {
   postPlayDashboardUsuario,
   postPlayDashboardUsuarioContinue,
 } from '../../../../../api';
-import useUser from '../../../../../hooks/useUser';
 import { currencyMask, dadosFormatter, dateFormatter, errorToast } from '../../../../../utils';
+import useUser from '../../../../hooks/useUser';
 
 export function Inicio() {
   const [responseIdIndicacao, setresponseIdIndicacao] = useState<IResPostPlayDashboardUsuario>();

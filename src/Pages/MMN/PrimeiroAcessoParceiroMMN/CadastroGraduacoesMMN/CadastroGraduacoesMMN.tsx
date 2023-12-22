@@ -10,8 +10,8 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { IReqPostPlayCadastroGraduacoesMMN } from '../../../../api/ApisPrimeiroAcessoParceiro/CadastroGraduacoesMMN/IReqPostPlayCadastroGraduacoes';
 import { postPlayCadastroGraduacoesMMN } from '../../../../api/ApisPrimeiroAcessoParceiro/CadastroGraduacoesMMN/postPlayCadastroGraduacoes';
-import useUser from '../../../../hooks/useUser';
 import { errorToast } from '../../../../utils';
+import useUser from '../../../hooks/useUser';
 
 export function CadastroGraduacoesMMN() {
   const { user } = useUser();

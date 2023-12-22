@@ -9,8 +9,8 @@ import {
   postPlaySolicitacaoSaqueUsuario,
 } from '../../../../api';
 import { ListHistoricoSolicitacoesSaqueParceiro, Loading } from '../../../../components';
-import useUser from '../../../../hooks/useUser';
 import { currencyMask, dateFormatter } from '../../../../utils';
+import useUser from '../../../hooks/useUser';
 
 export function HistoricoSaque() {
   const [loading, setLoading] = useState(false);

@@ -16,8 +16,8 @@ import {
   IReqPostPlayCadastroPacotesVenda,
   postPlayCadastroPacotesVendaChip,
 } from '../../../../api/ApisPrimeiroAcessoParceiro/CadastroPacotesVendaChip';
-import useUser from '../../../../hooks/useUser';
 import { currencyMask, currencyUnMask } from '../../../../utils/masks/maskCurrency';
+import useUser from '../../../hooks/useUser';
 
 export function CadastroDePacotesDeChip() {
   // const { user } = useUser();

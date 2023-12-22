@@ -9,8 +9,8 @@ import {
 } from '../../../../api/ApisSaqueMMN/ListaSolicitacaoSaqueConcluido';
 import { IResPostPlayListaSolicitacaoSaqueConcluido } from '../../../../api/ApisSaqueMMN/ListaSolicitacaoSaqueConcluido/IResPostPlayListaSolicitacoes';
 import { ListHistoricoSolicitacoesSaqueParceiro, Loading } from '../../../../components';
-import useUser from '../../../../hooks/useUser';
 import { currencyMask, dateFormatter } from '../../../../utils';
+import useUser from '../../../hooks/useUser';
 
 export function Historico() {
   const [loading, setLoading] = useState(false);

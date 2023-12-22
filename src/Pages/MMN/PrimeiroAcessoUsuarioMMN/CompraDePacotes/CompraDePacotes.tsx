@@ -34,9 +34,9 @@ import {
   postPLayVisualizaFaturasPacotes as postPlayVisualizaFaturasPacotes,
 } from '../../../../api';
 import { Cards, Loading } from '../../../../components';
-import { useCopyToClipboard } from '../../../../hooks/useCopyToClipboard';
-import useUser from '../../../../hooks/useUser';
 import { errorToast } from '../../../../utils';
+import { useCopyToClipboard } from '../../../hooks/useCopyToClipboard';
+import useUser from '../../../hooks/useUser';
 
 const style = {
   flexDirection: 'column',

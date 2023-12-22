@@ -7,9 +7,9 @@ import { mask } from 'remask';
 import { StepsPrimeiroAcessoMMN } from '..';
 import { postPlayCadastroPontosPorModalidade } from '../../../../api/ApisPrimeiroAcessoParceiro';
 import { Cards } from '../../../../components';
-import { useForm } from '../../../../hooks';
-import useUser from '../../../../hooks/useUser';
 import { errorToast } from '../../../../utils';
+import { useForm } from '../../../hooks';
+import useUser from '../../../hooks/useUser';
 
 export function CadastroPontosModalidadeMMN() {
   const { user } = useUser();

@@ -17,7 +17,7 @@ import { AiOutlineSearch } from 'react-icons/ai';
 import { FaMoneyBillTransfer } from 'react-icons/fa6';
 import { RiNotificationLine } from 'react-icons/ri';
 import { AuthContext, SearchInput } from '..';
-import useUser from '../../hooks/useUser';
+import useUser from '../../Pages/hooks/useUser';
 
 import { LiaAwardSolid } from 'react-icons/lia';
 import { useNavigate } from 'react-router-dom';

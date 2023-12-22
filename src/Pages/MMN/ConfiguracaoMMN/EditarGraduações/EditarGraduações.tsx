@@ -32,8 +32,8 @@ import {
 } from '../../../../api';
 import { postPlayDeletarGraduacao } from '../../../../api/ApisEditarModulo/DeletarGraduacao';
 import { Cards, Loading } from '../../../../components';
-import useUser from '../../../../hooks/useUser';
 import { errorToast } from '../../../../utils';
+import useUser from '../../../hooks/useUser';
 
 export function EditarGraduações() {
   const [selectedValue, setSelectedValue] = useState('');

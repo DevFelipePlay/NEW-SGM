@@ -27,9 +27,9 @@ import {
 } from '../../../../api';
 import { postPlayEditaPremios } from '../../../../api/ApisEditarModulo/EditarPremiacao';
 import { Cards, Dropzone, Loading } from '../../../../components';
-import { useForm } from '../../../../hooks';
-import useUser from '../../../../hooks/useUser';
 import { currencyMask, errorToast } from '../../../../utils';
+import { useForm } from '../../../hooks';
+import useUser from '../../../hooks/useUser';
 
 export function EditarPremios() {
   const [selectedValue, setSelectedValue] = useState('');

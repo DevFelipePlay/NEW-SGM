@@ -11,7 +11,7 @@ import backgroundTab from '../../assets/MMNImg/TabBarBackground.jpg';
 import { ReactNode } from 'react';
 import { BiHomeSmile } from 'react-icons/bi';
 import { GiHumanPyramid } from 'react-icons/gi';
-import useUser from '../../hooks/useUser';
+import useUser from '../../Pages/hooks/useUser';
 import { ExtrairLetras } from '../../utils';
 import { AuthContext } from '../Auth/auth';
 

@@ -24,8 +24,8 @@ import {
 } from '../../../../api/ApisPrimeiroAcessoParceiro';
 import { IResPostPlayRecuperaPlanosPrimeiroAcesso } from '../../../../api/ApisPrimeiroAcessoParceiro/RecuperaPlanosPrimeiroAcessoMMN/IResPostPlayRecuperaPlanosPrimeiroAcessoMMN';
 import { Cards, Loading } from '../../../../components';
-import useUser from '../../../../hooks/useUser';
 import { errorToast } from '../../../../utils';
+import useUser from '../../../hooks/useUser';
 
 export function CadastroDosPlanosMMN() {
   const [checkboxStates, setCheckboxStates] = useState<{ [key: string]: boolean }>({});

@@ -9,8 +9,8 @@ import {
   postPlayVisualizarPontosPorNivel,
 } from '../../../../api';
 import { Cards, Loading } from '../../../../components';
-import useUser from '../../../../hooks/useUser';
 import { errorToast } from '../../../../utils';
+import useUser from '../../../hooks/useUser';
 
 export function EditarPontos() {
   const { user } = useUser();

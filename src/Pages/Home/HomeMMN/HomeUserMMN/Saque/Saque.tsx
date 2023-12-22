@@ -29,9 +29,9 @@ import {
 import { postPlaySaqueUsuario } from '../../../../../api/ApisUtils/SaqueUsuario';
 import { IResPostPlaySaqueUsuario } from '../../../../../api/ApisUtils/SaqueUsuario/IResPostPlaySaqueUsuario';
 import { Cards, CustomTextField, Loading } from '../../../../../components';
-import { useForm } from '../../../../../hooks';
-import useUser from '../../../../../hooks/useUser';
 import { currencyMask, currencyUnMask, errorToast } from '../../../../../utils';
+import { useForm } from '../../../../hooks';
+import useUser from '../../../../hooks/useUser';
 
 export function Saque() {
   const [loading, setLoading] = useState(false);

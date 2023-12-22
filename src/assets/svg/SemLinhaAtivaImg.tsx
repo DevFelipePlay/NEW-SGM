@@ -1,4 +1,4 @@
-import useWindowSize from '../../hooks/useWindowSize';
+import useWindowSize from '../../Pages/hooks/useWindowSize';
 
 export default function SemLinhaAtivaImg() {
   const { isMobile } = useWindowSize();

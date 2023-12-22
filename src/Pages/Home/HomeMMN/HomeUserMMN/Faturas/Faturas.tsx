@@ -18,8 +18,8 @@ import {
   ListFaturasPacotes,
   Loading,
 } from '../../../../../components';
-import useUser from '../../../../../hooks/useUser';
 import { dateFormatter, errorToast } from '../../../../../utils';
+import useUser from '../../../../hooks/useUser';
 
 export function Faturas() {
   const [loading, setLoading] = useState(false);

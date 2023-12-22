@@ -31,8 +31,8 @@ import {
   postPlayEditarPacotesChips,
 } from '../../../../api/ApisEditarModulo/EditarPacotesChips';
 import { Cards, Loading } from '../../../../components';
-import useUser from '../../../../hooks/useUser';
 import { currencyMask, currencyUnMask, errorToast } from '../../../../utils';
+import useUser from '../../../hooks/useUser';
 
 export function EditarPacotesChips() {
   const [loading, setloading] = useState(false);

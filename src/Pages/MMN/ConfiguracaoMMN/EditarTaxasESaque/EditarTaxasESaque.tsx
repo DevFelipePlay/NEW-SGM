@@ -9,8 +9,8 @@ import {
   postPlayVisualizaTaxas,
 } from '../../../../api';
 import { Cards, Loading } from '../../../../components';
-import useUser from '../../../../hooks/useUser';
 import { currencyMask, currencyUnMask, errorToast } from '../../../../utils';
+import useUser from '../../../hooks/useUser';
 
 export function EditarTaxasESaque() {
   const [loadingView, setLoadingView] = useState(false);

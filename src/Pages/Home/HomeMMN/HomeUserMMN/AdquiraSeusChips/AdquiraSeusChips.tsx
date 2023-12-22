@@ -13,8 +13,8 @@ import {
   postPlayGeraFaturaVendaChip,
 } from '../../../../../api/ApisPrimeiroAcessoUsuario/GerafaturaVendaChip';
 import { Cards, Loading } from '../../../../../components';
-import useUser from '../../../../../hooks/useUser';
 import { errorToast } from '../../../../../utils';
+import useUser from '../../../../hooks/useUser';
 
 export function AdquiraSeusChips() {
   const [loadingView, setLoadingView] = useState(false);

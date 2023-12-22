@@ -8,10 +8,10 @@ import {
 } from '../../../../../api';
 import { postPlayEditarNiveisLicenciamento } from '../../../../../api/ApisEditarModulo/EditarNiveisLicenciamento';
 import { Cards, Loading } from '../../../../../components';
-import { useForm } from '../../../../../hooks';
-import useUser from '../../../../../hooks/useUser';
 import { errorToast } from '../../../../../utils';
 import { currencyMask } from '../../../../../utils/masks/maskCurrency';
+import { useForm } from '../../../../hooks';
+import useUser from '../../../../hooks/useUser';
 
 export function NiveisDeDistribuicaoLicenciamento() {
   const [selectedValues, setSelectedValues] = useState<number[]>([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);

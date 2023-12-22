@@ -8,8 +8,8 @@ import {
   postPlayRecuperaPlanosPrimeiroAcesso,
 } from '../../../../api';
 import { Loading } from '../../../../components';
-import useUser from '../../../../hooks/useUser';
 import { errorToast } from '../../../../utils';
+import useUser from '../../../hooks/useUser';
 
 export function EditarPlanos() {
   const [loadingView, setLoadingView] = useState(false);

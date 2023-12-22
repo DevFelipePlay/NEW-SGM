@@ -8,10 +8,10 @@ import {
   postPlayVisualizaNiveisAtivacao,
 } from '../../../../../api';
 import { Cards, Loading } from '../../../../../components';
-import { useForm } from '../../../../../hooks';
-import useUser from '../../../../../hooks/useUser';
 import { errorToast } from '../../../../../utils';
 import { currencyMask } from '../../../../../utils/masks/maskCurrency';
+import { useForm } from '../../../../hooks';
+import useUser from '../../../../hooks/useUser';
 
 export function NiveisDeDistribuicaoAtivacao() {
   const [selectedValues, setSelectedValues] = useState<number[]>([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);

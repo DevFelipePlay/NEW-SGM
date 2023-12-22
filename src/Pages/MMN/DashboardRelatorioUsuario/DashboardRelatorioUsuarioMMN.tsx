@@ -11,9 +11,9 @@ import {
   postPlayDashboardUsuarioContinue,
 } from '../../../api';
 import { Cards, DefaultContainer, Loading } from '../../../components';
-import { useCopyToClipboard } from '../../../hooks/useCopyToClipboard';
-import useUser from '../../../hooks/useUser';
 import { currencyMask, dadosFormatter, dateFormatter, errorToast } from '../../../utils';
+import { useCopyToClipboard } from '../../hooks/useCopyToClipboard';
+import useUser from '../../hooks/useUser';
 
 export function DashboardRelatorioUsuario() {
   const [responseIdIndicacao, setresponseIdIndicacao] = useState<IResPostPlayDashboardUsuario>();

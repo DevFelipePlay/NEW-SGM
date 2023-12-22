@@ -21,11 +21,11 @@ import {
   postPlayCadastroUserMMN,
 } from '../../../../api/ApisPrimeiroAcessoParceiro/CadastroUserMMN';
 import { Cards } from '../../../../components';
-import { useForm } from '../../../../hooks';
-import useUser from '../../../../hooks/useUser';
-import useWindowSize from '../../../../hooks/useWindowSize';
 import apiCep from '../../../../services/apiCep';
 import { errorToast } from '../../../../utils';
+import { useForm } from '../../../hooks';
+import useUser from '../../../hooks/useUser';
+import useWindowSize from '../../../hooks/useWindowSize';
 
 export default function CadastroDeDadosPessoaisUserMmn() {
   return <div>CadastroDeDadosPessoaisUserMmn</div>;
