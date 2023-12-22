@@ -18,7 +18,7 @@ export function AuthGuard({ allowedRoles }: AuthGuardProps) {
   if (!user) return <Navigate to={'/login'} state={{ from: currentUrl }} replace />;
 
   // Verifica se o usuário tem acesso a rota
-  if (!allowedRoles.includes(user?.profileid || 3))
+  if (!allowedRoles.includes(user?.profileid_multinivel || 3))
     return <Navigate to='/forbidden' state={{ from: currentUrl }} replace />;
 
   return <Outlet />;
