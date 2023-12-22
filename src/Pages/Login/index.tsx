@@ -71,7 +71,7 @@ export default function Login() {
               boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
               gap: {
                 xs: 4,
-                sm: 8,
+                lg: 8,
               },
             }}
           >

@@ -1,18 +1,27 @@
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import { Box, Button, Pagination, PaginationItem, Stack, Typography } from '@mui/material';
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { mask } from 'remask';
-import { postPlayRecuperaNiveisParceiro } from '../../../../../api';
-import { IResPostPlayRecuperaNiveisParceiro } from '../../../../../api/ApisUtils/RecuperaNiveisParceiro/IResPostPlayRecuperaNiveisParceiro';
-import { ListCustom, Loading } from '../../../../../components';
-import useUser from '../../../../../hooks/useUser';
-import { errorToast } from '../../../../../utils';
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import {
+  Box,
+  Button,
+  Pagination,
+  PaginationItem,
+  Stack,
+  Typography,
+} from "@mui/material";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { mask } from "remask";
+import { postPlayRecuperaNiveisParceiro } from "../../../../../api";
+import { IResPostPlayRecuperaNiveisParceiro } from "../../../../../api/ApisUtils/RecuperaNiveisParceiro/IResPostPlayRecuperaNiveisParceiro";
+import { ListCustom, Loading } from "../../../../../components";
+import useUser from "../../../../../hooks/useUser";
+import { errorToast } from "../../../../../utils";
 
 export default function RedeDeUsuariosParceiroMMN() {
   const [loading, setLoading] = useState(false);
-  const [responseList, setResponseList] = useState<IResPostPlayRecuperaNiveisParceiro[]>([]);
+  const [responseList, setResponseList] = useState<
+    IResPostPlayRecuperaNiveisParceiro[]
+  >([]);
   const { user } = useUser();
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
@@ -23,7 +32,7 @@ export default function RedeDeUsuariosParceiroMMN() {
     setLoading(true);
 
     let payload = {
-      cpf: user?.cpf ? user?.cpf : '',
+      cpf: user?.cpf ? user?.cpf : "",
     };
     try {
       const data = await postPlayRecuperaNiveisParceiro(payload);
@@ -36,7 +45,10 @@ export default function RedeDeUsuariosParceiroMMN() {
   }
 
   //@ts-ignore
-  const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
+  const handlePageChange = (
+    event: React.ChangeEvent<unknown>,
+    page: number
+  ) => {
     setCurrentPage(page);
   };
 
@@ -46,14 +58,16 @@ export default function RedeDeUsuariosParceiroMMN() {
     const paginatedItems = responseList.slice(startIndex, endIndex);
 
     return paginatedItems.map((item, index) => (
-      <Box sx={{ width: '100%' }} key={index}>
+      <Box sx={{ width: "100%" }} key={index}>
         <ListCustom
-          avatar={''}
+          avatar={""}
           nome={item.nome}
-          cpf={mask(item.cpf, ['999.999.999-99', '99.999.999/9999-99'])}
-          editar={() => ''}
-          excluir={() => ''}
-          pressItemList={() => navigate(`/daashboard-relatorio-usuario-mmn/${item.cpf}`)}
+          cpf={mask(item.cpf, ["999.999.999-99", "99.999.999/9999-99"])}
+          editar={() => ""}
+          excluir={() => ""}
+          pressItemList={() =>
+            navigate(`/daashboard-relatorio-usuario-mmn/${item.cpf}`)
+          }
         />
       </Box>
     ));
@@ -70,19 +84,22 @@ export default function RedeDeUsuariosParceiroMMN() {
         <>
           <Box
             sx={{
-              width: '100%',
+              width: "100%",
               m: 1,
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
             }}
           >
-            <Typography variant='h4'>Rede de usuários</Typography>
-            <Button onClick={() => navigate('/cadastro-usuario')} variant='contained'>
+            <Typography variant="h4">Rede de usuários</Typography>
+            <Button
+              onClick={() => navigate("/cadastro-usuario")}
+              variant="contained"
+            >
               Cadastrar
             </Button>
           </Box>
-          <Typography variant='h4' sx={{ mt: 10 }}>
+          <Typography variant="h4" sx={{ mt: 10 }}>
             Sem usuários cadastrados
           </Typography>
         </>
@@ -91,11 +108,11 @@ export default function RedeDeUsuariosParceiroMMN() {
           {loading ? (
             <Box
               sx={{
-                width: '100%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                height: '50vh',
+                width: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                height: "50vh",
               }}
             >
               <Loading />
@@ -104,24 +121,39 @@ export default function RedeDeUsuariosParceiroMMN() {
             <Box
               sx={{
                 mb: 2,
-                width: '100%',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                flexDirection: 'column',
+                width: "100%",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                flexDirection: "column",
               }}
             >
               <Box
                 sx={{
-                  width: '100%',
+                  width: "100%",
                   m: 1,
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  flexDirection: {
+                    xs: "column",
+                    sm: "row",
+                  },
+                  textAlign: {
+                    xs: "center",
+                    sm: "inherit",
+                  },
+                  letterSpacing: {
+                    xs: "0",
+                    sm: "inherit",
+                  },
                 }}
               >
-                <Typography variant='h4'>Rede de usuários</Typography>
-                <Button onClick={() => navigate('/cadastro-usuario')} variant='contained'>
+                <Typography variant="h4">Rede de usuários</Typography>
+                <Button
+                  onClick={() => navigate("/cadastro-usuario")}
+                  variant="contained"
+                >
                   Cadastrar
                 </Button>
               </Box>
@@ -134,7 +166,10 @@ export default function RedeDeUsuariosParceiroMMN() {
                   onChange={handlePageChange}
                   renderItem={(item) => (
                     <PaginationItem
-                      slots={{ previous: ArrowBackIcon, next: ArrowForwardIcon }}
+                      slots={{
+                        previous: ArrowBackIcon,
+                        next: ArrowForwardIcon,
+                      }}
                       {...item}
                     />
                   )}
