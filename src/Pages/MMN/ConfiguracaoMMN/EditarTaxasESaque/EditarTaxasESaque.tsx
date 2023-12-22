@@ -127,16 +127,10 @@ export function EditarTaxasESaque() {
               <Box
                 sx={{
                   display: "flex",
-                  alignItems: {
-                    xs: "start",
-                    sm: "center",
-                  },
+                  alignItems: "start",
                   justifyContent: "center",
                   flexDirection: "column",
-                  textAlign: {
-                    xs: "start",
-                    sm: "center",
-                  },
+                  textAlign: "start",
                 }}
               >
                 <span
@@ -225,6 +219,9 @@ export function EditarTaxasESaque() {
                   type="submit"
                   variant="contained"
                   loading={loadingEdit}
+                  sx={{
+                    alignSelf: "center",
+                  }}
                 >
                   Confirmar Edição
                 </LoadingButton>

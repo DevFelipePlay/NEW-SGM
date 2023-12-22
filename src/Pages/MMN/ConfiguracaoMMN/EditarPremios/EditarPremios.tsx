@@ -13,6 +13,8 @@ import {
   RadioGroup,
   TextField,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import { CSSProperties, useEffect, useState } from "react";
 import { TbTrashX } from "react-icons/tb";
@@ -29,6 +31,7 @@ import { postPlayEditaPremios } from "../../../../api/ApisEditarModulo/EditarPre
 import { Cards, Dropzone, Loading } from "../../../../components";
 import { useForm } from "../../../../hooks";
 import useUser from "../../../../hooks/useUser";
+import useWindowSize from "../../../../hooks/useWindowSize";
 import { currencyMask, errorToast } from "../../../../utils";
 
 export function EditarPremios() {
@@ -56,6 +59,14 @@ export function EditarPremios() {
       return updatedImgs;
     });
   };
+
+  // breakpoints
+  const { isMobile } = useWindowSize();
+  const theme = useTheme();
+  const smDown = useMediaQuery(theme.breakpoints.down("sm"));
+  const mdDown = useMediaQuery(theme.breakpoints.down("md"));
+
+  /////
   async function handleSubmitFoto(index: number, idpremio: string) {
     const dadosFotos = new FormData();
 
@@ -174,12 +185,12 @@ export function EditarPremios() {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 400,
+    width: `${smDown ? "300px" : "400px"}`,
     borderRadius: "10px",
     boxShadow: "24",
     backgroundColor: "var(--backGround-sideBar-color)",
     color: "var(--text-color)",
-    padding: "4rem",
+    padding: `${smDown ? "1rem" : "4rem"}`,
     textAlign: "center",
     border: "none",
   };
@@ -326,7 +337,7 @@ export function EditarPremios() {
                     <Cards
                       title={`${item.nome_premio}`}
                       subTitle={"Prêmios"}
-                      size={"50%"}
+                      size={mdDown ? "100%" : "50%"}
                       key={index}
                     >
                       <TextField
@@ -644,7 +655,7 @@ export function EditarPremios() {
               <Cards
                 title={"Premiações"}
                 subTitle={"Cadastre os prêmios e as suas metas"}
-                size={"50%"}
+                size={mdDown ? "100%" : "50%"}
               >
                 <FormControl>
                   <Typography variant="h5">
