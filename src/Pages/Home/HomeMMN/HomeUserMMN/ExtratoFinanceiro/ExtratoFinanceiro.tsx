@@ -7,7 +7,7 @@ import {
   postPlayExtratoFinanceiro,
 } from '../../../../../api/ApisUtils/ExtratoFinanceiro';
 import { IResPostPlaySaqueUsuario } from '../../../../../api/ApisUtils/SaqueUsuario/IResPostPlaySaqueUsuario';
-import { Cards, FlexBox, MUIDataTableCustom } from '../../../../../components';
+import { Cards, FlexBox, Loading, MUIDataTableCustom } from '../../../../../components';
 import { currencyFormatter, dateFormatter, errorToast } from '../../../../../utils';
 import useUser from '../../../../hooks/useUser';
 
@@ -35,6 +35,8 @@ export default function ExtratoFinanceiro() {
       setResponseSaldo(dataSaldo);
     } catch (error: any) {
       errorToast(error);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -98,7 +100,25 @@ export default function ExtratoFinanceiro() {
         </Paper>
 
         <Cards title={'Saldo Total'} subTitle={'Saldo da sua conta'} size={'40%'}>
-          <Typography variant='h4'>{currencyFormatter(responseSaldo?.saldo_disponivel)}</Typography>
+          <>
+            {loading ? (
+              <Box
+                sx={{
+                  width: '100%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  height: '20vh',
+                }}
+              >
+                <Loading />
+              </Box>
+            ) : (
+              <Typography variant='h4'>
+                {currencyFormatter(responseSaldo?.saldo_disponivel)}
+              </Typography>
+            )}
+          </>
         </Cards>
       </FlexBox>
     </Box>
