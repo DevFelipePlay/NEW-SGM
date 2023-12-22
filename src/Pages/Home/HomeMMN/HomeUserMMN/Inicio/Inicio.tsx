@@ -93,7 +93,7 @@ export function Inicio() {
     copy(
       `https://indicacao.opuscell.com.br/#/${responseIdIndicacao?.id_indicacao}`
     );
-    toast.success("Copiado para area de transferencia");
+    toast.success("Copiado para area de transferência");
   }
   useEffect(() => {
     const fetchData = async () => {
@@ -189,6 +189,7 @@ export function Inicio() {
                   </Tooltip>
                 </Cards>
               </Grid>
+
               <Grid item xs={12} sm={6} md={3}>
                 <Cards
                   title={"Bônus a receber"}
@@ -215,6 +216,7 @@ export function Inicio() {
                   </Typography>
                 </Cards>
               </Grid>
+
               <Grid item xs={12} sm={6} md={3}>
                 <Cards
                   title={"Total de bônus recebidos"}
@@ -241,6 +243,7 @@ export function Inicio() {
                   </Typography>
                 </Cards>
               </Grid>
+
               <Grid item xs={12} sm={12} md={5.5}>
                 <Cards title={"Dados Pessoais"} subTitle={""} size={"100%"}>
                   <Box

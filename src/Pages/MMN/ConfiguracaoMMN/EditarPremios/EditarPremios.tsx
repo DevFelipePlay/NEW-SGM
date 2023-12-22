@@ -31,7 +31,6 @@ import { postPlayEditaPremios } from "../../../../api/ApisEditarModulo/EditarPre
 import { Cards, Dropzone, Loading } from "../../../../components";
 import { useForm } from "../../../../hooks";
 import useUser from "../../../../hooks/useUser";
-import useWindowSize from "../../../../hooks/useWindowSize";
 import { currencyMask, errorToast } from "../../../../utils";
 
 export function EditarPremios() {
@@ -61,7 +60,6 @@ export function EditarPremios() {
   };
 
   // breakpoints
-  const { isMobile } = useWindowSize();
   const theme = useTheme();
   const smDown = useMediaQuery(theme.breakpoints.down("sm"));
   const mdDown = useMediaQuery(theme.breakpoints.down("md"));
