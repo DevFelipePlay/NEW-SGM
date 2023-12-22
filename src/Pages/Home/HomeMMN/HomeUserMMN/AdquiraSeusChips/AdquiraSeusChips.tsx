@@ -1,5 +1,13 @@
 import LoadingButton from "@mui/lab/LoadingButton/LoadingButton";
-import { Box, Button, Grid, Modal, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Grid,
+  Modal,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import { useEffect, useState } from "react";
 
 import { toast } from "react-toastify";
@@ -29,18 +37,23 @@ export function AdquiraSeusChips() {
   const [loadingBuy, setLoadingBuy] = useState(false);
   const { user } = useUser();
 
+  //breakpoints
+  const theme = useTheme();
+  const smDown = useMediaQuery(theme.breakpoints.down("sm"));
+  ///
+
   const style = {
     flexDirection: "column",
     position: "absolute" as "absolute",
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 400,
+    width: `${smDown ? "300px" : "400px"}`,
     borderRadius: "10px",
     boxShadow: "24",
     backgroundColor: "var(--backGround-sideBar-color)",
     color: "var(--text-color)",
-    padding: "4rem",
+    padding: `${smDown ? "1rem" : "4rem"}`,
     textAlign: "center",
     border: "none",
   };
@@ -202,7 +215,7 @@ export function AdquiraSeusChips() {
             id="modal-modal-title"
             variant="h6"
             component="h2"
-            sx={{ mb: 2 }}
+            sx={{ mb: 2, wordBreak: "break-all" }}
           >
             Sua solicitação de compra foi realizada, clique no link e pague sua
             fatura ou visualize a fatura pelo seu aplicativo ou na aba de

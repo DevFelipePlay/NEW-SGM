@@ -1,18 +1,29 @@
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import { Box, Pagination, PaginationItem, Stack, Typography } from '@mui/material';
-import { useEffect, useState } from 'react';
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import {
+  Box,
+  Pagination,
+  PaginationItem,
+  Stack,
+  Typography,
+} from "@mui/material";
+import { useEffect, useState } from "react";
 import {
   IReqPostPlaySolicitacoesPremiosUsuario,
   IResPostPlaySolicitacoesPremiosUsuario,
   postPlaySolicitacaoPremiosUsuario,
-} from '../../../../api';
-import { ListHistoricoSolicitacoesPremios, Loading } from '../../../../components';
-import useUser from '../../../../hooks/useUser';
+} from "../../../../api";
+import {
+  ListHistoricoSolicitacoesPremios,
+  Loading,
+} from "../../../../components";
+import useUser from "../../../../hooks/useUser";
 
 export function HistoricoPremios() {
   const [loading, setLoading] = useState(false);
-  const [responseList, setResponseList] = useState<IResPostPlaySolicitacoesPremiosUsuario[]>([]);
+  const [responseList, setResponseList] = useState<
+    IResPostPlaySolicitacoesPremiosUsuario[]
+  >([]);
   const { user } = useUser();
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
@@ -21,7 +32,7 @@ export function HistoricoPremios() {
     setLoading(true);
 
     const payload: IReqPostPlaySolicitacoesPremiosUsuario = {
-      cpf: user?.cpf || '',
+      cpf: user?.cpf || "",
     };
     try {
       const data = await postPlaySolicitacaoPremiosUsuario(payload);
@@ -34,7 +45,10 @@ export function HistoricoPremios() {
   }
 
   //@ts-ignore
-  const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
+  const handlePageChange = (
+    event: React.ChangeEvent<unknown>,
+    page: number
+  ) => {
     setCurrentPage(page);
   };
 
@@ -45,9 +59,9 @@ export function HistoricoPremios() {
     const paginatedItems = reversedList.slice(startIndex, endIndex);
 
     return paginatedItems.map((item, index) => (
-      <Box sx={{ width: '100%' }} key={index}>
+      <Box sx={{ width: "100%" }} key={index}>
         <ListHistoricoSolicitacoesPremios
-          nome={user ? user.name : ''}
+          nome={user ? user.name : ""}
           dataPagamento={item.data_solicitacao}
           endereco={item.endereco}
           id={item.ID}
@@ -71,16 +85,31 @@ export function HistoricoPremios() {
         <>
           <Box
             sx={{
-              width: '100%',
+              width: "100%",
               m: 1,
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              textAlign: {
+                xs: "center",
+                sm: "inherit",
+              },
             }}
           >
-            <Typography variant='h4'>Histórico de solicitações de Prêmios</Typography>
+            <Typography variant="h4">
+              Histórico de solicitações de Prêmios
+            </Typography>
           </Box>
-          <Typography variant='h4' sx={{ mt: 10 }}>
+          <Typography
+            variant="h4"
+            sx={{
+              mt: 10,
+              textAlign: {
+                xs: "center",
+                sm: "inherit",
+              },
+            }}
+          >
             Nenhuma solicitação realizada!
           </Typography>
         </>
@@ -89,11 +118,11 @@ export function HistoricoPremios() {
           {loading ? (
             <Box
               sx={{
-                width: '100%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                height: '50vh',
+                width: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                height: "50vh",
               }}
             >
               <Loading />
@@ -102,23 +131,29 @@ export function HistoricoPremios() {
             <Box
               sx={{
                 mb: 2,
-                width: '100%',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                flexDirection: 'column',
+                width: "100%",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                flexDirection: "column",
               }}
             >
               <Box
                 sx={{
-                  width: '100%',
+                  width: "100%",
                   m: 1,
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  textAlign: {
+                    xs: "center",
+                    sm: "inherit",
+                  },
                 }}
               >
-                <Typography variant='h4'>Histórico de solicitações de Prêmios</Typography>
+                <Typography variant="h4">
+                  Histórico de solicitações de Prêmios
+                </Typography>
               </Box>
               {renderPaginatedList()}
 
@@ -129,7 +164,10 @@ export function HistoricoPremios() {
                   onChange={handlePageChange}
                   renderItem={(item) => (
                     <PaginationItem
-                      slots={{ previous: ArrowBackIcon, next: ArrowForwardIcon }}
+                      slots={{
+                        previous: ArrowBackIcon,
+                        next: ArrowForwardIcon,
+                      }}
                       {...item}
                     />
                   )}

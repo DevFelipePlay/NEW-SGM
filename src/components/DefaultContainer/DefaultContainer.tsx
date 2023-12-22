@@ -44,6 +44,7 @@ interface IDefaultCOntainer {
   subTitle: string;
   showSearch: boolean;
   showAvatar: boolean;
+  hasSidebar?: boolean;
   children: ReactNode;
 }
 
@@ -54,6 +55,7 @@ export function DefaultContainer({
   showSearch,
   showAvatar,
   children,
+  hasSidebar = true,
 }: IDefaultCOntainer) {
   const { isMobile } = useWindowSize();
 
@@ -165,7 +167,7 @@ export function DefaultContainer({
           ...contentStyles,
           backgroundColor: "var(--backGround-header-color)",
           height: "auto",
-          mt: isMobile ? 8 : 0,
+          mt: hasSidebar && isMobile ? 8 : 0,
         }}
       >
         <Box
@@ -318,7 +320,14 @@ export function DefaultContainer({
               navigate("/solicitacoes-saque");
             }}
           >
-            <ListItemIcon>
+            <ListItemIcon
+              sx={{
+                display: {
+                  xs: "none",
+                  sm: "flex",
+                },
+              }}
+            >
               <FaMoneyBillTransfer />
             </ListItemIcon>
             Solicitações de Saques Pendentes
@@ -340,7 +349,7 @@ export function DefaultContainer({
               <ListItemIcon>
                 <LiaAwardSolid />
               </ListItemIcon>
-              Solicitação de Premios pendentes
+              Solicitação de Prêmios pendentes
             </MenuItem>
           </>
         ) : (

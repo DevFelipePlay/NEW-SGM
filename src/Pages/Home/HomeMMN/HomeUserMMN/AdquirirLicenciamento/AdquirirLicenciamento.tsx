@@ -202,7 +202,7 @@ export function AdquirirLicenciamento() {
               id="modal-modal-title"
               variant="h6"
               component="h2"
-              sx={{ mb: 2 }}
+              sx={{ mb: 2, wordBreak: "break-all" }}
             >
               Sua solicitação de compra foi realizada, clique no link e pague
               sua fatura ou visualize a fatura pelo seu aplicativo:

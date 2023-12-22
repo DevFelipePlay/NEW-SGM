@@ -165,7 +165,12 @@ export function EditarPlanos() {
                   onChange={(e) =>
                     handleEditChange(index, "nivel", e.target.value)
                   }
-                  sx={{ width: "50%" }}
+                  sx={{
+                    width: {
+                      xs: "100%",
+                      sm: "50%",
+                    },
+                  }}
                 >
                   {[...Array(11).keys()].map((value) => (
                     <MenuItem key={value} value={value}>
