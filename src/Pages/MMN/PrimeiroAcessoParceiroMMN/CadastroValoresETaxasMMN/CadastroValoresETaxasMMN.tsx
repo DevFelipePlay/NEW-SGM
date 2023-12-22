@@ -1,24 +1,35 @@
-import LoadingButton from '@mui/lab/LoadingButton/LoadingButton';
-import { Box, InputAdornment, MenuItem, Select, TextField } from '@mui/material';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import { StepsPrimeiroAcessoMMN } from '..';
-import { postPlayCadastroValoresETaxasMMN } from '../../../../api/ApisPrimeiroAcessoParceiro/CadastroValoresETaxasMMN';
-import { Cards } from '../../../../components';
-import { useForm } from '../../../../hooks';
-import useUser from '../../../../hooks/useUser';
-import { errorToast } from '../../../../utils';
-import { currencyMask, currencyUnMask } from '../../../../utils/masks/maskCurrency';
+import LoadingButton from "@mui/lab/LoadingButton/LoadingButton";
+import {
+  Box,
+  InputAdornment,
+  MenuItem,
+  Select,
+  TextField,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { StepsPrimeiroAcessoMMN } from "..";
+import { postPlayCadastroValoresETaxasMMN } from "../../../../api/ApisPrimeiroAcessoParceiro/CadastroValoresETaxasMMN";
+import { Cards } from "../../../../components";
+import { useForm } from "../../../../hooks";
+import useUser from "../../../../hooks/useUser";
+import { errorToast } from "../../../../utils";
+import {
+  currencyMask,
+  currencyUnMask,
+} from "../../../../utils/masks/maskCurrency";
 
 export function CadastroValoresETaxasMMN() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { user } = useUser();
   const { formData, changeForm } = useForm({
-    bonus_carreira: '',
-    limite_minimo_saque: '',
-    taxa_saque: '',
+    bonus_carreira: "",
+    limite_minimo_saque: "",
+    taxa_saque: "",
     token: user?.token,
   });
 
@@ -30,7 +41,9 @@ export function CadastroValoresETaxasMMN() {
     currencyUnMask(formData.limite_minimo_saque);
 
     const unMaskedBonusCarreira = currencyUnMask(formData.bonus_carreira);
-    const unMaskedLimiteMinimoSaque = currencyUnMask(formData.limite_minimo_saque);
+    const unMaskedLimiteMinimoSaque = currencyUnMask(
+      formData.limite_minimo_saque
+    );
 
     const postData = {
       ...formData,
@@ -40,31 +53,47 @@ export function CadastroValoresETaxasMMN() {
 
     try {
       await postPlayCadastroValoresETaxasMMN(postData);
-      toast.success('Cadastro Realizado!');
-      navigate('/primeiro-acesso-multinivel-parceiro/cadastro-premiacoes');
+      toast.success("Cadastro Realizado!");
+      navigate("/primeiro-acesso-multinivel-parceiro/cadastro-premiacoes");
     } catch (error: any) {
       errorToast(error);
     } finally {
       setLoading(false);
     }
   }
+
+  //breakpoints
+  const theme = useTheme();
+  const smDown = useMediaQuery(theme.breakpoints.down("sm"));
+
   return (
     <StepsPrimeiroAcessoMMN step={9}>
       <Box
-        sx={{ width: '100%', alignItems: 'center', justifyContent: 'center', display: 'flex' }}
-        component={'form'}
+        sx={{
+          width: "100%",
+          alignItems: "center",
+          justifyContent: "center",
+          display: "flex",
+        }}
+        component={"form"}
         onSubmit={handleSubmit}
       >
-        <Cards title={'Valores'} subTitle={'Cadastro de taxas'} size={'50%'}>
-          <span style={{ fontSize: '12px', color: '#6F6F6F' }}>Taxa de saque</span>
+        <Cards
+          title={"Valores"}
+          subTitle={"Cadastro de taxas"}
+          size={smDown ? "90%" : "50%"}
+        >
+          <span style={{ fontSize: "12px", color: "#6F6F6F" }}>
+            Taxa de saque
+          </span>
           <Select
-            label='Porcentagem'
-            id='porcentagem'
+            label="Porcentagem"
+            id="porcentagem"
             value={formData.taxa_saque}
-            onChange={(e) => changeForm('taxa_saque', e.target.value)}
-            variant='standard'
+            onChange={(e) => changeForm("taxa_saque", e.target.value)}
+            variant="standard"
             fullWidth
-            defaultValue='0'
+            defaultValue="0"
             sx={{ mb: 2 }}
           >
             {[...Array(101).keys()].map((value) => (
@@ -75,41 +104,52 @@ export function CadastroValoresETaxasMMN() {
           </Select>
 
           <TextField
-            type='tel'
-            id='id_valor_plano'
-            label='Limite minimo para saque'
-            placeholder='0,00'
+            type="tel"
+            id="id_valor_plano"
+            label="Limite mínimo para saque"
+            placeholder="0,00"
             value={formData.limite_minimo_saque}
-            onChange={(e) => changeForm('limite_minimo_saque', currencyMask(e.target.value))}
-            variant='standard'
+            onChange={(e) =>
+              changeForm("limite_minimo_saque", currencyMask(e.target.value))
+            }
+            variant="standard"
             fullWidth
             required
             sx={{ mb: 2 }}
             InputProps={{
-              startAdornment: <InputAdornment position='start'>R$</InputAdornment>,
+              startAdornment: (
+                <InputAdornment position="start">R$</InputAdornment>
+              ),
             }}
           />
           <TextField
-            type='tel'
-            id='id_valor_plano'
-            label='Referencial bonus de carreira'
-            placeholder='0,00'
+            type="tel"
+            id="id_valor_plano"
+            label="Referencial bônus de carreira"
+            placeholder="0,00"
             value={formData.bonus_carreira}
-            onChange={(e) => changeForm('bonus_carreira', currencyMask(e.target.value))}
-            variant='standard'
+            onChange={(e) =>
+              changeForm("bonus_carreira", currencyMask(e.target.value))
+            }
+            variant="standard"
             fullWidth
             required
             sx={{ mb: 2 }}
             InputProps={{
-              startAdornment: <InputAdornment position='start'>R$</InputAdornment>,
+              startAdornment: (
+                <InputAdornment position="start">R$</InputAdornment>
+              ),
             }}
           />
 
           <LoadingButton
-            type='submit'
-            variant='contained'
+            type="submit"
+            variant="contained"
             loading={loading}
-            disabled={formData.bonus_carreira === '' || formData.limite_minimo_saque === ''}
+            disabled={
+              formData.bonus_carreira === "" ||
+              formData.limite_minimo_saque === ""
+            }
           >
             Enviar
           </LoadingButton>
