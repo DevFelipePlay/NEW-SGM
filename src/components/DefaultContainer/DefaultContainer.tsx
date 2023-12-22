@@ -76,7 +76,7 @@ export function DefaultContainer({
     ...displayFlexComponent,
     flexDirection: "column",
     marginTop: "2rem",
-    padding: `${isMobile ? "0 12px" : "0px 40px 0px 100px"}`,
+    padding: `${isMobile || !hasSidebar ? "0 12px" : "0px 40px 0px 100px"}`,
   };
 
   const { user } = useUser();

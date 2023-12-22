@@ -219,11 +219,11 @@ export function CadastroPremiacoesMMN() {
             )}
             {selectedValue === "1" && (
               <Box sx={{ my: 2 }}>
-                <Typography variant="h5">Premio em Itens</Typography>
+                <Typography variant="h5">Prêmio em Itens</Typography>
                 <TextField
-                  label="Nome do premio"
+                  label="Nome do prêmio"
                   variant="standard"
-                  value={formData.nome_premio}
+                  value={formData.nome_premio ? formData.nome_premio : ""}
                   fullWidth
                   onChange={(e) => changeForm("nome_premio", e.target.value)}
                   type="tel"
@@ -233,16 +233,18 @@ export function CadastroPremiacoesMMN() {
                 <TextField
                   label="Descrição"
                   variant="standard"
-                  value={formData.descricao}
+                  value={formData.descricao ? formData.descricao : ""}
                   fullWidth
                   onChange={(e) => changeForm("descricao", e.target.value)}
                   type="tel"
                   sx={{ mb: 2 }}
                 />
                 <TextField
-                  label="Premios disponiveis"
+                  label="Prêmios disponiveis"
                   variant="standard"
-                  value={mask(formData.quantidade, ["9999"])}
+                  value={mask(formData.quantidade ? formData.quantidade : "", [
+                    "9999",
+                  ])}
                   fullWidth
                   type="tel"
                   onChange={(e) => changeForm("quantidade", e.target.value)}
@@ -251,7 +253,10 @@ export function CadastroPremiacoesMMN() {
                 <TextField
                   label="Pontos para resgate"
                   variant="standard"
-                  value={mask(formData.pontos_resgate, ["9999999"])}
+                  value={mask(
+                    formData.pontos_resgate ? formData.pontos_resgate : "",
+                    ["9999999"]
+                  )}
                   fullWidth
                   type="tel"
                   onChange={(e) => changeForm("pontos_resgate", e.target.value)}
@@ -260,9 +265,9 @@ export function CadastroPremiacoesMMN() {
                 <TextField
                   type="tel"
                   id="id_valor_plano"
-                  label="Valor total estimado do premio"
+                  label="Valor total estimado do prêmio"
                   placeholder="0,00"
-                  value={formData.valor_premio}
+                  value={formData.valor_premio ? formData.valor_premio : ""}
                   onChange={(e) =>
                     changeForm("valor_premio", currencyMask(e.target.value))
                   }
@@ -329,10 +334,10 @@ export function CadastroPremiacoesMMN() {
               <>
                 <Box sx={{ my: 2 }}>
                   <Typography variant="h5">
-                    Premio em dinheiro e itens
+                    Prêmio em dinheiro e itens
                   </Typography>
                   <TextField
-                    label="Nome do premio"
+                    label="Nome do prêmio"
                     variant="standard"
                     value={formData.nome_premio}
                     fullWidth
@@ -350,9 +355,12 @@ export function CadastroPremiacoesMMN() {
                     sx={{ mb: 2 }}
                   />
                   <TextField
-                    label="Premios disponiveis"
+                    label="Prêmios disponiveis"
                     variant="standard"
-                    value={mask(formData.quantidade, ["9999"])}
+                    value={mask(
+                      formData.quantidade ? formData.quantidade : "",
+                      ["9999"]
+                    )}
                     fullWidth
                     type="tel"
                     onChange={(e) => changeForm("quantidade", e.target.value)}
@@ -361,7 +369,10 @@ export function CadastroPremiacoesMMN() {
                   <TextField
                     label="Meta em pontos"
                     variant="standard"
-                    value={mask(formData.pontos_resgate, ["9999999"])}
+                    value={mask(
+                      formData.pontos_resgate ? formData.pontos_resgate : "",
+                      ["9999999"]
+                    )}
                     fullWidth
                     type="tel"
                     onChange={(e) =>
@@ -372,9 +383,9 @@ export function CadastroPremiacoesMMN() {
                   <TextField
                     type="tel"
                     id="id_valor_plano"
-                    label="Valor total estimado do premio"
+                    label="Valor total estimado do prêmio"
                     placeholder="0,00"
-                    value={formData.valor_premio}
+                    value={formData.valor_premio ? formData.valor_premio : ""}
                     onChange={(e) =>
                       changeForm("valor_premio", currencyMask(e.target.value))
                     }
