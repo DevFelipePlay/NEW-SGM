@@ -25,6 +25,7 @@
     "helmet": "^7.1.0",
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
+    "mui-datatables": "^4.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-dropzone": "^14.2.3",
@@ -42,6 +43,7 @@
   "devDependencies": {
     "@types/crypto-js": "^4.2.1",
     "@types/lodash": "^4.14.202",
+    "@types/mui-datatables": "^4.3.12",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@types/styled-components": "^5.1.26",

@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import AppStoreBadge from '../../../assets/badge-appstore.svg';
 import PlayStoreBadge from '../../../assets/badge-playstore.svg';
 import { AppImage } from '../../../assets/svg/appImage1';
-import useWindowSize from '../../../hooks/useWindowSize';
+import useWindowSize from '../../hooks/useWindowSize';
 
 export default function AppScreen() {
   const { isMobile } = useWindowSize();

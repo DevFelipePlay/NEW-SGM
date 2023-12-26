@@ -11,9 +11,9 @@ import {
 } from '../../../../api';
 import foto from '../../../../assets/MMNImg/din.png';
 import { Cards, Loading } from '../../../../components';
-import { useForm } from '../../../../hooks';
-import useUser from '../../../../hooks/useUser';
 import { dateFormatter, errorToast } from '../../../../utils';
+import { useForm } from '../../../hooks';
+import useUser from '../../../hooks/useUser';
 
 export function ListaPostagem() {
   const [loadingView, setLoadingView] = useState(false);

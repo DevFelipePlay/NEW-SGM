@@ -3,6 +3,7 @@ import { Faturas, Inicio, Progresso, Saque } from "..";
 import { CustomizedTabs, DefaultContainer } from "../../../../../components";
 import useUser from "../../../../../hooks/useUser";
 import { AdquiraSeusChips } from "../AdquiraSeusChips";
+import ExtratoFinanceiro from "../ExtratoFinanceiro/ExtratoFinanceiro";
 
 export function HomeUserMMN() {
   const [tabValue, setTabValue] = useState(0);
@@ -27,6 +28,7 @@ export function HomeUserMMN() {
             { label: "Saque", value: 2 },
             { label: "Faturas", value: 3 },
             { label: "Adquira Seus Chips", value: 4 },
+            { label: "Extrato Financeiro", value: 5 },
           ]}
           mostrarBotaoVoltar={false}
           mostrarNavbar={true}
@@ -50,6 +52,7 @@ export function HomeUserMMN() {
       {tabValue === 2 && <Saque />}
       {tabValue === 3 && <Faturas />}
       {tabValue === 4 && <AdquiraSeusChips />}
+      {tabValue === 5 && <ExtratoFinanceiro />}
     </DefaultContainer>
   );
 }

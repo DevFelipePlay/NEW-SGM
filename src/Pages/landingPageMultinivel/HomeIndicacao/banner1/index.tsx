@@ -11,10 +11,10 @@ import {
   postPlayValidaCpfLandingPage,
 } from '../../../../api/ApisPrimeiroAcessoParceiro/PlayLadingPage';
 import { AboutImg } from '../../../../assets/svg';
-import { useForm } from '../../../../hooks';
-import useUser from '../../../../hooks/useUser';
-import useWindowSize from '../../../../hooks/useWindowSize';
 import { maskCpfCnpj } from '../../../../utils';
+import { useForm } from '../../../hooks';
+import useUser from '../../../hooks/useUser';
+import useWindowSize from '../../../hooks/useWindowSize';
 import styles from '../../style.module.css';
 
 export default function Banner1() {

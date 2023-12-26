@@ -19,13 +19,11 @@ import { ReactNode } from "react";
 import { BiHomeSmile } from "react-icons/bi";
 import { GiHumanPyramid } from "react-icons/gi";
 import useUser from "../../hooks/useUser";
-import useWindowSize from "../../hooks/useWindowSize";
 import { ExtrairLetras } from "../../utils";
 import { AuthContext } from "../Auth/auth";
 
 export function Sidebar(): JSX.Element {
   const navigate = useNavigate();
-  const { isMobile } = useWindowSize();
   ///////////////////////////////////////////////////////////Estilização //////////////////////////////////////////////////////////////////////////////
   // Estados para controlar o Drawer, TabBar e ícone ativo
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);

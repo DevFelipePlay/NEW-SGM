@@ -18,9 +18,9 @@ import {
   postPlayCadastroUserMMN,
 } from '../../../../api/ApisPrimeiroAcessoParceiro/CadastroUserMMN';
 import { Cards, DefaultContainer } from '../../../../components';
-import { useForm } from '../../../../hooks';
 import apiCep from '../../../../services/apiCep';
 import { errorToast } from '../../../../utils';
+import { useForm } from '../../../hooks';
 
 export default function CadastroDeDadosPessoaisUserMmn() {
   return <div>CadastroDeDadosPessoaisUserMmn</div>;

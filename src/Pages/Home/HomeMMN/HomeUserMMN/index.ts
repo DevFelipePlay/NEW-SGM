@@ -1,5 +1,6 @@
 export * from './AdquiraSeusChips';
 export * from './AdquirirLicenciamento';
+export * from './ExtratoFinanceiro';
 export * from './Faturas';
 export * from './HomeUserMMN';
 export * from './Inicio';

@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { postPlayValidaIdIndicacao } from '../../api/ApisUtils/ValidaIdIndicacao';
 import { Error401Image } from '../../assets/svg/Error401Image';
-import useWindowSize from '../../hooks/useWindowSize';
+import useWindowSize from '../hooks/useWindowSize';
 import Banner1 from './HomeIndicacao/banner1';
 import Banner2 from './HomeIndicacao/banner2';
 import Banner3 from './HomeIndicacao/banner3';
