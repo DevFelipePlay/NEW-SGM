@@ -1,11 +1,13 @@
-import { useContext } from 'react';
-import { AuthContext } from '../../components/Auth/auth';
+import { useContext } from "react";
+import { AuthContext } from "../components/Auth/auth";
 
 export default function useUser() {
   const { user } = useContext(AuthContext);
 
   const isClientePj = user?.profileid === 3 && user?.cpf.length > 11;
-  const isAdminPlay = user ? user?.profileid <= 1 && user?.companyid === 46 : undefined;
+  const isAdminPlay = user
+    ? user?.profileid <= 1 && user?.companyid === 46
+    : undefined;
   const isParceiroRevendedor = !!user?.parceirorevendedor;
   const isRevendedor = user?.profileid === 4;
   const isFranquia = user?.profileid === 6;
@@ -15,9 +17,11 @@ export default function useUser() {
   const isPosPago = !!user?.pospago;
   const isAtendente = user?.profileid === 2;
 
-  const isIlberIrlanLeandro = ['01269952145', '02767237163', '70941718115'].includes(
-    user?.cpf || ''
-  );
+  const isIlberIrlanLeandro = [
+    "01269952145",
+    "02767237163",
+    "70941718115",
+  ].includes(user?.cpf || "");
 
   const userInfoString = JSON.stringify({
     cpf: user?.cpf,
@@ -26,7 +30,8 @@ export default function useUser() {
   });
 
   function checkAccess(page: string, nivel?: boolean) {
-    if (user?.pages === undefined || user?.pages === null) return nivel || false;
+    if (user?.pages === undefined || user?.pages === null)
+      return nivel || false;
     return user?.pages.includes(page);
   }
 

@@ -1,27 +1,39 @@
-import { Box, Paper, Typography } from '@mui/material';
-import { useEffect, useState } from 'react';
-import { postPlaySaqueUsuario } from '../../../../../api';
+import { Box, Paper, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
+import { postPlaySaqueUsuario } from "../../../../../api";
 import {
   IReqPostPlayExtratoFinanceiro,
   IResPostPlayExtratoFinanceiro,
   postPlayExtratoFinanceiro,
-} from '../../../../../api/ApisUtils/ExtratoFinanceiro';
-import { IResPostPlaySaqueUsuario } from '../../../../../api/ApisUtils/SaqueUsuario/IResPostPlaySaqueUsuario';
-import { Cards, FlexBox, Loading, MUIDataTableCustom } from '../../../../../components';
-import { currencyFormatter, dateFormatter, errorToast } from '../../../../../utils';
-import useUser from '../../../../hooks/useUser';
+} from "../../../../../api/ApisUtils/ExtratoFinanceiro";
+import { IResPostPlaySaqueUsuario } from "../../../../../api/ApisUtils/SaqueUsuario/IResPostPlaySaqueUsuario";
+import {
+  Cards,
+  FlexBox,
+  Loading,
+  MUIDataTableCustom,
+} from "../../../../../components";
+import useUser from "../../../../../hooks/useUser";
+import {
+  currencyFormatter,
+  dateFormatter,
+  errorToast,
+} from "../../../../../utils";
 
 export default function ExtratoFinanceiro() {
   const [loading, setLoading] = useState(false);
-  const [responseView, setResponseView] = useState<IResPostPlayExtratoFinanceiro[]>([]);
-  const [responseSaldo, setResponseSaldo] = useState<IResPostPlaySaqueUsuario>();
+  const [responseView, setResponseView] = useState<
+    IResPostPlayExtratoFinanceiro[]
+  >([]);
+  const [responseSaldo, setResponseSaldo] =
+    useState<IResPostPlaySaqueUsuario>();
   const { user } = useUser();
 
   async function handleView() {
     setLoading(true);
 
     const payload: IReqPostPlayExtratoFinanceiro = {
-      cpf: user?.cpf || '',
+      cpf: user?.cpf || "",
     };
     try {
       const data = await postPlayExtratoFinanceiro(payload);
@@ -45,42 +57,43 @@ export default function ExtratoFinanceiro() {
   }, []);
 
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box sx={{ width: "100%" }}>
       <FlexBox sx={{ gap: 2 }}>
         <Paper elevation={3} sx={{ mt: 2, p: 2 }}>
-          <FlexBox sx={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Typography variant='h4' gutterBottom flexGrow={1} sx={{ mt: 2 }}>
+          <FlexBox sx={{ flexDirection: "row", alignItems: "center" }}>
+            <Typography variant="h4" gutterBottom flexGrow={1} sx={{ mt: 2 }}>
               Extrato Financeiro
             </Typography>
           </FlexBox>
           <MUIDataTableCustom
-            title=''
+            title=""
             data={responseView}
             columns={[
               {
-                name: 'data',
-                label: 'Data',
+                name: "data",
+                label: "Data",
                 options: {
                   customBodyRender: (value) => dateFormatter(value),
                 },
               },
               {
-                name: 'descricao',
-                label: 'Descrição',
+                name: "descricao",
+                label: "Descrição",
               },
               {
-                name: 'tipo',
-                label: 'Tipo',
+                name: "tipo",
+                label: "Tipo",
                 options: {
                   customBodyRender: (value) => (
                     <Box
                       sx={{
-                        backgroundColor: value === 'Débito' ? '#dac700' : 'green',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        color: 'white',
-                        borderRadius: '15px',
+                        backgroundColor:
+                          value === "Débito" ? "#dac700" : "green",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        color: "white",
+                        borderRadius: "15px",
                       }}
                     >
                       <Typography sx={{ p: 0.2 }}>{value}</Typography>
@@ -89,8 +102,8 @@ export default function ExtratoFinanceiro() {
                 },
               },
               {
-                name: 'valor',
-                label: 'Valor',
+                name: "valor",
+                label: "Valor",
                 options: {
                   customBodyRender: (value) => currencyFormatter(value),
                 },
@@ -99,22 +112,26 @@ export default function ExtratoFinanceiro() {
           />
         </Paper>
 
-        <Cards title={'Saldo Total'} subTitle={'Saldo da sua conta'} size={'40%'}>
+        <Cards
+          title={"Saldo Total"}
+          subTitle={"Saldo da sua conta"}
+          size={"40%"}
+        >
           <>
             {loading ? (
               <Box
                 sx={{
-                  width: '100%',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  height: '20vh',
+                  width: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  height: "20vh",
                 }}
               >
                 <Loading />
               </Box>
             ) : (
-              <Typography variant='h4'>
+              <Typography variant="h4">
                 {currencyFormatter(responseSaldo?.saldo_disponivel)}
               </Typography>
             )}
