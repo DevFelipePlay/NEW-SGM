@@ -1,7 +1,7 @@
-import { Box } from '@mui/material';
-import { useEffect, useState } from 'react';
-import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
-import { useSwiper } from 'swiper/react';
+import { Box } from "@mui/material";
+import { useEffect, useState } from "react";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { useSwiper } from "swiper/react";
 
 export function SwiperNavButtons() {
   const swiper = useSwiper();
@@ -20,7 +20,7 @@ export function SwiperNavButtons() {
     updateButtonVisibility();
 
     // Adicione um ouvinte para o evento 'slideChange'
-    swiper.on('slideChange', updateButtonVisibility);
+    swiper.on("slideChange", updateButtonVisibility);
 
     // Use um efeito secundário para aguardar a inicialização completa do Swiper antes de verificar o número de slides
     const waitForSwiperInitialization = async () => {
@@ -30,78 +30,75 @@ export function SwiperNavButtons() {
     };
 
     waitForSwiperInitialization();
-
-    // Remova os ouvintes quando o componente for desmontado
-    return () => {
-      swiper.off('slideChange', updateButtonVisibility);
-    };
-  }, [swiper]);
+  });
 
   return (
-    <Box
-      className='swiper-nav-btns'
-      sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        gap: {
-          xs: '10rem',
-          md: '8rem',
-        },
-        paddingBottom: '0.3rem',
-      }}
-    >
-      {totalSlides > 3 && (
-        <button
-          onClick={() => {
-            if (!isBeginning) {
-              swiper.slidePrev();
-            }
-          }}
-          disabled={isBeginning}
-          style={{
-            width: '1.75rem',
-            height: '1.75rem',
-            borderRadius: '50%',
-            background: 'var(--backGround-default)',
-            color: 'var(--primary-color)',
-            display: 'grid',
-            placeContent: 'center',
-            cursor: 'pointer',
-            border: 'none',
-            transition: '.2s',
-            opacity: `${isBeginning ? '0.5' : '1'}`,
-          }}
-        >
-          <FaArrowLeft />
-        </button>
-      )}
+    <>
+      <Box
+        className="swiper-nav-btns"
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          gap: {
+            xs: "10rem",
+            md: "8rem",
+          },
+          paddingBottom: "0.3rem",
+        }}
+      >
+        {totalSlides > 3 && (
+          <button
+            onClick={() => {
+              if (!isBeginning) {
+                swiper.slidePrev();
+              }
+            }}
+            disabled={isBeginning}
+            style={{
+              width: "1.75rem",
+              height: "1.75rem",
+              borderRadius: "50%",
+              background: "var(--backGround-default)",
+              color: "var(--primary-color)",
+              display: "grid",
+              placeContent: "center",
+              cursor: "pointer",
+              border: "none",
+              transition: ".2s",
+              opacity: `${isBeginning ? "0.5" : "1"}`,
+            }}
+          >
+            <FaArrowLeft />
+          </button>
+        )}
 
-      {totalSlides > 3 && (
-        <button
-          style={{
-            width: '1.75rem',
-            height: '1.75rem',
-            borderRadius: ' 50%',
-            background: 'var(--backGround-default)',
-            color: 'var(--primary-color)',
-            display: 'grid',
-            placeContent: 'center',
-            cursor: 'pointer',
-            border: 'none',
-            transition: '.3s',
-            opacity: `${isEnd ? '0.5' : '1'}`,
-          }}
-          onClick={() => {
-            if (!isEnd) {
-              swiper.slideNext();
-              console.log(swiper.slides);
-            }
-          }}
-          disabled={isEnd}
-        >
-          <FaArrowRight />
-        </button>
-      )}
-    </Box>
+        {totalSlides > 3 && (
+          <button
+            style={{
+              width: "1.75rem",
+              height: "1.75rem",
+              borderRadius: " 50%",
+              background: "var(--backGround-default)",
+              color: "var(--primary-color)",
+              display: "grid",
+              placeContent: "center",
+              cursor: "pointer",
+              border: "none",
+              transition: ".3s",
+              opacity: `${isEnd ? "0.5" : "1"}`,
+            }}
+            onClick={() => {
+              if (!isEnd) {
+                swiper.slideNext();
+                console.log(swiper.slides);
+              }
+            }}
+            disabled={isEnd}
+          >
+            <FaArrowRight />
+          </button>
+        )}
+      </Box>
+    </>
   );
 }

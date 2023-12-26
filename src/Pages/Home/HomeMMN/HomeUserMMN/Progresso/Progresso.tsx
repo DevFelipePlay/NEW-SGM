@@ -439,24 +439,38 @@ export function Progresso() {
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
           >
-            <Box sx={{ ...style, textAlign: "center" }}>
-              <Alert sx={{ mb: 2, textAlign: "center" }} severity="warning">
+            <Box sx={{ ...styleAcumular, textAlign: "center" }}>
+              <Alert
+                sx={{
+                  mb: 2,
+                  textAlign: "center",
+                  flexDirection: {
+                    xs: "column",
+                    sm: "row",
+                  },
+                  alignItems: {
+                    xs: "center",
+                    sm: "initial",
+                  },
+                }}
+                severity="warning"
+              >
                 <AlertTitle>Aviso</AlertTitle>
-                Ao retirar o prêmio, os pontos do mesmo serão debitados de sua
-                base de pontos. clique em confirmar para prosseguir com a
-                solicitação de retirada de prêmios
+                Ao acumular o prêmio, os pontos do mesmo serão mantidos. E você
+                não terá mais acesso à este prêmio clique em confirmar para
+                prosseguir com o acumulo de pontos para o prêmios
               </Alert>
-
-              <Button
+              <LoadingButton
                 variant="contained"
                 sx={{ mt: 2 }}
                 onClick={(e: any) => {
-                  handleSubmitResgatePremios(e);
-                  handleClose();
+                  handleSubmitAcumularPremios(e);
+                  handleCloseAcumular();
                 }}
+                loading={loadingSubmitAcumular}
               >
                 Confirmar
-              </Button>
+              </LoadingButton>
             </Box>
           </Modal>
           <Modal
