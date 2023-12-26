@@ -256,6 +256,39 @@ export function Progresso() {
 
   return (
     <>
+      <Box sx={{ ...styleAcumular, textAlign: "center" }}>
+        <Alert
+          sx={{
+            mb: 2,
+            textAlign: "center",
+            flexDirection: {
+              xs: "column",
+              sm: "row",
+            },
+            alignItems: {
+              xs: "center",
+              sm: "initial",
+            },
+          }}
+          severity="warning"
+        >
+          <AlertTitle>Aviso</AlertTitle>
+          Ao acumular o prêmio, os pontos do mesmo serão mantidos. E você não
+          terá mais acesso à este prêmio clique em confirmar para prosseguir com
+          o acumulo de pontos para o prêmios
+        </Alert>
+        <LoadingButton
+          variant="contained"
+          sx={{ mt: 2 }}
+          onClick={(e: any) => {
+            handleSubmitAcumularPremios(e);
+            handleCloseAcumular();
+          }}
+          loading={loadingSubmitAcumular}
+        >
+          Confirmar
+        </LoadingButton>
+      </Box>
       {loading ? (
         <Box
           sx={{
