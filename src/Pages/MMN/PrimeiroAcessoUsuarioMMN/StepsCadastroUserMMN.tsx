@@ -114,7 +114,7 @@ export function StepsCadastroUserMMN({ step, children }: IStepsCadastro) {
   }, []);
 
   const steps = [
-    "Escolha a melhor forma para seu modulo",
+    "Escolha a melhor forma para seu módulo",
     "Ative sua linha e escolha um plano",
     "Cadastre seus dados financeiros",
   ];

@@ -38,22 +38,6 @@ import { useCopyToClipboard } from "../../../../hooks/useCopyToClipboard";
 import useUser from "../../../../hooks/useUser";
 import { errorToast } from "../../../../utils";
 
-const style = {
-  flexDirection: "column",
-  position: "absolute" as "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  borderRadius: "10px",
-  boxShadow: "24",
-  backgroundColor: "var(--backGround-sideBar-color)",
-  color: "var(--text-color)",
-  padding: "4rem",
-  textAlign: "center",
-  border: "none",
-};
-
 export function CompraDePacotes() {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -63,10 +47,12 @@ export function CompraDePacotes() {
   const [loadingValidaLicenciamento, setLoadingValidaLicenciamento] =
     useState(false);
 
+  //breakpoints
   const theme = useTheme();
   const mdDown = useMediaQuery(theme.breakpoints.down("md"));
   const smDown = useMediaQuery(theme.breakpoints.down("sm"));
   const lgDown = useMediaQuery(theme.breakpoints.down("lg"));
+  //
 
   const { user } = useUser();
 
@@ -89,6 +75,24 @@ export function CompraDePacotes() {
     copy(`https://indicacao.opuscell.com.br/#/${index}`);
     toast.success("Copiado para area de transferência");
   }
+
+  //estilo modal
+  const style = {
+    flexDirection: "column",
+    position: "absolute" as "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: `${smDown ? "300px" : "400px"}`,
+    borderRadius: "10px",
+    boxShadow: "24",
+    backgroundColor: "var(--backGround-sideBar-color)",
+    color: "var(--text-color)",
+    padding: `${smDown ? "1rem" : "4rem"}`,
+    textAlign: "center",
+    border: "none",
+  };
+  //
 
   async function handleSubmit() {
     setLoading(true);
@@ -344,7 +348,7 @@ export function CompraDePacotes() {
                       id="modal-modal-title"
                       variant="h6"
                       component="h2"
-                      sx={{ mb: 2, wordBreak: "break-all" }}
+                      sx={{ mb: 2 }}
                     >
                       Sua solicitação de compra foi realizada, clique no link e
                       pague sua fatura ou visualize a fatura pelo seu
@@ -355,6 +359,7 @@ export function CompraDePacotes() {
                         backgroundColor: "white",
                         p: 1,
                         borderRadius: "10px",
+                        wordBreak: "break-all",
                       }}
                     >
                       <a
