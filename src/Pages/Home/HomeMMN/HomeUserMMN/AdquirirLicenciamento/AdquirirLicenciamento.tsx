@@ -26,22 +26,6 @@ import { Cards, Loading } from "../../../../../components";
 import useUser from "../../../../../hooks/useUser";
 import { errorToast } from "../../../../../utils";
 
-const style = {
-  flexDirection: "column",
-  position: "absolute" as "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  borderRadius: "10px",
-  boxShadow: "24",
-  backgroundColor: "var(--backGround-sideBar-color)",
-  color: "var(--text-color)",
-  padding: "4rem",
-  textAlign: "center",
-  border: "none",
-};
-
 export function AdquirirLicenciamento() {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -62,6 +46,22 @@ export function AdquirirLicenciamento() {
   const [loading, setLoading] = useState(false);
   const [loadingBuy, setLoadingBuy] = useState(false);
   const navigate = useNavigate();
+
+  const style = {
+    flexDirection: "column",
+    position: "absolute" as "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: `${smDown ? "300px" : "400px"}`,
+    borderRadius: "10px",
+    boxShadow: "24",
+    backgroundColor: "var(--backGround-sideBar-color)",
+    color: "var(--text-color)",
+    padding: `${smDown ? "1rem" : "4rem"}`,
+    textAlign: "center",
+    border: "none",
+  };
 
   async function handleSubmit() {
     setLoading(true);
@@ -207,7 +207,14 @@ export function AdquirirLicenciamento() {
               Sua solicitação de compra foi realizada, clique no link e pague
               sua fatura ou visualize a fatura pelo seu aplicativo:
             </Typography>
-            <Box sx={{ backgroundColor: "white", p: 1, borderRadius: "10px" }}>
+            <Box
+              sx={{
+                backgroundColor: "white",
+                p: 1,
+                borderRadius: "10px",
+                wordBreak: "break-all",
+              }}
+            >
               <a
                 id="modal-modal-description"
                 href={`https://faturammn.operadora.app.br/?payid=${responseBuy?.payid}`}

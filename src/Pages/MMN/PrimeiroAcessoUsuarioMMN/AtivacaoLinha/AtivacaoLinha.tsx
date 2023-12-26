@@ -155,7 +155,10 @@ export function AtivacaoLinha() {
           justifyContent: "center",
         }}
         component={"form"}
-        onSubmit={handleShowModal}
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleShowModal();
+        }}
       >
         <Cards
           title="Ative a sua linha"
@@ -191,8 +194,8 @@ export function AtivacaoLinha() {
             onChange={(e) => changeForm("iccid", e.target.value)}
             helperText={
               !isIccidValid
-                ? "O ICCID não é valido, o numero do iccid encontra-se abaixo do código de barras do seu chip"
-                : "O numero do iccid encontra-se abaixo do código de barras do seu chip"
+                ? "O ICCID não é valido, o núero do ICCID encontra-se abaixo do código de barras do seu chip"
+                : "O número do ICCID encontra-se abaixo do código de barras do seu chip"
             }
             fullWidth
             error={formData.iccid.length > 19 && !isIccidValid}
@@ -241,7 +244,17 @@ export function AtivacaoLinha() {
           aria-describedby="modal-description"
         >
           <Box sx={style}>
-            <Box width={{ mt: 0, width: "80%", maxHeight: "75vh", pb: 5 }}>
+            <Box
+              sx={{
+                mt: 0,
+                width: {
+                  xs: "100%",
+                  sm: "80%",
+                },
+                maxHeight: "75vh",
+                pb: 5,
+              }}
+            >
               <Typography variant="h5">Escolha seu plano</Typography>
               {responsePLanosPreferidos.map((i, index) => (
                 <Cards
