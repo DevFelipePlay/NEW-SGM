@@ -60,7 +60,16 @@ export default function ExtratoFinanceiro() {
     <Box sx={{ width: "100%" }}>
       <FlexBox sx={{ gap: 2 }}>
         <Paper elevation={3} sx={{ mt: 2, p: 2 }}>
-          <FlexBox sx={{ flexDirection: "row", alignItems: "center" }}>
+          <FlexBox
+            sx={{
+              flexDirection: "row",
+              alignItems: "center",
+              textAlign: {
+                xs: "center",
+                sm: "initial",
+              },
+            }}
+          >
             <Typography variant="h4" gutterBottom flexGrow={1} sx={{ mt: 2 }}>
               Extrato Financeiro
             </Typography>

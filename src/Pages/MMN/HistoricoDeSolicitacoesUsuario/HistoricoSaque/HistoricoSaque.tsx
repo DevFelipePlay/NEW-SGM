@@ -100,7 +100,7 @@ export function HistoricoSaque() {
             </Typography>
           </Box>
           <Typography
-            variant="h4"
+            variant="h5"
             sx={{
               mt: 10,
               textAlign: {
