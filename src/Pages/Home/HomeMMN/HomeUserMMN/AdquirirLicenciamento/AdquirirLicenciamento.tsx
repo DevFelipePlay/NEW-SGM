@@ -1,7 +1,6 @@
 import {
   Box,
   Button,
-  Grid,
   Modal,
   Typography,
   useMediaQuery,
@@ -140,54 +139,55 @@ export function AdquirirLicenciamento() {
             </Box>
           ) : (
             <Box width={"100%"}>
-              <Grid container width={"100%"}>
-                {response &&
-                  response.map &&
-                  response.map(
-                    (i: IResPostPlayRecuperaPacotesLicenciamento, index) => (
-                      <Grid item xs={4} key={index}>
-                        <Cards
-                          title={i.nome}
-                          subTitle={"Escolha o seu pacote"}
-                          size={
-                            smDown
-                              ? "100vm"
-                              : mdDown
-                              ? "200px"
-                              : lgDown
-                              ? "200px"
-                              : "350px"
-                          }
-                          showIcon
-                          bgColorIcon="var(--primary-color)"
-                          icon={<PiHandCoins />}
-                        >
-                          <Typography> Acesso ao multinível +</Typography>
-                          <Typography>{i.chips} Chips </Typography>
+              {response &&
+                response.map &&
+                response.map(
+                  (i: IResPostPlayRecuperaPacotesLicenciamento, index) => (
+                    <Box
+                      display="flex"
+                      flexWrap="wrap"
+                      justifyContent="center"
+                      key={index}
+                    >
+                      <Cards
+                        title={i.nome}
+                        subTitle={"Escolha o seu pacote"}
+                        size={
+                          smDown
+                            ? "100vm"
+                            : mdDown
+                            ? "200px"
+                            : lgDown
+                            ? "200px"
+                            : "350px"
+                        }
+                        showIcon
+                        bgColorIcon="var(--primary-color)"
+                        icon={<PiHandCoins />}
+                      >
+                        <Typography> Acesso ao multinível +</Typography>
+                        <Typography>{i.chips} Chips </Typography>
 
-                          <Typography
-                            variant="subtitle2"
-                            color={"var(--sub-text-color)"}
-                            sx={{ mt: 2 }}
-                          >
-                            Por apenas:
-                          </Typography>
-                          <Typography variant="h5">
-                            R$ {i.valor_venda}
-                          </Typography>
-                          <LoadingButton
-                            onClick={() => handleBuyPacks(i.id)}
-                            variant="contained"
-                            sx={{ mt: 2 }}
-                            loading={loadingBuy}
-                          >
-                            Contratar
-                          </LoadingButton>
-                        </Cards>
-                      </Grid>
-                    )
-                  )}
-              </Grid>
+                        <Typography
+                          variant="subtitle2"
+                          color={"var(--sub-text-color)"}
+                          sx={{ mt: 2 }}
+                        >
+                          Por apenas:
+                        </Typography>
+                        <Typography variant="h5">R$ {i.valor_venda}</Typography>
+                        <LoadingButton
+                          onClick={() => handleBuyPacks(i.id)}
+                          variant="contained"
+                          sx={{ mt: 2 }}
+                          loading={loadingBuy}
+                        >
+                          Contratar
+                        </LoadingButton>
+                      </Cards>
+                    </Box>
+                  )
+                )}
             </Box>
           )}
         </Box>

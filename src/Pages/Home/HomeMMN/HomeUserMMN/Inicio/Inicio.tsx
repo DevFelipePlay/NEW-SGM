@@ -133,6 +133,7 @@ export function Inicio() {
                 alignItems: "center",
                 justifyContent: "center",
                 flexDirection: "column",
+                textAlign: "center",
               }}
             >
               <Typography variant="h4">Erro ao renderizar Dashboard</Typography>
