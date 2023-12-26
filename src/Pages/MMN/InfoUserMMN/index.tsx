@@ -10,7 +10,7 @@ export default function InfoUserMMN() {
     <DefaultContainer
       page={"Multinível"}
       title={"Bem-vindo"}
-      subTitle={"Ficamos felizes em te-lo de volta"}
+      subTitle={"Ficamos felizes em tê-lo de volta"}
       showSearch={false}
       showAvatar={true}
     >
