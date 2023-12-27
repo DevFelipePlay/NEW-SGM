@@ -171,7 +171,33 @@ export function DashboardRelatorioUsuario() {
                 <Typography variant="h5">
                   {responseIdIndicacao?.total_niveis
                     ? responseIdIndicacao?.total_niveis
-                    : "Sem acesso ao multinivel"}
+                    : 'Sem acesso ao multinivel'}
+                </Typography>
+              </Cards>
+            </Grid>
+            <Grid item xs={3}>
+              <Cards
+                title={'Total de bonus recebidos'}
+                subTitle={'Total de Bonus recebidos'}
+                size={'100%'}
+              >
+                <Typography variant='h5'>
+                  {responseIdIndicacao?.bonus_recebidos
+                    ? 'R$' + ' ' + currencyMask(responseIdIndicacao?.bonus_recebidos)
+                    : 'Sem Saldo'}
+                </Typography>
+              </Cards>
+            </Grid>
+            <Grid item xs={3}>
+              <Cards
+                title={'Usuários ativos'}
+                subTitle={'Total de usuários na sua rede'}
+                size={'100%'}
+              >
+                <Typography variant='h5'>
+                  {responseIdIndicacao?.usuarios_ativos
+                    ? responseIdIndicacao?.usuarios_ativos
+                    : 'Sem usuários ativos'}
                 </Typography>
               </Cards>
             </Grid>

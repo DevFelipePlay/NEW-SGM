@@ -232,12 +232,8 @@ export function Inicio() {
                       : "Sem Saldo"}
                   </Typography>
                 </Cards>
-                <Cards
-                  title={"Usuários"}
-                  subTitle={"Total de usuários ativos na sua rede"}
-                  size={"100%"}
-                >
-                  <Typography variant="h5">
+                <Cards title={'Usuários'} subTitle={'Total de usuários na sua rede'} size={'100%'}>
+                  <Typography variant='h5'>
                     {responseIdIndicacao?.usuarios_ativos
                       ? responseIdIndicacao?.usuarios_ativos
                       : "Sem usuários ativos"}
