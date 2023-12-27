@@ -158,7 +158,7 @@ export function DashboardRelatorioUsuario() {
             <Grid item xs={3}>
               <Cards
                 title={'Usuários ativos'}
-                subTitle={'Total de usuários ativos na sua rede'}
+                subTitle={'Total de usuários na sua rede'}
                 size={'100%'}
               >
                 <Typography variant='h5'>
