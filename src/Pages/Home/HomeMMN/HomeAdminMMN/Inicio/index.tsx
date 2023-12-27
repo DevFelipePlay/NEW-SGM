@@ -88,6 +88,7 @@ export default function Tab0() {
       <Grid
         xs={12}
         sm={"auto"}
+        xl={6}
         item
         sx={{
           display: "flex",
@@ -146,6 +147,7 @@ export default function Tab0() {
         item
         xs={12}
         sm={"auto"}
+        xl={6}
         sx={{
           display: "flex",
           flexDirection: "column",
