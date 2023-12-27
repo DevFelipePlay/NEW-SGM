@@ -175,10 +175,10 @@ export function DashboardRelatorioUsuario() {
                 </Typography>
               </Cards>
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={12} sm={6} md={3}>
               <Cards
-                title={'Total de bonus recebidos'}
-                subTitle={'Total de Bonus recebidos'}
+                title={'Total de bônus recebidos'}
+                subTitle={'Total de Bônus recebidos'}
                 size={'100%'}
               >
                 <Typography variant='h5'>
@@ -188,7 +188,7 @@ export function DashboardRelatorioUsuario() {
                 </Typography>
               </Cards>
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={12} sm={6} md={3}>
               <Cards
                 title={'Usuários ativos'}
                 subTitle={'Total de usuários na sua rede'}
