@@ -256,6 +256,7 @@ export function Progresso() {
 
   return (
     <>
+    
       {loading ? (
         <Box
           sx={{
@@ -436,12 +437,11 @@ export function Progresso() {
           <Modal
             open={open}
             onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
+            aria-labelledby='modal-modal-title'
+            aria-describedby='modal-modal-description'
           >
-            <Box sx={{ ...styleAcumular, textAlign: "center" }}>
-              <Alert
-                sx={{
+            <Box sx={{ ...style, textAlign: 'center' }}>
+              <Alert sx={{
                   mb: 2,
                   textAlign: "center",
                   flexDirection: {
@@ -452,25 +452,22 @@ export function Progresso() {
                     xs: "center",
                     sm: "initial",
                   },
-                }}
-                severity="warning"
-              >
+                }} severity='warning'>
                 <AlertTitle>Aviso</AlertTitle>
-                Ao acumular o prêmio, os pontos do mesmo serão mantidos. E você
-                não terá mais acesso à este prêmio clique em confirmar para
-                prosseguir com o acumulo de pontos para o prêmios
+                Ao retirar o prêmio, os pontos do mesmo serão debitados de sua base de pontos.
+                Clique em confirmar para prosseguir com a solicitação de retirada de prêmios
               </Alert>
-              <LoadingButton
-                variant="contained"
+
+              <Button
+                variant='contained'
                 sx={{ mt: 2 }}
                 onClick={(e: any) => {
-                  handleSubmitAcumularPremios(e);
-                  handleCloseAcumular();
+                  handleSubmitResgatePremios(e);
+                  handleClose();
                 }}
-                loading={loadingSubmitAcumular}
               >
                 Confirmar
-              </LoadingButton>
+              </Button>
             </Box>
           </Modal>
           <Modal
