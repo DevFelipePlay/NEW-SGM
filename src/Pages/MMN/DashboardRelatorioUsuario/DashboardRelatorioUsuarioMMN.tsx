@@ -110,8 +110,8 @@ export function DashboardRelatorioUsuario() {
             <Loading />
           </Box>
         ) : (
-          <Grid container spacing={2} width={"100%"}>
-            <Grid item xs={12}>
+          <Grid container spacing={2} width={"100%"} justifyContent="center">
+            <Grid item xs={12} >
               <Cards
                 title={"Seu Link para indicação"}
                 subTitle={""}
@@ -149,7 +149,7 @@ export function DashboardRelatorioUsuario() {
               </Cards>
             </Grid>
 
-            <Grid item xs={12} sm={6} md={3}>
+            <Grid item xs={12} sm={6} md={3} lg={6} xl={3}>
               <Cards
                 title={"Bônus a receber"}
                 subTitle={"Total de Bônus a ser recebido"}
@@ -163,6 +163,9 @@ export function DashboardRelatorioUsuario() {
                     : "Sem Saldo"}
                 </Typography>
               </Cards>
+            </Grid>
+
+            <Grid item xs={12} sm={6} md={3} lg={6} xl={3}>
               <Cards
                 title={"Total de níveis"}
                 subTitle={"Total de Níveis de usuários ativos "}
@@ -175,20 +178,8 @@ export function DashboardRelatorioUsuario() {
                 </Typography>
               </Cards>
             </Grid>
-            <Grid item xs={12} sm={6} md={3}>
-              <Cards
-                title={'Total de bônus recebidos'}
-                subTitle={'Total de Bônus recebidos'}
-                size={'100%'}
-              >
-                <Typography variant='h5'>
-                  {responseIdIndicacao?.bonus_recebidos
-                    ? 'R$' + ' ' + currencyMask(responseIdIndicacao?.bonus_recebidos)
-                    : 'Sem Saldo'}
-                </Typography>
-              </Cards>
-            </Grid>
-            <Grid item xs={12} sm={6} md={3}>
+
+            <Grid item xs={12} sm={6} md={3} lg={6} xl={3}>
               <Cards
                 title={'Usuários ativos'}
                 subTitle={'Total de usuários na sua rede'}
@@ -202,7 +193,7 @@ export function DashboardRelatorioUsuario() {
               </Cards>
             </Grid>
 
-            <Grid item xs={12} sm={6} md={3}>
+            <Grid item xs={12} sm={6} md={3} lg={6} xl={3}>
               <Cards
                 title={"Total de bônus recebidos"}
                 subTitle={"Total de Bônus recebidos"}
@@ -214,17 +205,6 @@ export function DashboardRelatorioUsuario() {
                       " " +
                       currencyMask(responseIdIndicacao?.bonus_recebidos)
                     : "Sem Saldo"}
-                </Typography>
-              </Cards>
-              <Cards
-                title={"Usuários"}
-                subTitle={"Total de usuários ativos na sua rede"}
-                size={"100%"}
-              >
-                <Typography variant="h5">
-                  {responseIdIndicacao?.usuarios_ativos
-                    ? responseIdIndicacao?.usuarios_ativos
-                    : "Sem usuários ativos"}
                 </Typography>
               </Cards>
             </Grid>
