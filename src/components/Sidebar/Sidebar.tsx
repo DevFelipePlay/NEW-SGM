@@ -203,13 +203,13 @@ export function Sidebar(): JSX.Element {
         },
 
         {
-          render: user?.profileid === 7 ? true : false,
+          render: user?.profileid_multinivel === 7 ? true : false,
           label: 'Rede',
           icon: <GiHumanPyramid />,
           to: '/rede-usuario',
         },
         {
-          render: user?.profileid === 7 ? true : false,
+          render: user?.profileid_multinivel === 7 ? true : false,
           label: 'Solicitações',
           icon: <FaMoneyBillTransfer />,
           to: '/historico-de-solicitacoes-usuario',
