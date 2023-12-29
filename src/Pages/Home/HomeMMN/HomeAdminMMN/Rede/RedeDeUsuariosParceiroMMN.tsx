@@ -1,6 +1,7 @@
 import { Box, Paper, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { mask } from 'remask';
 import { postPlayRecuperaNiveisParceiro } from '../../../../../api';
 import { IResPostPlayRecuperaNiveisParceiro } from '../../../../../api/ApisUtils/RecuperaNiveisParceiro/IResPostPlayRecuperaNiveisParceiro';
 import { FlexBox, MUIDataTableCustom } from '../../../../../components';
@@ -72,6 +73,11 @@ export default function RedeDeUsuariosParceiroMMN() {
               {
                 name: 'cpf',
                 label: 'CPF',
+                options: {
+                  customBodyRender: (value) => (
+                    <Box sx={{ whiteSpace: 'nowrap' }}>{mask(value, '999.999.999-99')}</Box>
+                  ),
+                },
               },
               {
                 name: 'graduacao',
