@@ -15,6 +15,15 @@ export interface MUIDataTableCustomProps extends MUIDataTableProps {
 export function MUIDataTableCustom({ options, loading, ...props }: MUIDataTableCustomProps) {
   const { palette } = useTheme();
 
+  //@ts-ignore
+  const setRowProps = (row: any, dataIndex: number, rowIndex: number) => {
+    return {
+      style: {
+        backgroundColor: rowIndex % 2 === 0 ? 'var(--text-header-color)' : 'white',
+      },
+    };
+  };
+
   return (
     <FlexBox
       sx={{
@@ -51,6 +60,7 @@ export function MUIDataTableCustom({ options, loading, ...props }: MUIDataTableC
           textLabels: { ...textLabelsPtBr, ...options?.textLabels },
           rowsPerPageOptions: [10, 25, 50, 75, 100],
           customSearchRender: debounceSearchRender(300),
+          setRowProps,
           ...options,
         }}
         {...props}

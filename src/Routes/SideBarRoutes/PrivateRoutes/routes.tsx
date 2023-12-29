@@ -29,6 +29,7 @@ import {
   CadastroValoresETaxasMMN,
   CompraDePacotes,
   DashboardRelatorioUsuario,
+  RedeUsuario,
   SolicitacoesPremios,
   SolicitacoesSaque,
 } from '../../../Pages/MMN';
@@ -88,9 +89,9 @@ export function AllRoutes() {
           path='/historico-de-solicitacoes-usuario'
           element={<HistoricoDeSolicitacoesUsuario />}
         />
-
-        {/* ///////////////////// */}
+        <Route path='/rede-usuario' element={<RedeUsuario />} />
       </Route>
+      {/* ///////////////////// */}
       {/* Primeiro acesso usuãrio */}
       <Route element={<AuthGuard allowedRoles={[-1, 0, 1, 7]} />}>
         <Route path='/primeiro-acesso-multinivel-usuario'>

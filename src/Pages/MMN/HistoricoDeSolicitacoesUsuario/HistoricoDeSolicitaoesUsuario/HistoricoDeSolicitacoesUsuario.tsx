@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { HistoricoPremios, HistoricoSaque } from '..';
+import { HistoricoPremiosUsuario, HistoricoSaque } from '..';
 import { CustomizedTabs, DefaultContainer } from '../../../../components';
 
 export function HistoricoDeSolicitacoesUsuario() {
@@ -25,7 +25,7 @@ export function HistoricoDeSolicitacoesUsuario() {
         mostrarNavbar={true}
       />
       {tabValue === 0 && <HistoricoSaque />}
-      {tabValue === 1 && <HistoricoPremios />}
+      {tabValue === 1 && <HistoricoPremiosUsuario />}
     </DefaultContainer>
   );
 }

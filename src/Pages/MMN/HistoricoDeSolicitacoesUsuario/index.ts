@@ -1,3 +1,3 @@
 export * from './HistoricoDeSolicitaoesUsuario';
-export * from './HistoricoPremios';
+export * from './HistoricoPremiosUsuario';
 export * from './HistoricoSaque';
