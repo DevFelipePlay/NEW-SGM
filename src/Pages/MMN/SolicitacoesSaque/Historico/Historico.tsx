@@ -1,31 +1,22 @@
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import {
-  Box,
-  Pagination,
-  PaginationItem,
-  Stack,
-  Typography,
-} from "@mui/material";
-import { useEffect, useState } from "react";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { Box, Pagination, PaginationItem, Stack, Typography } from '@mui/material';
+import { useEffect, useState } from 'react';
 
 import {
   IReqPostPlayListaSolicitacaoSaqueConcluido,
   postPlayListaSolicitacaoSaqueConcluido,
-} from "../../../../api/ApisSaqueMMN/ListaSolicitacaoSaqueConcluido";
-import { IResPostPlayListaSolicitacaoSaqueConcluido } from "../../../../api/ApisSaqueMMN/ListaSolicitacaoSaqueConcluido/IResPostPlayListaSolicitacoes";
-import {
-  ListHistoricoSolicitacoesSaqueParceiro,
-  Loading,
-} from "../../../../components";
-import useUser from "../../../../hooks/useUser";
-import { currencyMask, dateFormatter } from "../../../../utils";
+} from '../../../../api/ApisSaqueMMN/ListaSolicitacaoSaqueConcluido';
+import { IResPostPlayListaSolicitacaoSaqueConcluido } from '../../../../api/ApisSaqueMMN/ListaSolicitacaoSaqueConcluido/IResPostPlayListaSolicitacoes';
+import { ListHistoricoSolicitacoesSaqueParceiro, Loading } from '../../../../components';
+import useUser from '../../../../hooks/useUser';
+import { currencyMask, dateFormatter } from '../../../../utils';
 
 export function Historico() {
   const [loading, setLoading] = useState(false);
-  const [responseList, setResponseList] = useState<
-    IResPostPlayListaSolicitacaoSaqueConcluido[]
-  >([]);
+  const [responseList, setResponseList] = useState<IResPostPlayListaSolicitacaoSaqueConcluido[]>(
+    []
+  );
   const { user } = useUser();
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
@@ -34,7 +25,7 @@ export function Historico() {
     setLoading(true);
 
     const payload: IReqPostPlayListaSolicitacaoSaqueConcluido = {
-      token: user?.token || "",
+      token: user?.token || '',
     };
     try {
       const data = await postPlayListaSolicitacaoSaqueConcluido(payload);
@@ -46,8 +37,8 @@ export function Historico() {
     }
   }
 
-  //@ts-ignore
   const handlePageChange = (
+    //@ts-ignore
     event: React.ChangeEvent<unknown>,
     page: number
   ) => {
@@ -61,7 +52,7 @@ export function Historico() {
     const paginatedItems = reversedList.slice(startIndex, endIndex);
 
     return paginatedItems.map((item, index) => (
-      <Box sx={{ width: "100%" }} key={index}>
+      <Box sx={{ width: '100%' }} key={index}>
         <ListHistoricoSolicitacoesSaqueParceiro
           nome={item.Nome}
           statusPagamento={item.status_pagamento}
@@ -84,28 +75,26 @@ export function Historico() {
         <>
           <Box
             sx={{
-              width: "100%",
+              width: '100%',
               m: 1,
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
               textAlign: {
-                xs: "center",
-                sm: "inherit",
+                xs: 'center',
+                sm: 'inherit',
               },
             }}
           >
-            <Typography variant="h4">
-              Histórico de solicitações de saque
-            </Typography>
+            <Typography variant='h4'>Histórico de solicitações de saque</Typography>
           </Box>
           <Typography
-            variant="h5"
+            variant='h5'
             sx={{
               mt: 10,
               textAlign: {
-                xs: "center",
-                sm: "inherit",
+                xs: 'center',
+                sm: 'inherit',
               },
             }}
           >
@@ -117,11 +106,11 @@ export function Historico() {
           {loading ? (
             <Box
               sx={{
-                width: "100%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                height: "50vh",
+                width: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: '50vh',
               }}
             >
               <Loading />
@@ -130,29 +119,27 @@ export function Historico() {
             <Box
               sx={{
                 mb: 2,
-                width: "100%",
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                flexDirection: "column",
+                width: '100%',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                flexDirection: 'column',
               }}
             >
               <Box
                 sx={{
-                  width: "100%",
+                  width: '100%',
                   m: 1,
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                   textAlign: {
-                    xs: "center",
-                    sm: "inherit",
+                    xs: 'center',
+                    sm: 'inherit',
                   },
                 }}
               >
-                <Typography variant="h4">
-                  Histórico de solicitações de saque
-                </Typography>
+                <Typography variant='h4'>Histórico de solicitações de saque</Typography>
               </Box>
               {renderPaginatedList()}
 

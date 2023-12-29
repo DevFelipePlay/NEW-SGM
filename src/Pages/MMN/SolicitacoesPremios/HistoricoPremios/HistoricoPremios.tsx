@@ -1,24 +1,15 @@
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import {
-  Box,
-  Pagination,
-  PaginationItem,
-  Stack,
-  Typography,
-} from "@mui/material";
-import { useEffect, useState } from "react";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { Box, Pagination, PaginationItem, Stack, Typography } from '@mui/material';
+import { useEffect, useState } from 'react';
 
 import {
   IReqPostPlayListaSolicitacaoSaqueConcluidoPremio,
   IResPostPlayListaSolicitacaoSaqueConcluidoPremio,
   postPlayListaSolicitacaoSaqueConcluidoPremio,
-} from "../../../../api";
-import {
-  ListHistoricoSolicitacoesPremios,
-  Loading,
-} from "../../../../components";
-import useUser from "../../../../hooks/useUser";
+} from '../../../../api';
+import { ListHistoricoSolicitacoesPremios, Loading } from '../../../../components';
+import useUser from '../../../../hooks/useUser';
 
 export function HistoricoPremios() {
   const [loading, setLoading] = useState(false);
@@ -33,20 +24,20 @@ export function HistoricoPremios() {
     setLoading(true);
 
     const payload: IReqPostPlayListaSolicitacaoSaqueConcluidoPremio = {
-      token: user?.token || "",
+      token: user?.token || '',
     };
     try {
       const data = await postPlayListaSolicitacaoSaqueConcluidoPremio(payload);
       setResponseList(data);
     } catch (error: any) {
-      console.log(error)
+      console.log(error);
     } finally {
       setLoading(false);
     }
   }
 
-  //@ts-ignore
   const handlePageChange = (
+    //@ts-ignore
     event: React.ChangeEvent<unknown>,
     page: number
   ) => {
@@ -60,7 +51,7 @@ export function HistoricoPremios() {
     const paginatedItems = reversedList.slice(startIndex, endIndex);
 
     return paginatedItems.map((item, index) => (
-      <Box sx={{ width: "100%" }} key={index}>
+      <Box sx={{ width: '100%' }} key={index}>
         <ListHistoricoSolicitacoesPremios
           nome={item.Nome}
           dataPagamento={item.Data_Pagamento}
@@ -85,28 +76,26 @@ export function HistoricoPremios() {
         <>
           <Box
             sx={{
-              width: "100%",
+              width: '100%',
               m: 1,
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
               textAlign: {
-                xs: "center",
-                sm: "inherit",
+                xs: 'center',
+                sm: 'inherit',
               },
             }}
           >
-            <Typography variant="h4">
-              Histórico de solicitações de Prêmios
-            </Typography>
+            <Typography variant='h4'>Histórico de solicitações de Prêmios</Typography>
           </Box>
           <Typography
-            variant="h5"
+            variant='h5'
             sx={{
               mt: 10,
               textAlign: {
-                xs: "center",
-                sm: "inherit",
+                xs: 'center',
+                sm: 'inherit',
               },
             }}
           >
@@ -118,11 +107,11 @@ export function HistoricoPremios() {
           {loading ? (
             <Box
               sx={{
-                width: "100%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                height: "50vh",
+                width: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: '50vh',
               }}
             >
               <Loading />
@@ -131,29 +120,27 @@ export function HistoricoPremios() {
             <Box
               sx={{
                 mb: 2,
-                width: "100%",
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                flexDirection: "column",
+                width: '100%',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                flexDirection: 'column',
               }}
             >
               <Box
                 sx={{
-                  width: "100%",
+                  width: '100%',
                   m: 1,
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                   textAlign: {
-                    xs: "center",
-                    sm: "inherit",
+                    xs: 'center',
+                    sm: 'inherit',
                   },
                 }}
               >
-                <Typography variant="h4">
-                  Histórico de solicitações de Prêmios
-                </Typography>
+                <Typography variant='h4'>Histórico de solicitações de Prêmios</Typography>
               </Box>
               {renderPaginatedList()}
 

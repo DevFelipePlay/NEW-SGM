@@ -46,8 +46,8 @@ export function HistoricoSaque() {
     }
   }
 
-  //@ts-ignore
   const handlePageChange = (
+    //@ts-ignore
     event: React.ChangeEvent<unknown>,
     page: number
   ) => {

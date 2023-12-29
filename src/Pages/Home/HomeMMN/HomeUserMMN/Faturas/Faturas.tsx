@@ -75,8 +75,8 @@ export function Faturas() {
   };
   ////////////////
 
-  //@ts-ignore
   const handlePageChangeAtivacaoERecarga = (
+    //@ts-ignore
     event: React.ChangeEvent<unknown>,
     page: number
   ) => {
@@ -106,8 +106,8 @@ export function Faturas() {
       </Box>
     ));
   };
-  //@ts-ignore
   const handlePageChangePacotes = (
+    //@ts-ignore
     event: React.ChangeEvent<unknown>,
     page: number
   ) => {
