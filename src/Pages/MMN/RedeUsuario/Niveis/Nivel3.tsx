@@ -1,6 +1,5 @@
 import { Box, Paper, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { mask } from 'remask';
 import {
   IReqPostPlayRedeUsuario,
   IResPostPlayRedeUsuario,
@@ -91,24 +90,7 @@ export function Nivel3() {
                   ),
                 },
               },
-              {
-                name: 'cpf',
-                label: 'CPF',
-                options: {
-                  customBodyRender: (value) => (
-                    <Box sx={{ whiteSpace: 'nowrap' }}>{mask(value, '999.999.999-99')}</Box>
-                  ),
-                },
-              },
-              {
-                name: 'email',
-                label: 'E-Mail',
-              },
 
-              {
-                name: 'cep',
-                label: 'CEP',
-              },
               {
                 name: 'cidade',
                 label: 'Cidade',
@@ -116,35 +98,6 @@ export function Nivel3() {
               {
                 name: 'uf',
                 label: 'UF',
-              },
-              {
-                name: 'distrito',
-                label: 'Bairro',
-              },
-              {
-                name: 'street',
-                label: 'Logradouro',
-              },
-              {
-                name: 'complement',
-                label: 'Complemento',
-                options: {
-                  customBodyRender: (value) => (
-                    <Box sx={{ textAlign: 'center' }}>
-                      {' '}
-                      {value === null ? 'Sem Complemento' : value}
-                    </Box>
-                  ),
-                },
-              },
-              {
-                name: 'number',
-                label: 'Número',
-                options: {
-                  customBodyRender: (value) => (
-                    <Box sx={{ textAlign: 'center' }}> {value === null ? 'Sem Numero' : value}</Box>
-                  ),
-                },
               },
             ]}
           />
