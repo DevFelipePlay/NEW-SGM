@@ -14,6 +14,7 @@ import { GiHumanPyramid } from 'react-icons/gi';
 import useUser from '../../hooks/useUser';
 import { ExtrairLetras } from '../../utils';
 
+import { GoPackage } from 'react-icons/go';
 import { AuthContext } from '../Auth/auth';
 
 export function SidebarMobile(): JSX.Element {
@@ -222,6 +223,12 @@ export function SidebarMobile(): JSX.Element {
           label: 'Solicitações de Prêmios',
           icon: <LiaAwardSolid />,
           to: 'solicitacoes-premios',
+        },
+        {
+          render: user?.super ? true : false,
+          label: 'Solicitações de envio de Pacotes',
+          icon: <GoPackage />,
+          to: 'solicitacoes-pacotes',
         },
         {
           render: user?.super ? true : false,

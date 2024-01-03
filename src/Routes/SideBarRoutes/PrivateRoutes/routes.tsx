@@ -30,6 +30,7 @@ import {
   CompraDePacotes,
   DashboardRelatorioUsuario,
   RedeUsuario,
+  SolicitacoesPacotes,
   SolicitacoesPremios,
   SolicitacoesSaque,
 } from '../../../Pages/MMN';
@@ -77,6 +78,7 @@ export function AllRoutes() {
 
           <Route path='/solicitacoes-saque' element={<SolicitacoesSaque />} />
           <Route path='/solicitacoes-premios' element={<SolicitacoesPremios />} />
+          <Route path='/solicitacoes-pacotes' element={<SolicitacoesPacotes />} />
         </Route>
 
         <Route element={<AuthGuard allowedRoles={[-1, 0, 1]} />}>

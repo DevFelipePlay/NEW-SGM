@@ -37,7 +37,7 @@ export function AdquiraSeusChips() {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: `${smDown ? '300px' : '400px'}`,
+    width: `${smDown ? '300px' : '70%'}`,
     borderRadius: '10px',
     boxShadow: '24',
     backgroundColor: 'var(--backGround-sideBar-color)',
