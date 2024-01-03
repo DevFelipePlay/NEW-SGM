@@ -6,4 +6,5 @@ export interface IResPostPlayListaSolicitacaoSaqueConcluido {
   Total_Sacado: string;
   status_pagamento: boolean;
   Data_Pagamento: string;
+  mensagem_negado: string | null;
 }

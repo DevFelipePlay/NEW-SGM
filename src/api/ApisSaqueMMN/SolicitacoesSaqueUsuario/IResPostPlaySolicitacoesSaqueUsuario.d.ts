@@ -5,4 +5,5 @@ export interface IResPostPlaySolicitacoesSaqueUsuario {
   saldo_disponivel: string;
   status_pagamento: 1 | 0;
   data_solicitacao: string;
+  mensagem_negado: string | null;
 }

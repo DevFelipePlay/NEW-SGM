@@ -1,5 +1,6 @@
 import { Box, Paper, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
+import { MdWarningAmber } from 'react-icons/md';
 import {
   IReqPostPlayRedeUsuario,
   IResPostPlayRedeUsuario,
@@ -36,73 +37,96 @@ export function Nivel1() {
 
   return (
     <Box sx={{ width: '100%', mb: 2 }}>
-      <FlexBox sx={{ gap: 2 }}>
-        <Paper elevation={3} sx={{ mt: 2, p: 2 }}>
-          <FlexBox
-            sx={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              textAlign: {
-                xs: 'center',
-                sm: 'initial',
-              },
-            }}
-          >
-            <Typography variant='h4' gutterBottom flexGrow={1} sx={{ mt: 2 }}>
-              Usuários de nível 1
-            </Typography>
-          </FlexBox>
-          <MUIDataTableCustom
-            title=''
-            data={responseView}
-            loading={loading}
-            columns={[
-              {
-                name: 'nome',
-                label: 'Nome',
-              },
-              {
-                name: 'nivel',
-                label: 'Nivel',
-              },
-              {
-                name: 'licenciado',
-                label: 'Licenciado',
-                options: {
-                  customBodyRender: (value) => (
-                    <Box sx={{ textAlign: 'center' }}>
-                      {' '}
-                      {value === true ? 'Licenciado' : 'Sem licença'}
-                    </Box>
-                  ),
+      {user?.niveis && user?.niveis >= 1 ? (
+        <FlexBox sx={{ gap: 2 }}>
+          <Paper elevation={3} sx={{ mt: 2, p: 2 }}>
+            <FlexBox
+              sx={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                textAlign: {
+                  xs: 'center',
+                  sm: 'initial',
                 },
-              },
-
-              {
-                name: 'graduacao',
-                label: 'Graduação',
-                options: {
-                  customBodyRender: (value) => (
-                    <Box sx={{ textAlign: 'center' }}>
-                      {' '}
-                      {value === null ? 'Sem Graduação' : value}
-                    </Box>
-                  ),
+              }}
+            >
+              <Typography variant='h4' gutterBottom flexGrow={1} sx={{ mt: 2 }}>
+                Usuários de nível 1
+              </Typography>
+            </FlexBox>
+            <MUIDataTableCustom
+              title=''
+              data={responseView}
+              loading={loading}
+              columns={[
+                {
+                  name: 'nome',
+                  label: 'Nome',
                 },
-              },
+                {
+                  name: 'nivel',
+                  label: 'Nivel',
+                },
+                {
+                  name: 'licenciado',
+                  label: 'Licenciado',
+                  options: {
+                    customBodyRender: (value) => (
+                      <Box sx={{ textAlign: 'center' }}>
+                        {' '}
+                        {value === true ? 'Licenciado' : 'Sem licença'}
+                      </Box>
+                    ),
+                  },
+                },
 
-              {
-                name: 'cidade',
-                label: 'Cidade',
-              },
-              {
-                name: 'uf',
-                label: 'UF',
-              },
-            ]}
-          />
-        </Paper>
-      </FlexBox>
+                {
+                  name: 'graduacao',
+                  label: 'Graduação',
+                  options: {
+                    customBodyRender: (value) => (
+                      <Box sx={{ textAlign: 'center' }}>
+                        {' '}
+                        {value === null ? 'Sem Graduação' : value}
+                      </Box>
+                    ),
+                  },
+                },
+
+                {
+                  name: 'cidade',
+                  label: 'Cidade',
+                },
+                {
+                  name: 'uf',
+                  label: 'UF',
+                },
+              ]}
+            />
+          </Paper>
+        </FlexBox>
+      ) : (
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'column',
+            width: '100%',
+            height: '50vh',
+          }}
+        >
+          <Box sx={{ fontSize: '5rem', color: '#bca900' }}>
+            <MdWarningAmber />
+          </Box>
+
+          <Typography variant='h4'>O seu plano não tem acesso a este nível!</Typography>
+          <Typography>
+            Para acessar este nível, solicite uma alteração para um plano com a quantidade de níveis
+            que deseja, ou entre em contanto com um administrador.
+          </Typography>
+        </Box>
+      )}
     </Box>
   );
 }

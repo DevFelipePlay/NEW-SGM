@@ -91,6 +91,42 @@ export default function RedeDeUsuariosParceiroMMN() {
                   ),
                 },
               },
+              {
+                name: 'cep',
+                label: 'CEP',
+              },
+              {
+                name: 'uf',
+                label: 'UF',
+              },
+              {
+                name: 'city',
+                label: 'Cidade',
+              },
+              {
+                name: 'district',
+                label: 'Bairro',
+              },
+              {
+                name: 'complement',
+                label: 'Complemento',
+                options: {
+                  customBodyRender: (value) => (
+                    <Box sx={{ textAlign: 'center' }}>
+                      {value === null ? 'Sem Complemento' : value}
+                    </Box>
+                  ),
+                },
+              },
+              {
+                name: 'number',
+                label: 'Número',
+                options: {
+                  customBodyRender: (value) => (
+                    <Box sx={{ textAlign: 'center' }}>{value === null ? 'Sem Número' : value}</Box>
+                  ),
+                },
+              },
             ]}
           />
         </Paper>

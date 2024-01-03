@@ -59,6 +59,7 @@ export function Historico() {
           id={item.ID}
           valorPago={currencyMask(item.Valor_Pago)}
           dataPagamento={dateFormatter(item.Data_Pagamento)}
+          mensagem={item.mensagem_negado || 'Atualize seus dados financeiros'}
         />
       </Box>
     ));

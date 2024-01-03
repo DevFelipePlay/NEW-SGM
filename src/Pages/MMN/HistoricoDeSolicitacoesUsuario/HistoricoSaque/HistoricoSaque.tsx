@@ -1,31 +1,20 @@
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import {
-  Box,
-  Pagination,
-  PaginationItem,
-  Stack,
-  Typography,
-} from "@mui/material";
-import { useEffect, useState } from "react";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { Box, Pagination, PaginationItem, Stack, Typography } from '@mui/material';
+import { useEffect, useState } from 'react';
 
 import {
   IReqPostPlaySolicitacoesSaqueUsuario,
   IResPostPlaySolicitacoesSaqueUsuario,
   postPlaySolicitacaoSaqueUsuario,
-} from "../../../../api";
-import {
-  ListHistoricoSolicitacoesSaqueParceiro,
-  Loading,
-} from "../../../../components";
-import useUser from "../../../../hooks/useUser";
-import { currencyMask, dateFormatter } from "../../../../utils";
+} from '../../../../api';
+import { ListHistoricoSolicitacoesSaqueParceiro, Loading } from '../../../../components';
+import useUser from '../../../../hooks/useUser';
+import { currencyMask, dateFormatter } from '../../../../utils';
 
 export function HistoricoSaque() {
   const [loading, setLoading] = useState(false);
-  const [responseList, setResponseList] = useState<
-    IResPostPlaySolicitacoesSaqueUsuario[]
-  >([]);
+  const [responseList, setResponseList] = useState<IResPostPlaySolicitacoesSaqueUsuario[]>([]);
   const { user } = useUser();
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
@@ -34,7 +23,7 @@ export function HistoricoSaque() {
     setLoading(true);
 
     const payload: IReqPostPlaySolicitacoesSaqueUsuario = {
-      cpf: user?.cpf || "",
+      cpf: user?.cpf || '',
     };
     try {
       const data = await postPlaySolicitacaoSaqueUsuario(payload);
@@ -61,13 +50,14 @@ export function HistoricoSaque() {
     const paginatedItems = reversedList.slice(startIndex, endIndex);
 
     return paginatedItems.map((item, index) => (
-      <Box sx={{ width: "100%" }} key={index}>
+      <Box sx={{ width: '100%' }} key={index}>
         <ListHistoricoSolicitacoesSaqueParceiro
-          nome={user ? user?.name : ""}
+          nome={user ? user?.name : ''}
           statusPagamento={item.status_pagamento}
           id={item.ID}
           valorPago={currencyMask(item.valor_solicitado)}
           dataPagamento={dateFormatter(item.data_solicitacao)}
+          mensagem={item.mensagem_negado || 'Atualize seus dados financeiros'}
         />
       </Box>
     ));
@@ -84,28 +74,26 @@ export function HistoricoSaque() {
         <>
           <Box
             sx={{
-              width: "100%",
+              width: '100%',
               m: 1,
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
               textAlign: {
-                xs: "center",
-                sm: "inherit",
+                xs: 'center',
+                sm: 'inherit',
               },
             }}
           >
-            <Typography variant="h4">
-              Histórico de solicitações de saque
-            </Typography>
+            <Typography variant='h4'>Histórico de solicitações de saque</Typography>
           </Box>
           <Typography
-            variant="h5"
+            variant='h5'
             sx={{
               mt: 10,
               textAlign: {
-                xs: "center",
-                sm: "inherit",
+                xs: 'center',
+                sm: 'inherit',
               },
             }}
           >
@@ -117,11 +105,11 @@ export function HistoricoSaque() {
           {loading ? (
             <Box
               sx={{
-                width: "100%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                height: "50vh",
+                width: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: '50vh',
               }}
             >
               <Loading />
@@ -130,29 +118,27 @@ export function HistoricoSaque() {
             <Box
               sx={{
                 mb: 2,
-                width: "100%",
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                flexDirection: "column",
+                width: '100%',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                flexDirection: 'column',
               }}
             >
               <Box
                 sx={{
-                  width: "100%",
+                  width: '100%',
                   m: 1,
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                   textAlign: {
-                    xs: "center",
-                    sm: "inherit",
+                    xs: 'center',
+                    sm: 'inherit',
                   },
                 }}
               >
-                <Typography variant="h4">
-                  Histórico de solicitações de saque
-                </Typography>
+                <Typography variant='h4'>Histórico de solicitações de saque</Typography>
               </Box>
               {renderPaginatedList()}
 

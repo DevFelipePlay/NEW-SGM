@@ -23,6 +23,7 @@ export interface IUser {
   primeiroacessoconcluidoparceirommn: boolean;
   licenciado: boolean;
   msisdnativo: boolean;
+  niveis: number;
 }
 
 /**
