@@ -14,7 +14,7 @@ import { Cards, Loading } from '../../../../../components';
 import { useForm } from '../../../../../hooks';
 import { useCopyToClipboard } from '../../../../../hooks/useCopyToClipboard';
 import useUser from '../../../../../hooks/useUser';
-import { dateFormatter, errorToast } from '../../../../../utils';
+import { currencyFormatter, dateFormatter, errorToast } from '../../../../../utils';
 
 export function ListaPostagemPacotes() {
   const [loadingView, setLoadingView] = useState(false);
@@ -120,6 +120,9 @@ export function ListaPostagemPacotes() {
                         ID: {item.id_solicitacao}
                       </ListItemText>
                       <ListItemText sx={{ userSelect: 'none' }}>
+                        Pacote: {item.nome_pacote}
+                      </ListItemText>
+                      <ListItemText sx={{ userSelect: 'none' }}>
                         Solicitante: {item.name}
                       </ListItemText>
 
@@ -142,7 +145,9 @@ export function ListaPostagemPacotes() {
                         <ListItemText sx={{ userSelect: 'none' }}>{item.endereco} </ListItemText>
                         <MdOutlineContentCopy />
                       </Box>
-
+                      <Typography variant='h4' sx={{ mt: 2 }}>
+                        Valor do pacote{currencyFormatter(item.valor_fatura)}
+                      </Typography>
                       <TextField
                         variant='standard'
                         label='Codigo de Rastreio'
