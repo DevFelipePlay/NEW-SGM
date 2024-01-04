@@ -140,7 +140,9 @@ export default function Tab0() {
           subTitle={"Usuários ativos"}
           size={"90%"}
         >
-          <Typography variant="h4">40.973 Pessoas ativas</Typography>
+          <Typography variant={smDown ? "h5" : "h4"}>
+            40.973 Pessoas Ativas
+          </Typography>
         </Cards>
       </Grid>
       <Grid
@@ -154,7 +156,11 @@ export default function Tab0() {
           alignItems: "center",
         }}
       >
-        <Cards title={"Divisão do total de lucro"} subTitle={""} size="80%">
+        <Cards
+          title={"Divisão do total de lucro"}
+          subTitle={""}
+          size={smDown ? "80%" : "100%"}
+        >
           <PieChart width={smDown ? 200 : mdDown ? 300 : 400} height={400}>
             <Pie
               data={data2}
@@ -215,15 +221,17 @@ export default function Tab0() {
             <Legend />
           </PieChart>
           <Box sx={{ mb: 1 }}>
-            <Typography variant="h4">Recargas</Typography>
+            <Typography variant={smDown ? "h5" : "h4"}>Recargas</Typography>
             <Typography variant="h6">R$ 30.000</Typography>
           </Box>
           <Box sx={{ mb: 1 }}>
-            <Typography variant="h4">Licenças</Typography>
+            <Typography variant={smDown ? "h5" : "h4"}>Licenças</Typography>
             <Typography variant="h6">R$ 890.000</Typography>
           </Box>
           <Box sx={{ mb: 1 }}>
-            <Typography variant="h4">Pacotes de chips</Typography>
+            <Typography variant={smDown ? "h5" : "h4"}>
+              Pacotes de chips
+            </Typography>
             <Typography variant="h6">R$ 520.000</Typography>
           </Box>
         </Cards>
