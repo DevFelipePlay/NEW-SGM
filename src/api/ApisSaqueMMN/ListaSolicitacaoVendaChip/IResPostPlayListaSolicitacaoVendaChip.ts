@@ -7,4 +7,5 @@ export interface IResPostPlayListaSolicitacaoVendaChip {
   valor_fatura: string;
   status_pagamento: any;
   data_solicitacao: string;
+  nome_pacote: string;
 }

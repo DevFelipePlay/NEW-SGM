@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { CustomizedTabs, DefaultContainer } from "../../../../components";
-import Tab0 from "./Inicio";
-import RedeDeUsuariosParceiroMMN from "./Rede/RedeDeUsuariosParceiroMMN";
+import { useState } from 'react';
+import { CustomizedTabs, DefaultContainer } from '../../../../components';
+import Tab0 from './Inicio';
+import RedeDeUsuariosParceiroMMN from './Rede/RedeDeUsuariosParceiroMMN';
 
 export default function HomeAdminMMN() {
   const [tabValue, setTabValue] = useState(0);
@@ -9,9 +9,9 @@ export default function HomeAdminMMN() {
 
   return (
     <DefaultContainer
-      page={"Multinível"}
-      title={"Bem-vindo"}
-      subTitle={"Ficamos felizes tem te-lô de volta"}
+      page={'Multinível'}
+      title={'Bem-vindo'}
+      subTitle={'Ficamos felizes em te-lô de volta'}
       showSearch={false}
       showAvatar={true}
     >
@@ -19,8 +19,8 @@ export default function HomeAdminMMN() {
         value={tabValue}
         onChange={(newValue) => setTabValue(newValue)}
         tabsData={[
-          { label: "Início", value: 0 },
-          { label: "Patrocinados", value: 2 },
+          { label: 'Início', value: 0 },
+          { label: 'Patrocinados', value: 2 },
         ]}
         mostrarBotaoVoltar={false}
         mostrarNavbar={true}
