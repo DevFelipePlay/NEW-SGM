@@ -131,10 +131,10 @@ export function Nivel3() {
             <MdWarningAmber />
           </Box>
 
-          <Typography variant="h4">
+          <Typography variant="h4" textAlign="center" px={2}>
             O seu plano não tem acesso a este nível!
           </Typography>
-          <Typography>
+          <Typography textAlign="center" px={2}>
             Para acessar este nível, solicite uma alteração para um plano com a
             quantidade de níveis que deseja, ou entre em contanto com um
             administrador.

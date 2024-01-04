@@ -1,20 +1,29 @@
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import { Box, Pagination, PaginationItem, Stack, Typography } from '@mui/material';
-import { useEffect, useState } from 'react';
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import {
+  Box,
+  Pagination,
+  PaginationItem,
+  Stack,
+  Typography,
+} from "@mui/material";
+import { useEffect, useState } from "react";
 import {
   IReqPostPlayListaSolicitacaoVendaChipUsuario,
   IResPostPLayListaSolicitacaoVendaChipUsuario,
   postPlaySolicitacaosVendaChipUsuario,
-} from '../../../../api';
-import { ListHistoricoSolicitacoesPacotes, Loading } from '../../../../components';
-import useUser from '../../../../hooks/useUser';
+} from "../../../../api";
+import {
+  ListHistoricoSolicitacoesPacotes,
+  Loading,
+} from "../../../../components";
+import useUser from "../../../../hooks/useUser";
 
 export function HistoricoPacotesUsuario() {
   const [loading, setLoading] = useState(false);
-  const [responseList, setResponseList] = useState<IResPostPLayListaSolicitacaoVendaChipUsuario[]>(
-    []
-  );
+  const [responseList, setResponseList] = useState<
+    IResPostPLayListaSolicitacaoVendaChipUsuario[]
+  >([]);
   const { user } = useUser();
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
@@ -23,7 +32,7 @@ export function HistoricoPacotesUsuario() {
     setLoading(true);
 
     const payload: IReqPostPlayListaSolicitacaoVendaChipUsuario = {
-      cpf: user?.cpf || '',
+      cpf: user?.cpf || "",
     };
     try {
       const data = await postPlaySolicitacaosVendaChipUsuario(payload);
@@ -50,14 +59,14 @@ export function HistoricoPacotesUsuario() {
     const paginatedItems = reversedList.slice(startIndex, endIndex);
 
     return paginatedItems.map((item, index) => (
-      <Box sx={{ width: '100%' }} key={index}>
+      <Box sx={{ width: "100%" }} key={index}>
         <ListHistoricoSolicitacoesPacotes
-          nome={user ? user.name : ''}
+          nome={user ? user.name : ""}
           dataPagamento={item.data_solicitacao}
           endereco={item.endereco}
           id={item.ID}
           nomePremio={item.tipo_fatura}
-          cod={item.codigo_rastreio || 'Pendente'}
+          cod={item.codigo_rastreio || "Pendente"}
           statusSolicitacao={item.status_pagamento}
         />
       </Box>
@@ -71,31 +80,37 @@ export function HistoricoPacotesUsuario() {
 
   return (
     <>
-      {!loading && responseList.length === 0 ? (
+      {!loading && responseList.length === 1 ? (
         <>
           <Box
             sx={{
-              width: '100%',
+              width: "100%",
               m: 1,
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
               textAlign: {
-                xs: 'center',
-                sm: 'inherit',
+                xs: "center",
+                sm: "inherit",
               },
             }}
           >
-            <Typography variant='h4'>Histórico de solicitações de Prêmios</Typography>
+            <Typography variant="h4">
+              Histórico de solicitações de Prêmios
+            </Typography>
           </Box>
           <Typography
-            variant='h5'
+            variant="h5"
             sx={{
-              mt: 10,
-              textAlign: {
-                xs: 'center',
-                sm: 'inherit',
+              mt: {
+                xs: 5,
+                sm: 10,
               },
+              textAlign: {
+                xs: "center",
+                sm: "inherit",
+              },
+              mb: 3,
             }}
           >
             Nenhuma solicitação realizada!
@@ -106,11 +121,11 @@ export function HistoricoPacotesUsuario() {
           {loading ? (
             <Box
               sx={{
-                width: '100%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                height: '50vh',
+                width: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                height: "50vh",
               }}
             >
               <Loading />
@@ -119,27 +134,29 @@ export function HistoricoPacotesUsuario() {
             <Box
               sx={{
                 mb: 2,
-                width: '100%',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                flexDirection: 'column',
+                width: "100%",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                flexDirection: "column",
               }}
             >
               <Box
                 sx={{
-                  width: '100%',
+                  width: "100%",
                   m: 1,
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                   textAlign: {
-                    xs: 'center',
-                    sm: 'inherit',
+                    xs: "center",
+                    sm: "inherit",
                   },
                 }}
               >
-                <Typography variant='h4'>Histórico de solicitações de Prêmios</Typography>
+                <Typography variant="h4">
+                  Histórico de solicitações de Prêmios
+                </Typography>
               </Box>
               {renderPaginatedList()}
 
