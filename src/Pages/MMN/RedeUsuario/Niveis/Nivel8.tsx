@@ -1,25 +1,27 @@
-import { Box, Paper, Typography } from '@mui/material';
-import { useEffect, useState } from 'react';
-import { MdWarningAmber } from 'react-icons/md';
+import { Box, Paper, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
+import { MdWarningAmber } from "react-icons/md";
 import {
   IReqPostPlayRedeUsuario,
   IResPostPlayRedeUsuario,
   postPlayRedeUsuario,
-} from '../../../../api';
-import { FlexBox, MUIDataTableCustom } from '../../../../components';
-import useUser from '../../../../hooks/useUser';
-import { errorToast } from '../../../../utils';
+} from "../../../../api";
+import { FlexBox, MUIDataTableCustom } from "../../../../components";
+import useUser from "../../../../hooks/useUser";
+import { errorToast } from "../../../../utils";
 
 export function Nivel8() {
   const [loading, setLoading] = useState(false);
-  const [responseView, setResponseView] = useState<IResPostPlayRedeUsuario[]>([]);
+  const [responseView, setResponseView] = useState<IResPostPlayRedeUsuario[]>(
+    []
+  );
   const { user } = useUser();
 
   async function handleView() {
     setLoading(true);
 
     const payload: IReqPostPlayRedeUsuario = {
-      cpf: user?.cpf || '',
+      cpf: user?.cpf || "",
     };
     try {
       const data = await postPlayRedeUsuario(payload, 7);
@@ -36,70 +38,70 @@ export function Nivel8() {
   }, []);
 
   return (
-    <Box sx={{ width: '100%', mb: 2 }}>
+    <Box sx={{ width: "100%", mb: 2 }}>
       {user?.niveis && user?.niveis >= 8 ? (
         <FlexBox sx={{ gap: 2 }}>
           <Paper elevation={3} sx={{ mt: 2, p: 2 }}>
             <FlexBox
               sx={{
-                flexDirection: 'row',
-                alignItems: 'center',
+                flexDirection: "row",
+                alignItems: "center",
                 textAlign: {
-                  xs: 'center',
-                  sm: 'initial',
+                  xs: "center",
+                  sm: "initial",
                 },
               }}
             >
-              <Typography variant='h4' gutterBottom flexGrow={1} sx={{ mt: 2 }}>
+              <Typography variant="h4" gutterBottom flexGrow={1} sx={{ mt: 2 }}>
                 Usuários de nível 8
               </Typography>
             </FlexBox>
             <MUIDataTableCustom
-              title=''
+              title=""
               data={responseView}
               loading={loading}
               columns={[
                 {
-                  name: 'nome',
-                  label: 'Nome',
+                  name: "nome",
+                  label: "Nome",
                 },
                 {
-                  name: 'nivel',
-                  label: 'Nivel',
+                  name: "nivel",
+                  label: "Nivel",
                 },
                 {
-                  name: 'licenciado',
-                  label: 'Licenciado',
+                  name: "licenciado",
+                  label: "Licenciado",
                   options: {
                     customBodyRender: (value) => (
-                      <Box sx={{ textAlign: 'center' }}>
-                        {' '}
-                        {value === true ? 'Licenciado' : 'Sem licença'}
+                      <Box sx={{ textAlign: "center" }}>
+                        {" "}
+                        {value === true ? "Licenciado" : "Sem licença"}
                       </Box>
                     ),
                   },
                 },
 
                 {
-                  name: 'graduacao',
-                  label: 'Graduação',
+                  name: "graduacao",
+                  label: "Graduação",
                   options: {
                     customBodyRender: (value) => (
-                      <Box sx={{ textAlign: 'center' }}>
-                        {' '}
-                        {value === null ? 'Sem Graduação' : value}
+                      <Box sx={{ textAlign: "center" }}>
+                        {" "}
+                        {value === null ? "Sem Graduação" : value}
                       </Box>
                     ),
                   },
                 },
 
                 {
-                  name: 'cidade',
-                  label: 'Cidade',
+                  name: "cidade",
+                  label: "Cidade",
                 },
                 {
-                  name: 'uf',
-                  label: 'UF',
+                  name: "uf",
+                  label: "UF",
                 },
               ]}
             />
@@ -108,22 +110,34 @@ export function Nivel8() {
       ) : (
         <Box
           sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexDirection: 'column',
-            width: '100%',
-            height: '50vh',
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            flexDirection: "column",
+            width: "100%",
+            height: {
+              xs: "auto",
+              sm: "50vh",
+            },
+            textAlign: {
+              xs: "center",
+              sm: "inherit",
+            },
           }}
         >
-          <Box sx={{ fontSize: '5rem', color: '#bca900' }}>
+          <Box
+            sx={{ fontSize: "5rem", color: "#bca900", lineHeight: 1, mt: 2 }}
+          >
             <MdWarningAmber />
           </Box>
 
-          <Typography variant='h4'>O seu plano não tem acesso a este nível!</Typography>
+          <Typography variant="h4">
+            O seu plano não tem acesso a este nível!
+          </Typography>
           <Typography>
-            Para acessar este nível, solicite uma alteração para um plano com a quantidade de níveis
-            que deseja, ou entre em contanto com um administrador.
+            Para acessar este nível, solicite uma alteração para um plano com a
+            quantidade de níveis que deseja, ou entre em contanto com um
+            administrador.
           </Typography>
         </Box>
       )}
