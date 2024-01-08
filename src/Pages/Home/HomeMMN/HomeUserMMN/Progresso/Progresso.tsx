@@ -342,13 +342,15 @@ export function Progresso() {
                 >
                   {progressPercentage === 100 && (
                     <>
-                      <Button
-                        onClick={() => handleOpenAcumular()}
-                        variant='contained'
-                        color='warning'
-                      >
-                        Acumular
-                      </Button>
+                      {responsePremioSaque?.acumular && (
+                        <Button
+                          onClick={() => handleOpenAcumular()}
+                          variant='contained'
+                          color='warning'
+                        >
+                          Acumular
+                        </Button>
+                      )}
                       <LoadingButton
                         onClick={() => handleOpen()}
                         variant='contained'

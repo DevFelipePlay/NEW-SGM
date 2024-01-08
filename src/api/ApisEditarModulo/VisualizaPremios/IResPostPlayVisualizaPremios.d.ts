@@ -12,4 +12,5 @@ export interface IResPostPlayVisualizaPremios {
   pontos_resgate: number;
   resgate: null;
   created_at: string;
+  acumular: boolean;
 }

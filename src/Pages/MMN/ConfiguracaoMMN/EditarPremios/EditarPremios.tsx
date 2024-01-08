@@ -11,7 +11,9 @@ import {
   Modal,
   Radio,
   RadioGroup,
+  Switch,
   TextField,
+  Tooltip,
   Typography,
   useMediaQuery,
   useTheme,
@@ -56,6 +58,8 @@ export function EditarPremios() {
       return updatedImgs;
     });
   };
+
+  const label = { inputProps: { 'aria-label': 'Acumular premios' } };
 
   // breakpoints
   const theme = useTheme();
@@ -136,6 +140,7 @@ export function EditarPremios() {
         valor_premio: editedItem?.valor_premio || item.valor_premio || '',
         pontos_resgate: editedItem?.pontos_resgate || item.pontos_resgate || '',
         cpf: user?.cpf || '',
+        acumuar: editedItem?.acumular !== undefined ? editedItem.acumular : item.acumular,
       };
 
       //@ts-ignore
@@ -234,6 +239,7 @@ export function EditarPremios() {
     resgate: '',
     valor_din: '',
     valor_premio: '',
+    acumular: false,
   });
 
   const handleDeletePhoto = () => {
@@ -385,9 +391,33 @@ export function EditarPremios() {
                           startAdornment: <InputAdornment position='start'>R$</InputAdornment>,
                         }}
                       />
+                      <Typography>
+                        Desmarque a opção abaixo caso não queira que a opção de acumular esteja
+                        disponível para este prêmio.
+                      </Typography>
+                      <Tooltip title={'Acumular'}>
+                        <Switch
+                          {...label}
+                          checked={
+                            editedValues[index]?.acumular !== undefined
+                              ? editedValues[index]?.acumular
+                              : item.acumular
+                          }
+                          onChange={(e) => handleEditChange(index, 'acumular', e.target.checked)}
+                        />
+                      </Tooltip>
+                      <div
+                        style={{
+                          width: '80%',
+                          height: '1px',
+                          border: 'solid 0.5px var(--primary-color)',
+                          marginBottom: '2rem',
+                          marginTop: '2rem',
+                        }}
+                      />
                       {item.foto && (
                         <>
-                          <Typography sx={{ marginTop: '2rem', mb: 1 }}>Foto atual:</Typography>
+                          <Typography sx={{ mb: 1 }}>Foto atual:</Typography>
                           <img
                             src={`data:image/png;base64,${item.foto}`}
                             style={{
@@ -778,15 +808,7 @@ export function EditarPremios() {
                           onChange={(e) => changeForm('descricao', e.target.value)}
                           sx={{ mb: 2 }}
                         />
-                        <TextField
-                          label='Prêmios disponiveis'
-                          variant='standard'
-                          value={mask(formData.quantidade, ['9999'])}
-                          fullWidth
-                          type='tel'
-                          onChange={(e) => changeForm('quantidade', e.target.value)}
-                          sx={{ mb: 2 }}
-                        />
+
                         <TextField
                           label='Meta em pontos'
                           variant='standard'
@@ -878,6 +900,13 @@ export function EditarPremios() {
                       </Box>
                     </>
                   )}
+                  <Typography>
+                    Marque a opção abaixo caso queira que a opção de acumular esteja disponível para
+                    este prêmio
+                  </Typography>
+                  <Tooltip title={'Acumular'}>
+                    <Switch {...label} onChange={(e) => changeForm('acumular', e.target.checked)} />
+                  </Tooltip>
                   <Box
                     sx={{
                       display: 'flex',

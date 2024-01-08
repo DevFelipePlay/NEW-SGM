@@ -7,4 +7,5 @@ export interface IResPostPlayFilaPremios {
   status_pagamento: null;
   foto: string;
   Data_Pagamento: string;
+  acumular: boolean;
 }

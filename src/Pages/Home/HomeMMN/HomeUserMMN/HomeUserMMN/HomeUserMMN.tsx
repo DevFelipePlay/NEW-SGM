@@ -43,8 +43,8 @@ export function HomeUserMMN() {
             { label: 'Progresso', value: 1 },
             { label: 'Saque', value: 2 },
             { label: 'Faturas', value: 3 },
-            { label: 'Extrato Financeiro', value: 5 },
-            { label: 'Licenciados', value: 6 },
+            { label: 'Extrato Financeiro', value: 4 },
+            { label: 'Licenciados', value: 5 },
           ]}
           mostrarBotaoVoltar={false}
           mostrarNavbar={true}
