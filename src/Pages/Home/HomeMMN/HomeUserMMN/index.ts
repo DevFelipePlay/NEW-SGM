@@ -4,5 +4,6 @@ export * from './ExtratoFinanceiro';
 export * from './Faturas';
 export * from './HomeUserMMN';
 export * from './Inicio';
+export * from './LicenciadosUsuario';
 export * from './Progresso';
 export * from './Saque';

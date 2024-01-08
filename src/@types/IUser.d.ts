@@ -24,6 +24,7 @@ export interface IUser {
   licenciado: boolean;
   msisdnativo: boolean;
   niveis: number;
+  UF: string | null;
 }
 
 /**

@@ -2,6 +2,7 @@ export * from './CompletaPrimeiroAcesso';
 export * from './DashboardUsuarioContinue';
 export * from './ExtratoFinanceiro';
 export * from './FaturasUsuario';
+export * from './Licenciados';
 export * from './LimiteDeSaque';
 export * from './MetaGraduacao';
 export * from './RecuperaIdIndicacao';

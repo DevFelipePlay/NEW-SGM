@@ -80,6 +80,27 @@ export default function RedeDeUsuariosParceiroMMN() {
                 },
               },
               {
+                name: 'ativo',
+                label: 'Status',
+                options: {
+                  customBodyRender: (value) => (
+                    <Box sx={{ textAlign: 'center' }}> {value === true ? 'Ativo' : 'Inativo'}</Box>
+                  ),
+                },
+              },
+              {
+                name: 'licenciado',
+                label: 'Licenciado',
+                options: {
+                  customBodyRender: (value) => (
+                    <Box sx={{ textAlign: 'center' }}>
+                      {' '}
+                      {value === true ? 'Licenciado' : 'Não Licenciado'}
+                    </Box>
+                  ),
+                },
+              },
+              {
                 name: 'graduacao',
                 label: 'Graduação',
                 options: {
