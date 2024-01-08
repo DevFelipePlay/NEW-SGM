@@ -45,7 +45,7 @@ import dinheiro from '../../../../../assets/MMNImg/din.png';
 import { Cards, Loading, ProgressBar } from '../../../../../components';
 import useUser from '../../../../../hooks/useUser';
 import useWindowSize from '../../../../../hooks/useWindowSize';
-import { errorToast } from '../../../../../utils';
+import { errorToast, pontosFormatter } from '../../../../../utils';
 
 export function Progresso() {
   const { isMobile } = useWindowSize();
@@ -297,11 +297,11 @@ export function Progresso() {
                 <Typography sx={{ mb: 2 }}>
                   Meta para o prêmio :{' '}
                   {responseQuantidadePontosUsuario
-                    ? responseQuantidadePontosUsuario?.saldo_pontos_disponivel
+                    ? pontosFormatter(responseQuantidadePontosUsuario?.saldo_pontos_disponivel)
                     : 'Sem Prêmios'}{' '}
                   |{' '}
                   {responsePremioSaque?.Pontos_resgate
-                    ? responsePremioSaque?.Pontos_resgate
+                    ? pontosFormatter(responsePremioSaque?.Pontos_resgate)
                     : 'Sem Meta'}{' '}
                   pontos
                 </Typography>
@@ -403,7 +403,7 @@ export function Progresso() {
                           {item.descricao}
                         </Typography>
                         <Typography variant='h5' sx={{ mt: 2 }}>
-                          Meta: {item.pontos_resgate} Pontos
+                          Meta: {pontosFormatter(item.pontos_resgate)} Pontos
                         </Typography>
                       </Cards>
                     </SwiperSlide>

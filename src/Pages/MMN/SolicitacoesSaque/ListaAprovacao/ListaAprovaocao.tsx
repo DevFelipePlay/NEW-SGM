@@ -64,6 +64,33 @@ export function ListaAprovaocao() {
     setSelectedCardIndex(index);
   };
   const handleClose = () => setOpen(false);
+  // Modal de aceitação
+
+  const styleConfirm: CSSProperties = {
+    display: 'flex',
+    alignItems: 'cennter',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: '50%',
+    borderRadius: '10px',
+    boxShadow: '24',
+    backgroundColor: 'white',
+    color: 'var(--text-color)',
+    padding: '4rem',
+    textAlign: 'center',
+    border: 'none',
+  };
+  const [openConfirm, setOpenConfirm] = useState(false);
+  const [selectedCardIndexConfirm, setSelectedCardIndexConfirm] = useState<number | null>(null);
+  const handleOpenConfirm = (index: number) => {
+    setOpenConfirm(true);
+    setSelectedCardIndexConfirm(index);
+  };
+  const handleCloseCofirm = () => setOpenConfirm(false);
   //
 
   async function handleViewListaDeSolicitacoes() {
@@ -206,7 +233,7 @@ export function ListaAprovaocao() {
                           <IconButton
                             color='success'
                             onClick={() => {
-                              handleConfirmacaoSolicitacaoSaqueTrue(index);
+                              handleOpenConfirm(index);
                             }}
                           >
                             <IoMdCheckmark />
@@ -258,6 +285,44 @@ export function ListaAprovaocao() {
                         variant='contained'
                       >
                         enviar
+                      </Button>
+                    </Box>
+                  </Modal>
+                  <Modal
+                    open={openConfirm && selectedCardIndexConfirm === index}
+                    onClose={handleCloseCofirm}
+                    aria-labelledby='modal-modal-title'
+                    aria-describedby='modal-modal-description'
+                  >
+                    <Box sx={styleConfirm}>
+                      <Typography
+                        id='modal-modal-title'
+                        variant='h5'
+                        component='h2'
+                        color={'var(--primary-color)'}
+                        sx={{ mb: 2 }}
+                      >
+                        {` Deseja confirmar o pagamento da solicitação de saque feita por: ${item.Nome}?`}
+                      </Typography>
+                      <Typography
+                        id='modal-modal-title'
+                        variant='h5'
+                        component='h2'
+                        color={'black'}
+                        sx={{ mb: 2 }}
+                      >
+                        {` No valor de R$ ${item.Valor_Solicitado}`}
+                      </Typography>
+
+                      <Button
+                        onClick={() => {
+                          handleConfirmacaoSolicitacaoSaqueTrue(index);
+                          handleCloseCofirm();
+                          window.location.reload();
+                        }}
+                        variant='contained'
+                      >
+                        confirmar
                       </Button>
                     </Box>
                   </Modal>

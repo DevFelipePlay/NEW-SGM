@@ -211,7 +211,11 @@ export function DefaultContainer({
               <Tooltip title='Notificações'>
                 <IconButton onClick={handleClickNotification}>
                   <Badge
-                    badgeContent={quantidadeItens || quantidadePremios ? quantidadeTotal : 0}
+                    badgeContent={
+                      quantidadeItens || quantidadePremios || quantidadePacotes
+                        ? quantidadeTotal
+                        : 0
+                    }
                     color='error'
                     sx={{ marginRight: '0.5rem' }}
                   >
@@ -346,11 +350,11 @@ export function DefaultContainer({
                     <ListItemIcon>
                       <LiaAwardSolid />
                     </ListItemIcon>
-                    Solicitação de Prêmios pendentes
+                    Solicitação de Prêmios Pendentes
                   </MenuItem>
                 </>
               ) : (
-                <MenuItem onClick={handleClose}>Não há notificações de pacotes</MenuItem>
+                <MenuItem onClick={handleClose}>Não há notificações de Prêmios</MenuItem>
               )}
               {quantidadePacotes !== 0 ? (
                 <>
@@ -364,7 +368,7 @@ export function DefaultContainer({
                     <ListItemIcon>
                       <GoPackage />
                     </ListItemIcon>
-                    Solicitação de Pacotes pendentes
+                    Solicitação de Pacotes Pendentes
                   </MenuItem>
                 </>
               ) : (
