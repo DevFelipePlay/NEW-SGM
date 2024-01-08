@@ -20,7 +20,9 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({ progress }) => {
           <Typography sx={{ color: 'var(--primary-color)' }}>.</Typography>
         </Box>
       </Box>
-      <Typography sx={{ position: 'relative', top: -23, color: 'black' }}>{progress}%</Typography>
+      <Typography sx={{ position: 'relative', top: -23, color: 'black' }}>
+        {progress.toFixed(2)}%
+      </Typography>
     </>
   );
 };
