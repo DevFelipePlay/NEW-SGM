@@ -323,7 +323,7 @@ export function Progresso() {
                   <ProgressBar progress={progressPercentage} />
                   {progressPercentage !== 100 ? (
                     <Typography sx={{ mb: 1 }} color='error'>
-                      Para retirar os prêmios atinja 100%
+                      Para retirar os prêmios atinja 100% da meta de pontos
                     </Typography>
                   ) : (
                     <Typography sx={{ mb: 1 }} color='darkgreen'>
@@ -340,22 +340,24 @@ export function Progresso() {
                     width: '100%',
                   }}
                 >
-                  <Button
-                    onClick={() => handleOpenAcumular()}
-                    variant='contained'
-                    color='warning'
-                    disabled={progressPercentage !== 100}
-                  >
-                    Acumular
-                  </Button>
-                  <LoadingButton
-                    onClick={() => handleOpen()}
-                    variant='contained'
-                    loading={loadingSubmitResgate}
-                    disabled={progressPercentage !== 100}
-                  >
-                    Resgatar
-                  </LoadingButton>
+                  {progressPercentage === 100 && (
+                    <>
+                      <Button
+                        onClick={() => handleOpenAcumular()}
+                        variant='contained'
+                        color='warning'
+                      >
+                        Acumular
+                      </Button>
+                      <LoadingButton
+                        onClick={() => handleOpen()}
+                        variant='contained'
+                        loading={loadingSubmitResgate}
+                      >
+                        Resgatar
+                      </LoadingButton>
+                    </>
+                  )}
                 </Box>
               </>
             </Cards>
