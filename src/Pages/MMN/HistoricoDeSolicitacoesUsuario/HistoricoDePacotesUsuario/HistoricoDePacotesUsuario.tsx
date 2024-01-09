@@ -71,7 +71,7 @@ export function HistoricoPacotesUsuario() {
 
   return (
     <>
-      {!loading && responseList.length === 1 ? (
+      {!loading && responseList.length === 0 ? (
         <>
           <Box
             sx={{
