@@ -206,7 +206,7 @@ export function DashboardRelatorioUsuario() {
                         style={{
                           width: '90%',
                           height: '1px',
-                          backgroundColor: 'var(--primary-color)',
+                          backgroundColor: 'var(--primary_color)',
                         }}
                       />
                       <Grid

@@ -13,11 +13,11 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({ progress }) => {
         <Box
           sx={{
             width: `${progress}%`,
-            backgroundColor: 'var(--primary-color)',
+            backgroundColor: 'var(--primary_color)',
             borderRadius: '16px',
           }}
         >
-          <Typography sx={{ color: 'var(--primary-color)' }}>.</Typography>
+          <Typography sx={{ color: 'var(--primary_color)' }}>.</Typography>
         </Box>
       </Box>
       <Typography sx={{ position: 'relative', top: -23, color: 'black' }}>

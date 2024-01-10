@@ -38,7 +38,7 @@ export default function Step3() {
               subTitle={'Escolha os planos que serão usados no multinível'}
               size={smDown ? '100vm' : mdDown ? '200px' : lgDown ? '200px' : '350px'}
               showIcon
-              bgColorIcon='var(--primary-color)'
+              bgColorIcon='var(--primary_color)'
               icon={<PiHandCoins />}
             >
               <Typography>Neste plano você terá</Typography>
@@ -55,7 +55,7 @@ export default function Step3() {
               subTitle={'Escolha os planos que serão usados no multinível'}
               size={smDown ? '100vm' : mdDown ? '200px' : lgDown ? '200px' : '350px'}
               showIcon
-              bgColorIcon='var(--primary-color)'
+              bgColorIcon='var(--primary_color)'
               icon={<PiHandCoins />}
             >
               <Typography>Neste plano você terá</Typography>
@@ -72,7 +72,7 @@ export default function Step3() {
               subTitle={'Escolha os planos que serão usados no multinível'}
               size={smDown ? '100vm' : mdDown ? '200px' : lgDown ? '200px' : '350px'}
               showIcon
-              bgColorIcon='var(--primary-color)'
+              bgColorIcon='var(--primary_color)'
               icon={<PiHandCoins />}
             >
               <Typography>Neste plano você terá</Typography>

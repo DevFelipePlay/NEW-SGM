@@ -1,39 +1,31 @@
-import DeleteIcon from "@mui/icons-material/Delete";
-import { useState } from "react";
-import { HiOutlinePlusSmall } from "react-icons/hi2";
-import { StepsPrimeiroAcessoMMN } from "..";
-import { Cards } from "../../../../components";
+import DeleteIcon from '@mui/icons-material/Delete';
+import { useState } from 'react';
+import { HiOutlinePlusSmall } from 'react-icons/hi2';
+import { StepsPrimeiroAcessoMMN } from '..';
+import { Cards } from '../../../../components';
 
-import LoadingButton from "@mui/lab/LoadingButton/LoadingButton";
-import {
-  Box,
-  Grid,
-  IconButton,
-  MenuItem,
-  Select,
-  TextField,
-  Tooltip,
-} from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import { IReqPostPlayCadastroGraduacoesMMN } from "../../../../api/ApisPrimeiroAcessoParceiro/CadastroGraduacoesMMN/IReqPostPlayCadastroGraduacoes";
-import { postPlayCadastroGraduacoesMMN } from "../../../../api/ApisPrimeiroAcessoParceiro/CadastroGraduacoesMMN/postPlayCadastroGraduacoes";
-import useUser from "../../../../hooks/useUser";
-import { errorToast } from "../../../../utils";
+import LoadingButton from '@mui/lab/LoadingButton/LoadingButton';
+import { Box, Grid, IconButton, MenuItem, Select, TextField, Tooltip } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { IReqPostPlayCadastroGraduacoesMMN } from '../../../../api/ApisPrimeiroAcessoParceiro/CadastroGraduacoesMMN/IReqPostPlayCadastroGraduacoes';
+import { postPlayCadastroGraduacoesMMN } from '../../../../api/ApisPrimeiroAcessoParceiro/CadastroGraduacoesMMN/postPlayCadastroGraduacoes';
+import useUser from '../../../../hooks/useUser';
+import { errorToast } from '../../../../utils';
 
 export function CadastroGraduacoesMMN() {
   const { user } = useUser();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const [graduations, setGraduations] = useState<
-    IReqPostPlayCadastroGraduacoesMMN[]
-  >([{ nome_graduacao: "", meta_proxima_graduacao: "", porcentagem: "" }]);
+  const [graduations, setGraduations] = useState<IReqPostPlayCadastroGraduacoesMMN[]>([
+    { nome_graduacao: '', meta_proxima_graduacao: '', porcentagem: '' },
+  ]);
 
   const handleAddGraduation = () => {
     setGraduations([
       ...graduations,
-      { nome_graduacao: "", porcentagem: "", meta_proxima_graduacao: "" },
+      { nome_graduacao: '', porcentagem: '', meta_proxima_graduacao: '' },
     ]);
   };
 
@@ -44,17 +36,14 @@ export function CadastroGraduacoesMMN() {
 
   const handleInputChange = (
     index: number,
-    field: "nome_graduacao" | "porcentagem" | "meta_proxima_graduacao",
+    field: 'nome_graduacao' | 'porcentagem' | 'meta_proxima_graduacao',
     value: string | number
   ) => {
     const updatedGraduations = graduations.map((graduation, i) => {
       if (i === index) {
         return {
           ...graduation,
-          [field]:
-            field === "porcentagem" || field === "meta_proxima_graduacao"
-              ? +value
-              : value,
+          [field]: field === 'porcentagem' || field === 'meta_proxima_graduacao' ? +value : value,
         };
       }
       return graduation;
@@ -78,10 +67,8 @@ export function CadastroGraduacoesMMN() {
       };
 
       await postPlayCadastroGraduacoesMMN(postDataToken);
-      toast.success("Graduações cadastradas");
-      navigate(
-        "/primeiro-acesso-multinivel-parceiro/cadastro-pontos-por-modalidade"
-      );
+      toast.success('Graduações cadastradas');
+      navigate('/primeiro-acesso-multinivel-parceiro/cadastro-pontos-por-modalidade');
     } catch (error: any) {
       errorToast(error);
     } finally {
@@ -90,25 +77,21 @@ export function CadastroGraduacoesMMN() {
   }
   return (
     <StepsPrimeiroAcessoMMN step={3}>
-      <Cards
-        title={"Graduações"}
-        subTitle={"Cadastre as graduações para os usuários"}
-        size={"80%"}
-      >
-        <Box component={"form"} onSubmit={handleSubmit} sx={{ width: `100%` }}>
+      <Cards title={'Graduações'} subTitle={'Cadastre as graduações para os usuários'} size={'80%'}>
+        <Box component={'form'} onSubmit={handleSubmit} sx={{ width: `100%` }}>
           {graduations.map((graduation, index) => (
             <Grid
               container
               spacing={2}
               key={index}
               sx={{
-                display: "flex",
+                display: 'flex',
                 flexDirection: {
-                  xs: "column",
-                  sm: "row",
+                  xs: 'column',
+                  sm: 'row',
                 },
-                alignItems: "center",
-                justifyContent: "center",
+                alignItems: 'center',
+                justifyContent: 'center',
               }}
             >
               <Grid
@@ -123,14 +106,12 @@ export function CadastroGraduacoesMMN() {
                 }}
               >
                 <TextField
-                  label="Nome da graduação"
-                  variant="standard"
-                  type="text"
+                  label='Nome da graduação'
+                  variant='standard'
+                  type='text'
                   fullWidth
                   value={graduation.nome_graduacao}
-                  onChange={(e) =>
-                    handleInputChange(index, "nome_graduacao", e.target.value)
-                  }
+                  onChange={(e) => handleInputChange(index, 'nome_graduacao', e.target.value)}
                 />
               </Grid>
               <Grid
@@ -144,19 +125,15 @@ export function CadastroGraduacoesMMN() {
                   },
                 }}
               >
-                <span style={{ fontSize: "12px", color: "#6F6F6F" }}>
-                  Porcentagem
-                </span>
+                <span style={{ fontSize: '12px', color: '#6F6F6F' }}>Porcentagem</span>
                 <Select
-                  label="Porcentagem"
-                  id="porcentagem"
+                  label='Porcentagem'
+                  id='porcentagem'
                   value={graduation.porcentagem}
-                  onChange={(e) =>
-                    handleInputChange(index, "porcentagem", e.target.value)
-                  }
-                  variant="standard"
+                  onChange={(e) => handleInputChange(index, 'porcentagem', e.target.value)}
+                  variant='standard'
                   fullWidth
-                  defaultValue="0"
+                  defaultValue='0'
                 >
                   {[...Array(101).keys()].map((value) => (
                     <MenuItem key={value} value={value}>
@@ -177,17 +154,13 @@ export function CadastroGraduacoesMMN() {
                 }}
               >
                 <TextField
-                  label="Pontos para atingir esta graduação"
-                  variant="standard"
+                  label='Pontos para atingir esta graduação'
+                  variant='standard'
                   fullWidth
-                  type="tel"
+                  type='tel'
                   value={graduation.meta_proxima_graduacao}
                   onChange={(e) =>
-                    handleInputChange(
-                      index,
-                      "meta_proxima_graduacao",
-                      e.target.value
-                    )
+                    handleInputChange(index, 'meta_proxima_graduacao', e.target.value)
                   }
                 />
               </Grid>
@@ -203,7 +176,7 @@ export function CadastroGraduacoesMMN() {
                 }}
               >
                 <IconButton
-                  color="error"
+                  color='error'
                   onClick={() => handleRemoveGraduation(index)}
                   disabled={index === 0}
                 >
@@ -213,10 +186,10 @@ export function CadastroGraduacoesMMN() {
             </Grid>
           ))}
           <Box mt={2}>
-            <Tooltip title="Adicionar nova graduação">
+            <Tooltip title='Adicionar nova graduação'>
               <IconButton
                 onClick={handleAddGraduation}
-                sx={{ backgroundColor: "var(--primary-color)" }}
+                sx={{ backgroundColor: 'var(--primary_color)' }}
               >
                 <HiOutlinePlusSmall />
               </IconButton>
@@ -224,9 +197,9 @@ export function CadastroGraduacoesMMN() {
           </Box>
           <LoadingButton
             sx={{ mt: 2 }}
-            type="submit"
-            variant="contained"
-            color="primary"
+            type='submit'
+            variant='contained'
+            color='primary'
             loading={loading}
           >
             Cadastrar

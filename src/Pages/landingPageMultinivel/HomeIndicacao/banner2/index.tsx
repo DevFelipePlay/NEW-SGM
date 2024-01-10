@@ -28,7 +28,7 @@ export default function Banner2() {
         },
       }}
     >
-      <Typography variant='h4' sx={{ color: 'var(--primary-color)', fontWeight: '700' }}>
+      <Typography variant='h4' sx={{ color: 'var(--primary_color)', fontWeight: '700' }}>
         Venha ver como é simples
       </Typography>
 
@@ -185,12 +185,12 @@ function Cards({ numeracao, icon, title, subtitle }: Icards) {
         style={{
           position: 'absolute',
 
-          backgroundColor: 'var(--primary-color)',
+          backgroundColor: 'var(--primary_color)',
           display: 'grid',
           placeContent: 'center',
           borderRadius: '50px',
           fontWeight: '700',
-          color: 'var(--text-color)',
+          color: 'var(--text_color)',
         }}
       >
         {numeracao}
@@ -204,7 +204,7 @@ function Cards({ numeracao, icon, title, subtitle }: Icards) {
             sm: '1.5rem',
             md: '1.75rem',
           },
-          color: 'var(--primary-color)',
+          color: 'var(--primary_color)',
           margin: '0',
           lineHeight: '1.1',
           fontWeight: '700',

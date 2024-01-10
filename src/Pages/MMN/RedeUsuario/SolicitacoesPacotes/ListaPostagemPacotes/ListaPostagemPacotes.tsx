@@ -133,7 +133,7 @@ export function ListaPostagemPacotes() {
                       <ListItemText sx={{ userSelect: 'none' }}>Endereço para envio:</ListItemText>
                       <Box
                         sx={{
-                          backgroundColor: 'var(--primary-color)',
+                          backgroundColor: 'var(--primary_color)',
                           color: 'white',
                           p: 2,
                           borderRadius: '10px',

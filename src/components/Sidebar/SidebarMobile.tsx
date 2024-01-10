@@ -49,7 +49,7 @@ export function SidebarMobile(): JSX.Element {
     ...displayFlexComponent,
     height: '70px',
     width: '100vw',
-    backgroundColor: 'var(--backGround-sideBar-color)',
+    backgroundColor: 'var(--backGround_sideBar_color)',
     position: 'fixed',
     top: 0,
     left: 0,
@@ -77,14 +77,14 @@ export function SidebarMobile(): JSX.Element {
     width: '80%',
     padding: '1rem',
     fontSize: '1.5rem',
-    color: 'var(--text-header-color)',
+    color: 'var(--text_header_color)',
     cursor: 'pointer',
     borderRadius: '10px',
   };
 
   const sidebarIconActiveStyles: CSSProperties = {
     backgroundColor: '#444', // Cor de fundo quando o ícone da sidebar está ativo
-    color: 'var(--primary-color)',
+    color: 'var(--primary_color)',
   };
 
   // Lista dos textos dos botões da sideBar Aberta
@@ -119,7 +119,7 @@ export function SidebarMobile(): JSX.Element {
     padding: '0rem 2.5rem',
     marginTop: '2rem',
     fontSize: '1.5rem',
-    color: 'var(--text-color)',
+    color: 'var(--text_color)',
     display: isTabBarOpen ? 'flex' : 'none',
     animation: `${fadeIn} 0.5s ease-in-out`, // Aplicar animação de fade
   };
@@ -254,8 +254,8 @@ export function SidebarMobile(): JSX.Element {
       width: 400,
       borderRadius: '10px',
       boxShadow: '24',
-      backgroundColor: 'var(--backGround-sideBar-color)',
-      color: 'var(--text-color)',
+      backgroundColor: 'var(--backGround_sideBar_color)',
+      color: 'var(--text_color)',
       padding: '4rem',
       textAlign: 'center',
       border: 'none',
@@ -318,7 +318,7 @@ export function SidebarMobile(): JSX.Element {
                 borderRadius: '10px',
                 animation: `${fadeIn} 0.5s ease-in-out`,
                 boxShadow: 'rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px',
-                color: 'var(--text-color)',
+                color: 'var(--text_color)',
                 fontSize: '1rem',
                 py: 1,
                 mb: 2,
@@ -326,8 +326,8 @@ export function SidebarMobile(): JSX.Element {
                 fontWeight: '700',
                 transition: 'background-color 0.3s, color 0.3s', // Adicione uma transição suave
                 '&:hover': {
-                  backgroundColor: 'var(--backGround-button-hover-color)', // Cor de fundo no hover
-                  color: 'var(--primary-color)', // Cor do texto no hover
+                  backgroundColor: 'var(--backGround_button_hover_color)', // Cor de fundo no hover
+                  color: 'var(--primary_color)', // Cor do texto no hover
                 },
               }}
             >
@@ -388,7 +388,7 @@ export function SidebarMobile(): JSX.Element {
       >
         <Box
           sx={{
-            color: 'var(--text-header-color)',
+            color: 'var(--text_header_color)',
             cursor: 'pointer',
             width: '100%',
             height: 'auto',
@@ -431,7 +431,7 @@ export function SidebarMobile(): JSX.Element {
                 src={`data:image/png;base64,${user?.logotipo}`}
                 style={{
                   width: '120px',
-                  backgroundColor: 'var(--backGround-default)',
+                  backgroundColor: 'var(--backGround_default)',
                 }}
               />
             ) : (
@@ -504,7 +504,7 @@ export function SidebarMobile(): JSX.Element {
               animation: `${fadeIn} 0.5s ease-in-out`,
               height: '50px',
               position: 'absolute',
-              color: 'var(--text-header-color)',
+              color: 'var(--text_header_color)',
               top: '0px',
               right: '0px',
               px: 2,

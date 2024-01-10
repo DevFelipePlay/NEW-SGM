@@ -4,9 +4,9 @@ import Logo from '../../../../assets/MMNImg/logo.png';
 // @ts-ignore
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: 'transparent',
-  color: 'var(--text-color)',
+  color: 'var(--text_color)',
   '&:hover': {
-    color: 'var(--primary-color)',
+    color: 'var(--primary_color)',
   },
   textAlign: 'center',
   fontSize: '2rem',
@@ -20,8 +20,8 @@ export default function Banner4() {
     <Box
       sx={{
         width: '100%',
-        backgroundColor: 'var(--backGround-default)',
-        color: 'var(--text-color)',
+        backgroundColor: 'var(--backGround_default)',
+        color: 'var(--text_color)',
         display: 'grid',
         placeContent: 'center',
         textAlign: 'center',

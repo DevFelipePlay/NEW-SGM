@@ -19,7 +19,7 @@ export function MUIDataTableCustom({ options, loading, ...props }: MUIDataTableC
   const setRowProps = (row: any, dataIndex: number, rowIndex: number) => {
     return {
       style: {
-        backgroundColor: rowIndex % 2 === 0 ? 'var(--text-header-color)' : 'white',
+        backgroundColor: rowIndex % 2 === 0 ? 'var(--text_header_color)' : 'white',
       },
     };
   };

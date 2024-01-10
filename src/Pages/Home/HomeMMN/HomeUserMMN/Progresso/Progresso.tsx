@@ -76,8 +76,8 @@ export function Progresso() {
     width: isMobile ? 300 : 600,
     borderRadius: '10px',
     boxShadow: '24',
-    backgroundColor: 'var(--backGround-sideBar-color)',
-    color: 'var(--text-color)',
+    backgroundColor: 'var(--backGround_sideBar_color)',
+    color: 'var(--text_color)',
     padding: isMobile ? '1rem' : '4rem',
     textAlign: 'center',
     border: 'none',
@@ -95,8 +95,8 @@ export function Progresso() {
     width: isMobile ? 300 : 600,
     borderRadius: '10px',
     boxShadow: '24',
-    backgroundColor: 'var(--backGround-sideBar-color)',
-    color: 'var(--text-color)',
+    backgroundColor: 'var(--backGround_sideBar_color)',
+    color: 'var(--text_color)',
     padding: isMobile ? '1rem' : '4rem',
     textAlign: 'center',
     border: 'none',
@@ -274,7 +274,7 @@ export function Progresso() {
               subTitle={'Realize vendas para subir para a próxima graduação'}
               size={'100%'}
             >
-              <Box sx={{ fontSize: '8rem', color: 'var(--primary-color)' }}>
+              <Box sx={{ fontSize: '8rem', color: 'var(--primary_color)' }}>
                 <GiLaurelsTrophy />
               </Box>
 
@@ -315,7 +315,7 @@ export function Progresso() {
                   ) : (
                     <img src={dinheiro} style={{ width: '100px', borderRadius: '16px' }} />
                   )}
-                  <Typography sx={{ color: 'var(--primary-color)' }}>
+                  <Typography sx={{ color: 'var(--primary_color)' }}>
                     {responsePremioSaque?.Descricao}
                   </Typography>
                 </Box>
@@ -401,7 +401,7 @@ export function Progresso() {
                         ) : (
                           <img src={dinheiro} style={{ width: '100px', borderRadius: '16px' }} />
                         )}
-                        <Typography sx={{ color: 'var(--primary-color)' }}>
+                        <Typography sx={{ color: 'var(--primary_color)' }}>
                           {item.descricao}
                         </Typography>
                         <Typography variant='h5' sx={{ mt: 2 }}>

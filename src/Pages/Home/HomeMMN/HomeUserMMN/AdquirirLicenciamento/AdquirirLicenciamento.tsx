@@ -47,8 +47,8 @@ export function AdquirirLicenciamento() {
     width: `${smDown ? '300px' : '60%'}`,
     borderRadius: '10px',
     boxShadow: '24',
-    backgroundColor: 'var(--backGround-sideBar-color)',
-    color: 'var(--text-color)',
+    backgroundColor: 'var(--backGround_sideBar_color)',
+    color: 'var(--text_color)',
     padding: `${smDown ? '1rem' : '4rem'}`,
     textAlign: 'center',
     border: 'none',
@@ -139,7 +139,7 @@ export function AdquirirLicenciamento() {
                       subTitle={'Escolha o seu pacote'}
                       size={smDown ? '100vm' : mdDown ? '200px' : lgDown ? '200px' : '350px'}
                       showIcon
-                      bgColorIcon='var(--primary-color)'
+                      bgColorIcon='var(--primary_color)'
                       icon={<PiHandCoins />}
                     >
                       <Typography> Acesso ao multinível +</Typography>
@@ -147,7 +147,7 @@ export function AdquirirLicenciamento() {
 
                       <Typography
                         variant='subtitle2'
-                        color={'var(--sub-text-color)'}
+                        color={'var(--sub_text_color)'}
                         sx={{ mt: 2 }}
                       >
                         Por apenas:

@@ -5,16 +5,16 @@ import {
   Box,
   Stack,
   Typography,
-} from "@mui/material";
-import { FaChevronDown } from "react-icons/fa";
+} from '@mui/material';
+import { FaChevronDown } from 'react-icons/fa';
 
 export default function Banner3() {
   return (
-    <section id="faq">
+    <section id='faq'>
       <Box
         sx={{
-          width: "100%",
-          backgroundColor: "white",
+          width: '100%',
+          backgroundColor: 'white',
           p: {
             xs: 2,
             sm: 3,
@@ -24,98 +24,94 @@ export default function Banner3() {
       >
         <Stack
           sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            textAlign: "center",
-            gap: "0.25rem",
-            maxWidth: "625px",
-            margin: "0 auto",
-            zIndex: "-1",
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            textAlign: 'center',
+            gap: '0.25rem',
+            maxWidth: '625px',
+            margin: '0 auto',
+            zIndex: '-1',
           }}
         >
-          <Typography
-            variant={"h4"}
-            color={"var(--primary-color)"}
-            fontWeight="700"
-          >
+          <Typography variant={'h4'} color={'var(--primary_color)'} fontWeight='700'>
             Perguntas Frequentes
           </Typography>
         </Stack>
         <Box
           sx={{
-            position: "relative",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            width: "100%",
+            position: 'relative',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '100%',
             padding: {
-              md: "2rem 4rem 1rem 4rem",
-              sm: "2rem 1.5rem 1rem 1.5rem",
-              xs: "2rem 1.5rem 1rem 1.5rem",
+              md: '2rem 4rem 1rem 4rem',
+              sm: '2rem 1.5rem 1rem 1.5rem',
+              xs: '2rem 1.5rem 1rem 1.5rem',
             },
             gap: {
-              md: "20px",
-              sm: "0px",
-              xs: "0px",
+              md: '20px',
+              sm: '0px',
+              xs: '0px',
             },
-            margin: "0 auto",
+            margin: '0 auto',
             flexDirection: {
-              md: "row",
-              sm: "column",
-              xs: "column",
+              md: 'row',
+              sm: 'column',
+              xs: 'column',
             },
           }}
         >
           <Box>
             <PerguntasFrequentes
-              textoPergunta={"Pergunta 1"}
+              textoPergunta={'Pergunta 1'}
               textoResposta={
-                "            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus quibusdam odio expedita, velit provident illum delectus cumque neque ea eius temporibus aut praesentium illo ratione quisquam labore, recusandae blanditiis consequatur?"
+                '            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus quibusdam odio expedita, velit provident illum delectus cumque neque ea eius temporibus aut praesentium illo ratione quisquam labore, recusandae blanditiis consequatur?'
               }
             />
             <PerguntasFrequentes
-              textoPergunta={"Pergunta 3"}
+              textoPergunta={'Pergunta 3'}
               textoResposta={
-                "            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus quibusdam odio expedita, velit provident illum delectus cumque neque ea eius temporibus aut praesentium illo ratione quisquam labore, recusandae blanditiis consequatur?"
+                '            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus quibusdam odio expedita, velit provident illum delectus cumque neque ea eius temporibus aut praesentium illo ratione quisquam labore, recusandae blanditiis consequatur?'
               }
             />
             <PerguntasFrequentes
-              textoPergunta={"Pergunta 5"}
+              textoPergunta={'Pergunta 5'}
               textoResposta={
-                "            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus quibusdam odio expedita, velit provident illum delectus cumque neque ea eius temporibus aut praesentium illo ratione quisquam labore, recusandae blanditiis consequatur?"
+                '            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus quibusdam odio expedita, velit provident illum delectus cumque neque ea eius temporibus aut praesentium illo ratione quisquam labore, recusandae blanditiis consequatur?'
               }
             />
             <PerguntasFrequentes
-              textoPergunta={"Pergunta 7"}
+              textoPergunta={'Pergunta 7'}
               textoResposta={
-                "            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus quibusdam odio expedita, velit provident illum delectus cumque neque ea eius temporibus aut praesentium illo ratione quisquam labore, recusandae blanditiis consequatur?"
+                '            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus quibusdam odio expedita, velit provident illum delectus cumque neque ea eius temporibus aut praesentium illo ratione quisquam labore, recusandae blanditiis consequatur?'
               }
             />
           </Box>
           <Box>
             <PerguntasFrequentes
-              textoPergunta={"Pergunta 2"}
+              textoPergunta={'Pergunta 2'}
               textoResposta={
-                "            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus quibusdam odio expedita, velit provident illum delectus cumque neque ea eius temporibus aut praesentium illo ratione quisquam labore, recusandae blanditiis consequatur?"
+                '            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus quibusdam odio expedita, velit provident illum delectus cumque neque ea eius temporibus aut praesentium illo ratione quisquam labore, recusandae blanditiis consequatur?'
               }
             />
             <PerguntasFrequentes
-              textoPergunta={"Pergunta 4"}
+              textoPergunta={'Pergunta 4'}
               textoResposta={
-                "            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus quibusdam odio expedita, velit provident illum delectus cumque neque ea eius temporibus aut praesentium illo ratione quisquam labore, recusandae blanditiis consequatur?"
+                '            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus quibusdam odio expedita, velit provident illum delectus cumque neque ea eius temporibus aut praesentium illo ratione quisquam labore, recusandae blanditiis consequatur?'
               }
             />
             <PerguntasFrequentes
-              textoPergunta={"Pergunta 6"}
+              textoPergunta={'Pergunta 6'}
               textoResposta={
-                "            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus quibusdam odio expedita, velit provident illum delectus cumque neque ea eius temporibus aut praesentium illo ratione quisquam labore, recusandae blanditiis consequatur?"
+                '            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus quibusdam odio expedita, velit provident illum delectus cumque neque ea eius temporibus aut praesentium illo ratione quisquam labore, recusandae blanditiis consequatur?'
               }
             />
             <PerguntasFrequentes
-              textoPergunta={"Pergunta 8"}
+              textoPergunta={'Pergunta 8'}
               textoResposta={
-                "            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus quibusdam odio expedita, velit provident illum delectus cumque neque ea eius temporibus aut praesentium illo ratione quisquam labore, recusandae blanditiis consequatur?"
+                '            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus quibusdam odio expedita, velit provident illum delectus cumque neque ea eius temporibus aut praesentium illo ratione quisquam labore, recusandae blanditiis consequatur?'
               }
             />
           </Box>
@@ -130,50 +126,45 @@ interface IPerguntasFrequentes {
   textoResposta: string;
 }
 
-function PerguntasFrequentes({
-  textoPergunta,
-  textoResposta,
-}: IPerguntasFrequentes) {
+function PerguntasFrequentes({ textoPergunta, textoResposta }: IPerguntasFrequentes) {
   return (
     <Accordion
       style={{
-        background: "var(--backGround-default)",
-        color: "var(--primary-color)",
-        borderRadius: "6px",
-        marginBottom: "0.75rem",
-        maxWidth: "500px",
-        boxShadow: "var(--shadow3)",
+        background: 'var(--backGround_default)',
+        color: 'var(--primary_color)',
+        borderRadius: '6px',
+        marginBottom: '0.75rem',
+        maxWidth: '500px',
+        boxShadow: 'var(--shadow3)',
       }}
     >
       <AccordionSummary
         sx={{
-          display: "flex",
+          display: 'flex',
           gap: {
-            md: "0.5rem",
-            sm: "0.5rem",
-            xs: "0.5rem",
+            md: '0.5rem',
+            sm: '0.5rem',
+            xs: '0.5rem',
           },
         }}
         expandIcon={
           <FaChevronDown
             style={{
-              color: "var(--text-color)",
+              color: 'var(--text_color)',
             }}
           />
         }
-        aria-controls="panel1a-content"
-        id="panel1a-header"
+        aria-controls='panel1a-content'
+        id='panel1a-header'
       >
-        <Typography style={{ fontWeight: "600", color: "var(--text-color)" }}>
+        <Typography style={{ fontWeight: '600', color: 'var(--text_color)' }}>
           {textoPergunta}
         </Typography>
       </AccordionSummary>
-      <AccordionDetails
-        style={{ background: "#fff", color: "var(--text-color)" }}
-      >
+      <AccordionDetails style={{ background: '#fff', color: 'var(--text_color)' }}>
         <Typography
           sx={{
-            color: "var(--backGround-default)",
+            color: 'var(--backGround_default)',
           }}
         >
           {textoResposta}

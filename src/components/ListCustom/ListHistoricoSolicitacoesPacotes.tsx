@@ -37,7 +37,7 @@ export function ListHistoricoSolicitacoesPacotes({
                 bgcolor: '#5f5f5f',
                 color: 'white',
                 '&:hover': {
-                  bgcolor: 'var(--text-header-color)',
+                  bgcolor: 'var(--text_header_color)',
                   color: 'white',
                   transition: 'all 0.3s',
                 },

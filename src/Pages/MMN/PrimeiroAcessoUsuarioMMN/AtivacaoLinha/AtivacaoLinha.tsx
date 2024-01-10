@@ -324,7 +324,7 @@ export function AtivacaoLinha() {
               {responsePLanosPreferidos.map((i, index) => (
                 <Cards title={i.nomeplano} subTitle={'Escolha seu plano'} size={'100%'} key={index}>
                   <Typography>{i.descricao}</Typography>
-                  <Typography variant='h4' sx={{ mt: 2 }} color={'var(--primary-color)'}>
+                  <Typography variant='h4' sx={{ mt: 2 }} color={'var(--primary_color)'}>
                     R$ {i.value}
                   </Typography>
                   <Button
@@ -347,7 +347,7 @@ export function AtivacaoLinha() {
           aria-describedby='modal-description'
         >
           <Box sx={styleLicenciados}>
-            <Typography variant='h4' color={'var(--primary-color)'}>
+            <Typography variant='h4' color={'var(--primary_color)'}>
               Lista de Vendedores Licenciados perto de você!
             </Typography>
             <Typography variant='h6'>Entre em contato e solicite um chip agora mesmo!</Typography>

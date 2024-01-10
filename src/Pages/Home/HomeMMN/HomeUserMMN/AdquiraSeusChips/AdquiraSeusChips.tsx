@@ -40,8 +40,8 @@ export function AdquiraSeusChips() {
     width: `${smDown ? '300px' : '70%'}`,
     borderRadius: '10px',
     boxShadow: '24',
-    backgroundColor: 'var(--backGround-sideBar-color)',
-    color: 'var(--text-color)',
+    backgroundColor: 'var(--backGround_sideBar_color)',
+    color: 'var(--text_color)',
     padding: `${smDown ? '1rem' : '4rem'}`,
     textAlign: 'center',
     border: 'none',
@@ -119,7 +119,7 @@ export function AdquiraSeusChips() {
                 </Typography>
                 <Typography variant='subtitle2'>Por Apenas:</Typography>
 
-                <Typography variant='h5' color={'var(--primary-color)'}>
+                <Typography variant='h5' color={'var(--primary_color)'}>
                   R$ {item.valor_venda}
                 </Typography>
                 <LoadingButton

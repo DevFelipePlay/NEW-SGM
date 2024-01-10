@@ -184,8 +184,8 @@ export function EditarPremios() {
     width: `${smDown ? '300px' : '400px'}`,
     borderRadius: '10px',
     boxShadow: '24',
-    backgroundColor: 'var(--backGround-sideBar-color)',
-    color: 'var(--text-color)',
+    backgroundColor: 'var(--backGround_sideBar_color)',
+    color: 'var(--text_color)',
     padding: `${smDown ? '1rem' : '4rem'}`,
     textAlign: 'center',
     border: 'none',
@@ -410,7 +410,7 @@ export function EditarPremios() {
                         style={{
                           width: '80%',
                           height: '1px',
-                          border: 'solid 0.5px var(--primary-color)',
+                          border: 'solid 0.5px var(--primary_color)',
                           marginBottom: '2rem',
                           marginTop: '2rem',
                         }}
@@ -621,7 +621,7 @@ export function EditarPremios() {
                   style={{
                     width: '100%',
                     height: '1px',
-                    backgroundColor: 'var(--primary-color)',
+                    backgroundColor: 'var(--primary_color)',
                   }}
                 />
                 <>

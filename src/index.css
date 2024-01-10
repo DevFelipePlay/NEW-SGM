@@ -1,26 +1,20 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 :root {
-    --primary-color: #0fd808;
-    --secondary-color: #444;
-    --backGround-button-hover-color:#141414;
-    --backGround-sideBar-color:#141414;
-    --backGround-header-color:#202020;
-    --backGround-default:#141414;
-    --text-header-color: #c0c0c0;
-    --text-color: white;
-    --sub-text-color: #808080;
-    --disabled-color: #808080;
+    --primary_color: #DF3B67;
+    --secondary_color: #444;
+    --backGround_button_hover_color:#141414;
+    --backGround_sideBar_color:#141414;
+    --backGround_header_color:#202020;
+    --backGround_default:#141414;
+    --text_header_color: #c0c0c0;
+    --text_color: white;
+    --sub_text_color: #808080;
 
-    --color-svg: #0FFF07;
+    --color_svg: #0FFF07;
 
     --shadow: 5px 5px 10px #2424242f;
     --shadow2: 0px 15px 20px -15px #24242459;
     --shadow3: 5px 5px 10px #2424240e;
+    
 }
 
 ul {
@@ -28,7 +22,7 @@ ul {
 }
 
 .swiper-pagination .swiper-pagination-bullet-active {
-    background-color: var(--primary-color);
+    background-color: var(--primary_color);
 }
 
 .swiper-pagination {

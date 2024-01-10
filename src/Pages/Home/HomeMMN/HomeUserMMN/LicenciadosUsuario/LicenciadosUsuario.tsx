@@ -38,7 +38,7 @@ export function LicenciadosUsuario() {
 
   return (
     <Box sx={{ width: '100%' }}>
-      <Typography variant='h4' color={'var(--primary-color)'} sx={{ mt: 2 }}>
+      <Typography variant='h4' color={'var(--primary_color)'} sx={{ mt: 2 }}>
         Lista de vendedores licenciados perto de você!
       </Typography>
       <Box

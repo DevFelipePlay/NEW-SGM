@@ -45,8 +45,8 @@ export function Cards({
   return (
     <Stack spacing={1} sx={stylesContainer}>
       <Typography variant='h5'>{title}</Typography>
-      <div style={{ width: '90%', height: '1px', backgroundColor: 'var(--primary-color)' }} />
-      <Typography variant='subtitle1' color={'var(--sub-text-color)'}>
+      <div style={{ width: '90%', height: '1px', backgroundColor: 'var(--primary_color)' }} />
+      <Typography variant='subtitle1' color={'var(--sub_text_color)'}>
         {subTitle}
       </Typography>
       {showIcon && <Avatar sx={{ backgroundColor: `${bgColorIcon}` }}>{icon}</Avatar>}

@@ -52,7 +52,7 @@ export function ListaAprovaocao() {
     borderRadius: '10px',
     boxShadow: '24',
     backgroundColor: 'white',
-    color: 'var(--text-color)',
+    color: 'var(--text_color)',
     padding: '4rem',
     textAlign: 'center',
     border: 'none',
@@ -79,7 +79,7 @@ export function ListaAprovaocao() {
     borderRadius: '10px',
     boxShadow: '24',
     backgroundColor: 'white',
-    color: 'var(--text-color)',
+    color: 'var(--text_color)',
     padding: '4rem',
     textAlign: 'center',
     border: 'none',
@@ -215,7 +215,7 @@ export function ListaAprovaocao() {
                         Saldo Disponivel: R$ {currencyMask(item.Saldo_Disponivel)}
                       </ListItemText>
                       <ListItemText sx={{ userSelect: 'none' }}>
-                        <Typography variant='h5' color={'var(--primary-color)'}>
+                        <Typography variant='h5' color={'var(--primary_color)'}>
                           Valor Solicitado: R$ {currencyMask(item.Valor_Solicitado)}
                         </Typography>
                       </ListItemText>
@@ -299,7 +299,7 @@ export function ListaAprovaocao() {
                         id='modal-modal-title'
                         variant='h5'
                         component='h2'
-                        color={'var(--primary-color)'}
+                        color={'var(--primary_color)'}
                         sx={{ mb: 2 }}
                       >
                         {` Deseja confirmar o pagamento da solicitação de saque feita por: ${item.Nome}?`}

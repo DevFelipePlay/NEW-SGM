@@ -39,7 +39,7 @@ export default function Step3() {
               subTitle={'Escolha o seu Pack'}
               size={smDown ? '100vm' : mdDown ? '200px' : lgDown ? '200px' : '350px'}
               showIcon
-              bgColorIcon='var(--primary-color)'
+              bgColorIcon='var(--primary_color)'
               icon={<PiHandCoins />}
             >
               <Typography>Quantidade de chips</Typography>
@@ -55,7 +55,7 @@ export default function Step3() {
               subTitle={'Escolha o seu Pack'}
               size={smDown ? '100vm' : mdDown ? '200px' : lgDown ? '200px' : '350px'}
               showIcon
-              bgColorIcon='var(--primary-color)'
+              bgColorIcon='var(--primary_color)'
               icon={<PiHandCoins />}
             >
               <Typography>Quantidade de chips</Typography>
@@ -71,7 +71,7 @@ export default function Step3() {
               subTitle={'Escolha o seu Pack'}
               size={smDown ? '100vm' : mdDown ? '200px' : lgDown ? '200px' : '350px'}
               showIcon
-              bgColorIcon='var(--primary-color)'
+              bgColorIcon='var(--primary_color)'
               icon={<PiHandCoins />}
             >
               <Typography>Quantidade de chips</Typography>

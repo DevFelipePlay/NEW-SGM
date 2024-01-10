@@ -246,7 +246,7 @@ function CardPlano({
           sx: {
             fontWeight: '700',
             fontSize: '1.75rem',
-            color: 'var(--primary-color)',
+            color: 'var(--primary_color)',
           }, // Aplicar border-radius aqui
           startAdornment: (
             <Typography
