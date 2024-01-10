@@ -19,7 +19,7 @@ import { toast } from 'react-toastify';
 import { mask } from 'remask';
 import { StepsPrimeiroAcessoMMN } from '..';
 import { postPlayCompletaPrimeiroAcesso } from '../../../../api';
-import { postPlayCadastroPremiacaoMMN } from '../../../../api/ApisPrimeiroAcessoParceiro/CadastrarPremiacaoMMN';
+import { postPlayCadastroPremiacaoMMN } from '../../../../api/Multinivel/ApisPrimeiroAcessoParceiro/CadastrarPremiacaoMMN';
 import { Cards, Dropzone } from '../../../../components';
 import { useForm } from '../../../../hooks';
 import useUser from '../../../../hooks/useUser';

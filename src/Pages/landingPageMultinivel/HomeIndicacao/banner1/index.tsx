@@ -6,10 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { BsArrowRight } from 'react-icons/bs';
 import { toast } from 'react-toastify';
 
-import {
-  IReqPostPlayValidaCpfLadingpage,
-  postPlayValidaCpfLandingPage,
-} from '../../../../api/ApisPrimeiroAcessoParceiro/PlayLadingPage';
+import { IReqPostPlayValidaCpfLadingpage, postPlayValidaCpfLandingPage } from '../../../../api';
 import { AboutImg } from '../../../../assets/svg';
 import { useForm } from '../../../../hooks';
 import useUser from '../../../../hooks/useUser';

@@ -17,7 +17,7 @@ import { mask } from 'remask';
 import {
   IReqPostPlayPctLicenciamento,
   postPlayPctLicenciamento,
-} from '../../../../api/ApisPrimeiroAcessoParceiro/PctLicenciamento';
+} from '../../../../api/Multinivel/ApisPrimeiroAcessoParceiro/PctLicenciamento';
 import { Cards } from '../../../../components';
 import useUser from '../../../../hooks/useUser';
 import { errorToast } from '../../../../utils';

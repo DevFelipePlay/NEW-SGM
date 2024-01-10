@@ -4,14 +4,13 @@ import { useEffect, useState } from 'react';
 
 import { toast } from 'react-toastify';
 import {
-  IResPostPlayVisualizaPacotesVendaChip,
-  postPlayVisualizaPacotesVendaChip,
-} from '../../../../../api';
-import {
   IReqPostPlayGeraFaturaVendaChip,
   IResPostPlayGeraFaturaVendaChip,
+  IResPostPlayVisualizaPacotesVendaChip,
   postPlayGeraFaturaVendaChip,
-} from '../../../../../api/ApisPrimeiroAcessoUsuario/GerafaturaVendaChip';
+  postPlayVisualizaPacotesVendaChip,
+} from '../../../../../api';
+
 import { Cards, Loading } from '../../../../../components';
 import useUser from '../../../../../hooks/useUser';
 import { errorToast } from '../../../../../utils';

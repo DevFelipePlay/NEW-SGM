@@ -3,7 +3,7 @@ import { Box, CircularProgress, Divider } from '@mui/material';
 import { Button, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { postPlayValidaIdIndicacao } from '../../api/ApisUtils/ValidaIdIndicacao';
+import { postPlayValidaIdIndicacao } from '../../api/Multinivel/ApisUtils/ValidaIdIndicacao';
 import { Error401Image } from '../../assets/svg/Error401Image';
 import useWindowSize from '../../hooks/useWindowSize';
 import Banner1 from './HomeIndicacao/banner1';

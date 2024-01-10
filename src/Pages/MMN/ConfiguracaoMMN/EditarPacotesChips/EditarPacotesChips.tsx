@@ -23,15 +23,13 @@ import { TbTrashX } from 'react-icons/tb';
 import { toast } from 'react-toastify';
 import { mask } from 'remask';
 import {
+  IReqPostPlayEditarPacotesChips,
   IResPostPlayRecuperaPacotesLicenciamento,
   postPlayCadastroPacotesVendaChip,
   postPlayDeletarPacotesChips,
   postPlayVisualizaPacotesVendaChip,
 } from '../../../../api';
-import {
-  IReqPostPlayEditarPacotesChips,
-  postPlayEditarPacotesChips,
-} from '../../../../api/ApisEditarModulo/EditarPacotesChips';
+
 import { Cards, Loading } from '../../../../components';
 import useUser from '../../../../hooks/useUser';
 import { currencyMask, currencyUnMask, errorToast } from '../../../../utils';

@@ -21,13 +21,16 @@ import { GiLaurelsTrophy } from 'react-icons/gi';
 import { toast } from 'react-toastify';
 import {
   IReqPostPlayFilaPremios,
+  IReqPostPlayMetaGraduacao,
   IReqPostPlayQuantidadePontosUsuario,
   IReqPostPlaySolicitacaoSaquePremios,
   IReqPostPlayVisualizaListaPremios,
   IResPostPlayFilaPremios,
+  IResPostPlayMetaGraduacao,
   IResPostPlayQuantidadePontosUsuario,
   IResPostPlayVisualizaPremios,
   postPlayFilaPremios,
+  postPlayMetaGraduacao,
   postPlayQuantidadePontosUsuario,
   postPlaySolicitacaoPremios,
   postPlayVisualizaListaPremios,
@@ -35,12 +38,8 @@ import {
 import {
   IReqPostPlayAcumularPremio,
   postPlayAcumularPremios,
-} from '../../../../../api/ApisRetiradaDePremio/AcumularPremio';
-import {
-  IReqPostPlayMetaGraduacao,
-  IResPostPlayMetaGraduacao,
-  postPlayMetaGraduacao,
-} from '../../../../../api/ApisUtils/MetaGraduacao';
+} from '../../../../../api/Multinivel/ApisRetiradaDePremio/AcumularPremio';
+
 import dinheiro from '../../../../../assets/MMNImg/din.png';
 import { Cards, Loading, ProgressBar } from '../../../../../components';
 import useUser from '../../../../../hooks/useUser';

@@ -26,12 +26,12 @@ import LoadingButton from '@mui/lab/LoadingButton/LoadingButton';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { StepsPrimeiroAcessoMMN } from '..';
+
 import {
   IReqPostPlayRecuperaPlanosPrimeiroAcesso,
-  postPlayCadastraNivelPlanosMMN,
   postPlayRecuperaPlanosPrimeiroAcesso,
-} from '../../../../api/ApisPrimeiroAcessoParceiro';
-import { IResPostPlayRecuperaPlanosPrimeiroAcesso } from '../../../../api/ApisPrimeiroAcessoParceiro/RecuperaPlanosPrimeiroAcessoMMN/IResPostPlayRecuperaPlanosPrimeiroAcessoMMN';
+} from '../../../../api';
+import { IResPostPlayRecuperaPlanosPrimeiroAcesso } from '../../../../api/Multinivel/ApisPrimeiroAcessoParceiro/RecuperaPlanosPrimeiroAcessoMMN/IResPostPlayRecuperaPlanosPrimeiroAcessoMMN';
 import { Cards, Loading } from '../../../../components';
 import useUser from '../../../../hooks/useUser';
 import { errorToast } from '../../../../utils';

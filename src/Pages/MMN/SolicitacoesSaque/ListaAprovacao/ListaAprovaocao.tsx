@@ -23,7 +23,7 @@ import {
 import {
   IReqPostPlayConfirmacaoSolicitacaoSaque,
   postPlayConfirmacaoSolicitacaoSaque,
-} from '../../../../api/ApisSaqueMMN/ConfirmacaoSolicitacaoSaque';
+} from '../../../../api/Multinivel/ApisSaqueMMN/ConfirmacaoSolicitacaoSaque';
 import { Cards, Loading } from '../../../../components';
 import { useForm } from '../../../../hooks';
 import useUser from '../../../../hooks/useUser';

@@ -43,7 +43,7 @@ export function PrimeiroAcessoSGM() {
       hasSidebar={false}
     >
       <Typography variant='h4' sx={{ textAlign: 'center' }}>
-        Falta pouco para concluir o seu cadastro como um Parceiro Play
+        Falta pouco para concluir o seu cadastro como um Parceiro Play!
       </Typography>
       <Cards
         title={'Cole o código de autenticação abaixo para prosseguir com o seu cadastro'}

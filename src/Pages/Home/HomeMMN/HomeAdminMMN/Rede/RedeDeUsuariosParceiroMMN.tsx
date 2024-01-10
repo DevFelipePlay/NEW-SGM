@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { mask } from 'remask';
 import { postPlayRecuperaNiveisParceiro } from '../../../../../api';
-import { IResPostPlayRecuperaNiveisParceiro } from '../../../../../api/ApisUtils/RecuperaNiveisParceiro/IResPostPlayRecuperaNiveisParceiro';
+import { IResPostPlayRecuperaNiveisParceiro } from '../../../../../api/Multinivel/ApisUtils/RecuperaNiveisParceiro/IResPostPlayRecuperaNiveisParceiro';
 import { FlexBox, MUIDataTableCustom } from '../../../../../components';
 import useUser from '../../../../../hooks/useUser';
 import { errorToast } from '../../../../../utils';

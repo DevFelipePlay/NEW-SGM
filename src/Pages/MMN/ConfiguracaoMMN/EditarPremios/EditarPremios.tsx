@@ -29,7 +29,7 @@ import {
   postPlayEditarImagemPremio,
   postPlayVisualizaPremios,
 } from '../../../../api';
-import { postPlayEditaPremios } from '../../../../api/ApisEditarModulo/EditarPremiacao';
+import { postPlayEditaPremios } from '../../../../api/Multinivel/ApisEditarModulo/EditarPremiacao';
 import { Cards, Dropzone, Loading } from '../../../../components';
 import { useForm } from '../../../../hooks';
 import useUser from '../../../../hooks/useUser';

@@ -28,7 +28,7 @@ import {
   postPlayLicenciados,
   postPlayRecuperaPlanosPreferidos,
 } from '../../../../api';
-import { postPlayValidaICCID } from '../../../../api/ApisUtils/validaICCID';
+import { postPlayValidaICCID } from '../../../../api/Multinivel/ApisUtils/validaICCID';
 import { Cards, MUIDataTableCustom } from '../../../../components';
 import { useForm } from '../../../../hooks';
 import useUser from '../../../../hooks/useUser';

@@ -6,8 +6,8 @@ import { useEffect, useState } from 'react';
 import {
   IReqPostPlayListaSolicitacaoSaqueConcluido,
   postPlayListaSolicitacaoSaqueConcluido,
-} from '../../../../api/ApisSaqueMMN/ListaSolicitacaoSaqueConcluido';
-import { IResPostPlayListaSolicitacaoSaqueConcluido } from '../../../../api/ApisSaqueMMN/ListaSolicitacaoSaqueConcluido/IResPostPlayListaSolicitacoes';
+} from '../../../../api';
+import { IResPostPlayListaSolicitacaoSaqueConcluido } from '../../../../api/Multinivel/ApisSaqueMMN/ListaSolicitacaoSaqueConcluido/IResPostPlayListaSolicitacoes';
 import { ListHistoricoSolicitacoesSaqueParceiro, Loading } from '../../../../components';
 import useUser from '../../../../hooks/useUser';
 import { currencyMask, dateFormatter } from '../../../../utils';

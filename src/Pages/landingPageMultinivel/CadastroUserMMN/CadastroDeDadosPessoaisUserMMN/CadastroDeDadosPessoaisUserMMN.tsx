@@ -15,11 +15,12 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { mask } from 'remask';
-import { postPlayCompletaPrimeiroAcesso } from '../../../../api';
 import {
   IReqPostPlayCadastroUserMMN,
   postPlayCadastroUserMMN,
-} from '../../../../api/ApisPrimeiroAcessoParceiro/CadastroUserMMN';
+  postPlayCompletaPrimeiroAcesso,
+} from '../../../../api';
+
 import { Cards } from '../../../../components';
 import { useForm } from '../../../../hooks';
 import useUser from '../../../../hooks/useUser';

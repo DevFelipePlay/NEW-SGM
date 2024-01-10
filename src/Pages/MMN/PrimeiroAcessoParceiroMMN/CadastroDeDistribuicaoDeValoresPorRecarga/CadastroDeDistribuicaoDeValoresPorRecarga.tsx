@@ -1,4 +1,4 @@
-import LoadingButton from "@mui/lab/LoadingButton/LoadingButton";
+import LoadingButton from '@mui/lab/LoadingButton/LoadingButton';
 import {
   Box,
   InputAdornment,
@@ -7,22 +7,20 @@ import {
   Typography,
   useMediaQuery,
   useTheme,
-} from "@mui/material";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import { StepsPrimeiroAcessoMMN } from "..";
-import { postPlayCadastroNiveisRecargaMMN } from "../../../../api/ApisPrimeiroAcessoParceiro";
-import { Cards } from "../../../../components";
-import { useForm } from "../../../../hooks";
-import useUser from "../../../../hooks/useUser";
-import { errorToast } from "../../../../utils";
-import { currencyMask } from "../../../../utils/masks/maskCurrency";
+} from '@mui/material';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { StepsPrimeiroAcessoMMN } from '..';
+import { postPlayCadastroNiveisRecargaMMN } from '../../../../api/Multinivel/ApisPrimeiroAcessoParceiro';
+import { Cards } from '../../../../components';
+import { useForm } from '../../../../hooks';
+import useUser from '../../../../hooks/useUser';
+import { errorToast } from '../../../../utils';
+import { currencyMask } from '../../../../utils/masks/maskCurrency';
 
 export const CadastroDeDistribuicaoDeValoresPorRecarga = () => {
-  const [selectedValues, setSelectedValues] = useState<number[]>(
-    new Array(10).fill(0)
-  );
+  const [selectedValues, setSelectedValues] = useState<number[]>(new Array(10).fill(0));
   const [total, setTotal] = useState<number>(0);
   const [loading, setLoading] = useState(false);
 
@@ -31,7 +29,7 @@ export const CadastroDeDistribuicaoDeValoresPorRecarga = () => {
   const { user } = useUser();
 
   const { formData, changeForm } = useForm({
-    valor_referencia: "",
+    valor_referencia: '',
   });
 
   const handleSliderChange = (index: number, value: number) => {
@@ -45,7 +43,7 @@ export const CadastroDeDistribuicaoDeValoresPorRecarga = () => {
     setLoading(true);
     try {
       const payload = {
-        token: user ? user.token : "",
+        token: user ? user.token : '',
         valor_referencia: parseFloat(formData.valor_referencia),
         nivel1: String(selectedValues[0]),
         nivel2: String(selectedValues[1]),
@@ -60,9 +58,9 @@ export const CadastroDeDistribuicaoDeValoresPorRecarga = () => {
       };
 
       await postPlayCadastroNiveisRecargaMMN(payload);
-      toast.success("Niveis Cadastrados com sucesso!");
+      toast.success('Niveis Cadastrados com sucesso!');
       navigate(
-        "/primeiro-acesso-multinivel-parceiro/cadastro-de-distribuicao-de-valores-por-ativacao"
+        '/primeiro-acesso-multinivel-parceiro/cadastro-de-distribuicao-de-valores-por-ativacao'
       );
     } catch (error: any) {
       errorToast(error);
@@ -72,54 +70,46 @@ export const CadastroDeDistribuicaoDeValoresPorRecarga = () => {
   useEffect(() => {
     const sum = selectedValues.reduce((acc, value) => acc + value, 0);
     setTotal(sum);
-    console.log("teste", selectedValues);
+    console.log('teste', selectedValues);
   }, [selectedValues]);
 
   //breakpoints
 
   const theme = useTheme();
-  const smDown = useMediaQuery(theme.breakpoints.down("sm"));
+  const smDown = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
     <StepsPrimeiroAcessoMMN step={5}>
       <Cards
-        title={"Cadastro de distribuição de valores por recarga"}
-        subTitle={
-          "Cadastro do sistema de distribuição de valores por nível da rede"
-        }
-        size={smDown ? "90%" : "50%"}
+        title={'Cadastro de distribuição de valores por recarga'}
+        subTitle={'Cadastro do sistema de distribuição de valores por nível da rede'}
+        size={smDown ? '90%' : '50%'}
       >
-        <Box component={"form"} onSubmit={handleSubmit} sx={{ width: "100%" }}>
+        <Box component={'form'} onSubmit={handleSubmit} sx={{ width: '100%' }}>
           <Typography mb={2}>Valor base a ser distribuído</Typography>
 
           <TextField
-            type="tel"
-            id="id_valor_plano"
-            label="Valor de referência"
-            placeholder="0,00"
+            type='tel'
+            id='id_valor_plano'
+            label='Valor de referência'
+            placeholder='0,00'
             value={formData.valor_referencia}
-            onChange={(e) =>
-              changeForm("valor_referencia", currencyMask(e.target.value))
-            }
-            variant="standard"
+            onChange={(e) => changeForm('valor_referencia', currencyMask(e.target.value))}
+            variant='standard'
             fullWidth
             required
             InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">R$</InputAdornment>
-              ),
+              startAdornment: <InputAdornment position='start'>R$</InputAdornment>,
             }}
           />
-          <div style={{ width: "100%" }}>
+          <div style={{ width: '100%' }}>
             {Array.from({ length: 10 }, (_, index) => (
               <div key={index}>
                 <label>{`Nivel ${index + 1} `}</label>
                 <Slider
                   value={selectedValues[index]}
-                  onChange={(_, value) =>
-                    handleSliderChange(index, value as number)
-                  }
-                  valueLabelDisplay="auto"
+                  onChange={(_, value) => handleSliderChange(index, value as number)}
+                  valueLabelDisplay='auto'
                   valueLabelFormat={(value) => `${value}%`}
                   min={0}
                   max={100}
@@ -127,16 +117,16 @@ export const CadastroDeDistribuicaoDeValoresPorRecarga = () => {
               </div>
             ))}
             {total > 100 ? (
-              <Typography color={"error"} sx={{ my: 2 }}>
+              <Typography color={'error'} sx={{ my: 2 }}>
                 A soma dos valores deve ser menor ou igual a 100%
               </Typography>
             ) : (
-              ""
+              ''
             )}
             <LoadingButton
-              variant="contained"
-              type={"submit"}
-              disabled={total > 100 || formData.valor_referencia === ""}
+              variant='contained'
+              type={'submit'}
+              disabled={total > 100 || formData.valor_referencia === ''}
               loading={loading}
             >
               Enviar

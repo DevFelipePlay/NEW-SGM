@@ -14,16 +14,17 @@ import { TbTrashX } from 'react-icons/tb';
 import { useNavigate } from 'react-router-dom';
 import { mask } from 'remask';
 import { StepsPrimeiroAcessoMMN } from '..';
-import {} from '../../../../api/ApisPrimeiroAcessoParceiro/PctLicenciamento';
+import {} from '../../../../api/Multinivel/ApisPrimeiroAcessoParceiro/PctLicenciamento';
 import { Cards } from '../../../../components';
 //@ts-ignore
 import { errorToast } from '../../../../utils';
 //@ts-ignore
 import { toast } from 'react-toastify';
+
 import {
   IReqPostPlayCadastroPacotesVenda,
   postPlayCadastroPacotesVendaChip,
-} from '../../../../api/ApisPrimeiroAcessoParceiro/CadastroPacotesVendaChip';
+} from '../../../../api';
 import useUser from '../../../../hooks/useUser';
 import { currencyMask, currencyUnMask } from '../../../../utils/masks/maskCurrency';
 
