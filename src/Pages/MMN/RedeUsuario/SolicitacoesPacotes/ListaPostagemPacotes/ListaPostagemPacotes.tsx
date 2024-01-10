@@ -67,6 +67,7 @@ export function ListaPostagemPacotes() {
       await postPlayConfirmacaoSolicitacaoVendaChipLicenciamento(payload);
       toast.success('Solicitação Respondida com sucesso');
       handleViewListaDeSolicitacoes();
+      window.location.reload();
     } catch (error: any) {
       errorToast(error);
     } finally {

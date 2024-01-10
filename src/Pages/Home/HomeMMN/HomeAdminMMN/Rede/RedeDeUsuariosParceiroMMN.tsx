@@ -113,6 +113,21 @@ export default function RedeDeUsuariosParceiroMMN() {
                 },
               },
               {
+                name: 'email',
+                label: 'E-Mail',
+              },
+              {
+                name: 'telefone',
+                label: 'Telefone',
+                options: {
+                  customBodyRender: (value) => (
+                    <Box sx={{ whiteSpace: 'nowrap' }}>
+                      {value !== '' ? mask(value, '(99) 99999-9999') : 'Sem telefone'}
+                    </Box>
+                  ),
+                },
+              },
+              {
                 name: 'cep',
                 label: 'CEP',
               },
