@@ -2,7 +2,7 @@ import { Box, Button, Stack, Typography } from '@mui/material';
 import { Error401Image } from '../../assets/svg/Error401Image';
 import useWindowSize from '../../hooks/useWindowSize';
 
-export default function NotFound() {
+export function NotFound() {
   const { isMobile } = useWindowSize();
   return (
     <Box

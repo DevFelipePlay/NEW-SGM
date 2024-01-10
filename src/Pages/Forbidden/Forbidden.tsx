@@ -4,7 +4,7 @@ import { Error401Image } from '../../assets/svg/Error401Image';
 import useUser from '../../hooks/useUser';
 import useWindowSize from '../../hooks/useWindowSize';
 
-export default function Forbidden() {
+export function Forbidden() {
   const { isMobile } = useWindowSize();
   const { user } = useUser();
   const navigate = useNavigate();

@@ -1,18 +1,16 @@
 import { Navigate, Route, Routes as RouterRoutes } from 'react-router-dom';
 
 import { AuthGuard, SideBarRoutes } from '../..';
-import ListPartner from '../../../Pages/CRM/Actions/ListPartner/ListPartner';
 import {
   AdquirirLicenciamento,
   CadastrarUsuarioHomeParceiro,
   HomePlay,
   HomeUserMMN,
 } from '../../../Pages/Home';
-import Login from '../../../Pages/Login';
 
 import HomeAdminMMN from '../../../Pages/Home/HomeMMN/HomeAdminMMN';
 
-import Forbidden from '../../../Pages/Forbidden/Forbidden';
+import { Forbidden, Login, NotFound, PrimeiroAcessoSGM } from '../../../Pages';
 import {
   AtivacaoLinha,
   CadastroDadosFinanceiros,
@@ -39,7 +37,6 @@ import { HistoricoDeSolicitacoesUsuario } from '../../../Pages/MMN/HistoricoDeSo
 import InfoUserMMN from '../../../Pages/MMN/InfoUserMMN';
 import DashBoardInfoUserMMN from '../../../Pages/MMN/InfoUserMMN/Tab0';
 import SemLinhaAtiva from '../../../Pages/MMN/PrimeiroAcessoUsuarioMMN/VailidacaoAtivacao/ValidacaoAtivacao';
-import NotFound from '../../../Pages/Notfound/NotFound';
 import { CadastroDeDadosPessoaisUserMMN } from '../../../Pages/landingPageMultinivel/CadastroUserMMN/CadastroDeDadosPessoaisUserMMN/CadastroDeDadosPessoaisUserMMN';
 
 export function AllRoutes() {
@@ -55,6 +52,7 @@ export function AllRoutes() {
       <Route path='/landingpage-indicacao/appousistem' element={<AppScreen />} /> */}
       <Route path='/sem-linha-ativa' element={<SemLinhaAtiva />} />
       <Route path='*' element={<NotFound />} />
+      <Route path='/primeiro-acesso-sgm' element={<PrimeiroAcessoSGM />} />
       <Route
         path='/cadastro-usuario-mmn/:idIndicacao'
         element={<CadastroDeDadosPessoaisUserMMN />}
@@ -84,7 +82,6 @@ export function AllRoutes() {
         <Route element={<AuthGuard allowedRoles={[-1, 0, 1]} />}>
           <Route path='/configuracao-mmn' element={<ConfiguracaoMMN />} />
         </Route>
-        <Route path='/crm/parceiros' element={<ListPartner />} />
         <Route path='/home-usuario-mmn' element={<HomeUserMMN />} />
         <Route path='/adquirir-licenciamento-mmn' element={<AdquirirLicenciamento />} />
         <Route

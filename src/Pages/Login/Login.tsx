@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { AnimatedBackground } from '../../components';
 import { TextInput, TextInputPassword } from '../../components/Inputs';
 
-export default function Login() {
+export function Login() {
   const [cpf, setCpf] = useState('');
   const [senha, setSenha] = useState('');
 
