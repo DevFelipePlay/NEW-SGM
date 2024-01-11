@@ -357,6 +357,7 @@ export function Sidebar(): JSX.Element {
   };
 
   const tabBarRef = useRef<HTMLDivElement>(null);
+  const DrawerBarRef = useRef<HTMLDivElement>(null);
 
   function handleCloseMouseDonwTabBar() {
     // Função para fechar a TabBar ao clicar fora dela
@@ -374,9 +375,26 @@ export function Sidebar(): JSX.Element {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }
+  function handleCloseMouseDonwDrawerBar() {
+    // Função para fechar a TabBar ao clicar fora dela
+    const handleClickOutside = (event: MouseEvent) => {
+      if (DrawerBarRef.current && !DrawerBarRef.current.contains(event.target as Node)) {
+        setIsDrawerOpen(false);
+      }
+    };
+
+    // Adiciona o event listener ao montar o componente
+    document.addEventListener('mousedown', handleClickOutside);
+
+    // Remove o event listener ao desmontar o componente
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }
 
   useEffect(() => {
     handleCloseMouseDonwTabBar();
+    handleCloseMouseDonwDrawerBar();
   }, []);
 
   return (
@@ -386,6 +404,7 @@ export function Sidebar(): JSX.Element {
           ...sidebarStyles,
           ...(isDrawerOpen ? sidebarOpenStyles : {}),
         }}
+        ref={DrawerBarRef}
       >
         <Box
           sx={{
