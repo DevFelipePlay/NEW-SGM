@@ -57,7 +57,7 @@ export function AllRoutes() {
         path='/cadastro-usuario-mmn/:idIndicacao'
         element={<CadastroDeDadosPessoaisUserMMN />}
       />
-      <Route path='/login' element={<Login />} />
+      <Route path='/login/:companyref' element={<Login />} />
       <Route path={'/forbidden'} element={<Forbidden />} />
 
       {/* Rotas Protegidas */}

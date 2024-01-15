@@ -7,7 +7,7 @@ export const TemaContext = createContext({});
 export function TemaProvider({ children }: any) {
   const root = document.querySelector(':root') as HTMLElement;
   const [colors, setColors] = useState({
-    primary_color: '#DF3B67',
+    primary_color: '#3bdfd1',
     secondary_color: '#444',
     backGround_button_hover_color: '#141414',
     backGround_sideBar_color: '#141414',

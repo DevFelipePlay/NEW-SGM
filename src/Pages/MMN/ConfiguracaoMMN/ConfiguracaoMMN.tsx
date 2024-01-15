@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 import {
   EditarGraduações,
   EditarPacotes,
@@ -7,9 +7,9 @@ import {
   EditarPremios,
   EditarTaxasESaque,
   NiveisDeDistribuicao,
-} from ".";
-import { CustomizedTabs, DefaultContainer } from "../../../components";
-import { EditarPacotesChips } from "./EditarPacotesChips";
+} from '.';
+import { CustomizedTabs, DefaultContainer } from '../../../components';
+import { EditarPacotesChips } from './EditarPacotesChips';
 
 export function ConfiguracaoMMN() {
   const [tabValue, setTabValue] = useState(0);
@@ -20,9 +20,9 @@ export function ConfiguracaoMMN() {
 
   return (
     <DefaultContainer
-      page={"Configurações Gerais"}
-      title={"Configurações "}
-      subTitle={"Configure todo os dados usados no seu multinível"}
+      page={'Configurações Gerais'}
+      title={'Configurações '}
+      subTitle={'Configure todo os dados usados no seu multinível'}
       showSearch={false}
       showAvatar={true}
     >
@@ -30,14 +30,14 @@ export function ConfiguracaoMMN() {
         value={tabValue}
         onChange={(newValue) => setTabValue(newValue)}
         tabsData={[
-          { label: "Licenciamento", value: 0 },
-          { label: "Pacotes", value: 1 },
-          { label: "Planos", value: 2 },
-          { label: "Graduações", value: 3 },
-          { label: "Pontos", value: 4 },
-          { label: "Taxas e saque", value: 5 },
-          { label: "Prêmios", value: 6 },
-          { label: "Níveis de distribuição", value: 7 },
+          { label: 'Licenciamento', value: 0 },
+          { label: 'Pacotes', value: 1 },
+          { label: 'Planos', value: 2 },
+          { label: 'Graduações', value: 3 },
+          { label: 'Pontos', value: 4 },
+          { label: 'Taxas e saque', value: 5 },
+          { label: 'Prêmios', value: 6 },
+          { label: 'Níveis de distribuição', value: 7 },
         ]}
         mostrarBotaoVoltar={false}
         mostrarNavbar={true}
