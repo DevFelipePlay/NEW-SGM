@@ -13,9 +13,12 @@ import {
 } from '../../api/SGM/login';
 import { AnimatedBackground, Loading } from '../../components';
 import { TextInput, TextInputPassword } from '../../components/Inputs';
+import { TemaContext } from '../../themes';
 import { errorToast } from '../../utils';
 
 export function Login() {
+  //@ts-ignore
+  const { setColors } = useContext(TemaContext);
   const [cpf, setCpf] = useState('');
   const [senha, setSenha] = useState('');
 
@@ -59,6 +62,22 @@ export function Login() {
     handleColorsSistem();
     console.log(responseColors);
   }, []);
+  useEffect(() => {
+    if (responseColors?.primary_color !== null) {
+      setColors({
+        primary_color: responseColors?.primary_color,
+        secondary_color: '#444',
+        backGround_button_hover_color: '#141414',
+        backGround_sideBar_color: '#141414',
+        backGround_header_color: '#202020',
+        backGround_default: '#141414',
+        text_header_color: '#c0c0c0',
+        text_color: 'white',
+        sub_text_color: '#808080',
+        color_svg: responseColors?.primary_color,
+      });
+    }
+  }, [responseColors?.primary_color]);
 
   // breakpoints
   const theme = useTheme();
