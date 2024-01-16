@@ -51,7 +51,7 @@ export function TemaProvider({ children }: any) {
   });
 
   useEffect(() => {
-    changeColor('primary_color', colors.primary_color);
+    changeColor('primary_color', colors.primary_color ? colors.primary_color : '#DF3B67');
     salvarCoresNoLocalStorage(colors);
   }, [colors.primary_color]);
 

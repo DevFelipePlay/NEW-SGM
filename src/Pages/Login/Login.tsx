@@ -53,6 +53,7 @@ export function Login() {
       setResponseColors(data);
     } catch (error: any) {
       errorToast(error);
+      navigate('/forbidden');
     } finally {
       setLoadigColorsSistem(false);
     }

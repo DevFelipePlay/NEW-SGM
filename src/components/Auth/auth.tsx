@@ -1,15 +1,15 @@
-import { ReactNode, createContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { ReactNode, createContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 //
-import useStorage from "../../hooks/useStorage";
+import useStorage from '../../hooks/useStorage';
 //
 
-import { Box } from "@mui/material";
-import moment from "moment";
-import { Loading } from "..";
-import { IUser } from "../../@types/IUser";
-import { apiPlayMMN } from "../../services/apiPlayMMN";
+import { Box } from '@mui/material';
+import moment from 'moment';
+import { Loading } from '..';
+import { IUser } from '../../@types/IUser';
+import apiPlaySgm from '../../services/apiPlaySgm';
 
 type AuthContextTypes = {
   user: IUser | null;
@@ -20,9 +20,7 @@ type AuthContextTypes = {
   signOut: () => void;
 };
 
-export const AuthContext = createContext<AuthContextTypes>(
-  {} as AuthContextTypes
-);
+export const AuthContext = createContext<AuthContextTypes>({} as AuthContextTypes);
 
 export default function AuthProvider({ children }: { children: ReactNode }) {
   const navigate = useNavigate();
@@ -42,47 +40,30 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
       password: senha,
     };
 
-    apiPlayMMN
-      .post("login", dados)
+    apiPlaySgm
+      .post('login', dados)
       .then((response) => {
-        if (response.data.profileid === 5)
-          return toast.error("CPF não encontrado"); // Perfil está Excluído
+        if (response.data.profileid === 5) return toast.error('CPF não encontrado'); // Perfil está Excluído
         // if (response.data.profileid_multinivel === 3 && response.data.cpf.length === 11)
         //   return toast.warning('Você não possui acesso a plataforma!'); //Perfil de Cliente PF
 
         setUser(response.data);
-        setItem("loginTime", loginTime);
-        setItem("usr", JSON.stringify(response.data));
-        setItem("usr_c", JSON.stringify({ cpf: cpf, senha: senha }));
+        setItem('loginTime', loginTime);
+        setItem('usr', JSON.stringify(response.data));
+        setItem('usr_c', JSON.stringify({ cpf: cpf, senha: senha }));
         setLoadingAuth(false);
 
-        if (
-          response.data.primeiroacessoconcluidoparceirommn &&
-          response.data?.super
-        ) {
-          !isOnBg && navigate("/home-admin-mmn");
+        if (response.data.primeiroacessoconcluidoparceirommn && response.data?.super) {
+          !isOnBg && navigate('/home-admin-mmn');
         }
-        if (
-          !response.data.primeiroacessoconcluidoparceirommn &&
-          response.data?.super
-        ) {
-          !isOnBg &&
-            navigate(
-              "/primeiro-acesso-multinivel-parceiro/cadastro-de-pacotes-mmn"
-            );
+        if (!response.data.primeiroacessoconcluidoparceirommn && response.data?.super) {
+          !isOnBg && navigate('/primeiro-acesso-multinivel-parceiro/cadastro-de-pacotes-mmn');
         }
-        if (
-          response.data.msisdnativo &&
-          response.data?.profileid_multinivel === 7
-        ) {
-          !isOnBg && navigate("/home-usuario-mmn");
+        if (response.data.msisdnativo && response.data?.profileid_multinivel === 7) {
+          !isOnBg && navigate('/home-usuario-mmn');
         }
-        if (
-          !response.data.msisdnativo &&
-          response.data?.profileid_multinivel === 7
-        ) {
-          !isOnBg &&
-            navigate("/primeiro-acesso-multinivel-usuario/compra-de-pacotes");
+        if (!response.data.msisdnativo && response.data?.profileid_multinivel === 7) {
+          !isOnBg && navigate('/primeiro-acesso-multinivel-usuario/compra-de-pacotes');
         }
       })
       .catch((error) => {
@@ -90,18 +71,16 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
 
         setLoadingAuth(false);
 
-        if (error.response.status === 550)
-          return !isOnBg && toast.error("Senha incorreta");
+        if (error.response.status === 550) return !isOnBg && toast.error('Senha incorreta');
 
-        if (error.response.status === 551)
-          return !isOnBg && toast.error("CPF não encontrado");
+        if (error.response.status === 551) return !isOnBg && toast.error('CPF não encontrado');
 
-        !isOnBg && toast.error("Erro ao logar no sistema");
+        !isOnBg && toast.error('Erro ao logar no sistema');
       });
   }
 
   function reSignIn() {
-    let usr_c = getItem("usr_c");
+    let usr_c = getItem('usr_c');
     if (usr_c) {
       let { cpf, senha } = JSON.parse(usr_c);
       signIn(cpf, senha, true);
@@ -109,7 +88,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   function signOut() {
-    navigate("/login");
+    navigate('/login');
     localStorage.clear();
     sessionStorage.clear();
     setUser(null);
@@ -119,13 +98,13 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     //loadStorage()
     let currentDate = moment().date().toString();
-    let lastAccessDate = getItem("lastAccessDate");
+    let lastAccessDate = getItem('lastAccessDate');
 
     if (!lastAccessDate || currentDate !== lastAccessDate) {
-      setItem("lastAccessDate", currentDate);
+      setItem('lastAccessDate', currentDate);
     }
 
-    let usr = getItem("usr");
+    let usr = getItem('usr');
     if (usr) {
       setUser(JSON.parse(usr));
     }
@@ -142,10 +121,10 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   }, [user]);
 
   useEffect(() => {
-    const lastLoginTime = getItem("loginTime");
+    const lastLoginTime = getItem('loginTime');
     console.log(lastLoginTime);
     if (lastLoginTime) {
-      const dozeHorasAtras = moment().subtract(12, "hours");
+      const dozeHorasAtras = moment().subtract(12, 'hours');
       const horarioLogin = moment(lastLoginTime);
 
       if (horarioLogin.isBefore(dozeHorasAtras)) {
@@ -158,11 +137,11 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     return (
       <Box
         sx={{
-          width: "100%",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          height: "90vh",
+          width: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: '90vh',
         }}
       >
         <Loading />
