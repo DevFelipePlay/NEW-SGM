@@ -88,7 +88,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   function signOut() {
-    navigate('/login');
+    navigate(`/login/${user?.companyref}`);
     localStorage.clear();
     sessionStorage.clear();
     setUser(null);

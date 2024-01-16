@@ -25,6 +25,7 @@ export interface IUser {
   msisdnativo: boolean;
   niveis: number;
   UF: string | null;
+  companyref: string;
 }
 
 /**
