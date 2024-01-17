@@ -151,8 +151,8 @@ export function Sidebar(): JSX.Element {
         setIsTabBarOpen(true);
       } else {
         setIsTabBarOpen(false);
+        navigate(to ? to : '');
       }
-      navigate(to);
     }
   };
 
@@ -194,6 +194,7 @@ export function Sidebar(): JSX.Element {
       render: true,
       label: 'Módulo Multinivel',
       icon: <GiHumanPyramid />,
+      // to: '',
       to: user?.profileid_multinivel === 7 ? 'home-usuario-mmn' : 'home-admin-mmn',
       listItemsTabBar: [
         {

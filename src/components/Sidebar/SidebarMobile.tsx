@@ -149,8 +149,8 @@ export function SidebarMobile(): JSX.Element {
         setIsTabBarOpen(true);
       } else {
         setIsTabBarOpen(false);
+        navigate(to ? to : '');
       }
-      navigate(to);
     }
   };
 
