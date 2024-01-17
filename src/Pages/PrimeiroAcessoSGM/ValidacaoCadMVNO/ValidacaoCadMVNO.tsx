@@ -3,14 +3,14 @@ import { Box, TextField, Typography } from '@mui/material';
 import React, { useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import { mask } from 'remask';
-import { IReqPostPlayAutorizaCadastro, postPlayAutorizaCadastro } from '../../api';
-import logoPLay from '../../assets/MMNImg/icon.png';
-import { Cards, DefaultContainer } from '../../components';
-import { useForm } from '../../hooks';
-import useWindowSize from '../../hooks/useWindowSize';
-import { errorToast } from '../../utils';
+import { IReqPostPlayAutorizaCadastro, postPlayAutorizaCadastro } from '../../../api';
+import logoPLay from '../../../assets/MMNImg/icon.png';
+import { Cards, DefaultContainer } from '../../../components';
+import { useForm } from '../../../hooks';
+import useWindowSize from '../../../hooks/useWindowSize';
+import { errorToast } from '../../../utils';
 
-export function PrimeiroAcessoSGM() {
+export function ValidacaoCadMVNO() {
   const isMobile = useWindowSize();
   const [loadingValidate, setLoadingValidate] = useState(false);
 
