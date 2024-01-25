@@ -11,7 +11,7 @@ import {
   IResPostPlayListarCorSistemaPorCompanyRef,
   postPlayListarCorSistemaPorCompanyRef,
 } from '../../api/SGM/login';
-import { AnimatedBackground, Loading } from '../../components';
+import { AnimatedBackground, PreLoader } from '../../components';
 import { TextInput, TextInputPassword } from '../../components/Inputs';
 import { TemaContext } from '../../themes';
 import { errorToast } from '../../utils';
@@ -94,10 +94,12 @@ export function Login() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            height: '90vh',
+            height: '100vh',
+            backgroundColor: 'black',
+            color: 'white',
           }}
         >
-          <Loading />
+          <PreLoader />
         </Box>
       ) : (
         <Box

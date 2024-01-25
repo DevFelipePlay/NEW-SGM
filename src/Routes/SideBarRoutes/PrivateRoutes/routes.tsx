@@ -10,7 +10,7 @@ import {
 
 import HomeAdminMMN from '../../../Pages/Home/HomeMMN/HomeAdminMMN';
 
-import { Forbidden, Login, NotFound, ValidacaoCadMVNO } from '../../../Pages';
+import { CadastroMVNO, Forbidden, Login, NotFound, ValidacaoCadMVNO } from '../../../Pages';
 import {
   AtivacaoLinha,
   CadastroDadosFinanceiros,
@@ -52,7 +52,8 @@ export function AllRoutes() {
       <Route path='/landingpage-indicacao/appousistem' element={<AppScreen />} /> */}
       <Route path='/sem-linha-ativa' element={<SemLinhaAtiva />} />
       <Route path='*' element={<NotFound />} />
-      <Route path='/primeiro-acesso-sgm' element={<ValidacaoCadMVNO />} />
+      <Route path='/validacao-cadastro-sgm' element={<ValidacaoCadMVNO />} />
+      <Route path='/cadastro-mvno-sgm' element={<CadastroMVNO />} />
       <Route
         path='/cadastro-usuario-mmn/:idIndicacao'
         element={<CadastroDeDadosPessoaisUserMMN />}

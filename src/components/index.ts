@@ -12,6 +12,7 @@ export * from './Inputs';
 export * from './ListCustom';
 export * from './Loading';
 export * from './MUIDataTableCustom';
+export * from './PreLoader';
 export * from './Progressbar';
 export * from './Sidebar';
 export * from './SwiperNavButtons';

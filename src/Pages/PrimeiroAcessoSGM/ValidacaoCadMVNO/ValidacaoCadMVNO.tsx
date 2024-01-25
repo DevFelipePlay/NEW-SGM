@@ -1,6 +1,7 @@
 import LoadingButton from '@mui/lab/LoadingButton/LoadingButton';
 import { Box, TextField, Typography } from '@mui/material';
 import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { mask } from 'remask';
 import { IReqPostPlayAutorizaCadastro, postPlayAutorizaCadastro } from '../../../api';
@@ -13,6 +14,7 @@ import { errorToast } from '../../../utils';
 export function ValidacaoCadMVNO() {
   const isMobile = useWindowSize();
   const [loadingValidate, setLoadingValidate] = useState(false);
+  const navigate = useNavigate();
 
   const { changeForm, formData } = useForm({
     documento: '',
@@ -62,6 +64,7 @@ export function ValidacaoCadMVNO() {
     try {
       await postPlayAutorizaCadastro(payload);
       toast.success('Sucesso!');
+      navigate('/cadastro-mvno-sgm');
     } catch (error: any) {
       errorToast(error);
     } finally {
