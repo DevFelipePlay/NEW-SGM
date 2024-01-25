@@ -27,7 +27,7 @@ import {
 import { Cards, Loading } from '../../../../components';
 import { useForm } from '../../../../hooks';
 import useUser from '../../../../hooks/useUser';
-import { currencyMask, dateFormatter, errorToast } from '../../../../utils';
+import { currencyFormatter, dateFormatter, errorToast } from '../../../../utils';
 
 export function ListaAprovaocao() {
   const [loadingView, setLoadingView] = useState(false);
@@ -146,6 +146,7 @@ export function ListaAprovaocao() {
 
       await postPlayConfirmacaoSolicitacaoSaque(payload);
       toast.success('Solicitação Respondida com sucesso');
+      window.location.reload();
     } catch (error: any) {
       errorToast(error);
       window.location.reload();
@@ -212,11 +213,11 @@ export function ListaAprovaocao() {
                         Data da Solicitação: {dateFormatter(item.Data_Solicitacao)}
                       </ListItemText>
                       <ListItemText sx={{ userSelect: 'none' }}>
-                        Saldo Disponivel: R$ {currencyMask(item.Saldo_Disponivel)}
+                        Saldo Disponivel: {currencyFormatter(item.Saldo_Disponivel)}
                       </ListItemText>
                       <ListItemText sx={{ userSelect: 'none' }}>
                         <Typography variant='h5' color={'var(--primary-color)'}>
-                          Valor Solicitado: R$ {currencyMask(item.Valor_Solicitado)}
+                          Valor Solicitado: {currencyFormatter(item.Valor_Solicitado)}
                         </Typography>
                       </ListItemText>
                       <Typography sx={{ mt: 2 }}>Responda a solicitação:</Typography>
@@ -318,7 +319,6 @@ export function ListaAprovaocao() {
                         onClick={() => {
                           handleConfirmacaoSolicitacaoSaqueTrue(index);
                           handleCloseCofirm();
-                          window.location.reload();
                         }}
                         variant='contained'
                       >
