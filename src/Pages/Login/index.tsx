@@ -145,7 +145,7 @@ export default function Login() {
                   Seja bem-vindo
                 </Typography>
                 <Typography variant={smDown ? 'h6' : 'h3'} color={'white'}>
-                  ao
+                  à
                 </Typography>
                 <Typography
                   variant={smDown ? 'h6' : 'h3'}
@@ -255,7 +255,7 @@ export default function Login() {
                 à
               </Typography>
               <Typography variant='h2' color={'var(--primary-color)'} fontWeight={'900'}>
-                Sistema Opuscell
+                Opuscell
               </Typography>
             </Stack>
           </Box>

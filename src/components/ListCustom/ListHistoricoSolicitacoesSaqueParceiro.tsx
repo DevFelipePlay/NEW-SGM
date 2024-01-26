@@ -63,7 +63,7 @@ export function ListHistoricoSolicitacoesSaqueParceiro({
                   }}
                 ></div>
               )}
-              {user?.profileid === 7 && (
+              {user?.profileid_multinivel === 7 && (
                 <div
                   style={{
                     width: '12px',
@@ -82,8 +82,8 @@ export function ListHistoricoSolicitacoesSaqueParceiro({
                 <ListItemText sx={{ userSelect: 'none' }}>
                   Data do Pagamento: {dataPagamento}
                 </ListItemText>
-                <ListItemText sx={{ userSelect: 'none' }}>Valor Pago: R$ {valorPago}</ListItemText>
-                {statusPagamento === 0 && user?.profileid === 7 && (
+                <ListItemText sx={{ userSelect: 'none' }}>Valor: R$ {valorPago}</ListItemText>
+                {statusPagamento === 0 && user?.profileid_multinivel === 7 && (
                   <ListItem sx={{ userSelect: 'none' }}>
                     <Alert severity='error'>
                       <AlertTitle>Solicitação Negada!</AlertTitle>

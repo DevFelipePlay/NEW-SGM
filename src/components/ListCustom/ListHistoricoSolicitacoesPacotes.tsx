@@ -58,7 +58,7 @@ export function ListHistoricoSolicitacoesPacotes({
                   Data da solicitação:{dateFormatter(dataPagamento)}
                 </ListItemText>
                 <ListItemText sx={{ userSelect: 'none' }}>Cod. de rastreio: {cod}</ListItemText>
-                {user?.profileid === 7 && (
+                {user?.profileid_multinivel === 7 && (
                   <ListItemText sx={{ userSelect: 'none' }}>
                     Status da solicitação: {statusSolicitacao === 1 ? 'Enviado' : 'Pendente'}
                   </ListItemText>
