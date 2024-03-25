@@ -23,7 +23,6 @@ import {
 import { Cards } from "../../../../components";
 import { useForm } from "../../../../hooks";
 import useUser from "../../../../hooks/useUser";
-import useWindowSize from "../../../../hooks/useWindowSize";
 import apiCep from "../../../../services/apiCep";
 import { errorToast } from "../../../../utils";
 
@@ -73,7 +72,6 @@ export function CadastroDeDadosPessoaisUserMMN() {
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
-  const { isMobile } = useWindowSize();
 
   const { formData, changeForm, clearForm } =
     useForm<IReqPostPlayCadastroUserMMN>({
@@ -268,7 +266,7 @@ export function CadastroDeDadosPessoaisUserMMN() {
       >
         <Typography
           variant={`${smDown ? "h4" : "h2"}`}
-          color="var(--primary-color)"
+          color="var(--primary_color)"
         >
           Cadastre-se
         </Typography>

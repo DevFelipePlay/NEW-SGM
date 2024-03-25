@@ -216,7 +216,7 @@ export function CadastroGraduacoesMMN() {
             <Tooltip title="Adicionar nova graduação">
               <IconButton
                 onClick={handleAddGraduation}
-                sx={{ backgroundColor: "var(--primary-color)" }}
+                sx={{ backgroundColor: "var(--primary_color)" }}
               >
                 <HiOutlinePlusSmall />
               </IconButton>

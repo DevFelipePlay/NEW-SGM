@@ -72,7 +72,7 @@ export function ListCustom({
                 bgcolor: "#5f5f5f",
                 color: "white",
                 "&:hover": {
-                  bgcolor: "var(--text-header-color)",
+                  bgcolor: "var(--text_header_color)",
                   color: "white",
                   transition: "all 0.3s",
                 },
@@ -113,13 +113,18 @@ export function ListCustom({
                     TransitionProps={{ timeout: 600 }}
                     onClick={pressItemList}
                   >
-                    <Avatar sx={{width: {
-                      xs: 52,
-                      sm: 40
-                    }, height: {
-                      xs: 52,
-                      sm: 40
-                    }}} />
+                    <Avatar
+                      sx={{
+                        width: {
+                          xs: 52,
+                          sm: 40,
+                        },
+                        height: {
+                          xs: 52,
+                          sm: 40,
+                        },
+                      }}
+                    />
                   </Tooltip>
                 </ListItemAvatar>
                 <Box>
@@ -145,13 +150,18 @@ export function ListCustom({
                   TransitionProps={{ timeout: 600 }}
                 >
                   <IconButton
-                    sx={{ color: "primary.light", bgcolor: "white", width: {
-                      xs: 32,
-                      sm: 38
-                    }, height: {
-                      xs: 32,
-                      sm: 38
-                    }  }}
+                    sx={{
+                      color: "primary.light",
+                      bgcolor: "white",
+                      width: {
+                        xs: 32,
+                        sm: 38,
+                      },
+                      height: {
+                        xs: 32,
+                        sm: 38,
+                      },
+                    }}
                     edge="end"
                     aria-label=""
                     onClick={editar}
@@ -168,13 +178,17 @@ export function ListCustom({
                   <IconButton
                     edge="end"
                     aria-label="delete"
-                    sx={{ bgcolor: "white", width: {
-                      xs: 32,
-                      sm: 38
-                    }, height: {
-                      xs: 32,
-                      sm: 38
-                    } }}
+                    sx={{
+                      bgcolor: "white",
+                      width: {
+                        xs: 32,
+                        sm: 38,
+                      },
+                      height: {
+                        xs: 32,
+                        sm: 38,
+                      },
+                    }}
                     onClick={() => handleOpen("")}
                     disabled
                   >

@@ -25,7 +25,7 @@ export default function SemLinhaAtiva() {
       justifyContent="center"
       flexDirection={isMobile ? "column" : "row"}
       sx={{
-        background: `${isMobile ? "var(--backGround-default)" : "#fff"}`,
+        background: `${isMobile ? "var(--backGround_default)" : "#fff"}`,
       }}
     >
       <Box
@@ -36,7 +36,7 @@ export default function SemLinhaAtiva() {
         justifyContent="center"
         order={isMobile ? "2" : "1"}
         sx={{
-          background: `${isMobile ? "var(--backGround-default)" : "#fff"}`,
+          background: `${isMobile ? "var(--backGround_default)" : "#fff"}`,
         }}
         mt={isMobile ? 2 : 0}
       >
@@ -49,7 +49,7 @@ export default function SemLinhaAtiva() {
         justifyContent="center"
         alignItems="center"
         color="#fff"
-        sx={{ background: "var(--backGround-default)" }}
+        sx={{ background: "var(--backGround_default)" }}
         gap={1}
         order={isMobile ? "1" : "2"}
         textAlign="center"
@@ -59,7 +59,7 @@ export default function SemLinhaAtiva() {
           mt={isMobile ? 2 : 0}
           variant={isMobile ? "h3" : "h1"}
           fontWeight="700"
-          color="var(--primary-color)"
+          color="var(--primary_color)"
         >
           Oops!
         </Typography>
@@ -84,7 +84,7 @@ export default function SemLinhaAtiva() {
                 border: "1px solid transparent",
                 borderRadius: "6px",
                 "&:hover": {
-                  borderColor: "var(--primary-color)",
+                  borderColor: "var(--primary_color)",
                 },
                 transition: ".2s",
               }}
@@ -100,7 +100,7 @@ export default function SemLinhaAtiva() {
                 border: "1px solid transparent",
                 borderRadius: "6px",
                 "&:hover": {
-                  borderColor: "var(--primary-color)",
+                  borderColor: "var(--primary_color)",
                 },
                 transition: ".2s",
               }}

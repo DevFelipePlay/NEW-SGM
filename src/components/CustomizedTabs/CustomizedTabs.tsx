@@ -19,7 +19,7 @@ const StyledTabs = styled((props: StyledTabsProps) => (
       [`& .${tabsClasses.scrollButtons} svg`]: {
         width: "1.75rem",
         height: "1.75rem",
-        fill: "var(--primary-color)",
+        fill: "var(--primary_color)",
       },
     }}
     {...props}
@@ -34,7 +34,7 @@ const StyledTabs = styled((props: StyledTabsProps) => (
   "& .MuiTabs-indicatorSpan": {
     maxWidth: 40,
     width: "100%",
-    backgroundColor: "var(--primary-color)",
+    backgroundColor: "var(--primary_color)",
   },
 });
 
@@ -52,10 +52,10 @@ const StyledTab = styled((props: StyledTabProps) => (
   marginRight: theme.spacing(1),
   color: "white",
   "&.Mui-selected": {
-    color: "var(--primary-color)",
+    color: "var(--primary_color)",
   },
   "&.Mui-focusVisible": {
-    backgroundColor: "var(--backGround-header-color)",
+    backgroundColor: "var(--backGround_header_color)",
   },
 }));
 
@@ -86,7 +86,7 @@ export function CustomizedTabs({
         <Box
           sx={{
             width: "100%",
-            backgroundColor: "var(--backGround-header-color)",
+            backgroundColor: "var(--backGround_header_color)",
             display: "flex",
             flexDirection: "row",
             alignItems: "center",

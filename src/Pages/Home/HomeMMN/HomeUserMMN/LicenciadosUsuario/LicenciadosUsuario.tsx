@@ -1,17 +1,19 @@
-import { Box, Typography } from '@mui/material';
-import { useEffect, useState } from 'react';
-import { mask } from 'remask';
+import { Box, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
+import { mask } from "remask";
 import {
   IReqPostPlayLicenciados,
   IResPostPlayLicenciados,
   postPlayLicenciados,
-} from '../../../../../api';
-import { MUIDataTableCustom } from '../../../../../components';
-import useUser from '../../../../../hooks/useUser';
-import { errorToast } from '../../../../../utils';
+} from "../../../../../api";
+import { MUIDataTableCustom } from "../../../../../components";
+import useUser from "../../../../../hooks/useUser";
+import { errorToast } from "../../../../../utils";
 
 export function LicenciadosUsuario() {
-  const [responseLicenciados, setResponseLicenciados] = useState<IResPostPlayLicenciados[]>([]);
+  const [responseLicenciados, setResponseLicenciados] = useState<
+    IResPostPlayLicenciados[]
+  >([]);
   const [loadingViewLicenciados, setLoadingViewLicenciados] = useState(false);
   const { user } = useUser();
 
@@ -19,8 +21,8 @@ export function LicenciadosUsuario() {
     setLoadingViewLicenciados(true);
 
     const payload: IReqPostPlayLicenciados = {
-      token: user?.token || '',
-      UF: user?.UF || '',
+      token: user?.token || "",
+      UF: user?.UF || "",
     };
     try {
       const data = await postPlayLicenciados(payload);
@@ -37,39 +39,41 @@ export function LicenciadosUsuario() {
   }, []);
 
   return (
-    <Box sx={{ width: '100%' }}>
-      <Typography variant='h4' color={'var(--primary-color)'} sx={{ mt: 2 }}>
+    <Box sx={{ width: "100%" }}>
+      <Typography variant="h4" color={"var(--primary_color)"} sx={{ mt: 2 }}>
         Lista de vendedores licenciados perto de você!
       </Typography>
       <Box
         sx={{
-          width: '100%',
+          width: "100%",
           py: 2,
         }}
       >
         <MUIDataTableCustom
-          title=''
+          title=""
           data={responseLicenciados && responseLicenciados}
           loading={loadingViewLicenciados}
           columns={[
             {
-              name: 'nome',
-              label: 'Nome',
+              name: "nome",
+              label: "Nome",
             },
             {
-              name: 'uf',
-              label: 'UF',
+              name: "uf",
+              label: "UF",
             },
             {
-              name: 'city',
-              label: 'Cidade',
+              name: "city",
+              label: "Cidade",
             },
             {
-              name: 'telefone',
-              label: 'Telefone',
+              name: "telefone",
+              label: "Telefone",
               options: {
                 customBodyRender: (value) => (
-                  <Box sx={{ whiteSpace: 'nowrap' }}>{mask(value, '(99) 99999-9999')}</Box>
+                  <Box sx={{ whiteSpace: "nowrap" }}>
+                    {mask(value, "(99) 99999-9999")}
+                  </Box>
                 ),
               },
             },

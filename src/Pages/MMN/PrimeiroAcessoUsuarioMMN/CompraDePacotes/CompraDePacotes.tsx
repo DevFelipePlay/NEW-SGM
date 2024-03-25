@@ -86,8 +86,8 @@ export function CompraDePacotes() {
     width: `${smDown ? "300px" : "400px"}`,
     borderRadius: "10px",
     boxShadow: "24",
-    backgroundColor: "var(--backGround-sideBar-color)",
-    color: "var(--text-color)",
+    backgroundColor: "var(--backGround_sideBar_color)",
+    color: "var(--text_color)",
     padding: `${smDown ? "1rem" : "4rem"}`,
     textAlign: "center",
     border: "none",
@@ -233,7 +233,7 @@ export function CompraDePacotes() {
                                           : "350px"
                                       }
                                       showIcon
-                                      bgColorIcon="var(--primary-color)"
+                                      bgColorIcon="var(--primary_color)"
                                       icon={<PiHandCoins />}
                                     >
                                       <Typography>
@@ -244,7 +244,7 @@ export function CompraDePacotes() {
 
                                       <Typography
                                         variant="subtitle2"
-                                        color={"var(--sub-text-color)"}
+                                        color={"var(--sub_text_color)"}
                                         sx={{ mt: 2 }}
                                       >
                                         Por apenas:
@@ -289,7 +289,7 @@ export function CompraDePacotes() {
                                       : "350px"
                                   }
                                   showIcon
-                                  bgColorIcon="var(--primary-color)"
+                                  bgColorIcon="var(--primary_color)"
                                   icon={<PiHandCoins />}
                                 >
                                   <Typography>
@@ -300,7 +300,7 @@ export function CompraDePacotes() {
 
                                   <Typography
                                     variant="subtitle2"
-                                    color={"var(--sub-text-color)"}
+                                    color={"var(--sub_text_color)"}
                                     sx={{ mt: 2 }}
                                   >
                                     Por apenas:
@@ -533,7 +533,7 @@ export function CompraDePacotes() {
                             sm: 0,
                           },
                         }}
-                        color={"var(--primary-color)"}
+                        color={"var(--primary_color)"}
                       >
                         <Typography
                           sx={{

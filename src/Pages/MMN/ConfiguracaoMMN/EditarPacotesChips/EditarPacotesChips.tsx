@@ -76,8 +76,8 @@ export function EditarPacotesChips() {
     width: `${smDown ? "300px" : "400px"}`,
     borderRadius: "10px",
     boxShadow: "24",
-    backgroundColor: "var(--backGround-sideBar-color)",
-    color: "var(--text-color)",
+    backgroundColor: "var(--backGround_sideBar_color)",
+    color: "var(--text_color)",
     padding: `${smDown ? "1rem" : "4rem"}`,
     textAlign: "center",
     border: "none",
@@ -622,7 +622,7 @@ export function EditarPacotesChips() {
                 <Tooltip title="Adicionar um novo pacote de chips">
                   <IconButton
                     onClick={() => handleAddCard()}
-                    sx={{ backgroundColor: "var(--primary-color)" }}
+                    sx={{ backgroundColor: "var(--primary_color)" }}
                   >
                     <HiOutlinePlusSmall />
                   </IconButton>

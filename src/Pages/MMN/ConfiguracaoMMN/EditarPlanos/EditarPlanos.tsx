@@ -153,7 +153,7 @@ export function EditarPlanos() {
                   flexDirection: "column",
                 }}
               >
-                <Typography variant="subtitle2" color="var(--sub-text-color)">
+                <Typography variant="subtitle2" color="var(--sub_text_color)">
                   Níveis que este plano acessa
                 </Typography>
                 <Select

@@ -59,7 +59,7 @@ export function LandingPageMultinivel() {
           <Divider
             sx={{
               mx: 6,
-              background: "var(--primary-color)",
+              background: "var(--primary_color)",
             }}
           />
           <Banner3 />
@@ -72,7 +72,7 @@ export function LandingPageMultinivel() {
           justifyContent="center"
           flexDirection={isMobile ? "column" : "row"}
           sx={{
-            background: `${isMobile ? "var(--backGround-default)" : "#fff"}`,
+            background: `${isMobile ? "var(--backGround_default)" : "#fff"}`,
           }}
         >
           <Box
@@ -83,7 +83,7 @@ export function LandingPageMultinivel() {
             justifyContent="center"
             order={isMobile ? "2" : "1"}
             sx={{
-              background: `${isMobile ? "var(--backGround-default)" : "#fff"}`,
+              background: `${isMobile ? "var(--backGround_default)" : "#fff"}`,
             }}
           >
             <Error401Image />
@@ -95,14 +95,14 @@ export function LandingPageMultinivel() {
             justifyContent="center"
             alignItems="center"
             color="#fff"
-            sx={{ background: "var(--backGround-default)" }}
+            sx={{ background: "var(--backGround_default)" }}
             gap={1}
             order={isMobile ? "1" : "2"}
             textAlign="center"
           >
             <Typography
               variant="h3"
-              color="var(--primary-color)"
+              color="var(--primary_color)"
               fontWeight="900"
               letterSpacing={isMobile ? 3 : 8}
               sx={{

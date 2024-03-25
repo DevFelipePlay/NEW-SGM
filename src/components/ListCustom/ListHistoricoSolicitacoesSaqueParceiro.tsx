@@ -8,8 +8,8 @@ import {
   ListItemText,
   Typography,
   styled,
-} from '@mui/material';
-import useUser from '../../hooks/useUser';
+} from "@mui/material";
+import useUser from "../../hooks/useUser";
 
 interface IlistCustom {
   nome: string;
@@ -28,64 +28,74 @@ export function ListHistoricoSolicitacoesSaqueParceiro({
   dataPagamento,
   mensagem,
 }: IlistCustom) {
-  const Demo = styled('div')(() => ({
-    backgroundColor: 'color.background.default',
+  const Demo = styled("div")(() => ({
+    backgroundColor: "color.background.default",
   }));
 
   const { user } = useUser();
   return (
-    <Box sx={{ flexGrow: 1, width: '100%' }}>
+    <Box sx={{ flexGrow: 1, width: "100%" }}>
       <Grid item xs={12} md={6}>
         <Demo>
           <List>
             <ListItem
               sx={{
-                bgcolor: '#5f5f5f',
-                color: 'white',
-                '&:hover': {
-                  bgcolor: 'var(--text-header-color)',
-                  color: 'white',
-                  transition: 'all 0.3s',
+                bgcolor: "#5f5f5f",
+                color: "white",
+                "&:hover": {
+                  bgcolor: "var(--text_header_color)",
+                  color: "white",
+                  transition: "all 0.3s",
                 },
-                cursor: 'pointer',
-                borderRadius: '10px',
+                cursor: "pointer",
+                borderRadius: "10px",
               }}
             >
               {user?.super && (
                 <div
                   style={{
-                    width: '12px',
-                    background: statusPagamento === true ? `green` : 'red',
-                    height: statusPagamento === false ? '220px' : '140px',
-                    border: 'solid 1px ',
-                    marginRight: '10px',
-                    borderRadius: '20px',
+                    width: "12px",
+                    background: statusPagamento === true ? `green` : "red",
+                    height: statusPagamento === false ? "220px" : "140px",
+                    border: "solid 1px ",
+                    marginRight: "10px",
+                    borderRadius: "20px",
                   }}
                 ></div>
               )}
               {user?.profileid_multinivel === 7 && (
                 <div
                   style={{
-                    width: '12px',
+                    width: "12px",
                     background:
-                      statusPagamento === 1 ? 'green' : statusPagamento === 0 ? 'red' : '#cdc600',
-                    height: statusPagamento !== 0 ? '140px' : '220px',
-                    border: 'solid 1px ',
-                    marginRight: '10px',
-                    borderRadius: '20px',
+                      statusPagamento === 1
+                        ? "green"
+                        : statusPagamento === 0
+                        ? "red"
+                        : "#cdc600",
+                    height: statusPagamento !== 0 ? "140px" : "220px",
+                    border: "solid 1px ",
+                    marginRight: "10px",
+                    borderRadius: "20px",
                   }}
                 ></div>
               )}
               <Box>
-                <ListItemText sx={{ userSelect: 'none' }}>ID: {id}</ListItemText>
-                <ListItemText sx={{ userSelect: 'none' }}>Nome: {nome}</ListItemText>
-                <ListItemText sx={{ userSelect: 'none' }}>
+                <ListItemText sx={{ userSelect: "none" }}>
+                  ID: {id}
+                </ListItemText>
+                <ListItemText sx={{ userSelect: "none" }}>
+                  Nome: {nome}
+                </ListItemText>
+                <ListItemText sx={{ userSelect: "none" }}>
                   Data do Pagamento: {dataPagamento}
                 </ListItemText>
-                <ListItemText sx={{ userSelect: 'none' }}>Valor: R$ {valorPago}</ListItemText>
+                <ListItemText sx={{ userSelect: "none" }}>
+                  Valor: R$ {valorPago}
+                </ListItemText>
                 {statusPagamento === 0 && user?.profileid_multinivel === 7 && (
-                  <ListItem sx={{ userSelect: 'none' }}>
-                    <Alert severity='error'>
+                  <ListItem sx={{ userSelect: "none" }}>
+                    <Alert severity="error">
                       <AlertTitle>Solicitação Negada!</AlertTitle>
 
                       <Typography>{mensagem}</Typography>
@@ -94,8 +104,8 @@ export function ListHistoricoSolicitacoesSaqueParceiro({
                 )}
                 {statusPagamento === 0 ||
                   (statusPagamento === false && user?.profileid === 1 && (
-                    <ListItem sx={{ userSelect: 'none' }}>
-                      <Alert severity='error'>
+                    <ListItem sx={{ userSelect: "none" }}>
+                      <Alert severity="error">
                         <AlertTitle>Solicitação Negada!</AlertTitle>
                         <Typography>Mensagem: {mensagem}</Typography>
                       </Alert>

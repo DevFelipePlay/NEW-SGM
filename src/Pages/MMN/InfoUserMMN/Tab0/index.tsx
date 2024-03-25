@@ -56,7 +56,7 @@ export default function DashBoardInfoUserMMN() {
                 style={{
                   width: "90%",
                   height: "1px",
-                  backgroundColor: "var(--primary-color)",
+                  backgroundColor: "var(--primary_color)",
                 }}
               />
               <Grid
@@ -158,12 +158,12 @@ export default function DashBoardInfoUserMMN() {
               style={{
                 width: "30%",
                 height: "1px",
-                backgroundColor: "var(--primary-color)",
+                backgroundColor: "var(--primary_color)",
               }}
             />
             <Typography
               variant="h5"
-              sx={{ m: 2, color: "var(--primary-color)" }}
+              sx={{ m: 2, color: "var(--primary_color)" }}
             >
               MAXX
             </Typography>

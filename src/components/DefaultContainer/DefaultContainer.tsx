@@ -183,7 +183,7 @@ export function DefaultContainer({
           width: "100%",
           py: "1rem",
           ...contentStyles,
-          backgroundColor: "var(--backGround-header-color)",
+          backgroundColor: "var(--backGround_header_color)",
           height: "auto",
           mt: hasSidebar && isMobile ? 8 : 0,
         }}
@@ -202,7 +202,7 @@ export function DefaultContainer({
         >
           <Typography
             sx={{
-              color: "var(--text-color)",
+              color: "var(--text_color)",
               fontSize: `${smDown ? "1.125rem" : "1.3rem"}`,
             }}
           >
@@ -234,7 +234,7 @@ export function DefaultContainer({
                     sx={{ marginRight: "0.5rem" }}
                   >
                     <RiNotificationLine
-                      style={{ color: "var(--text-color)", fontSize: "1.3rem" }}
+                      style={{ color: "var(--text_color)", fontSize: "1.3rem" }}
                     />
                   </Badge>
                 </IconButton>
@@ -263,11 +263,11 @@ export function DefaultContainer({
                   },
                 }}
               >
-                <Typography sx={{ color: "var(--text-color)" }}>
+                <Typography sx={{ color: "var(--text_color)" }}>
                   {user ? user.name : "Bem Vindo"}
                 </Typography>
                 <Typography
-                  sx={{ color: "var(--sub-text-color)", fontSize: "12px" }}
+                  sx={{ color: "var(--sub_text_color)", fontSize: "12px" }}
                   variant="subtitle2"
                 >
                   Nivel de usuário:{" "}
@@ -280,13 +280,13 @@ export function DefaultContainer({
         </Box>
         <Box sx={{ mt: 5 }}>
           <Typography
-            sx={{ color: "var(--text-color)" }}
+            sx={{ color: "var(--text_color)" }}
             variant={smDown ? "h4" : "h3"}
           >
             {title}
           </Typography>
           <Typography
-            sx={{ color: "var(--sub-text-color)" }}
+            sx={{ color: "var(--sub_text_color)" }}
             variant="subtitle2"
           >
             {subTitle}

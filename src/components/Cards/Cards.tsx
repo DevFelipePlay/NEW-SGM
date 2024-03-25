@@ -53,10 +53,10 @@ export function Cards({
         style={{
           width: "90%",
           height: "1px",
-          backgroundColor: "var(--primary-color)",
+          backgroundColor: "var(--primary_color)",
         }}
       />
-      <Typography variant="subtitle1" color={"var(--sub-text-color)"}>
+      <Typography variant="subtitle1" color={"var(--sub_text_color)"}>
         {subTitle}
       </Typography>
       {showIcon && (

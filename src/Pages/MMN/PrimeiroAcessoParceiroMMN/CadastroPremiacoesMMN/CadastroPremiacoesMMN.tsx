@@ -142,7 +142,7 @@ export function CadastroPremiacoesMMN() {
             style={{
               width: "100%",
               height: "1px",
-              backgroundColor: "var(--primary-color)",
+              backgroundColor: "var(--primary_color)",
             }}
           />
           <>

@@ -7,9 +7,9 @@ import {
   Switch,
   TextField,
   Typography,
-} from '@mui/material';
-import InputAdornment from '@mui/material/InputAdornment';
-import { useState } from 'react';
+} from "@mui/material";
+import InputAdornment from "@mui/material/InputAdornment";
+import { useState } from "react";
 
 interface IPlanosProps {
   setTitle: (title: string) => void;
@@ -18,29 +18,29 @@ interface IPlanosProps {
 
 const plans = [
   {
-    valor: '29,90',
-    minValor: '24,41',
-    nome: '(Start) 6Gb + 100 Minutos + 60 sms',
+    valor: "29,90",
+    minValor: "24,41",
+    nome: "(Start) 6Gb + 100 Minutos + 60 sms",
     internet: 6,
     minutos: 100,
     sms: 60,
     mostraApp: true,
   },
   {
-    valor: '26,66',
-    minValor: '24,41',
-    nome: '(Start) 8Gb +  Minutos Ilimitados + 100 sms + 1 Gb Portabilidade',
+    valor: "26,66",
+    minValor: "24,41",
+    nome: "(Start) 8Gb +  Minutos Ilimitados + 100 sms + 1 Gb Portabilidade",
     internet: 8,
-    minutos: 'Ilimitado',
+    minutos: "Ilimitado",
     sms: 100,
     mostraApp: true,
   },
   {
-    valor: '32,71',
-    minValor: '24,41',
-    nome: '(Start) 14Gb +  Minutos Ilimitados + 100 sms + 1 Gb Portabilidade',
+    valor: "32,71",
+    minValor: "24,41",
+    nome: "(Start) 14Gb +  Minutos Ilimitados + 100 sms + 1 Gb Portabilidade",
     internet: 14,
-    minutos: 'Ilimitado',
+    minutos: "Ilimitado",
     sms: 100,
     mostraApp: true,
   },
@@ -48,48 +48,48 @@ const plans = [
 
 const currencies = [
   {
-    value: 'plano1',
+    value: "plano1",
     label: `${plans[0].nome} | R$ ${plans[0].valor}`,
   },
   {
-    value: 'plano2',
+    value: "plano2",
     label: `${plans[1].nome} | R$ ${plans[1].valor}`,
   },
   {
-    value: 'plano3',
+    value: "plano3",
     label: `${plans[2].nome} | R$ ${plans[2].valor}`,
   },
 ];
 
 export default function Planos({ setTitle, setSubtitle }: IPlanosProps) {
-  setTitle('Planos');
-  setSubtitle('Gerencie os planos do parceiro selecionado.');
+  setTitle("Planos");
+  setSubtitle("Gerencie os planos do parceiro selecionado.");
 
-  const [selectedPlan, setSelectedPlan] = useState('');
-  const [selectedPlanValor, setSelectedPlanValor] = useState('');
-  const [selectedPlanNome, setSelectedPlanNome] = useState('');
+  const [selectedPlan, setSelectedPlan] = useState("");
+  const [selectedPlanValor, setSelectedPlanValor] = useState("");
+  const [selectedPlanNome, setSelectedPlanNome] = useState("");
 
   return (
     <>
       <Box
         sx={{
-          width: '85%',
-          boxShadow: '0 4px 10px 0 rgba(0,0,0,.25)',
-          padding: '50px',
+          width: "85%",
+          boxShadow: "0 4px 10px 0 rgba(0,0,0,.25)",
+          padding: "50px",
           my: 6,
         }}
       >
         <Box>
-          <Typography variant='h3' fontWeight='700' mb={5}>
+          <Typography variant="h3" fontWeight="700" mb={5}>
             Criar Plano
           </Typography>
           <TextField
             sx={{
               mb: 2.5,
             }}
-            id='outlined-select-currency'
+            id="outlined-select-currency"
             select
-            label='Planos'
+            label="Planos"
             value={selectedPlan}
             onChange={(e) => {
               const selectedValue = e.target.value;
@@ -103,26 +103,32 @@ export default function Planos({ setTitle, setSubtitle }: IPlanosProps) {
             fullWidth
           >
             {currencies.map((option) => (
-              <MenuItem sx={{ width: '100%' }} key={option.value} value={option.value}>
+              <MenuItem
+                sx={{ width: "100%" }}
+                key={option.value}
+                value={option.value}
+              >
                 {option.label}
               </MenuItem>
             ))}
           </TextField>
-          <Box display={'flex'} gap={2} mb={2.5}>
+          <Box display={"flex"} gap={2} mb={2.5}>
             <TextField
-              label='Valor do Plano'
-              id='outlined-start-adornment'
+              label="Valor do Plano"
+              id="outlined-start-adornment"
               fullWidth
               InputProps={{
-                startAdornment: <InputAdornment position='start'>R$</InputAdornment>,
+                startAdornment: (
+                  <InputAdornment position="start">R$</InputAdornment>
+                ),
               }}
               value={selectedPlanValor}
               onChange={(e) => setSelectedPlanValor(e.target.value)}
             ></TextField>
             <TextField
-              id='outlined-basic'
-              label='Nome do Plano'
-              variant='outlined'
+              id="outlined-basic"
+              label="Nome do Plano"
+              variant="outlined"
               fullWidth
               value={selectedPlanNome}
               onChange={(e) => setSelectedPlanNome(e.target.value)}
@@ -134,20 +140,20 @@ export default function Planos({ setTitle, setSubtitle }: IPlanosProps) {
               mb: 3,
             }}
           >
-            <FormControlLabel control={<Switch />} label='Mostrar no App' />
+            <FormControlLabel control={<Switch />} label="Mostrar no App" />
           </FormGroup>
-          <Button variant='contained'>Criar</Button>
+          <Button variant="contained">Criar</Button>
         </Box>
       </Box>
       <Box
         sx={{
-          width: '100%',
-          padding: '20px',
-          background: '#fafafa',
-          display: 'flex',
+          width: "100%",
+          padding: "20px",
+          background: "#fafafa",
+          display: "flex",
           gap: 5,
-          justifyContent: 'center',
-          flexWrap: 'wrap',
+          justifyContent: "center",
+          flexWrap: "wrap",
         }}
       >
         {plans.map((item) => (
@@ -183,76 +189,76 @@ function CardPlano({
   sms,
 }: ICardPlanoProps) {
   const [isEditable, setIsEditable] = useState(false);
-  const [buttonText, setButtonText] = useState('Editar');
+  const [buttonText, setButtonText] = useState("Editar");
   const [nomePlanoInput, setNomePlanoInput] = useState(nomePlano);
   const [valorPlanoInput, setValorPlanoInput] = useState(valorPlano);
 
   const handleClick = () => {
     setIsEditable(!isEditable);
-    setButtonText(isEditable ? 'Editar' : 'Salvar');
+    setButtonText(isEditable ? "Editar" : "Salvar");
   };
 
   return (
     <Box
       sx={{
-        width: '325px',
-        padding: '16px',
-        display: 'flex',
-        flexDirection: 'column',
-        boxShadow: '0px 4px 6px 0px rgba(0, 0, 0, 0.25)',
-        background: '#fff',
-        borderRadius: '4px',
+        width: "325px",
+        padding: "16px",
+        display: "flex",
+        flexDirection: "column",
+        boxShadow: "0px 4px 6px 0px rgba(0, 0, 0, 0.25)",
+        background: "#fff",
+        borderRadius: "4px",
       }}
     >
       {isEditable && (
         <Typography
-          variant='subtitle2'
-          color='error'
+          variant="subtitle2"
+          color="error"
           fontWeight={700}
           fontSize={12}
           mb={1}
-          textAlign={'center'}
+          textAlign={"center"}
         >
           Este plano está em modo de edição.
         </Typography>
       )}
       <TextField
-        id='standard-basic'
-        variant='standard'
+        id="standard-basic"
+        variant="standard"
         value={`${nomePlanoInput}`}
         onChange={(e) => setNomePlanoInput(e.target.value)}
-        style={{ color: 'red' }}
+        style={{ color: "red" }}
         sx={{
-          fontWeight: '700',
+          fontWeight: "700",
         }}
         InputProps={{
           style: {
-            fontWeight: '700',
-            fontSize: '1.25rem',
+            fontWeight: "700",
+            fontSize: "1.25rem",
           }, // Aplicar border-radius aqui
         }}
         disabled={!isEditable ? true : false}
       />
       <TextField
-        id='standard-basic'
-        variant='standard'
+        id="standard-basic"
+        variant="standard"
         value={`${valorPlanoInput}`}
         onChange={(e) => setValorPlanoInput(e.target.value)}
-        style={{ color: 'red' }}
+        style={{ color: "red" }}
         sx={{
           mt: 3,
         }}
         InputProps={{
           sx: {
-            fontWeight: '700',
-            fontSize: '1.75rem',
-            color: 'var(--primary-color)',
+            fontWeight: "700",
+            fontSize: "1.75rem",
+            color: "var(--primary_color)",
           }, // Aplicar border-radius aqui
           startAdornment: (
             <Typography
               sx={{
-                fontSize: '1.75rem',
-                fontWeight: '700',
+                fontSize: "1.75rem",
+                fontWeight: "700",
                 mb: 0.15,
                 mr: 1,
               }}
@@ -265,47 +271,53 @@ function CardPlano({
       />
 
       <Typography
-        variant='subtitle2'
-        color={'#a6a6a6'}
+        variant="subtitle2"
+        color={"#a6a6a6"}
         fontSize={12}
         mt={1}
       >{`Mínimo: R$ ${minValorPlano}`}</Typography>
       <Box
-        component={'ul'}
-        display={'flex'}
-        flexDirection={'column'}
-        justifyContent={'center'}
-        alignItems={'center'}
+        component={"ul"}
+        display={"flex"}
+        flexDirection={"column"}
+        justifyContent={"center"}
+        alignItems={"center"}
         mt={1}
       >
         <Typography
-          component={'li'}
+          component={"li"}
           fontWeight={700}
-          variant='subtitle1'
+          variant="subtitle1"
         >{`Internet: ${internet} GB`}</Typography>
-        <Typography component={'li'} variant='subtitle1'>{`Minutos: ${minutos}`}</Typography>
-        <Typography component={'li'} variant='subtitle1'>{`SMS: ${sms}`}</Typography>
+        <Typography
+          component={"li"}
+          variant="subtitle1"
+        >{`Minutos: ${minutos}`}</Typography>
+        <Typography
+          component={"li"}
+          variant="subtitle1"
+        >{`SMS: ${sms}`}</Typography>
       </Box>
 
       <FormControlLabel
         sx={{
           my: 2,
-          mx: 'auto',
-          textAlign: 'center',
+          mx: "auto",
+          textAlign: "center",
         }}
         control={<Switch />}
-        label='Mostrar no App'
+        label="Mostrar no App"
         disabled={!isEditable ? true : false}
       />
-      <Box display={'flex'} justifyContent={'center'} gap={3}>
-        <Button variant='contained' onClick={handleClick}>
+      <Box display={"flex"} justifyContent={"center"} gap={3}>
+        <Button variant="contained" onClick={handleClick}>
           {buttonText}
         </Button>
 
         <Button
-          variant='contained'
+          variant="contained"
           sx={{
-            backgroundColor: 'red',
+            backgroundColor: "red",
           }}
         >
           Excluir

@@ -194,7 +194,7 @@ export function CadastroDePacotesDeChip() {
             <Tooltip title="Adicionar pacote">
               <IconButton
                 onClick={handleAddCard}
-                sx={{ backgroundColor: "var(--primary-color)" }}
+                sx={{ backgroundColor: "var(--primary_color)" }}
               >
                 <HiOutlinePlusSmall />
               </IconButton>

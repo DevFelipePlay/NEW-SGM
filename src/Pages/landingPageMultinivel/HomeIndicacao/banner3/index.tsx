@@ -36,7 +36,7 @@ export default function Banner3() {
         >
           <Typography
             variant={"h4"}
-            color={"var(--primary-color)"}
+            color={"var(--primary_color)"}
             fontWeight="700"
           >
             Perguntas Frequentes
@@ -137,8 +137,8 @@ function PerguntasFrequentes({
   return (
     <Accordion
       style={{
-        background: "var(--backGround-default)",
-        color: "var(--primary-color)",
+        background: "var(--backGround_default)",
+        color: "var(--primary_color)",
         borderRadius: "6px",
         marginBottom: "0.75rem",
         maxWidth: "500px",
@@ -157,23 +157,23 @@ function PerguntasFrequentes({
         expandIcon={
           <FaChevronDown
             style={{
-              color: "var(--text-color)",
+              color: "var(--text_color)",
             }}
           />
         }
         aria-controls="panel1a-content"
         id="panel1a-header"
       >
-        <Typography style={{ fontWeight: "600", color: "var(--text-color)" }}>
+        <Typography style={{ fontWeight: "600", color: "var(--text_color)" }}>
           {textoPergunta}
         </Typography>
       </AccordionSummary>
       <AccordionDetails
-        style={{ background: "#fff", color: "var(--text-color)" }}
+        style={{ background: "#fff", color: "var(--text_color)" }}
       >
         <Typography
           sx={{
-            color: "var(--backGround-default)",
+            color: "var(--backGround_default)",
           }}
         >
           {textoResposta}

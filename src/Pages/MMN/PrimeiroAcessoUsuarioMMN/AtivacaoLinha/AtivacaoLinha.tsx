@@ -345,7 +345,7 @@ export function AtivacaoLinha() {
                   <Typography
                     variant="h4"
                     sx={{ mt: 2 }}
-                    color={"var(--primary-color)"}
+                    color={"var(--primary_color)"}
                   >
                     R$ {i.value}
                   </Typography>
@@ -369,7 +369,7 @@ export function AtivacaoLinha() {
           aria-describedby="modal-description"
         >
           <Box sx={styleLicenciados}>
-            <Typography variant="h4" color={"var(--primary-color)"}>
+            <Typography variant="h4" color={"var(--primary_color)"}>
               Lista de Vendedores Licenciados perto de você!
             </Typography>
             <Typography variant="h6">

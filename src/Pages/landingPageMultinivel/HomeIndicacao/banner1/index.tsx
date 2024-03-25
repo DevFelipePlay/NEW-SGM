@@ -65,7 +65,7 @@ export default function Banner1() {
   return (
     <Box
       sx={{
-        backgroundColor: "var(--backGround-default)",
+        backgroundColor: "var(--backGround_default)",
         p: {
           md: 10,
           sm: 5,
@@ -94,7 +94,7 @@ export default function Banner1() {
       >
         <Typography
           variant={`${smDown ? "h4" : "h2"}`}
-          color="var(--primary-color)"
+          color="var(--primary_color)"
           sx={{
             lineHeight: "1.1",
           }}
@@ -103,7 +103,7 @@ export default function Banner1() {
         </Typography>
         <Typography
           variant={`${smDown ? "subtitle2" : "subtitle1"}`}
-          color="var(--text-color)"
+          color="var(--text_color)"
           sx={{
             maxWidth: {
               xs: "350px",
@@ -176,7 +176,7 @@ export default function Banner1() {
         </Box>
       </Stack>
 
-      <AboutImg color={"var(--color-svg)"} />
+      <AboutImg color={"var(--color_svg)"} />
     </Box>
   );
 }

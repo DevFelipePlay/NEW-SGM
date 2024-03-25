@@ -175,7 +175,7 @@ export function CadastroDosPlanosMMN() {
                       }
                       size={smDown ? "200px" : "350px"}
                       showIcon
-                      bgColorIcon="var(--primary-color)"
+                      bgColorIcon="var(--primary_color)"
                       icon={<PiHandCoins />}
                     >
                       <Typography>Neste plano voce terá</Typography>
