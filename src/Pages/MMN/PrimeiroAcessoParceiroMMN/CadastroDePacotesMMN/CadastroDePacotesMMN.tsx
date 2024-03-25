@@ -80,7 +80,7 @@ export function CadastroDePacotesMMN() {
       await postPlayPctLicenciamento(postDataToken);
       toast.success("Pacotes cadastrados com sucesso");
       navigate(
-        "/primeiro-acesso-multinivel-parceiro/cadastro-de-pacotes-de-chips-mmn"
+        `/${user?.companyref}/primeiro-acesso-multinivel-parceiro/cadastro-de-pacotes-de-chips-mmn`
       );
     } catch (error: any) {
       errorToast(error);

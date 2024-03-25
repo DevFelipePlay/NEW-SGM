@@ -60,7 +60,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
           response.data.primeiroacessoconcluidoparceirommn &&
           response.data?.super
         ) {
-          !isOnBg && navigate("/home-admin-mmn");
+          !isOnBg && navigate(`/${response.data?.companyref}/home-admin-mmn`);
         }
         if (
           !response.data.primeiroacessoconcluidoparceirommn &&
@@ -68,21 +68,23 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
         ) {
           !isOnBg &&
             navigate(
-              "/primeiro-acesso-multinivel-parceiro/cadastro-de-pacotes-mmn"
+              `/${response.data?.companyref}/primeiro-acesso-multinivel-parceiro/cadastro-de-pacotes-mmn`
             );
         }
         if (
           response.data.msisdnativo &&
           response.data?.profileid_multinivel === 7
         ) {
-          !isOnBg && navigate("/home-usuario-mmn");
+          !isOnBg && navigate(`/${response.data?.companyref}/home-usuario-mmn`);
         }
         if (
           !response.data.msisdnativo &&
           response.data?.profileid_multinivel === 7
         ) {
           !isOnBg &&
-            navigate("/primeiro-acesso-multinivel-usuario/compra-de-pacotes");
+            navigate(
+              `/${response.data?.companyref}/primeiro-acesso-multinivel-usuario/compra-de-pacotes`
+            );
         }
       })
       .catch((error) => {
@@ -109,7 +111,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   function signOut() {
-    navigate("/login");
+    navigate(`${user?.companyref}/login`);
     localStorage.clear();
     sessionStorage.clear();
     setUser(null);
@@ -143,7 +145,6 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const lastLoginTime = getItem("loginTime");
-    console.log(lastLoginTime);
     if (lastLoginTime) {
       const dozeHorasAtras = moment().subtract(12, "hours");
       const horarioLogin = moment(lastLoginTime);

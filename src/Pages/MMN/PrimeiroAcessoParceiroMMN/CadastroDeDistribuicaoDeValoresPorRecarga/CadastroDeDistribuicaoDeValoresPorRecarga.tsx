@@ -62,7 +62,7 @@ export const CadastroDeDistribuicaoDeValoresPorRecarga = () => {
       await postPlayCadastroNiveisRecargaMMN(payload);
       toast.success("Niveis Cadastrados com sucesso!");
       navigate(
-        "/primeiro-acesso-multinivel-parceiro/cadastro-de-distribuicao-de-valores-por-ativacao"
+        `/${user?.companyref}/primeiro-acesso-multinivel-parceiro/cadastro-de-distribuicao-de-valores-por-ativacao`
       );
     } catch (error: any) {
       errorToast(error);

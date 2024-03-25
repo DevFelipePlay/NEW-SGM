@@ -6,6 +6,7 @@ export interface IUser {
   email: string | null;
   userid: number;
   companyid: number | blob;
+  companyref: string;
   profileid: EnumProfileId;
   profileid_multinivel: EnumProfileIdMultinivel;
   token: string | Blob;

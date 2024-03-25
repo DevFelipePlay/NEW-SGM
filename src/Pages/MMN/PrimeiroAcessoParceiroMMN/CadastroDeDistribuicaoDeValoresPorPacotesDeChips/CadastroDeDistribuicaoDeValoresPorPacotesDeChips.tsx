@@ -55,7 +55,9 @@ export function CadastroDeDistribuicaoDeValoresPorPacotesDeChips() {
       };
       await postPlayCadastroNiveisVendasChipsMMN(payload);
       toast.success("Cadastro dos niveis realizado!");
-      navigate("/primeiro-acesso-multinivel-parceiro/cadastro-valores-e-taxas");
+      navigate(
+        `/${user?.companyref}/primeiro-acesso-multinivel-parceiro/cadastro-valores-e-taxas`
+      );
     } catch (error: any) {
       errorToast(error);
     }

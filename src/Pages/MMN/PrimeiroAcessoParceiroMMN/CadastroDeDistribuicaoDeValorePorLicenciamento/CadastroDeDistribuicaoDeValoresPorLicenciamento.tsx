@@ -56,7 +56,7 @@ export function CadastroDeDistribuicaoDeValoresPorLicenciamento() {
       await postPlayCadastroNiveisLicenciamentoMMN(payload);
       toast.success("Cadastro dos niveis realizado!");
       navigate(
-        "/primeiro-acesso-multinivel-parceiro/cadastro-de-distribuicao-de-valores-por-pacote-de-chips"
+        `/${user?.companyref}/primeiro-acesso-multinivel-parceiro/cadastro-de-distribuicao-de-valores-por-pacote-de-chips`
       );
     } catch (error: any) {
       errorToast(error);

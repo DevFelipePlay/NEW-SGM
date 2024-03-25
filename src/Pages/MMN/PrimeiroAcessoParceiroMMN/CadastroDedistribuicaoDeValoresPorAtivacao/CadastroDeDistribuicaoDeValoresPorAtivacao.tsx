@@ -61,7 +61,7 @@ export function CadastroDeDistribuicaoDeValoresPorAtivacao() {
       await postPlayCadastroNiveisAtivacaoMMN(payload);
       toast.success("Niveis Cadastrados com sucesso!");
       navigate(
-        "/primeiro-acesso-multinivel-parceiro/cadastro-de-distribuicao-de-valores-por-licenciamento"
+        `/${user?.companyref}/primeiro-acesso-multinivel-parceiro/cadastro-de-distribuicao-de-valores-por-licenciamento`
       );
     } catch (error: any) {
       errorToast(error);

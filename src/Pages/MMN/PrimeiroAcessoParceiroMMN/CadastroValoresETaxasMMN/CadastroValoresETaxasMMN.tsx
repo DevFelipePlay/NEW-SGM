@@ -54,7 +54,9 @@ export function CadastroValoresETaxasMMN() {
     try {
       await postPlayCadastroValoresETaxasMMN(postData);
       toast.success("Cadastro Realizado!");
-      navigate("/primeiro-acesso-multinivel-parceiro/cadastro-premiacoes");
+      navigate(
+        `/${user?.companyref}/primeiro-acesso-multinivel-parceiro/cadastro-premiacoes`
+      );
     } catch (error: any) {
       errorToast(error);
     } finally {

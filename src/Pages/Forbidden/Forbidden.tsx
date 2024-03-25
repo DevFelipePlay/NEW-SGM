@@ -79,9 +79,9 @@ export default function Forbidden() {
           color="warning"
           onClick={() => {
             if (user?.profileid_multinivel === 7) {
-              navigate("/home-usuario-mmn");
+              navigate(`/${user?.companyref}/home-usuario-mmn`);
             } else {
-              navigate("home-admin-mmn");
+              navigate(`/${user?.companyref}/home-admin-mmn`);
             }
           }}
         >

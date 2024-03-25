@@ -114,7 +114,9 @@ export function CadastroDosPlanosMMN() {
       //@ts-ignore
       const response = await postPlayCadastraNivelPlanosMMN(postData);
       setResponseData(response.data);
-      navigate("/primeiro-acesso-multinivel-parceiro/cadastro-graduacoes");
+      navigate(
+        `/${user?.companyref}/primeiro-acesso-multinivel-parceiro/cadastro-graduacoes`
+      );
       toast.success("Escolha dos planos realizada");
     } catch (error: any) {
       errorToast(error);

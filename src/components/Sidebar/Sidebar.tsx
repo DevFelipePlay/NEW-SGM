@@ -212,8 +212,8 @@ export function Sidebar(): JSX.Element {
           icon: <BiHomeSmile />,
           to:
             user?.profileid_multinivel === 7
-              ? "/home-usuario-mmn"
-              : "/home-admin-mmn",
+              ? "home-usuario-mmn"
+              : "home-admin-mmn",
         },
 
         {
@@ -325,7 +325,7 @@ export function Sidebar(): JSX.Element {
           <Box
             sx={{ width: "100%" }}
             onClick={() => {
-              navigate(item.to || "");
+              navigate(`/${user?.companyref}/${item.to}` || "");
               setIsTabBarOpen(false);
             }}
           >

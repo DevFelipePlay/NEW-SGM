@@ -154,11 +154,7 @@ export function CadastroDeDadosPessoaisUserMMN() {
       toast.success("Cadastro Realizado!");
       setLoading(false);
       handleCompletaPrimeiroAcesso();
-      if (isMobile) {
-        navigate("/landingpage-indicacao/appousistem");
-      } else {
-        navigate("/login");
-      }
+      navigate(`/${user?.companyref}/login`);
     } catch (error: any) {
       toast.error(error);
       setLoading(false);

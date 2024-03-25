@@ -490,7 +490,7 @@ export function CadastroPremiacoesMMN() {
                 onClick={(e) => {
                   e.preventDefault();
                   handleCompletaPrimeiroAcesso();
-                  navigate("/home-admin-mmn");
+                  navigate(`/${user?.companyref}/home-admin-mmn`);
                 }}
                 variant="outlined"
                 color="warning"

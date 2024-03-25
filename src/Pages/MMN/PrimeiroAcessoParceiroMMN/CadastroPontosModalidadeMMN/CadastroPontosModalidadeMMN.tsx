@@ -31,7 +31,7 @@ export function CadastroPontosModalidadeMMN() {
       await postPlayCadastroPontosPorModalidade(formData);
       toast.success("Cadastro dos pontos realizado com sucesso!");
       navigate(
-        "/primeiro-acesso-multinivel-parceiro/cadastro-de-distribuicao-de-valores-por-recarga"
+        `/${user?.companyref}/primeiro-acesso-multinivel-parceiro/cadastro-de-distribuicao-de-valores-por-recarga`
       );
     } catch (error: any) {
       errorToast(error);

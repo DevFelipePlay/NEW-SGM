@@ -76,7 +76,9 @@ export function CadastroDePacotesDeChip() {
         token: user ? user.token : null,
       };
       await postPlayCadastroPacotesVendaChip(postDataToken);
-      navigate("/primeiro-acesso-multinivel-parceiro/cadastro-dos-planos-mmn");
+      navigate(
+        `/${user?.companyref}/primeiro-acesso-multinivel-parceiro/cadastro-dos-planos-mmn`
+      );
       toast.success("Cadastro de pacotes realizado");
     } catch (error: any) {
       errorToast(error);
