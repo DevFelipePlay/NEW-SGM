@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const apiPlaySgm = axios.create({
-  baseURL: "http://15.235.33.235/api/",
+  baseURL: "https://sistema.operadora.app.br/api/",
 });
 
 export default apiPlaySgm;
